@@ -1,0 +1,10 @@
+setpqv DevourmentManager Debugging true
+prid
+tim
+player.sexchange
+player.placeatme 13479
+player.placeatme b9982
+player.placeatme 23a91
+player.additem f 10000
+showracemenu
+

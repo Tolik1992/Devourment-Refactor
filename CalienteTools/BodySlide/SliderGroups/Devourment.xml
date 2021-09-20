@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SliderGroups>
+    <Group name="CBBE">
+        <Member name="DevourmentSE - CBBE 3BA AllSliders"/>
+        <Member name="DevourmentSE - CBBE 3BA AllSliders-EquipBelly"/>
+        <Member name="DevourmentSE - CBBE AllSliders"/>
+        <Member name="DevourmentSE - CBBE AllSliders-EquipBelly"/>
+        <Member name="DevourmentSE - MacrossBellyF"/>
+        <Member name="DevourmentSE - MacrossBellyF-VoreOnly"/>
+    </Group>
+    <Group name="Devourment Creatures">
+        <Member name="DevourmentSE - Bear"/>
+        <Member name="DevourmentSE - Chaurus"/>
+        <Member name="DevourmentSE - ChaurusFrozen"/>
+        <Member name="DevourmentSE - Chicken"/>
+        <Member name="DevourmentSE - Cow"/>
+        <Member name="DevourmentSE - Deathhound"/>
+        <Member name="DevourmentSE - Deer"/>
+        <Member name="DevourmentSE - Draugrf1"/>
+        <Member name="DevourmentSE - DraugrF2"/>
+        <Member name="DevourmentSE - Draugrm1"/>
+        <Member name="DevourmentSE - Draugrm2"/>
+        <Member name="DevourmentSE - Draugrm3"/>
+        <Member name="DevourmentSE - Draugrm4"/>
+        <Member name="DevourmentSE - Draugrm5"/>
+        <Member name="DevourmentSE - Draugrm6"/>
+        <Member name="DevourmentSE - Draugrm7"/>
+        <Member name="DevourmentSE - Draugrm8"/>
+        <Member name="DevourmentSE - Elk"/>
+        <Member name="DevourmentSE - ElkFemale"/>
+        <Member name="DevourmentSE - Giant1"/>
+        <Member name="DevourmentSE - Giant2"/>
+        <Member name="DevourmentSE - Giant3"/>
+        <Member name="DevourmentSE - Goat"/>
+        <Member name="DevourmentSE - Hagraven"/>
+        <Member name="DevourmentSE - Horker"/>
+        <Member name="DevourmentSE - Horse"/>
+        <Member name="DevourmentSE - HorseSaddle"/>
+        <Member name="DevourmentSE - Sabre"/>
+        <Member name="DevourmentSE - SabreSnow"/>
+        <Member name="DevourmentSE - Spider"/>
+        <Member name="DevourmentSE - SpiderIce"/>
+        <Member name="DevourmentSE - Spriggan"/>
+        <Member name="DevourmentSE - SprigganMatron"/>
+        <Member name="DevourmentSE - Troll"/>
+        <Member name="DevourmentSE - TrollBlack"/>
+        <Member name="DevourmentSE - TrollUderfrykte"/>
+        <Member name="DevourmentSE - Wolf"/>
+        <Member name="DevourmentSE - WolfBlack"/>
+        <Member name="DevourmentSE - WolfRed"/>
+        <Member name="DevourmentSE - SabreVale"/>
+        <Member name="DevourmentSE - DeerVale"/>
+        <Member name="DevourmentSE - Boar"/>
+        <Member name="DevourmentSE - Skeever"/>
+        <Member name="DevourmentSE - Husky"/>
+        <Member name="DevourmentSE - HuskyArmored"/>
+    </Group>
+    <Group name="Devourment EquipBellies">
+        <Member name="DevourmentSE - CBBE 3BA AllSliders-EquipBelly"/>
+        <Member name="DevourmentSE - CBBE AllSliders-EquipBelly"/>
+        <Member name="DevourmentSE - MacrossBellyF"/>
+        <Member name="DevourmentSE - MacrossBellyM"/>
+        <Member name="DevourmentSE - Male AllSliders-EquipBelly"/>
+        <Member name="DevourmentSE - Male Feet"/>
+        <Member name="DevourmentSE - Male Hands"/>
+        <Member name="DevourmentSE - Male Hands Beast"/>
+        <Member name="DevourmentSE - Male Smurf Average"/>
+        <Member name="DevourmentSE - Male Underwear"/>
+        <Member name="DevourmentSE - Male VectorPlexus"/>
+        <Member name="DevourmentSE - Male VectorPlexusMuscular"/>
+        <Member name="DevourmentSE - TBD AllSliders-EquipBelly"/>
+        <Member name="DevourmentSE - MacrossBellyTBD"/>
+    </Group>
+    <Group name="Devourment EquipBellies-NoSliders">
+        <Member name="DevourmentSE - MacrossBellyF-VoreOnly"/>
+        <Member name="DevourmentSE - MacrossBellyM-VoreOnly"/>
+        <Member name="DevourmentSE - MacrossBellyTBD-VoreOnly"/>
+        <Member name="DevourmentSE - SkepticMech-StruggleBelly"/>
+    </Group>
+    <Group name="Devourment MorphBellies">
+        <Member name="DevourmentSE - CBBE 3BA AllSliders"/>
+        <Member name="DevourmentSE - CBBE AllSliders"/>
+        <Member name="DevourmentSE - Male AllSliders"/>
+        <Member name="DevourmentSE - Male Feet"/>
+        <Member name="DevourmentSE - Male Hands"/>
+        <Member name="DevourmentSE - Male Hands Beast"/>
+        <Member name="DevourmentSE - Male Smurf Average"/>
+        <Member name="DevourmentSE - Male Underwear"/>
+        <Member name="DevourmentSE - Male VectorPlexus"/>
+        <Member name="DevourmentSE - Male VectorPlexusMuscular"/>
+        <Member name="DevourmentSE - TBD AllSliders"/>
+    </Group>
+    <Group name="SoS">
+        <Member name="DevourmentSE - MacrossBellyM"/>
+        <Member name="DevourmentSE - MacrossBellyM-VoreOnly"/>
+        <Member name="DevourmentSE - Male AllSliders"/>
+        <Member name="DevourmentSE - Male AllSliders-EquipBelly"/>
+        <Member name="DevourmentSE - Male Feet"/>
+        <Member name="DevourmentSE - Male Hands"/>
+        <Member name="DevourmentSE - Male Hands Beast"/>
+        <Member name="DevourmentSE - Male Smurf Average"/>
+        <Member name="DevourmentSE - Male Underwear"/>
+        <Member name="DevourmentSE - Male VectorPlexus"/>
+        <Member name="DevourmentSE - Male VectorPlexusMuscular"/>
+    </Group>
+    <Group name="TBD Bodies">
+        <Member name="DevourmentSE - TBD AllSliders"/>
+        <Member name="DevourmentSE - TBD AllSliders-EquipBelly"/>
+    </Group>
+    <Group name="Touched by Dibella">
+        <Member name="DevourmentSE - TBD AllSliders"/>
+        <Member name="DevourmentSE - TBD AllSliders-EquipBelly"/>
+    </Group>
+</SliderGroups>

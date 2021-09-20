@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SliderSetInfo version="1">
+    <SliderSet name="DevourmentSE - Remains">
+        <DataFolder>DevourmentSE - Remains</DataFolder>
+        <SourceFile>DevourmentSE - Remains.nif</SourceFile>
+        <OutputPath>meshes\devourment\</OutputPath>
+        <OutputFile GenWeights="false">devourment_remains</OutputFile>
+        <Shape target="LeftLeg:0">LeftLeg:0</Shape>
+        <Shape target="RibcagePelvis:0">RibcagePelvis:0</Shape>
+        <Shape target="RibcagePelvis:0_2">RibcagePelvis:0_2</Shape>
+        <Shape target="RightLeg:0">RightLeg:0</Shape>
+        <Shape target="finger">finger</Shape>
+        <Shape target="leftarm:0">leftarm:0</Shape>
+        <Shape target="puddle">puddle</Shape>
+        <Slider name="splash1" invert="false" default="0" hidden="true">
+            <Data name="puddlesplash1" target="puddle" local="true">DevourmentSE - Remains.osd\puddlesplash1</Data>
+            <Data name="LeftLeg:0splash1" target="LeftLeg:0" local="true">DevourmentSE - Remains.osd\LeftLeg:0splash1</Data>
+            <Data name="RightLeg:0splash1" target="RightLeg:0" local="true">DevourmentSE - Remains.osd\RightLeg:0splash1</Data>
+            <Data name="leftarm:0splash1" target="leftarm:0" local="true">DevourmentSE - Remains.osd\leftarm:0splash1</Data>
+            <Data name="fingersplash1" target="finger" local="true">DevourmentSE - Remains.osd\fingersplash1</Data>
+            <Data name="RibcagePelvis:0splash1" target="RibcagePelvis:0" local="true">DevourmentSE - Remains.osd\RibcagePelvis:0splash1</Data>
+            <Data name="RibcagePelvis:0_2splash1" target="RibcagePelvis:0_2" local="true">DevourmentSE - Remains.osd\RibcagePelvis:0_2splash1</Data>
+        </Slider>
+        <Slider name="splash2" invert="false" default="0" hidden="true">
+            <Data name="puddlesplash2" target="puddle" local="true">DevourmentSE - Remains.osd\puddlesplash2</Data>
+            <Data name="LeftLeg:0splash2" target="LeftLeg:0" local="true">DevourmentSE - Remains.osd\LeftLeg:0splash2</Data>
+            <Data name="RightLeg:0splash2" target="RightLeg:0" local="true">DevourmentSE - Remains.osd\RightLeg:0splash2</Data>
+            <Data name="leftarm:0splash2" target="leftarm:0" local="true">DevourmentSE - Remains.osd\leftarm:0splash2</Data>
+            <Data name="fingersplash2" target="finger" local="true">DevourmentSE - Remains.osd\fingersplash2</Data>
+            <Data name="RibcagePelvis:0splash2" target="RibcagePelvis:0" local="true">DevourmentSE - Remains.osd\RibcagePelvis:0splash2</Data>
+            <Data name="RibcagePelvis:0_2splash2" target="RibcagePelvis:0_2" local="true">DevourmentSE - Remains.osd\RibcagePelvis:0_2splash2</Data>
+        </Slider>
+        <Slider name="splash3" invert="false" default="0" hidden="true">
+            <Data name="puddlesplash3" target="puddle" local="true">DevourmentSE - Remains.osd\puddlesplash3</Data>
+            <Data name="LeftLeg:0splash3" target="LeftLeg:0" local="true">DevourmentSE - Remains.osd\LeftLeg:0splash3</Data>
+            <Data name="RightLeg:0splash3" target="RightLeg:0" local="true">DevourmentSE - Remains.osd\RightLeg:0splash3</Data>
+            <Data name="leftarm:0splash3" target="leftarm:0" local="true">DevourmentSE - Remains.osd\leftarm:0splash3</Data>
+            <Data name="fingersplash3" target="finger" local="true">DevourmentSE - Remains.osd\fingersplash3</Data>
+            <Data name="RibcagePelvis:0splash3" target="RibcagePelvis:0" local="true">DevourmentSE - Remains.osd\RibcagePelvis:0splash3</Data>
+            <Data name="RibcagePelvis:0_2splash3" target="RibcagePelvis:0_2" local="true">DevourmentSE - Remains.osd\RibcagePelvis:0_2splash3</Data>
+        </Slider>
+        <Slider name="splat" invert="false" default="0" hidden="true">
+            <Data name="puddlesplat" target="puddle" local="true">DevourmentSE - Remains.osd\puddlesplat</Data>
+        </Slider>
+        <Slider name="No_Bones" invert="false" default="100" zap="true">
+            <Data name="LeftLeg:0No_Bones" target="LeftLeg:0" local="true">DevourmentSE - Remains.osd\LeftLeg:0No_Bones</Data>
+            <Data name="RightLeg:0No_Bones" target="RightLeg:0" local="true">DevourmentSE - Remains.osd\RightLeg:0No_Bones</Data>
+            <Data name="leftarm:0No_Bones" target="leftarm:0" local="true">DevourmentSE - Remains.osd\leftarm:0No_Bones</Data>
+            <Data name="fingerNo_Bones" target="finger" local="true">DevourmentSE - Remains.osd\fingerNo_Bones</Data>
+            <Data name="RibcagePelvis:0No_Bones" target="RibcagePelvis:0" local="true">DevourmentSE - Remains.osd\RibcagePelvis:0No_Bones</Data>
+            <Data name="RibcagePelvis:0_2No_Bones" target="RibcagePelvis:0_2" local="true">DevourmentSE - Remains.osd\RibcagePelvis:0_2No_Bones</Data>
+        </Slider>
+    </SliderSet>
+</SliderSetInfo>

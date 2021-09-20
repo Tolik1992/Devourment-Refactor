@@ -1,0 +1,194 @@
+# Name of skill will appear when showing the level up message of skill and also in custom perks menu
+Name = "Prey"
+
+# Description of skill will appear in custom perks menu under the name and level, set "" to clear it
+# if you don't want to show anything
+Description = ""
+
+# Custom background nif, INTVampirePerkSkydome.nif is showing the werewolf background, if you use custom
+# nif you made it must have some nodes and images, recommended is to edit this nif instead of creating
+# new from scratch. If you use "Interface/INTPerkSkydome.nif" as base then you must set SkydomeNormalNif to true
+Skydome = "DLC01/Interface/INTVampirePerkSkydome.nif"
+SkydomeNormalNif = false
+
+# This should point to a global variable that contains the current level of skill. Must be set!
+LevelFile = "Devourment.esp"
+LevelId = 0xCCA
+
+# This should point to a global variable that contains the ratio of level up of skill (how close to leveling
+# up is skill). Value must be between 0 and 1 always. Set float type on global variable when creating. Must be set!
+RatioFile = "Devourment.esp"
+RatioId = 0xCCC
+
+# This should point to a global variable that is set to 0, when you change this global variable to any other number
+# then the game will display "SkillName has increased to X" where X is the value you set in this global variable, the
+# game will also immediately set the global variable value back to 0. This must be set!
+ShowLevelupFile = "Devourment.esp"
+ShowLevelupId = 0xCCB
+
+# This should point to a global variable that is set to 0, if you change it to 1 then the custom perks menu for this skill
+# will be opened immediately (as long as menu controls are enabled and game is not paused). Once that happens the game will
+# also immediately set the value back to 0. This is how you control when to open the perks menu for skill. This must be set!
+ShowMenuFile = "Devourment.esp"
+ShowMenuId = 0xCCD
+
+# Optional! This should point to a global variable that contains the current perk points amount for this specific skill.
+# This can be used to have custom amount of perk points just for this skill. If this is not set then it will default to using
+# player's regular perk points for skills.
+PerkPointsFile = "Devourment.esp"
+PerkPointsId = 0xCC1
+
+# Optional! This should point to a global variable that contains the count of how many times this skill has been legendaried.
+# If this is not set then the skill can not be made legendary at all.
+LegendaryFile = ""
+LegendaryId = 0
+
+# Optional! If this points to a global variable then it contains the current color of skill name. For example if you set the value
+# of the global variable to 0xFF0000 the skill name will be red in the perks menu, if not used then default color will be white
+ColorFile = ""
+ColorId = 0
+
+# Optional! This can be useful for reloading the configuration files when game is still open. Can be helpful for development so you can
+# adjust placement of perk nodes without having to close game all the time. To use this create a global variable and set it to 0,
+# put the filename and form ID of the variable here. Then during game make sure perks menu is closed. Open console and type
+# "set myglobalname to 1" close console and now all the skill configuration files have been reloaded so you can open the perks menu
+# again and see how the nodes changed. This is not recommended for normal play! It creates a memory leak or worse. Remember that
+# perks menu must be closed when reloading the files.
+DebugReloadFile = "Devourment.esp"
+DebugReloadId = 0xCC2
+
+# Node0 is the root node, this should not have coordinates or a perk assigned to it. This must exist even if you don't want to have any perks.
+# Use Node0.Links to point to first perk(s). If you don't want any perks then remove the links line or set to ""
+Node0.Enable = true
+Node0.Links = "1 2 3 4 8"
+
+# Actual perks begin from here. When you are making a condition on perk for specific level of skill required instead of GetBaseActorValue use GetGlobalValue
+# for the global variable you set in the "Level" option. This will generate correct requirement description in-game.
+# Use GridX and GridY to place the node (negative value not supported), X and Y is extra offset for more precise placement (can have fractions and can be negative)
+# GridX goes from right to left (lower value to higher), GridY goes from bottom to top (lower value to higher)
+
+
+########### ROW 0 ###########
+
+
+# Resilience
+Node1.Enable = true
+Node1.PerkFile = "Devourment.esp"
+Node1.PerkId = 0xBE5
+Node1.X = 0
+Node1.Y = 0
+Node1.GridX = 4
+Node1.GridY = 0
+Node1.Links = "5"
+
+
+# Slippery
+Node2.Enable = true
+Node2.PerkFile = "Devourment.esp"
+Node2.PerkId = 0xBF2
+Node2.X = 0
+Node2.Y = 0
+Node2.GridX = 3
+Node2.GridY = 0
+Node2.Links = "11"
+
+# Comfy
+Node8.Enable = true
+Node8.PerkFile = "Devourment.esp"
+Node8.PerkId = 0xC07
+Node8.X = 0
+Node8.Y = 0
+Node8.GridX = 2
+Node8.GridY = 0
+Node8.Links = "9"
+
+# Struggling
+Node3.Enable = true
+Node3.PerkFile = "Devourment.esp"
+Node3.PerkId = 0xBDC
+Node3.X = 0
+Node3.Y = 0
+Node3.GridX = 0
+Node3.GridY = 0
+Node3.Links = "6"
+
+
+# Vore Magic
+Node4.Enable = true
+Node4.PerkFile = "Devourment.esp"
+Node4.PerkId = 0xC81
+Node4.X = 0
+Node4.Y = 0
+Node4.GridX = 1
+Node4.GridY = 0
+Node4.Links = ""
+
+
+########### ROW 1 ###########
+
+# StickTheLanding
+Node5.Enable = true
+Node5.PerkFile = "Devourment.esp"
+Node5.PerkId = 0xC22
+Node5.X = 0
+Node5.Y = 0
+Node5.GridX = 4
+Node5.GridY = 1
+Node5.Links = "7"
+
+# Parting Gift
+Node6.Enable = true
+Node6.PerkFile = "Devourment.esp"
+Node6.PerkId = 0xCCE
+Node6.X = 0
+Node6.Y = 0
+Node6.GridX = 0
+Node6.GridY = 1
+Node6.Links = "7"
+
+########### ROW 2 ###########
+
+# Cordyceps
+Node7.Enable = true
+Node7.PerkFile = "Devourment.esp"
+Node7.PerkId = 0xCCF
+Node7.X = 0
+Node7.Y = 0
+Node7.GridX = 2
+Node7.GridY = 3
+Node7.Links = ""
+
+
+# Delicious
+Node9.Enable = true
+Node9.PerkFile = "Devourment.esp"
+Node9.PerkId = 0xBFA
+Node9.X = 0
+Node9.Y = 0
+Node9.GridX = 2
+Node9.GridY = 1
+Node9.Links = "10"
+
+
+# Phylactery
+Node10.Enable = true
+Node10.PerkFile = "Devourment.esp"
+Node10.PerkId = 0xD39
+Node10.X = 0
+Node10.Y = 0
+Node10.GridX = 2
+Node10.GridY = 2
+Node10.Links = ""
+
+########### ROW 3 ###########
+
+# Counter-Vore
+Node11.Enable = true
+Node11.PerkFile = "Devourment.esp"
+Node11.PerkId = 0xAAF
+Node11.X = 0
+Node11.Y = 0
+Node11.GridX = 3
+Node11.GridY = 1
+Node11.Links = ""
+

@@ -1,0 +1,1078 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SliderSetInfo version="1">
+    <SliderSet name="DevourmentSE - Draugrf1">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Draugrf1.nif</SourceFile>
+        <OutputPath>meshes\actors\draugr\character assets</OutputPath>
+        <OutputFile GenWeights="false">draugrfemale</OutputFile>
+        <Shape target="FemaleBodyNaked60">FemaleBodyNaked60</Shape>
+        <Shape target="Rags61">Rags61</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="FemaleBodyNaked60Vore prey belly" target="FemaleBodyNaked60" local="true">Draugrf1.osd\FemaleBodyNaked60Vore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - DraugrF2">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>DraugrF2.nif</SourceFile>
+        <OutputPath>meshes\actors\draugr\character assets</OutputPath>
+        <OutputFile GenWeights="false">draugrmagicfemale01</OutputFile>
+        <Shape target="FemaleBodyNakedReduced:0">FemaleBodyNakedReduced:0</Shape>
+        <Shape target="FemaleBodyNakedReduced:1">FemaleBodyNakedReduced:1</Shape>
+        <Shape target="HairFemaleReduced">HairFemaleReduced</Shape>
+        <Shape target="WholeSkeletonReduced">WholeSkeletonReduced</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="WholeSkeletonReducedVore prey belly" target="WholeSkeletonReduced" local="true">DraugrF2.osd\WholeSkeletonReducedVore prey belly</Data>
+            <Data name="FemaleBodyNakedReduced:0Vore prey belly" target="FemaleBodyNakedReduced:0" local="true">DraugrF2.osd\FemaleBodyNakedReduced:0Vore prey belly</Data>
+            <Data name="FemaleBodyNakedReduced:1Vore prey belly" target="FemaleBodyNakedReduced:1" local="true">DraugrF2.osd\FemaleBodyNakedReduced:1Vore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Draugrm1">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Draugrm1.nif</SourceFile>
+        <OutputPath>meshes\actors\draugr\character assets</OutputPath>
+        <OutputFile GenWeights="false">draugrmale</OutputFile>
+        <Shape target="ArmorWaist01">ArmorWaist01</Shape>
+        <Shape target="Body_Male_Naked">Body_Male_Naked</Shape>
+        <Shape target="Eye_L">Eye_L</Shape>
+        <Shape target="Eye_R">Eye_R</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Body_Male_NakedVore prey belly" target="Body_Male_Naked" local="true">Draugrm1.osd\Body_Male_NakedVore prey belly</Data>
+            <Data name="ArmorWaist01Vore prey belly" target="ArmorWaist01" local="true">Draugrm1.osd\ArmorWaist01Vore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Draugrm2">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Draugrm2.nif</SourceFile>
+        <OutputPath>meshes\actors\draugr\character assets</OutputPath>
+        <OutputFile GenWeights="false">draugrmale01</OutputFile>
+        <Shape target="Armband00">Armband00</Shape>
+        <Shape target="ArmorWaist00">ArmorWaist00</Shape>
+        <Shape target="ArmorWaist01">ArmorWaist01</Shape>
+        <Shape target="Body_Male_Naked">Body_Male_Naked</Shape>
+        <Shape target="Eye_L">Eye_L</Shape>
+        <Shape target="Eye_R">Eye_R</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Body_Male_NakedVore prey belly" target="Body_Male_Naked" local="true">Draugrm2.osd\Body_Male_NakedVore prey belly</Data>
+            <Data name="ArmorWaist01Vore prey belly" target="ArmorWaist01" local="true">Draugrm2.osd\ArmorWaist01Vore prey belly</Data>
+            <Data name="ArmorWaist00Vore prey belly" target="ArmorWaist00" local="true">Draugrm2.osd\ArmorWaist00Vore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Draugrm3">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Draugrm3.nif</SourceFile>
+        <OutputPath>meshes\actors\draugr\character assets</OutputPath>
+        <OutputFile GenWeights="false">draugrmale02</OutputFile>
+        <Shape target="ArmorChest00">ArmorChest00</Shape>
+        <Shape target="ArmorWaist00">ArmorWaist00</Shape>
+        <Shape target="ArmorWaist01">ArmorWaist01</Shape>
+        <Shape target="Body_Male_Naked">Body_Male_Naked</Shape>
+        <Shape target="Eye_L">Eye_L</Shape>
+        <Shape target="Eye_R">Eye_R</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Body_Male_NakedVore prey belly" target="Body_Male_Naked" local="true">Draugrm3.osd\Body_Male_NakedVore prey belly</Data>
+            <Data name="ArmorChest00Vore prey belly" target="ArmorChest00" local="true">Draugrm3.osd\ArmorChest00Vore prey belly</Data>
+            <Data name="ArmorWaist01Vore prey belly" target="ArmorWaist01" local="true">Draugrm3.osd\ArmorWaist01Vore prey belly</Data>
+            <Data name="ArmorWaist00Vore prey belly" target="ArmorWaist00" local="true">Draugrm3.osd\ArmorWaist00Vore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Draugrm4">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>DraugrM4.nif</SourceFile>
+        <OutputPath>meshes\actors\draugr\character assets</OutputPath>
+        <OutputFile GenWeights="false">draugrmale03</OutputFile>
+        <Shape target="Armband00">Armband00</Shape>
+        <Shape target="ArmorBoots00">ArmorBoots00</Shape>
+        <Shape target="ArmorChest00">ArmorChest00</Shape>
+        <Shape target="ArmorWaist00">ArmorWaist00</Shape>
+        <Shape target="ArmorWaist01">ArmorWaist01</Shape>
+        <Shape target="Beard_2">Beard_2</Shape>
+        <Shape target="Body_Male_Armor02">Body_Male_Armor02</Shape>
+        <Shape target="Eye_L">Eye_L</Shape>
+        <Shape target="Eye_R">Eye_R</Shape>
+        <Shape target="Hair_2">Hair_2</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="ArmorChest00Vore prey belly" target="ArmorChest00" local="true">DraugrM4.osd\ArmorChest00Vore prey belly</Data>
+            <Data name="ArmorWaist01Vore prey belly" target="ArmorWaist01" local="true">DraugrM4.osd\ArmorWaist01Vore prey belly</Data>
+            <Data name="ArmorBoots00Vore prey belly" target="ArmorBoots00" local="true">DraugrM4.osd\ArmorBoots00Vore prey belly</Data>
+            <Data name="ArmorWaist00Vore prey belly" target="ArmorWaist00" local="true">DraugrM4.osd\ArmorWaist00Vore prey belly</Data>
+            <Data name="Body_Male_Armor02Vore prey belly" target="Body_Male_Armor02" local="true">DraugrM4.osd\Body_Male_Armor02Vore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Draugrm5">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>DraugrM5.nif</SourceFile>
+        <OutputPath>meshes\actors\draugr\character assets</OutputPath>
+        <OutputFile GenWeights="false">draugrmale04</OutputFile>
+        <Shape target="Armband00">Armband00</Shape>
+        <Shape target="ArmorBoots00">ArmorBoots00</Shape>
+        <Shape target="ArmorBracers00">ArmorBracers00</Shape>
+        <Shape target="ArmorChest00">ArmorChest00</Shape>
+        <Shape target="ArmorWaist00">ArmorWaist00</Shape>
+        <Shape target="ArmorWaist01">ArmorWaist01</Shape>
+        <Shape target="Beard_2">Beard_2</Shape>
+        <Shape target="Body_Male_Armor02">Body_Male_Armor02</Shape>
+        <Shape target="Eye_L">Eye_L</Shape>
+        <Shape target="Eye_R">Eye_R</Shape>
+        <Shape target="Hair_2">Hair_2</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="ArmorChest00Vore prey belly" target="ArmorChest00" local="true">DraugrM5.osd\ArmorChest00Vore prey belly</Data>
+            <Data name="ArmorWaist01Vore prey belly" target="ArmorWaist01" local="true">DraugrM5.osd\ArmorWaist01Vore prey belly</Data>
+            <Data name="ArmorBoots00Vore prey belly" target="ArmorBoots00" local="true">DraugrM5.osd\ArmorBoots00Vore prey belly</Data>
+            <Data name="ArmorWaist00Vore prey belly" target="ArmorWaist00" local="true">DraugrM5.osd\ArmorWaist00Vore prey belly</Data>
+            <Data name="Body_Male_Armor02Vore prey belly" target="Body_Male_Armor02" local="true">DraugrM5.osd\Body_Male_Armor02Vore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Draugrm6">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>DraugrM6.nif</SourceFile>
+        <OutputPath>meshes\actors\draugr\character assets</OutputPath>
+        <OutputFile GenWeights="false">draugrmale05</OutputFile>
+        <Shape target="ArmorBoots00">ArmorBoots00</Shape>
+        <Shape target="ArmorBracers00">ArmorBracers00</Shape>
+        <Shape target="ArmorChest00">ArmorChest00</Shape>
+        <Shape target="ArmorWaist00">ArmorWaist00</Shape>
+        <Shape target="ArmorWaist01">ArmorWaist01</Shape>
+        <Shape target="Armor_Fur00">Armor_Fur00</Shape>
+        <Shape target="Armor_Pauldrons00">Armor_Pauldrons00</Shape>
+        <Shape target="Body_Male_Armor03">Body_Male_Armor03</Shape>
+        <Shape target="Eye_L">Eye_L</Shape>
+        <Shape target="Eye_R">Eye_R</Shape>
+        <Shape target="Hair_2">Hair_2</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="ArmorChest00Vore prey belly" target="ArmorChest00" local="true">DraugrM6.osd\ArmorChest00Vore prey belly</Data>
+            <Data name="ArmorWaist01Vore prey belly" target="ArmorWaist01" local="true">DraugrM6.osd\ArmorWaist01Vore prey belly</Data>
+            <Data name="ArmorBoots00Vore prey belly" target="ArmorBoots00" local="true">DraugrM6.osd\ArmorBoots00Vore prey belly</Data>
+            <Data name="ArmorWaist00Vore prey belly" target="ArmorWaist00" local="true">DraugrM6.osd\ArmorWaist00Vore prey belly</Data>
+            <Data name="Body_Male_Armor03Vore prey belly" target="Body_Male_Armor03" local="true">DraugrM6.osd\Body_Male_Armor03Vore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Draugrm7">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Draugrm7.nif</SourceFile>
+        <OutputPath>meshes\actors\draugr\character assets</OutputPath>
+        <OutputFile GenWeights="false">draugrmale06</OutputFile>
+        <Shape target="Armband00">Armband00</Shape>
+        <Shape target="ArmorBoots00">ArmorBoots00</Shape>
+        <Shape target="ArmorChest00">ArmorChest00</Shape>
+        <Shape target="ArmorWaist00">ArmorWaist00</Shape>
+        <Shape target="ArmorWaist01">ArmorWaist01</Shape>
+        <Shape target="Armor_Fur00">Armor_Fur00</Shape>
+        <Shape target="Armor_Pauldrons00">Armor_Pauldrons00</Shape>
+        <Shape target="Armor_WaistPlate00">Armor_WaistPlate00</Shape>
+        <Shape target="Body_Male_Armor02">Body_Male_Armor02</Shape>
+        <Shape target="Eye_L">Eye_L</Shape>
+        <Shape target="Eye_R">Eye_R</Shape>
+        <Shape target="Hair_2">Hair_2</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="ArmorChest00Vore prey belly" target="ArmorChest00" local="true">Draugrm7.osd\ArmorChest00Vore prey belly</Data>
+            <Data name="ArmorWaist01Vore prey belly" target="ArmorWaist01" local="true">Draugrm7.osd\ArmorWaist01Vore prey belly</Data>
+            <Data name="ArmorBoots00Vore prey belly" target="ArmorBoots00" local="true">Draugrm7.osd\ArmorBoots00Vore prey belly</Data>
+            <Data name="ArmorWaist00Vore prey belly" target="ArmorWaist00" local="true">Draugrm7.osd\ArmorWaist00Vore prey belly</Data>
+            <Data name="Body_Male_Armor02Vore prey belly" target="Body_Male_Armor02" local="true">Draugrm7.osd\Body_Male_Armor02Vore prey belly</Data>
+            <Data name="Armor_WaistPlate00Vore prey belly" target="Armor_WaistPlate00" local="true">Draugrm7.osd\Armor_WaistPlate00Vore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Draugrm8">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Draugrm8.nif</SourceFile>
+        <OutputPath>meshes\actors\draugr\character assets</OutputPath>
+        <OutputFile GenWeights="false">draugrmale07</OutputFile>
+        <Shape target="Armband00">Armband00</Shape>
+        <Shape target="ArmorBoots00">ArmorBoots00</Shape>
+        <Shape target="ArmorBracers00">ArmorBracers00</Shape>
+        <Shape target="ArmorChest00">ArmorChest00</Shape>
+        <Shape target="ArmorWaist00">ArmorWaist00</Shape>
+        <Shape target="ArmorWaist01">ArmorWaist01</Shape>
+        <Shape target="Armor_Fur00">Armor_Fur00</Shape>
+        <Shape target="Armor_Pauldrons00">Armor_Pauldrons00</Shape>
+        <Shape target="Armor_WaistPlate00">Armor_WaistPlate00</Shape>
+        <Shape target="Beard_2">Beard_2</Shape>
+        <Shape target="Body_Male_Armor03">Body_Male_Armor03</Shape>
+        <Shape target="Eye_L">Eye_L</Shape>
+        <Shape target="Eye_R">Eye_R</Shape>
+        <Shape target="Hair_2">Hair_2</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="ArmorChest00Vore prey belly" target="ArmorChest00" local="true">Draugrm8.osd\ArmorChest00Vore prey belly</Data>
+            <Data name="ArmorWaist01Vore prey belly" target="ArmorWaist01" local="true">Draugrm8.osd\ArmorWaist01Vore prey belly</Data>
+            <Data name="ArmorBoots00Vore prey belly" target="ArmorBoots00" local="true">Draugrm8.osd\ArmorBoots00Vore prey belly</Data>
+            <Data name="ArmorWaist00Vore prey belly" target="ArmorWaist00" local="true">Draugrm8.osd\ArmorWaist00Vore prey belly</Data>
+            <Data name="Body_Male_Armor03Vore prey belly" target="Body_Male_Armor03" local="true">Draugrm8.osd\Body_Male_Armor03Vore prey belly</Data>
+            <Data name="Armor_WaistPlate00Vore prey belly" target="Armor_WaistPlate00" local="true">Draugrm8.osd\Armor_WaistPlate00Vore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - AshHopper">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>AshHopper.nif</SourceFile>
+        <OutputPath>Meshes\actors\dlc02\scrib\character assets</OutputPath>
+        <OutputFile GenWeights="false">scrib</OutputFile>
+        <Shape target="Scrib">Scrib</Shape>
+        <Shape target="mouth">mouth</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="ScribVore prey belly" target="Scrib" local="true">AshHopper.osd\ScribVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="ScribStruggleSlider1" target="Scrib" local="true">AshHopper.osd\ScribStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="ScribStruggleSlider2" target="Scrib" local="true">AshHopper.osd\ScribStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="ScribStruggleSlider3" target="Scrib" local="true">AshHopper.osd\ScribStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Bear">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Bear.nif</SourceFile>
+        <OutputPath>meshes\actors\bear\character assets</OutputPath>
+        <OutputFile GenWeights="false">bear</OutputFile>
+        <Shape target="BearNew_2">BearNew_2</Shape>
+        <Shape target="Eyes_2">Eyes_2</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="BearNew_2Vore prey belly" target="BearNew_2" local="true">Bear.osd\BearNew_2Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="BearNew_2StruggleSlider1" target="BearNew_2" local="true">Bear.osd\BearNew_2StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="BearNew_2StruggleSlider2" target="BearNew_2" local="true">Bear.osd\BearNew_2StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="BearNew_2StruggleSlider3" target="BearNew_2" local="true">Bear.osd\BearNew_2StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Chaurus">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Chaurus.nif</SourceFile>
+        <OutputPath>meshes\actors\chaurus\character assets</OutputPath>
+        <OutputFile GenWeights="false">chauurusskin</OutputFile>
+        <Shape target="New">New</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="NewVore prey belly" target="New" local="true">Chaurus.osd\NewVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="NewStruggleSlider1" target="New" local="true">Chaurus.osd\NewStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="NewStruggleSlider2" target="New" local="true">Chaurus.osd\NewStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="NewStruggleSlider3" target="New" local="true">Chaurus.osd\NewStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - ChaurusFrozen">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>ChaurusFrozen.nif</SourceFile>
+        <OutputPath>meshes\actors\dlc01\chaurusfrozen</OutputPath>
+        <OutputFile GenWeights="false">chaurusfrozen</OutputFile>
+        <Shape target="FrozenChaurusLow">FrozenChaurusLow</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="FrozenChaurusLowVore prey belly" target="FrozenChaurusLow" local="true">ChaurusFrozen.osd\FrozenChaurusLowVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="FrozenChaurusLowStruggleSlider1" target="FrozenChaurusLow" local="true">ChaurusFrozen.osd\FrozenChaurusLowStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="FrozenChaurusLowStruggleSlider2" target="FrozenChaurusLow" local="true">ChaurusFrozen.osd\FrozenChaurusLowStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="FrozenChaurusLowStruggleSlider3" target="FrozenChaurusLow" local="true">ChaurusFrozen.osd\FrozenChaurusLowStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Chicken">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Chicken.nif</SourceFile>
+        <OutputPath>meshes\actors\ambient\chicken\character assets</OutputPath>
+        <OutputFile GenWeights="false">chicken</OutputFile>
+        <Shape target="chicken">chicken</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="chickenVore prey belly" target="chicken" local="true">Chicken.osd\chickenVore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Cow">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Cow.nif</SourceFile>
+        <OutputPath>meshes\actors\cow\character assets</OutputPath>
+        <OutputFile GenWeights="false">highlandcow</OutputFile>
+        <Shape target="Fur">Fur</Shape>
+        <Shape target="highlandcow">highlandcow</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="highlandcowVore prey belly" target="highlandcow" local="true">Cow.osd\highlandcowVore prey belly</Data>
+            <Data name="FurVore prey belly" target="Fur" local="true">Cow.osd\FurVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="highlandcowStruggleSlider1" target="highlandcow" local="true">Cow.osd\highlandcowStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="highlandcowStruggleSlider2" target="highlandcow" local="true">Cow.osd\highlandcowStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="highlandcowStruggleSlider3" target="highlandcow" local="true">Cow.osd\highlandcowStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Deathhound">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Deathhound.nif</SourceFile>
+        <OutputPath>meshes\dlc01\actors\vampiredog</OutputPath>
+        <OutputFile GenWeights="false">vampiredog</OutputFile>
+        <Shape target="Box01">Box01</Shape>
+        <Shape target="DogEyeBall:0">DogEyeBall:0</Shape>
+        <Shape target="DogEyeBall:1">DogEyeBall:1</Shape>
+        <Shape target="DogEyeBall:4">DogEyeBall:4</Shape>
+        <Shape target="DogEyeBall:8">DogEyeBall:8</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Box01Vore prey belly" target="Box01" local="true">Deathhound.osd\Box01Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Box01StruggleSlider1" target="Box01" local="true">Deathhound.osd\Box01StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Box01StruggleSlider2" target="Box01" local="true">Deathhound.osd\Box01StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Box01StruggleSlider3" target="Box01" local="true">Deathhound.osd\Box01StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Deer">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Deer.nif</SourceFile>
+        <OutputPath>meshes\actors\deer\character assets</OutputPath>
+        <OutputFile GenWeights="false">reindeer_skin</OutputFile>
+        <Shape target="ElkMaleLEye03">ElkMaleLEye03</Shape>
+        <Shape target="ReinDeer:0">ReinDeer:0</Shape>
+        <Shape target="ReinDeer:1">ReinDeer:1</Shape>
+        <Shape target="ReinDeerEye">ReinDeerEye</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="ReinDeer:0Vore prey belly" target="ReinDeer:0" local="true">Deer.osd\ReinDeer:0Vore prey belly</Data>
+            <Data name="ReinDeer:1Vore prey belly" target="ReinDeer:1" local="true">Deer.osd\ReinDeer:1Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="ReinDeer:0StruggleSlider1" target="ReinDeer:0" local="true">Deer.osd\ReinDeer:0StruggleSlider1</Data>
+            <Data name="ReinDeer:1StruggleSlider1" target="ReinDeer:1" local="true">Deer.osd\ReinDeer:1StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="ReinDeer:0StruggleSlider2" target="ReinDeer:0" local="true">Deer.osd\ReinDeer:0StruggleSlider2</Data>
+            <Data name="ReinDeer:1StruggleSlider2" target="ReinDeer:1" local="true">Deer.osd\ReinDeer:1StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="ReinDeer:0StruggleSlider3" target="ReinDeer:0" local="true">Deer.osd\ReinDeer:0StruggleSlider3</Data>
+            <Data name="ReinDeer:1StruggleSlider3" target="ReinDeer:1" local="true">Deer.osd\ReinDeer:1StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Dragon">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Dragon.nif</SourceFile>
+        <OutputPath>Meshes\actors\dragon\character assets</OutputPath>
+        <OutputFile GenWeights="false">dragon</OutputFile>
+        <Shape target="Dragon:0">Dragon:0</Shape>
+        <Shape target="Dragon:1">Dragon:1</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Dragon:0Vore prey belly" target="Dragon:0" local="true">Dragon.osd\Dragon:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Dragon:0StruggleSlider1" target="Dragon:0" local="true">Dragon.osd\Dragon:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Dragon:0StruggleSlider2" target="Dragon:0" local="true">Dragon.osd\Dragon:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Dragon:0StruggleSlider3" target="Dragon:0" local="true">Dragon.osd\Dragon:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - DragonAlduin">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>DragonAlduin.nif</SourceFile>
+        <OutputPath>Meshes\actors\dragon\character assets</OutputPath>
+        <OutputFile GenWeights="false">alduin</OutputFile>
+        <Shape target="AlduinAnim:0">AlduinAnim:0</Shape>
+        <Shape target="AlduinAnim:1">AlduinAnim:1</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="AlduinAnim:0Vore prey belly" target="AlduinAnim:0" local="true">DragonAlduin.osd\AlduinAnim:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="AlduinAnim:0StruggleSlider1" target="AlduinAnim:0" local="true">DragonAlduin.osd\AlduinAnim:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="AlduinAnim:0StruggleSlider2" target="AlduinAnim:0" local="true">DragonAlduin.osd\AlduinAnim:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="AlduinAnim:0StruggleSlider3" target="AlduinAnim:0" local="true">DragonAlduin.osd\AlduinAnim:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - DragonForest">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>DragonForest.nif</SourceFile>
+        <OutputPath>Meshes\actors\dragon</OutputPath>
+        <OutputFile GenWeights="false">dragonforest</OutputFile>
+        <Shape target="Swamp Dragon">Swamp Dragon</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Swamp DragonVore prey belly" target="Swamp Dragon" local="true">DragonForest.osd\Swamp DragonVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Swamp DragonStruggleSlider1" target="Swamp Dragon" local="true">DragonForest.osd\Swamp DragonStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Swamp DragonStruggleSlider2" target="Swamp Dragon" local="true">DragonForest.osd\Swamp DragonStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Swamp DragonStruggleSlider3" target="Swamp Dragon" local="true">DragonForest.osd\Swamp DragonStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - DragonTundra">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>DragonTundra.nif</SourceFile>
+        <OutputPath>Meshes\actors\dragon</OutputPath>
+        <OutputFile GenWeights="false">dragontundra</OutputFile>
+        <Shape target="Bronze Dragon:0">Bronze Dragon:0</Shape>
+        <Shape target="Bronze Dragon:1">Bronze Dragon:1</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Bronze Dragon:0Vore prey belly" target="Bronze Dragon:0" local="true">DragonTundra.osd\Bronze Dragon:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Bronze Dragon:0StruggleSlider1" target="Bronze Dragon:0" local="true">DragonTundra.osd\Bronze Dragon:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Bronze Dragon:0StruggleSlider2" target="Bronze Dragon:0" local="true">DragonTundra.osd\Bronze Dragon:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Bronze Dragon:0StruggleSlider3" target="Bronze Dragon:0" local="true">DragonTundra.osd\Bronze Dragon:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Elk">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Elk.nif</SourceFile>
+        <OutputPath>meshes\actors\deer\character assets</OutputPath>
+        <OutputFile GenWeights="false">elk_maleskin</OutputFile>
+        <Shape target="DeerBase02:0">DeerBase02:0</Shape>
+        <Shape target="DeerBase02:1">DeerBase02:1</Shape>
+        <Shape target="ElkMaleLEye01">ElkMaleLEye01</Shape>
+        <Shape target="ElkMaleREye">ElkMaleREye</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="DeerBase02:0Vore prey belly" target="DeerBase02:0" local="true">Elk.osd\DeerBase02:0Vore prey belly</Data>
+            <Data name="DeerBase02:1Vore prey belly" target="DeerBase02:1" local="true">Elk.osd\DeerBase02:1Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="DeerBase02:0StruggleSlider1" target="DeerBase02:0" local="true">Elk.osd\DeerBase02:0StruggleSlider1</Data>
+            <Data name="DeerBase02:1StruggleSlider1" target="DeerBase02:1" local="true">Elk.osd\DeerBase02:1StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="DeerBase02:0StruggleSlider2" target="DeerBase02:0" local="true">Elk.osd\DeerBase02:0StruggleSlider2</Data>
+            <Data name="DeerBase02:1StruggleSlider2" target="DeerBase02:1" local="true">Elk.osd\DeerBase02:1StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="DeerBase02:0StruggleSlider3" target="DeerBase02:0" local="true">Elk.osd\DeerBase02:0StruggleSlider3</Data>
+            <Data name="DeerBase02:1StruggleSlider3" target="DeerBase02:1" local="true">Elk.osd\DeerBase02:1StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - ElkFemale">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>ElkFemale.nif</SourceFile>
+        <OutputPath>meshes\actors\deer\character assets</OutputPath>
+        <OutputFile GenWeights="false">elk_femaleskin</OutputFile>
+        <Shape target="DeerBase01:0">DeerBase01:0</Shape>
+        <Shape target="ElkFemalLEye01">ElkFemalLEye01</Shape>
+        <Shape target="ElkFemalREye">ElkFemalREye</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="DeerBase01:0Vore prey belly" target="DeerBase01:0" local="true">ElkFemale.osd\DeerBase01:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="DeerBase01:0StruggleSlider1" target="DeerBase01:0" local="true">ElkFemale.osd\DeerBase01:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="DeerBase01:0StruggleSlider2" target="DeerBase01:0" local="true">ElkFemale.osd\DeerBase01:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="DeerBase01:0StruggleSlider3" target="DeerBase01:0" local="true">ElkFemale.osd\DeerBase01:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Giant1">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Giant1.nif</SourceFile>
+        <OutputPath>meshes\actors\giant\character assets</OutputPath>
+        <OutputFile GenWeights="false">giant</OutputFile>
+        <Shape target="giant_base:0">giant_base:0</Shape>
+        <Shape target="giant_base:1">giant_base:1</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="giant_base:0Vore prey belly" target="giant_base:0" local="true">Giant1.osd\giant_base:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="giant_base:0StruggleSlider1" target="giant_base:0" local="true">Giant1.osd\giant_base:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="giant_base:0StruggleSlider2" target="giant_base:0" local="true">Giant1.osd\giant_base:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="giant_base:0StruggleSlider3" target="giant_base:0" local="true">Giant1.osd\giant_base:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Giant2">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Giant2.nif</SourceFile>
+        <OutputPath>meshes\actors\giant\character assets</OutputPath>
+        <OutputFile GenWeights="false">giant02</OutputFile>
+        <Shape target="giant_heavy_cloth:0">giant_heavy_cloth:0</Shape>
+        <Shape target="giant_heavy_cloth:1">giant_heavy_cloth:1</Shape>
+        <Shape target="giant_heavy_cloth:2">giant_heavy_cloth:2</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="giant_heavy_cloth:0Vore prey belly" target="giant_heavy_cloth:0" local="true">Giant2.osd\giant_heavy_cloth:0Vore prey belly</Data>
+            <Data name="giant_heavy_cloth:1Vore prey belly" target="giant_heavy_cloth:1" local="true">Giant2.osd\giant_heavy_cloth:1Vore prey belly</Data>
+            <Data name="giant_heavy_cloth:2Vore prey belly" target="giant_heavy_cloth:2" local="true">Giant2.osd\giant_heavy_cloth:2Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="giant_heavy_cloth:0StruggleSlider1" target="giant_heavy_cloth:0" local="true">Giant2.osd\giant_heavy_cloth:0StruggleSlider1</Data>
+            <Data name="giant_heavy_cloth:1StruggleSlider1" target="giant_heavy_cloth:1" local="true">Giant2.osd\giant_heavy_cloth:1StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="giant_heavy_cloth:0StruggleSlider2" target="giant_heavy_cloth:0" local="true">Giant2.osd\giant_heavy_cloth:0StruggleSlider2</Data>
+            <Data name="giant_heavy_cloth:1StruggleSlider2" target="giant_heavy_cloth:1" local="true">Giant2.osd\giant_heavy_cloth:1StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="giant_heavy_cloth:0StruggleSlider3" target="giant_heavy_cloth:0" local="true">Giant2.osd\giant_heavy_cloth:0StruggleSlider3</Data>
+            <Data name="giant_heavy_cloth:1StruggleSlider3" target="giant_heavy_cloth:1" local="true">Giant2.osd\giant_heavy_cloth:1StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSetInfo version="1"/>
+    <SliderSet name="DevourmentSE - Goat">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Goat.nif</SourceFile>
+        <OutputPath>meshes\actors\goat\character assets</OutputPath>
+        <OutputFile GenWeights="false">goat</OutputFile>
+        <Shape target="Goat">Goat</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="GoatVore prey belly" target="Goat" local="true">Goat.osd\GoatVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="GoatStruggleSlider1" target="Goat" local="true">Goat.osd\GoatStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="GoatStruggleSlider2" target="Goat" local="true">Goat.osd\GoatStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="GoatStruggleSlider3" target="Goat" local="true">Goat.osd\GoatStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Hagraven">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Hagraven.nif</SourceFile>
+        <OutputPath>Meshes\actors\hagraven\character assets</OutputPath>
+        <OutputFile GenWeights="false">hagraven</OutputFile>
+        <Shape target="Hagraven_GEO">Hagraven_GEO</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Hagraven_GEOVore prey belly" target="Hagraven_GEO" local="true">Hagraven.osd\Hagraven_GEOVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Hagraven_GEOStruggleSlider1" target="Hagraven_GEO" local="true">Hagraven.osd\Hagraven_GEOStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Hagraven_GEOStruggleSlider2" target="Hagraven_GEO" local="true">Hagraven.osd\Hagraven_GEOStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Hagraven_GEOStruggleSlider3" target="Hagraven_GEO" local="true">Hagraven.osd\Hagraven_GEOStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Horker">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Horker.nif</SourceFile>
+        <OutputPath>meshes\actors\horker\character assets</OutputPath>
+        <OutputFile GenWeights="false">horker</OutputFile>
+        <Shape target="Horker:0">Horker:0</Shape>
+        <Shape target="Horker:1">Horker:1</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Horker:0Vore prey belly" target="Horker:0" local="true">Horker.osd\Horker:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Horker:0StruggleSlider1" target="Horker:0" local="true">Horker.osd\Horker:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Horker:0StruggleSlider2" target="Horker:0" local="true">Horker.osd\Horker:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Horker:0StruggleSlider3" target="Horker:0" local="true">Horker.osd\Horker:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Horse">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Horse.nif</SourceFile>
+        <OutputPath>meshes\actors\horse\character assets</OutputPath>
+        <OutputFile GenWeights="false">horse</OutputFile>
+        <Shape target="horse:0">horse:0</Shape>
+        <Shape target="horse:1">horse:1</Shape>
+        <Shape target="horse:2">horse:2</Shape>
+        <Shape target="horse:3">horse:3</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="horse:0Vore prey belly" target="horse:0" local="true">Horse.osd\horse:0Vore prey belly</Data>
+            <Data name="horse:1Vore prey belly" target="horse:1" local="true">Horse.osd\horse:1Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="horse:0StruggleSlider1" target="horse:0" local="true">Horse.osd\horse:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="horse:0StruggleSlider2" target="horse:0" local="true">Horse.osd\horse:0StruggleSlider2</Data>
+            <Data name="horse:1StruggleSlider2" target="horse:1" local="true">Horse.osd\horse:1StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="horse:0StruggleSlider3" target="horse:0" local="true">Horse.osd\horse:0StruggleSlider3</Data>
+            <Data name="horse:1StruggleSlider3" target="horse:1" local="true">Horse.osd\horse:1StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - HorseSaddle">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>HorseSaddle.nif</SourceFile>
+        <OutputPath>meshes\actors\horse\character assets</OutputPath>
+        <OutputFile GenWeights="false">saddle</OutputFile>
+        <Shape target="NordicBridle">NordicBridle</Shape>
+        <Shape target="NordicSaddle">NordicSaddle</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="NordicSaddleVore prey belly" target="NordicSaddle" local="true">HorseSaddle.osd\NordicSaddleVore prey belly</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - DragonOdahviing">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Odahviing.nif</SourceFile>
+        <OutputPath>Meshes\actors\dragon</OutputPath>
+        <OutputFile GenWeights="false">dragonohdaviing</OutputFile>
+        <Shape target="Odahviing:0">Odahviing:0</Shape>
+        <Shape target="Odahviing:1">Odahviing:1</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Odahviing:0Vore prey belly" target="Odahviing:0" local="true">Odahviing.osd\Odahviing:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Odahviing:0StruggleSlider1" target="Odahviing:0" local="true">Odahviing.osd\Odahviing:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Odahviing:0StruggleSlider2" target="Odahviing:0" local="true">Odahviing.osd\Odahviing:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Odahviing:0StruggleSlider3" target="Odahviing:0" local="true">Odahviing.osd\Odahviing:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Sabre">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Sabre.nif</SourceFile>
+        <OutputPath>meshes\actors\sabrecat\character assets</OutputPath>
+        <OutputFile GenWeights="false">sabrecat</OutputFile>
+        <Shape target="SabreCat">SabreCat</Shape>
+        <Shape target="SabreCat_LeftEye">SabreCat_LeftEye</Shape>
+        <Shape target="SabreCat_RightEye">SabreCat_RightEye</Shape>
+        <Shape target="SabrecatMane">SabrecatMane</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="SabreCatVore prey belly" target="SabreCat" local="true">Sabre.osd\SabreCatVore prey belly</Data>
+            <Data name="SabrecatManeVore prey belly" target="SabrecatMane" local="true">Sabre.osd\SabrecatManeVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="SabreCatStruggleSlider1" target="SabreCat" local="true">Sabre.osd\SabreCatStruggleSlider1</Data>
+            <Data name="SabrecatManeStruggleSlider1" target="SabrecatMane" local="true">Sabre.osd\SabrecatManeStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="SabreCatStruggleSlider2" target="SabreCat" local="true">Sabre.osd\SabreCatStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="SabreCatStruggleSlider3" target="SabreCat" local="true">Sabre.osd\SabreCatStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - SabreSnow">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>SabreSnow.nif</SourceFile>
+        <OutputPath>meshes\actors\sabrecat\character assets</OutputPath>
+        <OutputFile GenWeights="false">sabrecatsnow</OutputFile>
+        <Shape target="SabreCat_LeftEye">SabreCat_LeftEye</Shape>
+        <Shape target="SabreCat_RightEye">SabreCat_RightEye</Shape>
+        <Shape target="SabreCat_outfit">SabreCat_outfit</Shape>
+        <Shape target="SabrecatMane">SabrecatMane</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="SabreCat_outfitVore prey belly" target="SabreCat_outfit" local="true">SabreSnow.osd\SabreCat_outfitVore prey belly</Data>
+            <Data name="SabrecatManeVore prey belly" target="SabrecatMane" local="true">SabreSnow.osd\SabrecatManeVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="SabreCat_outfitStruggleSlider1" target="SabreCat_outfit" local="true">SabreSnow.osd\SabreCat_outfitStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="SabreCat_outfitStruggleSlider2" target="SabreCat_outfit" local="true">SabreSnow.osd\SabreCat_outfitStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="SabreCat_outfitStruggleSlider3" target="SabreCat_outfit" local="true">SabreSnow.osd\SabreCat_outfitStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - DragonSnow">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Snow.nif</SourceFile>
+        <OutputPath>Meshes\actors\dragon</OutputPath>
+        <OutputFile GenWeights="false">dragonsnow</OutputFile>
+        <Shape target="Ice Dragon">Ice Dragon</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Ice DragonVore prey belly" target="Ice Dragon" local="true">Snow.osd\Ice DragonVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Ice DragonStruggleSlider1" target="Ice Dragon" local="true">Snow.osd\Ice DragonStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Ice DragonStruggleSlider2" target="Ice Dragon" local="true">Snow.osd\Ice DragonStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Ice DragonStruggleSlider3" target="Ice Dragon" local="true">Snow.osd\Ice DragonStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Spider">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Spider.nif</SourceFile>
+        <OutputPath>meshes\actors\frostbitespider\character assets</OutputPath>
+        <OutputFile GenWeights="false">frostbitespider</OutputFile>
+        <Shape target="S_Body0180percent">S_Body0180percent</Shape>
+        <Shape target="S_Hiars01Reduced">S_Hiars01Reduced</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="S_Body0180percentVore prey belly" target="S_Body0180percent" local="true">Spider.osd\S_Body0180percentVore prey belly</Data>
+            <Data name="S_Hiars01ReducedVore prey belly" target="S_Hiars01Reduced" local="true">Spider.osd\S_Hiars01ReducedVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="S_Body0180percentStruggleSlider1" target="S_Body0180percent" local="true">Spider.osd\S_Body0180percentStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="S_Body0180percentStruggleSlider2" target="S_Body0180percent" local="true">Spider.osd\S_Body0180percentStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="S_Body0180percentStruggleSlider3" target="S_Body0180percent" local="true">Spider.osd\S_Body0180percentStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - SpiderIce">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>SpiderIce.nif</SourceFile>
+        <OutputPath>meshes\actors\frostbitespider\character assets</OutputPath>
+        <OutputFile GenWeights="false">frostbitespidercold</OutputFile>
+        <Shape target="S_Body0180percent">S_Body0180percent</Shape>
+        <Shape target="S_Hiars01Reduced">S_Hiars01Reduced</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="S_Body0180percentVore prey belly" target="S_Body0180percent" local="true">SpiderIce.osd\S_Body0180percentVore prey belly</Data>
+            <Data name="S_Hiars01ReducedVore prey belly" target="S_Hiars01Reduced" local="true">SpiderIce.osd\S_Hiars01ReducedVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="S_Body0180percentStruggleSlider1" target="S_Body0180percent" local="true">SpiderIce.osd\S_Body0180percentStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="S_Body0180percentStruggleSlider2" target="S_Body0180percent" local="true">SpiderIce.osd\S_Body0180percentStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="S_Body0180percentStruggleSlider3" target="S_Body0180percent" local="true">SpiderIce.osd\S_Body0180percentStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Spriggan">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Spriggan.nif</SourceFile>
+        <OutputPath>meshes\actors\spriggan\character assets</OutputPath>
+        <OutputFile GenWeights="false">spriggan</OutputFile>
+        <Shape target="SprigganBodyLeaves">SprigganBodyLeaves</Shape>
+        <Shape target="SprigganFxHandCovers">SprigganFxHandCovers</Shape>
+        <Shape target="SprigganFxTestUnified:0">SprigganFxTestUnified:0</Shape>
+        <Shape target="SprigganHandLeaves">SprigganHandLeaves</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="SprigganBodyLeavesVore prey belly" target="SprigganBodyLeaves" local="true">Spriggan.osd\SprigganBodyLeavesVore prey belly</Data>
+            <Data name="SprigganFxTestUnified:0Vore prey belly" target="SprigganFxTestUnified:0" local="true">Spriggan.osd\SprigganFxTestUnified:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="SprigganBodyLeavesStruggleSlider1" target="SprigganBodyLeaves" local="true">Spriggan.osd\SprigganBodyLeavesStruggleSlider1</Data>
+            <Data name="SprigganFxTestUnified:0StruggleSlider1" target="SprigganFxTestUnified:0" local="true">Spriggan.osd\SprigganFxTestUnified:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="SprigganBodyLeavesStruggleSlider2" target="SprigganBodyLeaves" local="true">Spriggan.osd\SprigganBodyLeavesStruggleSlider2</Data>
+            <Data name="SprigganFxTestUnified:0StruggleSlider2" target="SprigganFxTestUnified:0" local="true">Spriggan.osd\SprigganFxTestUnified:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="SprigganBodyLeavesStruggleSlider3" target="SprigganBodyLeaves" local="true">Spriggan.osd\SprigganBodyLeavesStruggleSlider3</Data>
+            <Data name="SprigganFxTestUnified:0StruggleSlider3" target="SprigganFxTestUnified:0" local="true">Spriggan.osd\SprigganFxTestUnified:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - SprigganMatron">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>SprigganMatron.nif</SourceFile>
+        <OutputPath>meshes\actors\spriggan\character assets</OutputPath>
+        <OutputFile GenWeights="false">sprigganmatron</OutputFile>
+        <Shape target="HandCovers">HandCovers</Shape>
+        <Shape target="SprigganMatron:0">SprigganMatron:0</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="SprigganMatron:0Vore prey belly" target="SprigganMatron:0" local="true">SprigganMatron.osd\SprigganMatron:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="SprigganMatron:0StruggleSlider1" target="SprigganMatron:0" local="true">SprigganMatron.osd\SprigganMatron:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="SprigganMatron:0StruggleSlider2" target="SprigganMatron:0" local="true">SprigganMatron.osd\SprigganMatron:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="SprigganMatron:0StruggleSlider3" target="SprigganMatron:0" local="true">SprigganMatron.osd\SprigganMatron:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Troll">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Troll.nif</SourceFile>
+        <OutputPath>meshes\actors\troll\character assets</OutputPath>
+        <OutputFile GenWeights="false">troll</OutputFile>
+        <Shape target="Troll Frost:0">Troll Frost:0</Shape>
+        <Shape target="Troll Frost:1">Troll Frost:1</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Troll Frost:0Vore prey belly" target="Troll Frost:0" local="true">Troll.osd\Troll Frost:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Troll Frost:0StruggleSlider1" target="Troll Frost:0" local="true">Troll.osd\Troll Frost:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Troll Frost:0StruggleSlider2" target="Troll Frost:0" local="true">Troll.osd\Troll Frost:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Troll Frost:0StruggleSlider3" target="Troll Frost:0" local="true">Troll.osd\Troll Frost:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - TrollBlack">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>TrollBlack.nif</SourceFile>
+        <OutputPath>meshes\actors\troll\character assets</OutputPath>
+        <OutputFile GenWeights="false">blacktroll</OutputFile>
+        <Shape target="Troll Cave">Troll Cave</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Troll CaveVore prey belly" target="Troll Cave" local="true">TrollBlack.osd\Troll CaveVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Troll CaveStruggleSlider1" target="Troll Cave" local="true">TrollBlack.osd\Troll CaveStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Troll CaveStruggleSlider2" target="Troll Cave" local="true">TrollBlack.osd\Troll CaveStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Troll CaveStruggleSlider3" target="Troll Cave" local="true">TrollBlack.osd\Troll CaveStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - TrollUderfrykte">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>TrollUderfrykte.nif</SourceFile>
+        <OutputPath>meshes\actors\troll\character assets</OutputPath>
+        <OutputFile GenWeights="false">uderfrykte2</OutputFile>
+        <Shape target="Uderfrykte:0">Uderfrykte:0</Shape>
+        <Shape target="Uderfrykte:1">Uderfrykte:1</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="Uderfrykte:0Vore prey belly" target="Uderfrykte:0" local="true">TrollUderfrykte.osd\Uderfrykte:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="Uderfrykte:0StruggleSlider1" target="Uderfrykte:0" local="true">TrollUderfrykte.osd\Uderfrykte:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="Uderfrykte:0StruggleSlider2" target="Uderfrykte:0" local="true">TrollUderfrykte.osd\Uderfrykte:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="Uderfrykte:0StruggleSlider3" target="Uderfrykte:0" local="true">TrollUderfrykte.osd\Uderfrykte:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Werewolf">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Werewolf.nif</SourceFile>
+        <OutputPath>Meshes\actors\werewolfbeast\character assets</OutputPath>
+        <OutputFile GenWeights="true">malebodywerewolf</OutputFile>
+        <Shape target="EyesMaleWerewolfBeast">EyesMaleWerewolfBeast</Shape>
+        <Shape target="WereWolfLow01:0">WereWolfLow01:0</Shape>
+        <Shape target="WereWolfLow01:1">WereWolfLow01:1</Shape>
+        <Shape target="WereWolfLowHead01">WereWolfLowHead01</Shape>
+        <Shape target="WereWolfTeeth">WereWolfTeeth</Shape>
+        <Slider name="Vore prey belly" invert="false" small="0" big="0">
+            <Data name="WereWolfLow01:0Vore prey belly" target="WereWolfLow01:0" local="true">Werewolf.osd\WereWolfLow01:0Vore prey belly</Data>
+            <Data name="WereWolfLow01:1Vore prey belly" target="WereWolfLow01:1" local="true">Werewolf.osd\WereWolfLow01:1Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" small="0" big="0">
+            <Data name="WereWolfLow01:0StruggleSlider1" target="WereWolfLow01:0" local="true">Werewolf.osd\WereWolfLow01:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" small="0" big="0">
+            <Data name="WereWolfLow01:0StruggleSlider2" target="WereWolfLow01:0" local="true">Werewolf.osd\WereWolfLow01:0StruggleSlider2</Data>
+            <Data name="WereWolfLow01:1StruggleSlider2" target="WereWolfLow01:1" local="true">Werewolf.osd\WereWolfLow01:1StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" small="0" big="0">
+            <Data name="WereWolfLow01:0StruggleSlider3" target="WereWolfLow01:0" local="true">Werewolf.osd\WereWolfLow01:0StruggleSlider3</Data>
+            <Data name="WereWolfLow01:1StruggleSlider3" target="WereWolfLow01:1" local="true">Werewolf.osd\WereWolfLow01:1StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Wolf">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Wolf.nif</SourceFile>
+        <OutputPath>meshes\actors\canine\character assets wolf</OutputPath>
+        <OutputFile GenWeights="false">wolf</OutputFile>
+        <Shape target="Fur">Fur</Shape>
+        <Shape target="WolfREDUCED">WolfREDUCED</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="WolfREDUCEDVore prey belly" target="WolfREDUCED" local="true">Wolf.osd\WolfREDUCEDVore prey belly</Data>
+            <Data name="FurVore prey belly" target="Fur" local="true">Wolf.osd\FurVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="WolfREDUCEDStruggleSlider1" target="WolfREDUCED" local="true">Wolf.osd\WolfREDUCEDStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="WolfREDUCEDStruggleSlider2" target="WolfREDUCED" local="true">Wolf.osd\WolfREDUCEDStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="WolfREDUCEDStruggleSlider3" target="WolfREDUCED" local="true">Wolf.osd\WolfREDUCEDStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - WolfBlack">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>WolfBlack.nif</SourceFile>
+        <OutputPath>meshes\actors\canine\character assets wolf</OutputPath>
+        <OutputFile GenWeights="false">wolfBlack</OutputFile>
+        <Shape target="BlackFur">BlackFur</Shape>
+        <Shape target="WolfBLACK">WolfBLACK</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="WolfBLACKVore prey belly" target="WolfBLACK" local="true">WolfBlack.osd\WolfBLACKVore prey belly</Data>
+            <Data name="BlackFurVore prey belly" target="BlackFur" local="true">WolfBlack.osd\BlackFurVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="WolfBLACKStruggleSlider1" target="WolfBLACK" local="true">WolfBlack.osd\WolfBLACKStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="WolfBLACKStruggleSlider2" target="WolfBLACK" local="true">WolfBlack.osd\WolfBLACKStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="WolfBLACKStruggleSlider3" target="WolfBLACK" local="true">WolfBlack.osd\WolfBLACKStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - WolfRed">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>WolfRed.nif</SourceFile>
+        <OutputPath>meshes\actors\canine\character assets wolf</OutputPath>
+        <OutputFile GenWeights="false">wolfRed</OutputFile>
+        <Shape target="Fur">Fur</Shape>
+        <Shape target="WolfREDUCED">WolfREDUCED</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="WolfREDUCEDVore prey belly" target="WolfREDUCED" local="true">WolfRed.osd\WolfREDUCEDVore prey belly</Data>
+            <Data name="FurVore prey belly" target="Fur" local="true">WolfRed.osd\FurVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="WolfREDUCEDStruggleSlider1" target="WolfREDUCED" local="true">WolfRed.osd\WolfREDUCEDStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="WolfREDUCEDStruggleSlider2" target="WolfREDUCED" local="true">WolfRed.osd\WolfREDUCEDStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="WolfREDUCEDStruggleSlider3" target="WolfREDUCED" local="true">WolfRed.osd\WolfREDUCEDStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - SabreVale">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>dlc1sabrecat.nif</SourceFile>
+        <OutputPath>meshes\actors\dlc01\sabrecat</OutputPath>
+        <OutputFile GenWeights="false">dlc1sabrecat</OutputFile>
+        <Shape target="BlackreachCatAnim:0">BlackreachCatAnim:0</Shape>
+        <Shape target="SabreCat_LeftEye">SabreCat_LeftEye</Shape>
+        <Shape target="SabreCat_RightEye">SabreCat_RightEye</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="BlackreachCatAnim:0Vore prey belly" target="BlackreachCatAnim:0" local="true">dlc1sabrecat.osd\BlackreachCatAnim:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="BlackreachCatAnim:0StruggleSlider1" target="BlackreachCatAnim:0" local="true">dlc1sabrecat.osd\BlackreachCatAnim:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="BlackreachCatAnim:0StruggleSlider2" target="BlackreachCatAnim:0" local="true">dlc1sabrecat.osd\BlackreachCatAnim:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="BlackreachCatAnim:0StruggleSlider3" target="BlackreachCatAnim:0" local="true">dlc1sabrecat.osd\BlackreachCatAnim:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - DeerVale">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>blackreachdeer.nif</SourceFile>
+        <OutputPath>meshes\actors\dlc01\elk</OutputPath>
+        <OutputFile GenWeights="false">blackreachdeer</OutputFile>
+        <Shape target="BlackreachDeer:0">BlackreachDeer:0</Shape>
+        <Shape target="BlackreachDeerEye02">BlackreachDeerEye02</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="BlackreachDeer:0Vore prey belly" target="BlackreachDeer:0" local="true">blackreachdeer.osd\BlackreachDeer:0Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="BlackreachDeer:0StruggleSlider1" target="BlackreachDeer:0" local="true">blackreachdeer.osd\BlackreachDeer:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="BlackreachDeer:0StruggleSlider2" target="BlackreachDeer:0" local="true">blackreachdeer.osd\BlackreachDeer:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="BlackreachDeer:0StruggleSlider3" target="BlackreachDeer:0" local="true">blackreachdeer.osd\BlackreachDeer:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Boar">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Boar.nif</SourceFile>
+        <OutputPath>meshes\actors\dlc02\boarriekling\character assets</OutputPath>
+        <OutputFile GenWeights="false">boar</OutputFile>
+        <Shape target="BoarBody">BoarBody</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="BoarBodyVore prey belly" target="BoarBody" local="true">Boar.osd\BoarBodyVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="BoarBodyStruggleSlider1" target="BoarBody" local="true">Boar.osd\BoarBodyStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="BoarBodyStruggleSlider2" target="BoarBody" local="true">Boar.osd\BoarBodyStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="BoarBodyStruggleSlider3" target="BoarBody" local="true">Boar.osd\BoarBodyStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Skeever">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Skeever.nif</SourceFile>
+        <OutputPath>meshes\actors\skeever\character assets</OutputPath>
+        <OutputFile GenWeights="false">skeever</OutputFile>
+        <Shape target="SKeeverUVBakeOver:0">SKeeverUVBakeOver:0</Shape>
+        <Shape target="SKeeverUVBakeOver:1">SKeeverUVBakeOver:1</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="SKeeverUVBakeOver:0Vore prey belly" target="SKeeverUVBakeOver:0" local="true">Skeever.osd\SKeeverUVBakeOver:0Vore prey belly</Data>
+            <Data name="SKeeverUVBakeOver:1Vore prey belly" target="SKeeverUVBakeOver:1" local="true">Skeever.osd\SKeeverUVBakeOver:1Vore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="SKeeverUVBakeOver:0StruggleSlider1" target="SKeeverUVBakeOver:0" local="true">Skeever.osd\SKeeverUVBakeOver:0StruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="SKeeverUVBakeOver:0StruggleSlider2" target="SKeeverUVBakeOver:0" local="true">Skeever.osd\SKeeverUVBakeOver:0StruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="SKeeverUVBakeOver:0StruggleSlider3" target="SKeeverUVBakeOver:0" local="true">Skeever.osd\SKeeverUVBakeOver:0StruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - Husky">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Husky.nif</SourceFile>
+        <OutputPath>meshes\actors\dlc01\armoreddog</OutputPath>
+        <OutputFile GenWeights="false">husky</OutputFile>
+        <Shape target="HuskyBodyBare">HuskyBodyBare</Shape>
+        <Shape target="HuskyFur">HuskyFur</Shape>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="HuskyFurVore prey belly" target="HuskyFur" local="true">Husky.osd\HuskyFurVore prey belly</Data>
+            <Data name="HuskyBodyBareVore prey belly" target="HuskyBodyBare" local="true">Husky.osd\HuskyBodyBareVore prey belly</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="HuskyFurStruggleSlider1" target="HuskyFur" local="true">Husky.osd\HuskyFurStruggleSlider1</Data>
+            <Data name="HuskyBodyBareStruggleSlider1" target="HuskyBodyBare" local="true">Husky.osd\HuskyBodyBareStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="HuskyFurStruggleSlider2" target="HuskyFur" local="true">Husky.osd\HuskyFurStruggleSlider2</Data>
+            <Data name="HuskyBodyBareStruggleSlider2" target="HuskyBodyBare" local="true">Husky.osd\HuskyBodyBareStruggleSlider2</Data>
+        </Slider>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="HuskyFurStruggleSlider3" target="HuskyFur" local="true">Husky.osd\HuskyFurStruggleSlider3</Data>
+            <Data name="HuskyBodyBareStruggleSlider3" target="HuskyBodyBare" local="true">Husky.osd\HuskyBodyBareStruggleSlider3</Data>
+        </Slider>
+    </SliderSet>
+    <SliderSet name="DevourmentSE - HuskyArmored">
+        <DataFolder>DevourmentSE - Creatures</DataFolder>
+        <SourceFile>Armoredhusky.nif</SourceFile>
+        <OutputPath>meshes\actors\dlc01\armoreddog</OutputPath>
+        <OutputFile GenWeights="false">armoredhusky</OutputFile>
+        <Shape target="Armor">Armor</Shape>
+        <Shape target="HuskyBodyArmor">HuskyBodyArmor</Shape>
+        <Shape target="HuskyFurArmor">HuskyFurArmor</Shape>
+        <Slider name="StruggleSlider3" invert="false" default="0">
+            <Data name="HuskyBodyArmorStruggleSlider3" target="HuskyBodyArmor" local="true">Armoredhusky.osd\HuskyBodyArmorStruggleSlider3</Data>
+        </Slider>
+        <Slider name="StruggleSlider1" invert="false" default="0">
+            <Data name="HuskyBodyArmorStruggleSlider1" target="HuskyBodyArmor" local="true">Armoredhusky.osd\HuskyBodyArmorStruggleSlider1</Data>
+        </Slider>
+        <Slider name="StruggleSlider2" invert="false" default="0">
+            <Data name="ArmorStruggleSlider2" target="Armor" local="true">Armoredhusky.osd\ArmorStruggleSlider2</Data>
+            <Data name="HuskyBodyArmorStruggleSlider2" target="HuskyBodyArmor" local="true">Armoredhusky.osd\HuskyBodyArmorStruggleSlider2</Data>
+        </Slider>
+        <Slider name="Vore prey belly" invert="false" default="0">
+            <Data name="ArmorVore prey belly" target="Armor" local="true">Armoredhusky.osd\ArmorVore prey belly</Data>
+            <Data name="HuskyBodyArmorVore prey belly" target="HuskyBodyArmor" local="true">Armoredhusky.osd\HuskyBodyArmorVore prey belly</Data>
+        </Slider>
+    </SliderSet>
+</SliderSetInfo>

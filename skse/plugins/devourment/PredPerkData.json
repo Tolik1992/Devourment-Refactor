@@ -1,0 +1,163 @@
+{
+	"Vore Magic I": {
+		"Perk" : "__formData|Devourment.esp|0xC81",
+		"Skill" : 20.0,
+		"Description" : "Provides a set of low level vore spells."
+	},
+	"Vore Magic II": {
+		"Perk" : "__formData|Devourment.esp|0xC8B",
+		"Skill" : 70.0,
+		"Req" : "__formData|Devourment.esp|0xC81",
+		"Description" : "Provides a set of high level vore spells."
+	},
+	"Greater Gasses": {
+		"Perk" : "__formData|Devourment.esp|0xa78",
+		"Skill" : 45.0,
+		"Description" : "Infuses burps and farts with the Thu'um."
+	},
+	"Nourish Body" : {
+		"Perk" : "__formData|Devourment.esp|0xB78",
+		"Skill" : 35.0,
+		"Description" : "Doubles the amount of health and stamina regenerated while digesting live prey."
+	},
+	"Nourish Spirit" : {
+		"Perk" : "__formData|Devourment.esp|0xB79",
+		"Skill" : 50.0,
+		"Req" : "__formData|Devourment.esp|0xB78",
+		"Description" : "Regenerates magicka while digesting live prey."
+	},
+	"Consume Essence" : {
+		"Perk" : "__formData|Devourment.esp|0xB7A",
+		"Skill" : 65.0,
+		"Req" : "__formData|Devourment.esp|0xB79",
+		"Description" : "Doubles the permanent attribute increases from digesting prey."
+	},
+	"Constricting Grip" : {
+		"Perk" : "__formData|Devourment.esp|0xBDA",
+		"Skill" : 90.0,
+		"Description" : "Reduces prey struggling by 80% and gives immunity to the Parting Gift perk from lower level prey."
+	},
+	"Digest Items I" : {
+		"Perk" : "__formData|Devourment.esp|0x930",
+		"Skill" : 40.0,
+		"Description" : "Provides the Digest Items power."
+	},
+	"Digest Items II" : {
+		"Perk" : "__formData|Devourment.esp|0xD2E",
+		"Skill" : 60.0,
+		"Req" : "__formData|Devourment.esp|0x930",
+		"Description" : "The Digest Items power will convert some items directly into gold."
+	},
+	"Digest Items III" : {
+		"Perk" : "__formData|Devourment.esp|0xA81",
+		"Skill" : 90.0,
+		"Req" : "__formData|Devourment.esp|0xD2E",
+		"Description" : "The Digest Items power can be used selectively."
+	},
+	"Digestion I" : {
+		"Perk" : "__formData|Devourment.esp|0x96C",
+		"Skill" : 50.0,
+		"Description" : "Allows digestion of undead."
+	},
+	"Digestion II" : {
+		"Perk" : "__formData|Devourment.esp|0x96B",
+		"Skill" : 70.0,
+		"Req" : "__formData|Devourment.esp|0x96C",
+		"Description" : "Allows digestion of Daedra."
+	},
+	"Digestion III" : {
+		"Perk" : "__formData|Devourment.esp|0x96D",
+		"Skill" : 90.0,
+		"Req" : "__formData|Devourment.esp|0x96B",
+		"Description" : "Allows digestion of Dwemer automatons."
+	},
+	"Hungry Bones" : {
+		"Perk" : "__formData|Devourment.esp|0xC08",
+		"Skill" : 90.0,
+		"Description" : "Reanimates defecated skeletons."
+	},
+	"Iron Stomach I" : {
+		"Perk" : "__formData|Devourment.esp|0xB72",
+		"Skill" : 25.0,
+		"Description" : "Fortifies struggle resistance and holding time by 50%."
+	},
+	"Iron Stomach II" : {
+		"Perk" : "__formData|Devourment.esp|0xB73",
+		"Skill" : 50.0,
+		"Req" : "__formData|Devourment.esp|0xB72",
+		"Description" : "Fortifies struggle resistance and holding time by 100%."
+	},
+	"Iron Stomach III" : {
+		"Perk" : "__formData|Devourment.esp|0xB74",
+		"Skill" : 75.0,
+		"Req" : "__formData|Devourment.esp|0xB73",
+		"Description" : "Fortifies struggle resistance and holding time by 150%."
+	},
+	"Silent Swallow" : {
+		"Perk" : "__formData|Devourment.esp|0xB7B",
+		"Skill" : 30.0,
+		"Description" : "Successful swallows while sneaking will not alert nearby enemies."
+	},
+	"Silent Defecate" : {
+		"Perk" : "__formData|Devourment.esp|0xD66",
+		"Skill" : 50.0,
+		"Req" : "__formData|Devourment.esp|0xB7B",
+		"Description" : "Defecating while sneaking will not alert nearby enemies."
+	},
+	"Soul Food" : {
+		"Perk" : "__formData|Devourment.esp|0xB7D",
+		"Skill" : 100.0,
+		"Description" : "Digested prey will be soul-trapped."
+	},
+	"Strong Back" : {
+		"Perk" : "__formData|Devourment.esp|0xB7C",
+		"Skill" : 70.0,
+		"Description" : "Eliminates the movement penalty for having a full stomach."
+	},
+	"Strong Acid I" : {
+		"Perk" : "__formData|Devourment.esp|0xB75",
+		"Skill" : 30.0,
+		"Description" : "Fortifies acid damage by 50%."
+	},
+	"Strong Acid II" : {
+		"Perk" : "__formData|Devourment.esp|0xB76",
+		"Skill" : 60.0,
+		"Req" : "__formData|Devourment.esp|0xB75",
+		"Description" : "Fortifies acid damage by 100%."
+	},
+	"Strong Acid III" : {
+		"Perk" : "__formData|Devourment.esp|0xB77",
+		"Skill" : 90.0,
+		"Req" : "__formData|Devourment.esp|0xB76",
+		"Description" : "Fortifies acid damage by 150%."
+	},
+	"Voracious I" : {
+		"Perk" : "__formData|Devourment.esp|0xB6D",
+		"Skill" : 10.0,
+		"Description" : "Fortifies the swallow skill by 20%."
+	},
+	"Voracious II" : {
+		"Perk" : "__formData|Devourment.esp|0xB6E",
+		"Skill" : 20.0,
+		"Req" : "__formData|Devourment.esp|0xB6D",
+		"Description" : "Fortifies the swallow skill by 40%."
+	},
+	"Voracious III" : {
+		"Perk" : "__formData|Devourment.esp|0xB6F",
+		"Skill" : 40.0,
+		"Req" : "__formData|Devourment.esp|0xB6E",
+		"Description" : "Fortifies the swallow skill by 60%."
+	},
+	"Voracious IV" : {
+		"Perk" : "__formData|Devourment.esp|0xB70",
+		"Skill" : 60.0,
+		"Req" : "__formData|Devourment.esp|0xB6F",
+		"Description" : "Fortifies the swallow skill by 80%."
+	},
+	"Voracious V" : {
+		"Perk" : "__formData|Devourment.esp|0xB71",
+		"Skill" : 80.0,
+		"Req" : "__formData|Devourment.esp|0xB70",
+		"Description" : "Fortifies the swallow skill by 100%."
+	}
+}

@@ -1,0 +1,43 @@
+=== Events that Devourment sends ===
+Use RegisterForModEvent(eventName) to receive these.
+
+"Devourment_onSwallowAttempt" -- Event onSwallowAttempt(Form pred, Form prey, bool endo, bool stealth, bool success, int locus)
+"Devourment_onSwallow" -- Event onSwallow(Form pred, Form prey, bool endo, int locus)
+"Devourment_onEscape" -- Event onEscape(Form pred, Form prey, bool endo)
+"Devourment_onLiveDigestion" -- Event onLiveDigestion(Form pred, Form prey, float damage, float percent)
+"Devourment_onPreyDeath" -- Event onPreyDeath(Form pred, Form prey)
+"Devourment_onDeadDigestion" -- Event onDeadDigestion(Form pred, Form prey, float remaining, float increment)
+"Devourment_onExcretion" -- Event onExcretion(Form pred, Form prey)
+"Devourment_onDialog" -- Event onDialog(Form pred, Form prey, bool endo)
+"Devourment_onNewCharacter" -- Event onNewCharacter(Form pred, Form prey)
+
+
+=== Events that Devourment listens for ===
+Use the ModEvent script to send these, or call them directly.
+
+"Devourment_RegisterDigestion" (Form pred, Form prey, bool endo, int locus)
+"Devourment_ForceSwallow" (Form pred, Form prey, bool endo)
+"Devourment_ForceEscape" (Form prey)
+"Devourment_DisableEscape" (Form prey)
+"Devourment_VoreConsent" (Form prey, bool toggle)
+"Devourment_SwitchLethal" (Form prey, bool toggle)
+"Devourment_Poop" (Form prey)
+"Devourment_Vomit" (Form prey)
+
+
+=== Locus ===
+0 = stomach
+1 = anal
+2 = unbirth
+3 = breasts
+4 = penis/scrotum
+
+
+=== Dialog Globals ===
+These are set during prey dialogue for use in condition functions.
+
+Devourment_Lethal 
+Devourment_Consented 
+Devourment_Locus 
+Devourment_NoEscape 
+

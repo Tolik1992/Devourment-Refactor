@@ -1,0 +1,645 @@
+2021-06-30-2
+[list]
+[*] Hungry Bones now works with regurgitation.
+[/list]
+
+2021-06-30
+[list]
+[*] Elimination weight for CV.
+[*] Fixed player-avoidant checks.
+[*] Fixed bug in random noms
+[*] Fixed bug where vore levels were gained at a ridiculous speed.
+[/list]
+
+2021-06-26
+[list]
+[*] Lots of little bug fixes and tweaks.
+[*] Hidden option: "Named Souls"
+[*] --- Named soulgems are now disabled by default.
+[*] --- Re-enable them using the console command "setpqv DevourmentSkullHandler ::NamedSouls_var 1"
+[*] Hidden option: "Separate Souls"
+[*] --- Set using the console command "setpqv DevourmentSkullHandler ::SeparateSouls_var X"
+[*] --- X=0: soulgems go into the prey's inventory 
+[*] --- X=1: soulgems go into your stomach
+[*] --- X=2: soulgems go directly into your inventory (default)
+
+2021-06-19
+[list]
+[*] Fecal scaling improved
+[*] PeudoAI improved
+[*] Debugging mode in the player control script now disabled which should improve performance
+[*] Added a no-children check that was missing.
+[/list]
+
+2021-06-15
+[list]
+[*] Countervore perk -- potentially turns a failed vore attack into retrovore.
+[*] Added Digest I-III to all Dawnguard and Vigil of Stendarr.
+[*] Optional installer file to give Digest I-III to literally every pred.
+[*] Tweaks to AI to make it work better with large creatures.
+[*] Added Vorish keyword to all followers.
+[/list]
+
+2021-6-14
+[list]
+[*] Entitlement should never happen for the player anymore.
+[*] Entitlements should get updated when higher level prey are devoured.
+[*] Various minor fixes
+[/list]
+
+2021-06-07
+[list]
+[*] WeightManager weight loss will now apply to nearby NPCs.
+[*] Potions of weight change and two weight changing blades are available from Mia.
+[/list]
+
+2021-06-04
+[list]
+[*] WeightManager settings persistence combined with the rest of Devourment's settings.
+[/list]
+
+2021-06-03-2
+[list]
+[*] Missing event registrations in weightmanager.
+[/list]
+
+2021-06-03
+[list]
+[*] So many bug fixes. So many. Lost track of them all.
+[*] New game 100% required. Don't even try to load an old save or you'll get a kidney infection and perish.
+[/list]
+
+2021-06-02
+[list]
+[*] Added additional status spell for dialogue addons
+[*] Changes to BYK for speed.
+[*] Improved WeightManager tab.
+[*] More changes to random noms. Argh...
+[*] Explosive defecate escape.
+[*] Non-explosive dead prey escape.
+[/list]
+
+2021-06-01
+[list]
+[*] Refined elements of the Weight Management System
+[*] --- You can now add foods to the High Value food list and No Value food list
+[*] --- High Value foods are things like meat and butter that add more than normal to weight.
+[*] --- No Value foods are things like water and vinegar that don't add to weight.
+[*] --- Pre-filled both lists with some select items from SunHelm and CACO.
+[*] Added additional status spell for dialogue addons
+[/list]
+
+2021-05-31-2
+[list]
+[*] Added missing weightmanager control file.
+[*] Should have fewer issues with elimination puddles being flagged as stealing.
+[/list]
+
+2021-05-31
+[list]
+[*] Less defecation inside of homes
+[*] Changes to random noms filtering
+[*] Simple WeightManagement system with morphs, thanks to Gaz.
+[*] Micromode now includes a "capacity" skill that must be increased by overeating.
+[*] Bug fixes
+[*] New bugs
+[/list]
+
+2021-05-27
+[list]
+[*] Retrovore for small animals
+[*] Lots of small bugfixes.
+[*] Coprophagia
+[*] Digest Items III
+[*] Changes to animation system and vore timing.
+[*] --- Baka, aka BakaFactory, aka FactoryClosed, has provided us with a nonconsensual oral vore animation.
+[*] --- Go show Baka some love. Now, please.
+[*] --- Why are you still reading? Off you go.
+[*] Separate settings for pred and prey XP multipliers.
+[*] Very basic attempt to prevent CTD during decapitations when the playe has face overlays.
+[*] --- As a side effect, you face overlays may disappear if you decapitate someone else. Sorry.
+[*] Death / Bleedout
+[*] --- The player automatically vomits when they are sent into bleedout.
+[*] --- The remains of partially digested prey are defecated when their pred dies.
+[*] Incorporated some of Cacame's sounds.
+[*] Incorporated some more of Cacame's stuff. 
+[*] --- Sounds 
+[*] --- --- Increases burp and gurgle variety, and provides better screamless options.
+[*] --- --- Install their mod if you want the fully de-screamed/de-grunted experience.
+[*] --- Megadigest power.
+[*] --- --- It's granted when you take the Strong Acid perk.
+[*] --- --- It gets more powerful when you take Strong Acid II and III.
+[*] --- --- Install their mod if you want that power without the perk requirement.
+[*] --- --- I hope that's cool, Cacame! If not, I'll take it out.
+[/list]
+
+2021-05-21
+[list]
+[*]NEW GAME ===NOT=== REQUIRED
+[*]ALPHA VERSION; use with caution.
+[*] [b]SCALING[/b]
+[*] --- Scaling should no longer stop working on NPCs after saving/loading or changing cells
+[*] --- You'll see the bellies disappear and reinflate though... every single time.
+[*] --- But hopefully only for predators who have swallowed the player.
+[*] --- This needs lots of testing and feedback from you people.
+[*] Optimizations to the player teleporter thingy.
+[*] [b]AI[/b]
+[*] -- The PseudoAI should work better after saving/loading or changing cells.
+[*] --- Fixed Randoms Noms sometimes causing self-vore attempts.
+[*] --- Random Noms can now target the player (and followers), everyone except the player (and followers), or just everyone.
+[*] Fixed the empty vomit puddles overlapping the filled ones.
+[*] [i]Potential[/i] fix for empty scat piles. I can't replicate it so I can't say for sure.
+[*] Fixed WeightGain uniqueness check.
+[*] [b]Hungry bones[/b]
+[*] --- Let me know if they are broken now.
+[*] --- They should at least be better at fighting now. 
+[*] --- They should be smarter about not trying to dual-wield.
+[*] --- Hungry Bones can now reanimate up to level 120.
+[*] --- Skeletons' levels should be the midpoint between the pred's level and the prey's level.
+[*] [b]Follower Perks[/b]
+[*] --- Should be able to give perks to followers now using the QuickSettings menu.
+[*] --- This needs lots of testing. I don't even know for sure if they gain skill points and perk points correctly.
+[/list]
+
+2021-05-19
+[list]
+[*]NEW GAME ===NOT=== REQUIRED
+[*]ALPHA VERSION; use with caution.
+[*]Changed dialogue scripts AGAIN. Oi.
+[*]Cordyceps-Frenzy 
+[*] --- If you press the dialogue key while in control of an NPC, they will regain control of themselves.
+[*] --- They will also have a very powerful Frenzy effect applied to them.
+[*] --- This also works for NPC-NPC vore, if an NPC has Cordyceps.
+[*]Tweaked the item breakdown formula.
+[*] --- Now considers weight AND value.
+[*]Beast race skeletons
+[*] --- Skeletons should also scale with the player level now.
+[*]Player-Avoidant toggle (the opposite of Player-Centric -- NO ONE vores the player).
+[*]Experimental support for Sexlab Aroused. 
+[*] --- Vore and endo increase arousal, depending on lewdness and sexuality.
+[*] --- In the future, may add accidental digestion when at high arousal.
+[*]Macromancy spells now adjust speedmult.
+[*]Added MCM settings for NPC Locus-Vore chances. 
+[*] --- NEEDS TESTING.
+[*] --- Males should no longer get breast or unbirth vore, and females should no longer get cockvore.
+[*] --- Doesn't check for transgendered NPCs ... yet.
+[*]Added Vomit as a Scat Style. Does nothing for the player, but makes NPCs use regurgitation instead of defecation.
+[*]Shortened remains cleanup to 4 days, controllable via the DevourmentRemainsCleanup globalvariable.
+[/list]
+
+2021-05-13[list]
+[*]NEW GAME ===NOT=== REQUIRED
+[*]ALPHA VERSION; use with caution.
+[*]Added a random chance for NPCs to use breastvore, cockvore, and analvore. 
+[*] --- If it works decently and there aren't a slew of complaints, I'll add MCM settings to control the frequency.
+[*]Added an empty file structure for voice samples.
+[*] --- I also included an empty wav file that demonstrates the correct naming convention for a Devourment voice file. 
+[*] --- Just so we're clear, I'm not going to make any voice samples.
+[*] --- I don't really like voices.
+[*] --- If someone would like to dig into xKVASynth and make a voice pack, I'll happily include it. But I personally can not get good results from it.
+[/list]
+
+2021-05-12
+[list]
+[*]NEW GAME ==NOT== REQUIRED
+[*]ALPHA VERSION; use with caution.
+[*]Fixed DHLP-Suspend issue.
+[*]Fixed small Lua issue.
+[*]Added 'Dual Breast Mode' toggle, to control whether the breasts are treated as separate locuses or not.
+[/list]
+
+2021-05-11
+[list]
+[*]NEW GAME REQUIRED:
+[*] --- Hopefully the last time for a while. 
+[*] --- BreastVore struggles required some very low-level changes.
+[*]DHLP events:
+[*] --- Devourment now pauses and resumes itself when the DHLP-Suspend/Resume modevents are received.
+[*] --- Devourment now sends the DHLP-Suspend modevent when the player is swallowed, and DHLP-Resume when they escape or die.
+[*]BREASTVORE
+[*] --- BreastVore is now two separate loci, one for the left breast and one for the right breasts.
+[*] --- This means you can use Nodes instead of sliders for the breasts.
+[*] --- It also means you can give the left and right breast  different sliders, different scalings, etc.
+[*] --- BreastVore now has its own struggle animations.
+[*] --- This is all made possible by Macross' new Devourment 3BAv2 body. <3
+[*] --- This required making a lot of changes to a lot of scripts. Hence the new game requirement.
+[*]FIXES
+[*] --- Disabled the testing condition that was causing lots of dialogue problems.
+[*] --- Fixed the floating wig thing that was happening after a Become Your Killer event.
+[*] --- Changed how upgrades are performed to accomodate a bug in SkyUI.
+[*] --- More checks to prevent stripping Devious Devices.
+[*] --- Fixed Defecate clothes
+[*] --- Fixed Separate Skulls not working.
+[*] --- Added 100% swallow bonus against paralyzed enemies.
+[*] --- Fixed Vore Magic 1 requiring BOTH vore skills to be 20. Now it requires just one or the other.
+[*] MERGED
+[*] --- Incorporated the RaceMenu plugin.
+[*] --- Incorporated the Extra Spells and fixed some bugs in them. They still have to be added manually to the player.
+[*] --- Got rid of the separate survival plugins. They're back to being built-into the main plugin.[/list]
+
+2021-05-06[list]
+[*]Added "Gentle Gas" patch, for those who don't like the burp and fart powers knocking things over.
+[*]Fixed burp sounds happening for the fart power.
+[*]When items are being defecated or regurgitated, if there are more than 10 of a particular item they will be combined into stacks.
+[*] --- Arrows, bolts, and ingredients will ALWAYS be stacked.
+[*] --- I really liked the slot-machine-style defecation for large amounts of gold, but it can be a bit too much sometimes...
+[*]Improvements to the TalkActivator, and actually added a VoreTalker keyword for addon-makers to use.
+[*]Better caching and uncaching of actor sizes.
+[*]Renumbered some FormIDs to recover plugin space. This shouldn't break any addons, but I guess we'll see.[/list]
+
+2021-05-03[list]
+[*]Attempted to fix the installer, but I don't have vortex or NMM so I have no idea if it helped.
+[*]This version has been blessed by the FOMOD creation tool, for whatever that's worth.[/list]
+
+2021-05-03[list]
+[*]SUBSTANTIAL UPDATE, NEW GAME PROBABLY REQUIRED.
+[*]This is very much a test version and may have weird bugs.
+[*]To support dialogue with very large prey and prey without the ActorTypeNPC keyword, added support for the VoreTalker keyword.
+[*] --- This keyword isn't actually in Devourment. If you need it for your mod, just create a keyword with that name and use it.
+[*] --- Any Actor with the VoreTalker keyword is a valid target for player-prey dialogue.
+[*] --- If an actor has the VoreTalker keyword, a TalkingActivator will be spawned in the actor's place. 
+[*] --- The DialoguePreyAlias referencealias will always point to the actual prey, so use that for gender and race checks, etc.
+[*]Removed the menu for method of disabling the player. Devourment now uses a hybrid system that should work better in all regards.
+[*]Removed the morphvore KEYWORD system because it was not working well.
+[*] --- All predators will have morphs applied to them, even if their mesh doesn't support it. This may cause performance problems if you have large-scale battles with lots of vore going on.
+[*] --- It will also eliminate a lot of the problems people are having with morphs not working on creatures -- particularly levelled creatures.
+[*]Separated Needs support into five separate optional plugins. The survival plugin was getting too cluttered.
+[*]Made the installer a little nicer with Genki's lovely art.
+[*]Probably some other bug fixes that I've forgotten.[/list]
+
+2021-04-29-2[list]
+[*]Fixed installer error.[/list]
+
+2021-04-29[list]
+[*]Fixed a body scaling issue that was resulting in excessive size changes.
+[*]If the struggle system is disabled, player struggle bumps will play the same way they do for NPC.
+[*]A bunch of small bugfixes.
+[*]Added a Fart power as a counterpart to the Burp power. They are functionally identical except for their name and sound effect.
+[*]Added a very simple system for giving non-unique NPC and creatures a special title if they've digested someone.
+[*] --- If a non-unique pred has digested a non-unique prey, they will be given a "Bane" title.
+[*] --- Example: if "Whiterun Guard" digests "Bandit", they become "Whiterun Guard BanditsBane".
+[*] --- This only happens if the prey has a one-word name.
+[*] --- If a non-unique pred has digested a unique prey, they will be given a "Devourer" title.
+[*] --- Example: if "Skeever" digests "Lydia", they become "Skeever - Devourer of Lydia".
+[*]--- This way, it's slightly less of a surprise if you find a bunch of unexpected items in a predator's inventory.[/list]
+
+2021-04-26[list]
+[*]​TEST VERSION -- lots of changes under the hood. 
+[*]Hopefully fixed camera problems during the cannibalism animation.
+[*]Fixed QuickMenu cordyceps toggle not working.
+[*]Fixed a fairly serious script leak in the PseudoAI.
+[*]Fixed a bug where the camera would go to the void when your pred gotten vored themselves.
+[*]Rox has provided some updated creature meshes and a few new ones.
+[*]Completely replaced the player struggle system.
+[*] --- New system works without any prompts. 
+[*] --- Instead of WASD (or whatever the gamepad version was), it's just strafeLeft and strafeRight (LT and RT for gamepad).
+[*] --- It's tied to the OnKeyUp event -- so rapid key mashing wont help you. Slow and steady works best.
+[*] --- Some of you will hate this, and I apologize to you. But the code is much cleaner and more maintainable. It solves a lot of problems.
+[*] --- This also gets us a new event -- Devourment_OnPlayerStruggle.
+[*] --- This also gets us a new feature -- when the player is prey, struggle bumps will only appear on the pred when you are actually struggling.
+[*]Phylactery Perk
+[*] --- Now stores up to 20 recent vore-friends 
+[*] --- If the selected host in currently swallowed, they will be force-vomited.
+[*] --- Fixed a missing reference.
+[*]Become Your Killer
+[*] --- Vore perks get properly refunded.
+[*] --- You get healed, to prevent some accidental deaths.
+[*] --- Added a scooch of paralellism for speed.
+[*]Perks
+[*] --- Rearranged perk menus
+[*] --- Cleaned up naming
+[*] --- Added descriptions to the alternate perk menu.
+[*]Swallowing potions and ingredients now consumes them. 
+[*] --- This includes poisons, so be careful about voring people that have poisons in their inventory.
+[*] --- If you ever find yourself needing some code to make people drink poisons, feel free to steal this!
+[*] --- Thanks Gaz, it was SUCH a good idea. ❤️
+[*]I worked hard to make this version safe to update, but I can't make any promises.
+​[/list]
+
+2021-04-22[list]
+[*]fixed reformation
+[*]NP+ is now the default key for the Devourment Menu
+[*]Lots of changes to the Devourment menu
+[*]Default breast slider changed to BreastNewSH (aka Breasts - Huge)
+[*]Default butt slider changed to ChubbyButt.
+[*]Changed how weights are cached.
+[*]DigestItems will now digest potions and ingredients.
+[*]When swallowing several loose items in a short time, Devourment will try to combine them into one bolus.
+[*]Optional patch for UIExtensions to give allow ListMenu to have up to 1000 entries instead of just 128.
+[*]Should be safe to update.[/list]
+
+2021-04-20[list]
+[*]Fixed a series of dialogue errors.
+[*]Deprecated some Help notifications in favour of TalkingActivator messages.
+[*]Made a number of improvements to the quick settings menu.
+[*]This version may have unexpected bugs.
+[*]Safe to update.
+[*]Added secret unrestricted item vore setting. For your own good, don't ever use it.[/list]
+
+2021-04-19
+[list][*]New toggle -- elimination locus. Controls whether the butt inflates as the stomach shrinks.[/list]
+
+2021-04-18[list]
+[*]Mostly just a bunch of minor fixes.
+[*]Expert Mode is now redundant. The morph configuration files will ALWAYS be used if there is anything in them.
+[*]Creature belly scaling is now set to 2x larger than it was before. It's controlled in the file [b]data\skse\plugins\devourment\bodyMorphs_creature.json[/b].[/list]
+
+2021-04-16[list]
+[*]This is a bleeding edge TEST version. Use with caution.
+[*] --- Surprisingly, it should be safe to upgrade from 2021-04-12 or later.
+[*]LOTS of bugfixes. So many. Soooo many. :-(
+[*]Analvore now inflates the stomach instead of butt. Butt inflation has been repurposed.
+[*]DevourmentRefactor now features a VERY simple player-revival system. 
+[*] --- Requires the Phylactery perk.
+[*] --- Player reforms inside of the most recent follower or horse that endoed them.
+[*] --- Added the skeleton of a quest registration system to allow other modders to add their own scenarios.
+[*]Optional slider for item burping.
+[*]Toggle for Combat Accelerated Vore, just like in the old days. With Combat Acceleration enabled, digestion is 10x faster during combat.
+[*]The QuickSettings menu can now be toggled to target whoever you are looking at (or whoever is selected in the console). 
+[*] --- This is only useful for selecting perks for them, or viewing their stomach contents.
+[*]The MCM Stats page will show the stats for whoever you are looking at (or whoever is selected in the console); if no one is targeted, it will default to the player.[/list]
+
+2021-04-13[list]
+[*]Fixed a major dialogue bug.
+[*]Removed the Stranger and Special Room dialogue. 
+[*] --- Gherking has moved them into his mod and will be maintaining them, since he has superior skills in that domain.
+[*] --- Seriously, check out his work. His writing skills are quite respectable.[/list]
+
+2021-04-12[list]
+[*]Fixed a bug with switching back to endo in the StrangeVore dialogue.
+[*]The strangevore dialogue will get phased at some point and be replaced with a separate add-on.
+[*]Improvements to the Animated Vomit; it will now be reskinned for vomit, scat, and milk/semen. Afterbirth will come at some point too.
+[*]Fixed some problems with the player being fatally digested.
+[*]Added assignable hotkeys for vore, endo, and swallow (aka contextual vore).
+[*]This version breaks compatibility, so it requires a new game. Sorry. I do my best! Please stop mailing feces to my house.[/list]
+
+2021-04-08[list]
+[*]Experimental AnalVore animation cobbled together using the SitFrontChair animation and the Cowering animation.
+[*]Micro mode
+[*]Added a scooch of randomness to endo; if it causes problems for you, please let me know! I know I said I wouldn't add this feature, but it was actually a free side-effect of adding the code for Micro mode. [*]Funny how that works.
+[*]Small fixes to the Lua backend.
+[*]Hybrid invsibility style.
+[*]Added DevourmentGatedDialog patch; this will put all top-level vore dialog behind a [Vore] prompt, to reduce dialog clutter.
+[*]The "Hey Stranger" dialogue wont go behind the gate, for some reason. I'm really not a dialogue guy, so if anyone has any insight please let me know.[/list]
+
+2021-04-07[list]
+[*]Improvements to the animated vomit puddle. [i]Phrases you never thought you would be typing...[/i]
+[*]Fixed pre-filled bellies not working.
+[*]Added maximum scaling settings.
+[*]Decreased burden exponent to 0.4.
+[*]Some changes to item vore to handle stacks better. Still not great. Be careful swallowing stacks of things.[/list]
+
+2021-04-06[list]
+[*]Fixes to the alternate perk menu
+[*]Macromantic enchantments should be applicable to more types of gear
+[*]Digest Items will now breakdown some armor and weapons into their components. 
+[*]New Perk: Digest Items II -- enhances the Digest Items power to break down some items into gold.
+[*]Fixed Vore Magic missing from the pred perks menu
+[*]Fixed missing condition in the Strong Back perk
+[*]Added crouchscat to quicksettings
+[*]Added animated vomit. Very experimental -- be careful using it or you will catch Ukrainian Measles and die.
+[*]Add size-proportional digestion times option
+[*]Extended swallow immunity to ten seconds.[/list]
+
+2021-04-03[list]
+[*]You can now access the perk menus from QuickSettings.
+[*]Added an alternate set of Perk Menus for people who just cannot seem to get Custom Skills Framework installed. Also VR users, I guess?[/list]
+
+[spoiler]
+2021-03-29[list]
+[*]Fixed a bug in "Become Your Killer"
+[*]Added a Morphs page to the MCM.
+[*]If you enter the name of a Node in the Slider fields, Devourment should autodetect that and scale the node instead. Still a prototype.[/list]
+
+2021-03-24[list]
+[*]Improved the Quick Settings power.
+[*]Added a shortcut key MCM control for Quick Settings.
+[*]Added a shortcut key MCM control for Dialog.[/list]
+
+2021-03-23-3[list]
+[*]Added Devourment Settings spell and a corresponding EasyWheelMenu option.
+[*] -- Allows the Hungry Bones perk to be toggled on and off (if you have the perk)
+[*] -- Allows selecting the Default vore location
+[*] -- Allows loose item swallowing to be toggled on and off (but you can always swallow anything you grab, even without a vore power selected)[/list]
+
+2021-03-23-2[list]
+[*]Modified the installer to make the Bodyslide stuff optional.
+[*]Updated the pre-built NPC and creature meshes to make sure that people can definitely get a working set of meshes.[/list]
+
+2021-03-23[list]
+[*]Small bugfix for Digest Items.
+[*]Added a separate toggle for "Become your Killer" for creatures, since it's ... bad. And not particularly fixable. [/list]
+
+2021-03-22[list]
+[*]Improved Gamepad support
+[*]Preliminary Playable Monster Mod support, but the json file configuring needs to be filled out with Race editorIDs. Help out with that if you're able.
+[*]Vored Follower dialogue should work a bit better.
+[*]Added Analsorbance spell as a modder's resource. It doesn't work as intended because a lot of ground objects don't have their physics setup properly.
+[*] -- The goal of that spell is to hoover up loose items and treasure into the butt. [/list]
+
+2021-03-20[list]
+[*]Readded the "Vore Dialogue" toggle for those who don't like Vore dialogue.
+[*]Readded the "Player Centric" toggle for those who want the player to be the only target for combat vore and random noms.
+[*]Parting Gift will now only activate when prey struggles free or escapes via timeout.
+[*]Modified how the guard against voring children operates. There might be a slight performance impact.[/list]
+
+2021-03-19[list]
+[*]Fixed the B9B/B9C bug. Go say 'thank you' to Masxohn for finally figuring out the cause.
+[*]Fixed Soul Food.
+[*]Added more creatures to the MorphVore distribution. Let me know if any creatures are missing.
+[*]I am aware that dialogue is working less well than before. Working on it.
+[*]Packaged the Rebirth animation, since some people seem to be struggling with getting it installed. 
+[*] -- Hopefully Leito is cool with that...
+[*] -- It still requires you to run FNIS or Nemesis. [/list]
+
+2021-03-15-2[list]
+[*]Tiny update for unbirth fans: unbirth now transitions straight into rebirth. Seriously, use the BeeingFemale animations. It's pretty great all together.[/list]
+
+2021-03-15[list]
+[*]TEST VERSION ONLY === CONSIDER THIS UNSTABLE
+[*]Tentative support for Death Alternative.
+[*]Locational scaling now enabled by default, and Cock inflation supported.
+[*]SunHelm hunger support.
+[*]Added optional plugin that adds location specific vore and endo spells. You still have to add them the PC manually.
+[*]Added optional pre-built meshes for morphvore creatures, bodies, and bellies.
+[*]Added Rox's struggle morphvore creatures.
+[*]Survival Mode cold reduction while inside a pred.
+[*]Rearranged dialogue substantially to better support dialogue addons and improve reliability.
+[*]Expert mode supports race specific configs using the filename 'bodyMorphs_EDID.json' where EDID is the EditorID of the race.
+[*]Try rebirthing a reformed NPC.[/list]
+
+2021-03-15[list]
+[*]TEST VERSION ONLY === CONSIDER THIS UNSTABLE
+[*]Restored the SkepticMech belly.
+[*]Locational scaling (disabled by default; remember hold shift when you vore to set the default location)
+[*]Yet another attempt to fix B9C...
+[*]Made expert mode a bit smarter. Does anyone even use it?[/list]
+
+2021-03-12-2[list]
+[*]Found a decent way to check if NetScriptFramework and Custom Skills Framework are installed correctly.
+[*]Dogs all get Random Noms just because it's fun.[/list]
+
+2021-03-12[list]
+[*]Deleted the entire offending Topic containing B9B and recreated it. Also added more ActorTypeNPC keywords to the replacement, and to all the infos proximal to the old one. Argh... 
+[*]If you have Horny Creatures of Skyrim in your load order and the dragon vore animations are enabled, the NPC will swallowed at the end. The timing isn't quite right yet though.[/list]
+
+2021-03-11[list]
+[*]Location vore partially implemented: hold Left-Shift while using Vore or Endo, and you will be prompted to choose a new default location.
+[*] -- This doesn't have any practical effects in-game yet.
+[*] -- If you have BeeingFemale installed (even without the plugin actually enabled) and generate a FNIS or Nemesis patch, Unbirth regurgitation will play the BeeingFemale birth animation.
+[*] -- There is an incomplete Cockvore regurgitation based on the XPMSE Schlong Shout.
+[*]Added HasKeyword(ActorTypeNPC) checks to all top-level dialogue. Hopefully this will prevent the B9B crash.
+[*]Fixed a situation that sometimes caused prey inventory to be lost.
+[*]Removed all of the old bellies and bodies. The Macross/Gaz bellies and bodies are standard now.
+[*]Fixed yet another bug in pre-filled NPCs.
+[*]Did some touch-ups on the StrangerVore dialogue.[/list]
+
+2021-03-10[list]
+[*]Fixed bug that occurs if you try to digest a reformed NPC.
+[*]Simplified installer since the MCM can handle gender.
+[*]Added MCM controls for Skull Collecting.
+[*]Fixed bug that caused lots of empty boluses in the stomach.
+[*][b]You can now click boluses in the Stomach Contents view and see what's in them .[/b]
+[*]Added some infrastructure to support locational vore.
+[*]Optimized BellyScaling and streamlined it support locational vore... eventually. Hopefully I didn't break it.[/list]
+
+2021-03-08[list]
+[*]Experiment version
+[*]Added installer to help people get the setup they want.
+[*]Add Skull Collection feature (can't be disabled yet)
+[*] -- Receive a named skull for each Essential, Protected, or Unleveled NPC you digest (also dragons).
+[*] -- If you need to resurrect them for some reason, just swallow their skull and they'll be Reformed in your stomach.
+[*]Item digestion [b]partially[/b] implemented. 
+[*]Lots of small bug fixes.
+[*]Two things currently broken!
+[*] -- Some digestion screams are currently NOT working.
+[*] -- Not at all creature MorphVore is working at the moment.[/list]
+
+2021-03-04-2[list]
+[*]I think I fixed the thing where you got your vore level in perk points, rather than just one per level.[/list]
+
+2021-03-04[list]
+[*]Hold shift when using the regurgitate or defecate powers to get a list menu.
+[*]Instead of picking prey for you, dialogue will now display a menu asking which prey you want to talk to.[/list]
+
+2021-03-03[list]
+[*]Small change to PseudoAI that should help prevent long-range swallows.
+[*]Separated Scat settings for NPCs, creatures, and items.
+[*]If an actor's scat type is set to "Absorb" but items are set to "Defecate", the actor's inventory will be digested separately.
+[*]Vomiting and defecation are now slightly more ... kinetic.
+[*]Added optional weight gain.
+[*]Fixed some problems with Prefilled NPCs.
+[*]You can activate dialog from the Stomach Contents menu by holding SHIFT and clicking their name. Added highlight info reflecting that.
+[*]Added "Bellyport" and "Burp". They're not quite perfect yet though.
+[*]Fixed the thing where Forced Feeding made people invisible.
+[*]Got rid of the last vestiges of the "Deferred Add" thing. Spells and Powers are added directly using perks now.
+[*]Finished transferring dialog management functions to the DevourmentDialog script.
+[*]More dialogue typos and stuff fixed. Removed a lot of unnecessary gender checks.
+[*]Added some checks to prevent scat dialogue from showing when when scat is disabled for NPCs. Still lots left to find though.[/list]
+
+2021-02-28[list]
+[*]Experimental version...
+[*]You should be able to get better invisibility for prey during dialogue. MCM setting to control which method is used. 
+[*] --- The EffectShader doesn't work yet. 
+[*] --- The Armor/Node method may produce strange results sometimes.
+[*] --- The alpha method may conflict with some mods (but I consider it the best option so it's the default).
+[*] --- The Invisibility spell method is the legacy system, which shows the outline.
+[*]Experimental feature -- some preds will start with full bellies (cosmetic only for now).
+[*]Fixed a HUGE bug in the code for absorbing and defecating, it was probably causing crashes for some of you.
+[*]Lots of little bug fixes. Like, LOTS.[/list]
+
+2021-02-25-2[list]
+[*]Added the missing normals texture for vomit.
+[*]Fixed up the vomit shader to be actuall visible. If you have any knowledge of making Skyrim effectShaders and want to improve it, I would be grateful.
+[*]Added DevourmentSuperPrey and DevourmentSuperPred keywords, which will cause NPCs to start with much higher pred/prey skill levels relative to their character level.[/list]
+
+2021-02-25-2[list]
+[*]Fixed broken XP system from the previous version.
+[*]CrouchScat should now work again.
+[*]Uncompressed the textures archive since it appears that some people aren't having textures show up.[/list]
+
+2021-02-25[list]
+[*]Adjusted paired animation conditions.
+[*]Removed "Swallow" from the list of default powers (you can still add it manually if you really like it for some reason)
+[*]Added the Diminution (other) and Augmentation (self) spells to Thalmor.
+[*]Changed a few more pieces of dialog to the new system, fixed some more spelling and grammar errors. Neverending tho...
+[*]No more automatic defecation when "Crouch to Defecate" is off. 
+[*]The full bowel message should disappear after using the Defecate power.[/list]
+
+2021-02-24-2[list]
+[*]A bunch more bug fixes...
+[*]Absorb shouldn't cause CTD anymore.
+[*]You can now ALWAYS swallow grabbed items using the shout key. I don't have theft detection for it yet... but you can already steal literally anything you grab without consequences, so this really isn't urgent.
+[*]Probably going to remove the "Swallow" power soon, since it's now almost completely redundant.
+[*]Finished the "expert" configuration file for body morphs. It's in SKSE\plugins\devourment. Go crazy with it.
+[*]Investigated "skull collecting". Unfortunately the "All Races Drop Skulls" mod A) is terrible, and B) has restrictive permissions. If anyone would like to develop a new set of skull models and texturesets, I'd be happy to add that feature.
+[*]Added the perk "Stick The Landing". I think it's neat. Let me know what you think.[/list]
+
+2021-02-24[list]
+[*]Stomach dialogue now scales the prey to like an inch tall, so that there is no Predator-style heat distortion standing beside you. This has the added benefit that the predator looks downwards while talking. Let me know if it causes any problems. This feature is just an experiment, we're not married to it.
+[*]Major change to how timers and health are updated during digestion. It should increase performance and prevent prey health from resetting after talking to them. But if you see a bunch of garbly error messages in the console, or health stops updating or something, please screenshot it and/or tell me about it.[/list]
+
+2021-02-23[list]
+[*]Hopefully fixed some of the problems with prey immediately respawning.
+[*]Fixed acid damage bug.
+[*]Started reworking the dialog system.  8O 
+[*]Added instructions for creating vore dialogue.
+[*]A whole bunch of little bug fixes. Hopefully no NEW bugs.
+[*]Added Bones/Absorb digestion.[/list]
+
+2021-02-22[list]
+[*]Added some damage resistance to predator and prey during swallowing animations.
+[*]Player now starts with enough XP that gaining skills isn't quite so weird.
+[*]Acid damage, holding time, and struggle damage now scale linearly with skill rather than quadratically.
+[*]For consenting prey, there shouldn't be a bounty anymore.
+[*]Added missing bellies for Mer
+[*]Digestion bars should always disappear properly.
+[*]Moved the vore Skill Gain system out of the main loop, because it's very slow.
+[*]XP gains applied asynchronously.
+[*]New bump magnitude tracker.
+[*]Incorporating a LinkedRef system to improve performance in a few areas.
+[*]ProduceVomit() and DeadDigested() now have asynchronous proxy calls.
+[*]Slightly improved skeletons and equipment defecation.[/list]
+
+2021-02-20[list]
+[*]Awesome new equippable belly from SkepticMech that supports MorphVore and struggle sliders! Very excited, it looks great.
+[*]Hopefully fixed the Crafting bench bug.
+[*]Struggle sliders scale in proportion to prey health.
+[*]Added MCM slider for struggle bump size.
+[*]Hopefully fixed the thing where NPCs can't draw their weapons after being regurgitated.
+[*]Macromancy spells now scale smoothly.
+[*]Stomach scales smoothly (sort of) when it changes size.
+[*]Some minor dialogue fixes. Keep reporting dialogue bugs though, there are so many!
+[*]Low level enemies should be able to vore. Their stomach capacity was set too low to be able to actually vore anything. Fixed it.
+[*]Tweaked the skeleton a bit. Let me know if it's any better than it was.[/list]
+
+2021-02-19[list]
+[*]Rearranged the MCM a little bit.
+[*]Fixed Devourment_DISTR.ini... hopefully.
+[*]Improved the bump sliders script, both in performance and aesthetics. 
+[*]Add toggles to disable creature predators, male predators, and female predators. They still need to be in Devourment_DISTR.ini to be eligible for combat vore.
+[*]Reduced magicka cost of Diminution and Augmentation and added a visual effect so that it is not quite as abrupt.
+[*]Added alternate vore animation for prey that has been shrunk to 20% size or less.[/list]
+
+2021-02-16[list]
+[*]Fixed some bugs.
+[*]Got the list of races digested to work correctly again.
+[*]Names should show up more consistently.
+[*]Added mouseover text for the skills, so that you can see how much experience you have/need.[/list]
+
+2021-02-14[list]
+[*]Added support for Gaz's excellent MorphVore body and bump sliders. Still working on the timing script, but it's already not half bad.
+[*]Added the Augmentation and Diminution spells, and the Sword of Diminution. No recipe for it yet.
+[*][/list]
+
+2021-02-12[list]
+[*]Added the meshes folder. Derp.
+[*]Added the missing conditions to prevent dialogues from activating on children.
+[*]Gaz contributed a patch to allow the death screams to be disabled in the MCM.[/list]
+
+2021-02-11[list]
+[*]Fixed stripping while swallowed
+[*]Fixed digestion not actually finishing
+[*]Re-added the belly model menu
+[*]Small innocuous change that [i]might[/i] be helping with the FEC script explosion thing.[/list]
+

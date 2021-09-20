@@ -1,0 +1,161 @@
+{
+	"Counter-Vore" : {
+		"Perk" : "__formData|Devourment.esp|0xAAF",
+		"Skill" : 50.0,
+		"Req" : "__formData|Devourment.esp|0xBF5",
+		"Description" : "Provides a chance to swallow an enemy who fails a vore attack."
+	},
+	
+	"Vore Magic I" : {
+		"Perk" : "__formData|Devourment.esp|0xC81",
+		"Skill" : 20.0,
+		"Description" : "Provides a set of low level vore spells."
+	},
+	
+	"Vore Magic II" : {
+		"Perk" : "__formData|Devourment.esp|0xC8B",
+		"Skill" : 70.0,
+		"Req" : "__formData|Devourment.esp|0xC81",
+		"Description" : "Provides a set of high level vore spells."
+	},
+	
+	"Comfy" : {
+		"Perk" : "__formData|Devourment.esp|0xC07",
+		"Skill" : 20.0,
+		"Description" : "You can sleep inside of friendly predators."
+	},
+
+	"Delicious" : {
+		"Perk" : "__formData|Devourment.esp|0xBFA",
+		"Skill" : 40.0,
+		"Req" : "__formData|Devourment.esp|0xC07",
+		"Description" : "Friendly predators will regenerate health quickly when they endo you."
+	},
+
+	"Phylactery" : {
+		"Perk" : "__formData|Devourment.esp|0xD39",
+		"Skill" : 60.0,
+		"Req" : "__formData|Devourment.esp|0xBFA",
+		"Description" : "If you get digested by an enemy, a friendly NPC might reform you in their stomach."
+	},
+
+	"Cordyceps" : {
+		"Perk" : "__formData|Devourment.esp|0xCCF",
+		"Skill" : 80.0,
+		"Description" : "Gives partial control over hostile predators when you're inside of them."
+	},
+
+	"Parting Gift" : {
+		"Perk" : "__formData|Devourment.esp|0xCCE",
+		"Skill" : 70.0,
+		"Description" : "Deals massive damage to predators when you struggle free from them."
+	},
+
+	"Stick the Landing" : {
+		"Perk" : "__formData|Devourment.esp|0xC22",
+		"Skill" : 50.0
+	},
+
+	"Resilience I" : {
+		"Perk" : "__formData|Devourment.esp|0xBE5",
+		"Skill" : 10.0,
+		"Description" : "Fortifies digestive acid resistance by 20%."
+	},
+
+	"Resilience II" : {
+		"Perk" : "__formData|Devourment.esp|0xBE6",
+		"Skill" : 20.0,
+		"Req" : "__formData|Devourment.esp|0xBE5",
+		"Description" : "Fortifies digestive acid resistance by 40%."
+	},
+
+	"Resilience III" : {
+		"Perk" : "__formData|Devourment.esp|0xBE7",
+		"Skill" : 40.0,
+		"Req" : "__formData|Devourment.esp|0xBE6",
+		"Description" : "Fortifies digestive acid resistance by 60%."
+	},
+
+	"Resilience IV" : {
+		"Perk" : "__formData|Devourment.esp|0xBE8",
+		"Skill" : 60.0,
+		"Req" : "__formData|Devourment.esp|0xBE7",
+		"Description" : "Fortifies digestive acid resistance by 80%."
+	},
+
+	"Resilience V" : {
+		"Perk" : "__formData|Devourment.esp|0xBEB",
+		"Skill" : 80.0,
+		"Req" : "__formData|Devourment.esp|0xBE8",
+		"Description" : "Fortifies digestive acid resistance by 100%."
+	},
+
+	"Slippery I" : {
+		"Perk" : "__formData|Devourment.esp|0xBF2",
+		"Skill" : 10.0,
+		"Description" : "Fortifies swallow resistance by 20%."
+	},
+
+	"Slippery II" : {
+		"Perk" : "__formData|Devourment.esp|0xBF5",
+		"Skill" : 20.0,
+		"Req" : "__formData|Devourment.esp|0xBF2",
+		"Description" : "Fortifies swallow resistance by 40%."
+	},
+
+	"Slippery III" : {
+		"Perk" : "__formData|Devourment.esp|0xBF6",
+		"Skill" : 40.0,
+		"Req" : "__formData|Devourment.esp|0xBF5",
+		"Description" : "Fortifies swallow resistance by 60%."
+	},
+
+	"Slippery IV" : {
+		"Perk" : "__formData|Devourment.esp|0xBF7",
+		"Skill" : 60.0,
+		"Req" : "__formData|Devourment.esp|0xBF6",
+		"Description" : "Fortifies swallow resistance by 80%."
+	},
+
+	"Slippery V" : {
+		"Perk" : "__formData|Devourment.esp|0xBF8",
+		"Skill" : 80.0,
+		"Req" : "__formData|Devourment.esp|0xBF7",
+		"Description" : "Fortifies swallow resistance by 100%."
+	},
+
+	"Struggling I" : {
+		"Perk" : "__formData|Devourment.esp|0xBDC",
+		"Skill" : 10.0,
+		"Description" : "Fortifies struggling damage by 20%."
+	},
+
+	"Struggling II" : {
+		"Perk" : "__formData|Devourment.esp|0xBDE",
+		"Skill" : 20.0,
+		"Req" : "__formData|Devourment.esp|0xBDC",
+		"Description" : "Fortifies struggling damage by 40%."
+	},
+
+	"Struggling III" : {
+		"Perk" : "__formData|Devourment.esp|0xBE0",
+		"Skill" : 40.0,
+		"Req" : "__formData|Devourment.esp|0xBDE",
+		"Description" : "Fortifies struggling damage by 60%."
+	},
+
+	"Struggling IV" : {
+		"Perk" : "__formData|Devourment.esp|0xBE3",
+		"Skill" : 60.0,
+		"Req" : "__formData|Devourment.esp|0xBE0",
+		"Description" : "Fortifies struggling damage by 80%."
+	},
+
+	"Struggling V" : {
+		"Perk" : "__formData|Devourment.esp|0xBE4",
+		"Skill" : 80.0,
+		"Req" : "__formData|Devourment.esp|0xBE3",
+		"Description" : "Fortifies struggling damage by 100%."
+	}
+
+}

@@ -1,0 +1,137 @@
+<SliderCategories>
+	<Category name="Full Body" defaultHidden="false">
+		<Slider name="SSBBW2 body" displayname="SSBBW2" />
+		<Slider name="SSBBW3 body" displayname="SSBBW3" />
+		<Slider name="SSBBW UltKir body" displayname="CSj UltKir" />
+		<Slider name="Vanilla Weight" displayname="Vanilla Shape" />
+		<Slider name="Femme" displayname="Feminine Shape" />
+	</Category>
+	<Category name="Seams" defaultHidden="false">
+		<Slider name="AnkleSize" displayname="Ankle Size" />
+		<Slider name="WristSize" displayname="Wrist Size" />
+	</Category>
+	<Category name="Breasts" defaultHidden="false">
+		<Slider name="Breasts" displayname="Size" />
+		<Slider name="BreastsSmall" displayname="Smaller 1" />
+		<Slider name="BreastsSmall2" displayname="Smaller 2" />
+		<Slider name="BreastsNewSH" displayname="Silly Huge" />
+		<Slider name="BreastsNewSHSymmetry" displayname="Silly Huge Symmetry" />
+		<Slider name="BreastsFantasy" displayname="Fantasy" />
+		<Slider name="DoubleMelon" displayname="Melons" />
+		<Slider name="BreastsTogether" displayname="Push Together" />
+		<Slider name="BreastCenter" displayname="Center" />
+		<Slider name="BreastCenterBig" displayname="Center Big" />
+		<Slider name="BreastTopSlope" displayname="Top Slope" />
+		<Slider name="BreastCleavage" displayname="Cleavage" />
+		<Slider name="BreastFlatness2" displayname="Flatness" />
+		<Slider name="BreastFlatness" displayname="More Flatness" />
+		<Slider name="BreastsGone" displayname="Gone" />
+		<Slider name="BreastGravity2" displayname="Gravity" />
+		<Slider name="PushUp" displayname="Push Up" />
+		<Slider name="BreastHeight" displayname="Height" />
+		<Slider name="BreastPerkiness" displayname="Perkiness" />
+		<Slider name="BreastWidth" displayname="Width" />
+		<Slider name="BreastSideShape" displayname="Side Shape" />
+		<Slider name="BreastUnderDepth" displayname="Under Depth" />
+		<Slider name="SSBBW2 boobs growth" displayname="SSBBW Breast" />
+	</Category>
+	<Category name="Nipples" defaultHidden="false">
+		<Slider name="AreolaSize" displayname="Areola Size" />
+		<Slider name="NippleUp" displayname="Point Up" />
+		<Slider name="NippleDown" displayname="Point Down" />
+		<Slider name="NippleSize" displayname="Size" />
+		<Slider name="NippleLength" displayname="Length" />
+		<Slider name="NippleManga" displayname="Defined" />
+		<Slider name="NipplePerkiness" displayname="Perky" />
+		<Slider name="NipplePerkManga" displayname="Puffy" />
+		<Slider name="NippleTip" displayname="Tip" />
+		<Slider name="NippleTipManga" displayname="Twist" />
+		<Slider name="NippleDistance" displayname="Distance" />
+		<Slider name="NippleDip" displayname="Dip" />
+		<Slider name="NipBGone" displayname="Gone" />
+	</Category>
+	<Category name="Torso" defaultHidden="false">
+		<Slider name="ChestDepth" displayname="Chest Depth" />
+		<Slider name="ChestWidth" displayname="Chest Width" />
+		<Slider name="RibsProminance" displayname="Ribs" />
+		<Slider name="SternumDepth" displayname="Sternum Depth" />
+		<Slider name="SternumHeight" displayname="Sternum Height" />
+		<Slider name="BigTorso" displayname="Size" />
+		<Slider name="Waist" displayname="Waist Size" />
+		<Slider name="WaistHeight" displayname="Waist Height" />
+		<Slider name="WideWaistLine" displayname="Waist Line" />
+		<Slider name="ChubbyWaist" displayname="Chubby Waist" />
+		<Slider name="Back" displayname="Back Size" />
+		<Slider name="BackArch" displayname="Back Arch" />
+		<Slider name="NavelEven" displayname="Navel Even" />
+	</Category>
+	<Category name="Butt" defaultHidden="false">
+		<Slider name="ButtClassic" displayname="Shape Classic" />
+		<Slider name="ButtShape2" displayname="Shape Lower" />
+		<Slider name="ButtCrack" displayname="Crack" />
+		<Slider name="Butt" displayname="Size" />
+		<Slider name="ButtSmall" displayname="Smaller" />
+		<Slider name="BigButt" displayname="Big" />
+		<Slider name="ChubbyButt" displayname="Chubby" />
+		<Slider name="AppleCheeks" displayname="Apple" />
+		<Slider name="ButtDimples" displayname="Dimples" />
+		<Slider name="ButtUnderFold" displayname="Under Fold" />
+		<Slider name="RoundAss" displayname="Round" />
+		<Slider name="CrotchBack" displayname="Move Crotch" />
+		<Slider name="Groin" displayname="Groin" />
+		<Slider name="BubbleButt" displayname="Bubble Butt" />
+		<Slider name="SSBBW butt growth" displayname="SSBBW Butt" />
+	</Category>
+	<Category name="Legs and Feet" defaultHidden="false">
+		<Slider name="LegShapeClassic" displayname="Shape Classic" />
+		<Slider name="LegsThin" displayname="Thin" />
+		<Slider name="SlimThighs" displayname="Slim" />
+		<Slider name="Thighs" displayname="Thighs" />
+		<Slider name="ChubbyLegs" displayname="Chubby" />
+		<Slider name="Legs" displayname="Size" />
+		<Slider name="KneeHeight" displayname="Knee Height" />
+		<Slider name="KneeShape" displayname="Knee Shape" />
+		<Slider name="CalfSize" displayname="Calf Size" />
+		<Slider name="CalfSmooth" displayname="Calf Smooth" />
+		<Slider name="FeetFeminine" displayname="Feminine Feet" />
+	</Category>
+	<Category name="Muscle Definition" defaultHidden="false">
+		<Slider name="MuscleAbs" displayname="Abs" />
+		<Slider name="MuscleArms" displayname="Arms" />
+		<Slider name="MuscleButt" displayname="Butt" />
+		<Slider name="MuscleLegs" displayname="Legs" />
+		<Slider name="MusclePecs" displayname="Pecs" />
+		<Slider name="MuscleBack" displayname="Back" />
+		<Slider name="SSBBW_Muscled" displayname="SSBBW" />
+	</Category>
+	<Category name="Hips" defaultHidden="false">
+		<Slider name="HipBone" displayname="Hip Bone" />
+		<Slider name="Hips"displayname="Size"  />
+		<Slider name="HipForward" displayname="Forward" />
+		<Slider name="HipUpperWidth" displayname="Upper Width" />
+		<Slider name="HipCarved" displayname="Carved" />
+	</Category>
+	<Category name="Arms" defaultHidden="false">
+		<Slider name="Arms" displayname="Size" />
+		<Slider name="ForearmSize" displayname="Forearm Size" />
+		<Slider name="ChubbyArms" displayname="Chubby" />
+		<Slider name="ShoulderSmooth" displayname="Shoulder Smooth" />
+		<Slider name="ShoulderWidth" displayname="Shoulder Width" />
+		<Slider name="ShoulderTweak" displayname="Shoulder Tweak" />
+	</Category>
+	<Category name="Belly" defaultHidden="false">
+		<Slider name="Belly" displayname="Size" />
+		<Slider name="BigBelly" displayname="Big" />
+		<Slider name="PregnancyBelly" displayname="Pregnant" />
+		<Slider name="TummyTuck" displayname="Tuck" />
+		<Slider name="FatBelly" displayname="Fat" />
+		<Slider name="SSBBW WGBelly" displayname="SSBBW Belly" />
+		<Slider name="Giant belly (coldsteelj)" displayname="Giant Belly" />
+		<Slider name="Giant belly up" displayname="Giant Belly Up" />
+		<Slider name="SSBBW3 Belly Sic1" displayname="SSBBW3 Belly" />
+		<Slider name="Vore prey belly" displayname="Vore" />
+		<Slider name="StruggleSlider1" displayname="Struggle Bumps 1" />
+		<Slider name="StruggleSlider2" displayname="Struggle Bumps 2" />
+		<Slider name="StruggleSlider3" displayname="Struggle Bumps 3" />
+	</Category>
+</SliderCategories>

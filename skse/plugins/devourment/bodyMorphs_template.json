@@ -1,0 +1,35 @@
+{
+  "EquippableBellyType": 1,
+  "Locus_Maxes": [
+    5.0,
+    25.0,
+    0.0,
+    50.0,
+    50.0,
+    20.0
+  ],
+  "Locus_Scales": [
+    1.0,
+    5.0,
+    0.0,
+    5.0,
+    5.0,
+    4.0
+  ],
+  "Locus_Sliders": [
+    "Vore Prey Belly",
+    "ChubbyButt",
+    "",
+    "BVoreL",
+    "BVoreR",
+    "CVore"
+  ],
+  "MorphSpeed": 0.070000000298023224,
+  "ScalingThreshold": 0.0010000000474974513,
+  "StruggleAmplitude": 1.0,
+  "UseDualBreastMode": 1,
+  "UseEliminationLocus": 1,
+  "UseLocationalMorphs": 1,
+  "UseMorphVore": 1,
+  "UseStruggleSliders": 1
+}

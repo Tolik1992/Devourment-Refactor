@@ -1,0 +1,77 @@
+{
+	"float" : 
+	{
+		"foodbasegain" : 0.1,
+		"highvaluemultiplier" : 2,
+		"ingredientbasegain" : 0.03,
+		"maximumweight" : 2,
+		"minimumweight" : -1,
+		"potionbasegain" : 0.01,
+		"vorebasegain" : 0.05,
+		"weightloss" : 0.05,
+		"weightrate" : 4
+	},
+	"floatList" : 
+	{
+		"morphshigh" : [ 0, 0, 0, 1, 0.2, 1, 0, 1, 0, 0, 1, 0.6, 0.2, 1, 0, 1, 1, 1, 0.3, 1 ],
+		"morphslow" : [ 0, 0, 0, -1, -0.2, -1, 0, -1, 0, 0, -1, -0.6, -0.2, -1, 0, -1, -1, -1, -0.3, -1 ]
+	},
+	"formList" : 
+	{
+		"highvaluefood" : 
+		[
+			"0x1fb15e|Complete Alchemy & Cooking Overhaul.esp",
+			"0xcca120|Update.esm",
+			"0xcca122|Update.esm",
+			"0xcca123|Update.esm",
+			"0xcca124|Update.esm"
+		],
+		"novaluefood" : 
+		[
+			"0x4de9b0|SunHelmSurvival.esp",
+			"0x4de9af|SunHelmSurvival.esp",
+			"0x4de9ae|SunHelmSurvival.esp",
+			"0xcca111|Update.esm",
+			"0xcca119|Update.esm",
+			"0xcca125|Update.esm",
+			"0x4e3d21|Complete Alchemy & Cooking Overhaul.esp",
+			"0x4e3d23|Complete Alchemy & Cooking Overhaul.esp",
+			"0x4e3d25|Complete Alchemy & Cooking Overhaul.esp",
+			"0x4e3d27|Complete Alchemy & Cooking Overhaul.esp",
+			"0x4e3d29|Complete Alchemy & Cooking Overhaul.esp",
+			"0x4e3d2b|Complete Alchemy & Cooking Overhaul.esp"
+		]
+	},
+	"int" : 
+	{
+		"actorsenabled" : 0,
+		"companionsenabled" : 0,
+		"playerenabled" : 1
+	},
+	"stringList" : 
+	{
+		"morphstrings" : 
+		[
+			"SSBBW2 body",
+			"SSBBW3 body",
+			"SSBBW Ultkir body",
+			"BigTorso",
+			"Back",
+			"ChubbyArms",
+			"SSBBW2 boobs growth",
+			"BreastsNewSH",
+			"BreastGravity2",
+			"SSBBW WGBelly",
+			"BigBelly",
+			"ChubbyWaist",
+			"WideWaistLine",
+			"Hips",
+			"SSBBW butt growth",
+			"ChubbyButt",
+			"Butt",
+			"ChubbyLegs",
+			"Thighs",
+			"CalfSize"
+		]
+	}
+}
