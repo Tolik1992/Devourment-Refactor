@@ -1,3 +1,49 @@
+﻿2021-09-19
+[list]
+[*] Complete MCM re-write to leverage MCM Helper in order to help escape SkyUI MCM state limitations. The scope of this change is huge, so for the sake of brevity "everything changed."  - Gaz
+[*] Readded Linear Weight Gain option. - Gaz
+[*] Readded Skulls for Unleveled MCM options. - Gaz
+[*] Reverted WeightManager back to non-interpolating model. After some evaluation, this is not worth the overhead for the few edge-cases it matters. - Gaz
+[*] Added skeleton root node scaling to WeightManager. - Gaz
+[*] Split WeightManager pages into Male and Female and increased number of morphs supported (31 for each page). Creature page will be brought online when we get Creature Weight sliders done. More toggles added to accomodate this. - Gaz
+[*] Removed Debugging toggle from the MCM. Many users would simply play with this on and this toggle doubles the length of many functions, not suited for regular play. Many options that relied on Debugging being active have been made always visible. - Gaz
+[*] PsuedoAI, PlayerAlias and Manager scripts optimized as well as proper Endo Struggling functionality added. - MarkDF
+[*] Back-end lua edited to alter Tick settings for Player Struggling and add Endo Timer functionality. - MarkDF
+[*] Generalized NPCBonus to apply to NPC acid damage and acid resistance and swallow chance, instead of just swallow chance. - MarkDF
+[*] Added a scaling factor CombatChanceScale to control how much health and stamina contribute to swallow chances. - MarkDF
+[*] Added a scaling factor to macromancy size. - MarkDF
+[*] Added an ability for the Player to Vore using a Random Locus. - MarkDF
+[*] Added a QuickMenu option to more easily Vore Items. - MarkDF
+[*] Added a fix for Skulls sometimes losing their linked ref data. - Gherking
+[*] Added a fix for DialogVore not being conditioned against DeadPrey in some circumstances. - Gherking
+[*] Significantly revised Male body shapes to produce better stomach and armpit shapes. - Macross
+[/list]
+
+2021-08-14-2 Gaz Community Patch, Take-Two
+[list]
+[*] Fixed Entitlement and Harder Bosses MCM text.
+[*] Removed Linear Weight Gain / Loss, because Skyrim MCM.
+[*] Hopefully fixed WeightManager "flickering" on new morph interpolation.
+[/list]
+
+2021-08-14 Gaz Community Patch
+[list]
+[*] Made an MCM Toggle for the Entitlement system.
+[*] Reworked all SPID Distribution lists and tweaked overall mod balance. For specifics, consult DevourmentRefactor_DISTR.ini.
+[*] Added a "Harder Bosses" MCM Option that makes select characters like end-of-dungeon Bosses significantly harder to kill via Vore.
+[*] FOMOD restructured and redundant options stripped out. Hopefully no more manually editing or shuffling DISTR lists needed for most users.
+[*] Implemented a very selective cap on the amount of NPC predators that can have Endo Prey while Random Noms is active. Should help with excessive bloat.
+[*] Added interpolation to WeightManager, so on particularly high-weight changes it should now gradually grow/shrink the body more effectively.
+[*] Updated Performance mode tooltip to more accurately reflect what it does and made it affect new WeightManager interpolation.
+[*] Added a Linear Weight Gain/Loss MCM toggle so that it becomes harder to gain weight when already large as well as making it harder to starve completely.
+[*] *Hopefully* fixed WeightManager freaking out when WeightLoss amount is set to 0.02 or less.
+[*] Disallowed WeightManager to begin slider change operations when Console or Menus are open.
+[*] Reworked the failover system for Skulls so that if it can't figure out what Race the prey was, it defaults to assuming it should make a Human skull.
+[*] Removed redundant Package and Perk properties from Skulls.
+[*] Removed redundant plugin properties from WeightManager quest.
+[*] Changed PlayerAlias MCM property semantics to avoid collisions with MCM.psc.
+[/list]
+
 2021-06-30-2
 [list]
 [*] Hungry Bones now works with regurgitation.

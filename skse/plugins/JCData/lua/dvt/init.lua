@@ -43,11 +43,16 @@ function dvt.Tick(predData, dt, rapid1, rapid2)
 	
 	for prey,preyData in pairs(predData.stomach or {}) do
 		if not DB.blocks[prey] and not preyData.vomit then
-			if preyData.alive and preyData.vore then
-				preyData.flux.damage = dt * preyData.dps * rapid1
-				preyData.timer = math.max(0.0, preyData.timer - dt)
-				if preyData.prey ~= DB.playerRef then
-					preyData.flux.times = dvt.poisson(dt * 0.333)
+			if preyData.alive then
+				if preyData.timerMax > 0.0 then
+					preyData.timer = math.max(0.0, preyData.timer - dt)
+				end
+
+				if preyData.vore then
+					preyData.flux.damage = dt * preyData.dps * rapid1
+					if preyData.prey ~= DB.playerRef then
+						preyData.flux.times = dvt.poisson(dt * 0.333)
+					end
 				end
 			elseif preyData.reforming then
 				preyData.timer = preyData.timer + dt
@@ -1002,7 +1007,9 @@ function dvt.GetHealth(pred, playerStruggle)
 	local maxHealth = 0.0
 
 	for prey,preyData in pairs(predData.stomach or {}) do
-		if prey == playerRef and playerStruggle >= 0.0 then
+		if preyData.ForceStruggling then
+			maxHealth = math.max(maxHealth or 0.0, 1.0)
+		elseif prey == playerRef and playerStruggle >= 0.0 then
 			maxHealth = math.max(maxHealth or 0.0, playerStruggle)
 		else
 			maxHealth = math.max(maxHealth or 0.0, preyData.health or 0.0)
@@ -1034,10 +1041,14 @@ function dvt.GetLocusHealth(pred, playerStruggle, useElimination)
 
 	for prey,preyData in pairs(predData.stomach or {}) do
 		local locus = preyData.locus + 1
-		local health = preyData.health or 0.0
+		local health
 
-		if prey == playerRef and playerStruggle >= 0.0 then
+		if preyData.ForceStruggling then
+			health = 1.0
+		elseif prey == playerRef and playerStruggle >= 0.0 then
 			health = playerStruggle or 0.0
+		else
+			health = preyData.health or 0.0
 		end
 
 		if locus == locusUnbirth or (locus == locusButt and useElimination > 0) then
@@ -1143,6 +1154,7 @@ function dvt.GetStateCode(preyData)
 	end
 end
 
+
 function dvt.SetEndo(preyData)
 	assert(preyData, "preyData must be specified.")
 	preyData.alive = 1
@@ -1151,6 +1163,8 @@ function dvt.SetEndo(preyData)
 	preyData.digesting = nil
 	preyData.digested = nil
 	preyData.reforming = nil
+	preyData.timer = 0.0
+	preyData.timerMax = 0.0
 end
 
 

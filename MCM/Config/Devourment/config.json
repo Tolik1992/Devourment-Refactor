@@ -1,0 +1,1491 @@
+{
+	"modName": "Devourment",
+	"displayName": "Devourment",
+	"minMcmVersion": 9,
+	"pluginRequirements": ["MCMHelper.esp", "Devourment.esp"],
+	"cursorFillMode": "topToBottom",
+	"customContent": {"source": "Devourment/Title.dds"},
+	"pages": [
+		{
+			"pageDisplayName": "$DVT_Page_StatsSkills",
+			"cursorFillMode": "topToBottom",
+			"content": [
+			]
+		},
+		{
+			"pageDisplayName": "$DVT_Page_General",
+			"cursorFillMode": "topToBottom",
+			"content": [
+				{
+					"text": "$DVT_Header_Difficulty",
+					"type": "header"
+				},
+				{
+					"text": "$DVT_DifficultyPreset",
+					"type": "enum",
+					"help": "$DVT_Help_DifficultyPreset",
+					"valueOptions": {
+						"sourceType": "PropertyValueInt",
+            			"propertyName": "Difficulty",
+						"scriptName": "DevourmentMCM", 
+					  	"options": [
+						"$DVT_DIFFICULTY_0",
+						"$DVT_DIFFICULTY_1", 
+						"$DVT_DIFFICULTY_2", 
+						"$DVT_DIFFICULTY_3", 
+						"$DVT_DIFFICULTY_4", 
+						"$DVT_DIFFICULTY_5", 
+						"$DVT_DIFFICULTY_6"
+						],
+						"defaultValue": 2
+					},
+					"action": {
+						"type": "CallFunction",
+						"function": "setDifficultyPreset",
+						"params": ["{value}"]
+					}
+				},
+				{
+					"text": "$DVT_Struggle",
+					"type": "enum",
+					"help": "$DVT_Help_Struggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "whoStruggles",
+					  	"options": [
+						"$DVT_STRUGGLE_Off",
+						"$DVT_STRUGGLE_Player", 
+						"$DVT_STRUGGLE_Everyone"
+						],
+						"defaultValue": 2
+					}
+				},
+				{
+					"text": "$DVT_Autovore",
+					"type": "enum",
+					"help": "$DVT_Help_Autovore",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|A73", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentRandomNoms",
+						"propertyName": "AutoNoms",
+					 	 "options": [
+						"$DVT_Noms0",
+						"$DVT_Noms1", 
+						"$DVT_Noms2",
+						"$DVT_Noms3"
+						],
+						"defaultValue": 0
+					}
+				},
+				{
+					"text": "$DVT_NomsChance",
+					"help": "$DVT_Help_NomsChance",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|A73", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentRandomNoms",
+						"propertyName": "NomsChance",
+					  	"min": 0.0,
+					  	"max": 1.0,
+					  	"step": 0.005,
+						"defaultValue": 1.0,
+					  	"formatString": "{3}"
+					}
+				},
+				{
+					"text": "$DVT_StruggleDifficulty",
+					"help": "$DVT_Help_StruggleDifficulty",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "struggleDifficulty",
+					  	"min": 1.0,
+					  	"max": 20.0,
+					  	"step": 0.1,
+						"defaultValue": 10.0,
+					  	"formatString": "{2}"
+					}
+				},
+				{
+					"text": "$DVT_StruggleDamage",
+					"help": "$DVT_Help_StruggleDamage",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "struggleDamage",
+					  	"min": 0.0,
+					  	"max": 10.0,
+					  	"step": 0.1,
+						"defaultValue": 1.0,
+					  	"formatString": "{2}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|96A",   
+						"scriptName": "DevourmentManager",
+						"function": "AdjustPreyData",
+						"params": []
+					}
+				},
+				{
+					"text": "$DVT_CombatChanceScale",
+					"help": "$DVT_Help_CombatChanceScale",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "CombatChanceScale",
+					  	"min": 0.0,
+					  	"max": 5.0,
+					  	"step": 0.1,
+						"defaultValue": 1.0,
+					  	"formatString": "{1}"
+					}
+				},
+				{
+					"text": "$DVT_AcidMult",
+					"help": "$DVT_Help_AcidMult",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "AcidDamageModifier",
+					  	"min": 0.0,
+					  	"max": 20.0,
+					  	"step": 0.1,
+						"defaultValue": 1.0,
+					  	"formatString": "{1}x"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|96A",   
+						"scriptName": "DevourmentManager",
+						"function": "AdjustPreyData",
+						"params": []
+					}
+				},
+				{
+					"text": "$DVT_PredExperienceRate",
+					"help": "$DVT_Help_PredExperienceRate",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "PredExperienceRate",
+					  	"min": 0.1,
+					  	"max": 20.0,
+					  	"step": 0.1,
+						"defaultValue": 1.0,
+					  	"formatString": "{2}"
+					}
+				},
+				{
+					"text": "$DVT_PreyExperienceRate",
+					"help": "$DVT_Help_PreyExperienceRate",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "PreyExperienceRate",
+					  	"min": 0.1,
+					  	"max": 20.0,
+					  	"step": 0.1,
+						"defaultValue": 2.0,
+					  	"formatString": "{2}"
+					}
+				},
+				{
+					"text": "$DVT_NPCChance",
+					"help": "$DVT_Help_NPCChance",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "NPCBonus",
+					  	"min": 0.1,
+					  	"max": 10.0,
+					  	"step": 0.1,
+						"defaultValue": 1.0,
+					  	"formatString": "{2}"
+					}
+				},
+				{
+					"text": "$DVT_SwallowHeal",
+					"help": "$DVT_Help_SwallowHeal",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "SwallowHeal",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_harderBosses",
+					"help": "$DVT_Help_harderBosses",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "bossesSuperPrey",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_endoAnyone",
+					"help": "$DVT_Help_endoAnyone",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "endoAnyone",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_endoStruggling",
+					"help": "$DVT_Help_endoStruggling",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "EndoStruggling",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_VoreTimeout",
+					"help": "$DVT_Help_VoreTimeout",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "VoreTimeout",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_EndoTimeout",
+					"help": "$DVT_Help_EndoTimeout",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "EndoTimeout",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_MicroMode",
+					"help": "$DVT_Help_MicroMode",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "MicroMode",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_Header_WhoGetsDigested",
+					"type": "header"
+				},
+				{
+					"text": "$DVT_DigestNonessentials",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "killNPCs",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_DigestEssentials",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "killEssential",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_DigestPlayer",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "killPlayer",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_Header_WhoCanPred",
+					"type": "header"
+				},
+				{
+					"type": "hiddenToggle",
+					"groupControl": 1,
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+					  	"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+					  	"propertyName": "VEGAN_MODE"
+					}
+				},
+				{
+					"text": "$DVT_MalePred",
+					"help": "$DVT_Help_MalePred",
+					"type": "toggle",
+					"groupCondition": {"NOT": 1},
+          			"groupBehavior": "skip",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "malePreds",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_FemPred",
+					"help": "$DVT_Help_FemPred",
+					"type": "toggle",
+					"groupCondition": {"NOT": 1},
+          			"groupBehavior": "skip",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "femalePreds",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_creaturePred",
+					"help": "$DVT_Help_creaturePred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "creaturePreds",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_PlayerBias",
+					"help": "$DVT_Help_PlayerBias",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_PlayerNoPref",
+							"$DVT_PlayerAvoidant",
+							"$DVT_PlayerCentric"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "playerPreference",
+						"defaultValue": 0
+					}	
+				}
+			]
+		},
+		{
+			"pageDisplayName": "$DVT_Page_VisualSoundMisc",
+			"cursorFillMode": "topToBottom",
+			"content": [
+				{
+					"text": "$DVT_Header_Visuals",
+					"type": "header"
+				},
+				{
+					"text": "$DVT_SCAT_TypeNPC",
+					"help": "$DVT_Help_SCAT_TypeNPC",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_SCAT_Absorb",
+							"$DVT_SCAT_Feces",
+							"$DVT_SCAT_Bones",
+							"$DVT_SCAT_Vomit"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "scatTypeNPC",
+						"defaultValue": 2
+					}	
+				},
+				{
+					"text": "$DVT_SCAT_TypeCreature",
+					"help": "$DVT_Help_SCAT_TypeCreature",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_SCAT_Absorb",
+							"$DVT_SCAT_Feces",
+							"$DVT_SCAT_Vomit"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "scatTypeCreature",
+						"defaultValue": 1
+					}	
+				},
+				{
+					"text": "$DVT_SCAT_TypeBolus",
+					"help": "$DVT_Help_SCAT_TypeBolus",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_SCAT_Add",
+							"$DVT_SCAT_Defecate",
+							"$DVT_SCAT_Vomit"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "scatTypeBolus",
+						"defaultValue": 1
+					}	
+				},
+				{
+					"text": "$DVT_VomitStyle",
+					"help": "$DVT_Help_VomitStyle",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_VOMITSTYLE0",
+							"$DVT_VOMITSTYLE1",
+							"$DVT_VOMITSTYLE2"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "VomitStyle",
+						"defaultValue": 2
+					}	
+				},
+				{
+					"text": "$DVT_cameraShake",
+					"help": "$DVT_Help_cameraShake",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "cameraShake",
+					  	"min": 0.0,
+					  	"max": 1.0,
+					  	"step": 0.02,
+						"defaultValue": 0.2,
+					  	"formatString": "{2}"
+					}
+				},
+				{
+					"text": "$DVT_prefilled",
+					"help": "$DVT_Help_prefilled",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "PreFilledChance",
+					  	"min": 0.0,
+					  	"max": 1.0,
+					  	"step": 0.01,
+						"defaultValue": 0.05,
+					  	"formatString": "{2}"
+					}
+				},
+				{
+					"text": "$DVT_predTitles",
+					"help": "$DVT_Help_predTitles",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "Entitlement",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_CombatAcceleration",
+					"help": "$DVT_Help_CombatAcceleration",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "CombatAcceleration",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_useHelpMessages",
+					"help": "$DVT_Help_useHelpMessages",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "useHelpMessages",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_notifications",
+					"help": "$DVT_Help_notifications",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "notifications",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_Header_Sound",
+					"type": "header"
+				},
+				{
+					"text": "$DVT_ScreamSounds",
+					"help": "$DVT_Help_ScreamSounds",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "screamSounds",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_Gurgles",
+					"help": "$DVT_Help_Gurgles",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "GurglesRate",
+					  	"min": 0.0,
+					  	"max": 60.0,
+					  	"step": 0.5,
+						"defaultValue": 8.0,
+					  	"formatString": "{1}"
+					}
+				},
+				{
+					"text": "$DVT_Burps",
+					"help": "$DVT_Help_Burps",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "BurpsRate",
+					  	"min": 0.0,
+					  	"max": 60.0,
+					  	"step": 0.5,
+						"defaultValue": 16.0,
+					  	"formatString": "{1}"
+					}
+				},
+				{
+					"text": "$DVT_BurpItems",
+					"help": "$DVT_Help_BurpItems",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "ItemBurping",
+					  	"min": 0.0,
+					  	"max": 1.0,
+					  	"step": 0.05,
+						"defaultValue": 0.0,
+					  	"formatString": "{2}"
+					}
+				},
+				{
+					"text": "$DVT_Header_Other",
+					"type": "header"
+				},
+				{
+					"text": "$DVT_VoreDialogue",
+					"help": "$DVT_Help_VoreDialogue",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|80C",
+						"sourceType": "GlobalValue",
+						"defaultValue": 1.0
+					}
+				},
+				{
+					"text": "$DVT_LiveTime",
+					"help": "$DVT_Help_LiveTime",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "liveMultiplier",
+					  	"min": 0.1,
+					  	"max": 10.0,
+					  	"step": 0.1,
+						"defaultValue": 1.0,
+					  	"formatString": "{2}x"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|96A",   
+						"scriptName": "DevourmentManager",
+						"function": "AdjustPreyData",
+						"params": []
+					}
+				},
+				{
+					"text": "$DVT_DeadTime",
+					"help": "$DVT_Help_DeadTime",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "DigestionTime",
+					  	"min": 30.0,
+					  	"max": 86400.0,
+					  	"step": 30.0,
+						"defaultValue": 240.0,
+					  	"formatString": "{0} seconds"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|96A",   
+						"scriptName": "DevourmentManager",
+						"function": "AdjustPreyData",
+						"params": []
+					}
+				},
+				{
+					"text": "$DVT_MinSwallow",
+					"help": "$DVT_Help_MinSwallow",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "MinimumSwallowChance",
+					  	"min": 1.0,
+					  	"max": 100.0,
+					  	"step": 1.0,
+						"defaultValue": 5.0,
+					  	"formatString": "{0}%"
+					}
+				},
+				{
+					"text": "$DVT_WeightGain",
+					"help": "$DVT_Help_WeightGain",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "WeightGain",
+					  	"min": 0.0,
+					  	"max": 20.0,
+					  	"step": 0.1,
+						"defaultValue": 0.0,
+					  	"formatString": "{1}"
+					}
+				},
+				{
+					"text": "$DVT_MultiPrey",
+					"help": "$DVT_Help_MultiPrey",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_MULTI_Off",
+							"$DVT_MULTI_Count",
+							"$DVT_MULTI_Size1",
+							"$DVT_MULTI_Size2",
+							"$DVT_MULTI_Full"
+						],
+						"shortNames": ["Single", "Count", "Size (Restrict)", "Size (Vomit)", "Unlimited"],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "multiprey",
+						"defaultValue": 2
+					}	
+				},
+				{
+					"text": "$DVT_PlayerDigested",
+					"help": "$DVT_Help_PlayerDigested",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$BYK0",
+							"$BYK1",
+							"$BYK2"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "BYK",
+						"defaultValue": 0
+					}	
+				},
+				{
+					"text": "$DVT_crouchScat",
+					"help": "$DVT_Help_crouchScat",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "crouchScat",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_DefecateGear",
+					"help": "$DVT_Help_DefecateGear",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "ShitItems",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_PreyStripping",
+					"help": "$DVT_Help_PreyStripping",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "stomachStrip",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_DrawnAnimations",
+					"help": "$DVT_Help_DrawnAnimations",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "drawnAnimations",
+						"defaultValue": false
+					}
+				}
+			]
+		},
+		{
+			"pageDisplayName": "$DVT_LocusMorphs",
+			"cursorFillMode": "topToBottom",
+			"content": [
+			]	
+		},
+		{
+			"pageDisplayName": "$DVT_Page_WeightSettings",
+			"cursorFillMode": "leftToRight",
+			"content": [
+				{
+					"text": "$DVT_PlayerWeightEnabled",
+					"help": "$DVT_Help_PlayerWeightEnabled",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"sourceForm": "Devourment.esp|A9B",	
+						"scriptName": "DevourmentWeightManager",			
+						"propertyName": "PlayerEnabled",
+						"defaultValue": false
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [true]
+					}
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_FollowerWeightEnabled",
+					"help": "$DVT_Help_FollowerWeightEnabled",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"sourceForm": "Devourment.esp|A9B",	
+						"scriptName": "DevourmentWeightManager",			
+						"propertyName": "CompanionsEnabled",
+						"defaultValue": false
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [true]
+					}
+				},
+				{
+					"text": "$DVT_ActorsWeightEnabled",
+					"help": "$DVT_Help_ActorsWeightEnabled",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"sourceForm": "Devourment.esp|A9B",		
+						"scriptName": "DevourmentWeightManager",		
+						"propertyName": "ActorsEnabled",
+						"defaultValue": false
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [true]
+					}
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_Header_SecondaryWeight",
+					"type": "header"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_FemalesWeightEnabled",
+					"help": "$DVT_Help_FemalesWeightEnabled",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"sourceForm": "Devourment.esp|A9B",
+						"scriptName": "DevourmentWeightManager",	
+						"propertyName": "FemalesEnabled",
+						"defaultValue": false
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [true]
+					}
+				},
+				{
+					"text": "$DVT_MalesWeightEnabled",
+					"help": "$DVT_Help_MalesWeightEnabled",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"sourceForm": "Devourment.esp|A9B",	
+						"scriptName": "DevourmentWeightManager",		
+						"propertyName": "MalesEnabled",
+						"defaultValue": false
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [true]
+					}
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_Header_OtherWeightSettings",
+					"type": "header"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_LinearWeight",
+					"help": "$DVT_Help_LinearWeight",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"sourceForm": "Devourment.esp|A9B",
+						"scriptName": "DevourmentWeightManager",
+						"propertyName": "LinearChanges",
+						"defaultValue": false
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [false]
+					}
+				},
+				{
+					"text": "$DVT_WeightLoss",
+					"help": "$DVT_Help_WeightLoss",
+					"type": "slider",
+					"valueOptions": {
+						"sourceType": "PropertyValueFloat",
+						"sourceForm": "Devourment.esp|A9B",				
+						"scriptName": "DevourmentWeightManager", 
+						"propertyName": "WeightLoss",
+					  	"min": 0.0,
+					  	"max": 1.0,
+					  	"step": 0.01,
+						"defaultValue": 0.05,
+					  	"formatString": "{2}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [false]
+					}
+				},
+				{
+					"text": "$DVT_WeightRate",
+					"help": "$DVT_Help_WeightRate",
+					"type": "slider",
+					"valueOptions": {
+						"sourceType": "PropertyValueFloat",
+						"sourceForm": "Devourment.esp|A9B",	
+						"scriptName": "DevourmentWeightManager", 
+						"propertyName": "WeightRate",
+					  	"min": 0.01,
+					  	"max": 24.0,
+					  	"step": 0.01,
+						"defaultValue": 4.0,
+					  	"formatString": "{2}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [false]
+					}
+				},
+				{
+					"text": "$DVT_MinWeight",
+					"help": "$DVT_Help_MinWeight",
+					"type": "slider",
+					"valueOptions": {
+						"sourceType": "PropertyValueFloat",
+						"sourceForm": "Devourment.esp|A9B",				
+						"scriptName": "DevourmentWeightManager", 
+						"propertyName": "MinimumWeight",
+					  	"min": -10.0,
+					  	"max": 10.0,
+					  	"step": 0.05,
+						"defaultValue": -1.0,
+					  	"formatString": "{2}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [true]
+					}
+				},
+				{
+					"text": "$DVT_MaxWeight",
+					"help": "$DVT_Help_MaxWeight",
+					"type": "slider",
+					"valueOptions": {
+						"sourceType": "PropertyValueFloat",
+						"sourceForm": "Devourment.esp|A9B",	
+						"scriptName": "DevourmentWeightManager", 
+						"propertyName": "MaximumWeight",
+					  	"min": -10.0,
+					  	"max": 10.0,
+					  	"step": 0.05,
+						"defaultValue": 2.0,
+					  	"formatString": "{2}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [true]
+					}
+				},
+				{
+					"text": "$DVT_VoreBaseGain",
+					"help": "$DVT_Help_VoreBaseGain",
+					"type": "slider",
+					"valueOptions": {
+						"sourceType": "PropertyValueFloat",
+						"sourceForm": "Devourment.esp|A9B",	
+						"scriptName": "DevourmentWeightManager", 
+						"propertyName": "VoreBaseGain",
+					  	"min": 0.0,
+					  	"max": 1.0,
+					  	"step": 0.005,
+						"defaultValue": 0.05,
+					  	"formatString": "{3}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [false]
+					}
+				},
+				{
+					"text": "$DVT_IngredientBaseGain",
+					"help": "$DVT_Help_IngredientBaseGain",
+					"type": "slider",
+					"valueOptions": {
+						"sourceType": "PropertyValueFloat",
+						"sourceForm": "Devourment.esp|A9B",				
+						"scriptName": "DevourmentWeightManager", 
+						"propertyName": "IngredientBaseGain",
+					  	"min": 0.0,
+					  	"max": 1.0,
+					  	"step": 0.005,
+						"defaultValue": 0.04,
+					  	"formatString": "{3}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [false]
+					}
+				},
+				{
+					"text": "$DVT_PotionBaseGain",
+					"help": "$DVT_Help_PotionBaseGain",
+					"type": "slider",
+					"valueOptions": {
+						"sourceType": "PropertyValueFloat",
+						"sourceForm": "Devourment.esp|A9B",				
+						"scriptName": "DevourmentWeightManager", 
+						"propertyName": "PotionBaseGain",
+					  	"min": 0.0,
+					  	"max": 1.0,
+					  	"step": 0.005,
+						"defaultValue": 0.02,
+					  	"formatString": "{3}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [false]
+					}
+				},
+				{
+					"text": "$DVT_FoodBaseGain",
+					"help": "$DVT_Help_FoodBaseGain",
+					"type": "slider",
+					"valueOptions": {
+						"sourceType": "PropertyValueFloat",
+						"sourceForm": "Devourment.esp|A9B",				
+						"scriptName": "DevourmentWeightManager", 
+						"propertyName": "FoodBaseGain",
+					  	"min": 0.0,
+					  	"max": 1.0,
+					  	"step": 0.005,
+						"defaultValue": 0.02,
+					  	"formatString": "{3}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [false]
+					}
+				},
+				{
+					"text": "$DVT_HighValueMultiplier",
+					"help": "$DVT_Help_HighValueMultiplier",
+					"type": "slider",
+					"valueOptions": {
+						"sourceType": "PropertyValueFloat",
+						"sourceForm": "Devourment.esp|A9B",				
+						"scriptName": "DevourmentWeightManager", 
+						"propertyName": "HighValueMultiplier",
+					  	"min": 0.0,
+					  	"max": 10.0,
+					  	"step": 0.05,
+						"defaultValue": 2.0,
+					  	"formatString": "{2}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "SyncSettings",
+						"params": [false]
+					}
+				},
+				{
+					"text": "$DVT_WeightPreview",
+					"help": "$DVT_Help_WeightPreview",
+					"type": "slider",
+					"valueOptions": {
+					  	"min": 0.0,
+					  	"max": 10.0,
+					  	"step": 0.05,
+						"defaultValue": 1.0,
+					  	"formatString": "{2}"
+					},
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "PreviewPlayerWeight",
+						"params": ["{value}"]
+					}
+				},
+				{
+					"text": "$DVT_LearnHighValue",
+					"help": "$DVT_Help_LearnHighValue",
+					"type": "text",
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "LearnValue",
+						"params": [0]
+					}
+				},
+				{
+					"text": "$DVT_LearnNoValue",
+					"help": "$DVT_Help_LearnNoValue",
+					"type": "text",
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "LearnValue",
+						"params": [1]
+					}
+				}
+			]
+		},
+		{
+			"pageDisplayName": "$DVT_Page_WeightManagerFemale",
+			"cursorFillMode": "topToBottom",
+			"content": [
+			]	
+		},
+		{
+			"pageDisplayName": "$DVT_Page_WeightManagerMale",
+			"cursorFillMode": "topToBottom",
+			"content": [
+			]	
+		},
+		{
+			"pageDisplayName": "$DVT_Page_Debugging",
+			"cursorFillMode": "topToBottom",
+			"content": [
+				{
+					"text": "$DVT_ViewingTarget",
+					"type": "text",
+					"help": "$DVT_Help_ViewingTarget",
+					"valueOptions": {
+						"propertyName": "targetName"
+					}
+				},
+				{
+					"text": "$DVT_AutoPred",
+					"help": "$DVT_Help_AutoPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentMCM", 
+						"propertyName": "isAutoPred"
+					},
+					"action": {
+						"type": "CallFunction",
+						"function": "ToggleVorish",
+						"params": ["{value}"]
+					}
+				},
+				{
+					"type": "hiddenToggle",
+					"groupControl": 5,
+					"valueOptions": {
+					  	"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentMCM", 
+						"propertyName": "vomitActivated"
+					}
+				},
+				{
+					"text": "$DVT_forceVomit",
+					"type": "text",
+					"groupCondition": {"NOT": 5},
+					"groupBehavior": "skip",
+					"help": "$DVT_Help_forceVomit",
+					"valueOptions": {
+						"scriptName": "DevourmentMCM", 
+						"value": "Vomit"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM", 
+					  	"function": "Vomit",
+					  	"params": []
+					}
+				},
+				{
+					"text": "$DVT_Header_DebugSettings",
+					"type": "header"
+				},
+				{
+					"text": "$DVT_SaveSettings",
+					"type": "text",
+					"help": "$DVT_Help_SaveSettings",
+					"valueOptions": {
+						"value": "Save"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM", 
+					  	"function": "SettingsContext",
+					  	"params": [true]
+					}
+				},
+				{
+					"text": "$DVT_LoadSettings",
+					"type": "text",
+					"help": "$DVT_Help_LoadSettings",
+					"valueOptions": {
+						"value": "Load"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM", 
+					  	"function": "SettingsContext",
+					  	"params": [false]
+					}
+				},
+				{
+					"text": "$DVT_Header_DebugFix",
+					"type": "header"
+				},
+				{
+					"text": "$DVT_ExportDatabase",
+					"type": "text",
+					"help": "$DVT_Help_ExportDatabase",
+					"valueOptions": {
+						"value": "Dump"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM", 
+					  	"function": "ExportDatabase",
+					  	"params": []
+					}
+				},
+				{
+					"text": "$DVT_SoftDeath",
+					"help": "$DVT_Help_SoftDeath",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "SoftDeath",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_DontAddPowers",
+					"help": "$DVT_Help_DontAddPowers",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"propertyName": "DontAddPowers",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_AltPerkMenu",
+					"help": "$DVT_Help_AltPerkMenu",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"propertyName": "AltPerkMenus",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_PerformanceMode",
+					"help": "$DVT_Help_PerformanceMode",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "PERFORMANCE",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_Header_DebugTools",
+					"type": "header"
+				},
+				{
+					"text": "$DVT_Unrestricted",
+					"help": "$DVT_Help_Unrestricted",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentMCM",
+						"propertyName": "UnrestrictedItemVore",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_MaxSkill",
+					"type": "text",
+					"help": "$DVT_Help_MaxSkill",
+					"valueOptions": {
+						"value": "Get Maximum Skills"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM",
+					  	"function": "MaxSkills",
+					  	"params": []
+					}
+				},
+				{
+					"text": "$DVT_MaxPerks",
+					"type": "text",
+					"help": "$DVT_Help_MaxPerks",
+					"valueOptions": {
+						"value": "Gain Perk Points"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM",
+					  	"function": "MaxPerks",
+					  	"params": []
+					}
+				},
+				{
+					"text": "$DVT_FlushVomitQueue",
+					"type": "text",
+					"help": "$DVT_Help_FlushVomitQueue",
+					"valueOptions": {
+						"value": "Flush"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM",
+					  	"function": "FlushVomitQueue",
+					  	"params": []
+					}
+				},
+				{
+					"text": "$DVT_resetPrey",
+					"type": "input",
+					"help": "$DVT_Help_resetPrey",
+					"valueOptions": {
+						"value": "Reset Prey"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentManager",
+					  	"function": "ResetPreyMCM",
+					  	"params": ["{value}"]
+					}
+				},
+				{
+					"text": "$DVT_ResetVisuals",
+					"type": "text",
+					"help": "$DVT_Help_ResetVisuals",
+					"valueOptions": {
+						"value": "Reset Visuals"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM",
+					  	"function": "resetVisuals",
+					  	"params": []
+					}
+				},
+				{
+					"text": "$DVT_ResetDevourment",
+					"type": "text",
+					"help": "$DVT_Help_ResetDevourment",
+					"valueOptions": {
+						"value": "Reset Devourment"
+					},
+					"action": {
+						"type": "CallFunction",
+						"scriptName": "DevourmentMCM",
+					  	"function": "resetDevourment",
+					  	"params": []
+					}
+				}
+			]
+		},
+		{
+			"pageDisplayName": "$DVT_Page_Dependancies",
+			"cursorFillMode": "topToBottom",
+			"content": [
+			]
+		}
+	]
+}

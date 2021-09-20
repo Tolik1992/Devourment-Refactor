@@ -696,16 +696,16 @@
         <Slider name="weight-seams" invert="false" small="0" big="100" hidden="true">
             <Data name="MaleBodyweight-seams" target="MaleBody" local="true">DevourmentSE - Male AllSliders.osd\MaleBodyweight-seams</Data>
         </Slider>
-        <Slider name="Vanilla Weight" invert="false" small="0" big="100">
+        <Slider name="Vanilla Weight" invert="false" small="0" big="0">
             <Data name="MaleBodyVanilla Weight" target="MaleBody" local="true">DevourmentSE - Male AllSliders.osd\MaleBodyVanilla Weight</Data>
         </Slider>
         <Slider name="Femme" invert="false" small="0" big="0">
             <Data name="MaleBodyFemme" target="MaleBody" local="true">DevourmentSE - Male AllSliders.osd\MaleBodyFemme</Data>
         </Slider>
-        <Slider name="AnkleSize" invert="false" small="0" big="100">
+        <Slider name="AnkleSize" invert="false" small="0" big="100" hidden="true">
             <Data name="MaleBodyAnkleSize" target="MaleBody" local="true">DevourmentSE - Male AllSliders.osd\MaleBodyAnkleSize</Data>
         </Slider>
-        <Slider name="WristSize" invert="false" small="0" big="100">
+        <Slider name="WristSize" invert="false" small="0" big="100" hidden="true">
             <Data name="MaleBodyWristSize" target="MaleBody" local="true">DevourmentSE - Male AllSliders.osd\MaleBodyWristSize</Data>
         </Slider>
     </SliderSet>
