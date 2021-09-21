@@ -1,4 +1,4 @@
-﻿2021-09-19
+﻿2021-09-21
 [list]
 [*] Complete MCM re-write to leverage MCM Helper in order to help escape SkyUI MCM state limitations. The scope of this change is huge, so for the sake of brevity "everything changed."  - Gaz
 [*] Readded Linear Weight Gain option. - Gaz
