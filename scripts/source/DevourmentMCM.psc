@@ -835,8 +835,10 @@ event OnPageReset(string page)
 	ElseIf page == Pages[5]	;Female Weight
 
 		SetCursorFillMode(LEFT_TO_RIGHT)
-		addSliderOptionSt("WeightFemaleRootLowState", "$DVT_RootLow", WeightManager.RootLow[0], "{2}")
-		addSliderOptionSt("WeightFemaleRootHighState", "$DVT_RootHigh", WeightManager.RootHigh[0], "{2}")
+		If WeightManager.SkeletonScaling
+			addSliderOptionSt("WeightFemaleRootLowState", "$DVT_RootLow", WeightManager.RootLow[0], "{2}")
+			addSliderOptionSt("WeightFemaleRootHighState", "$DVT_RootHigh", WeightManager.RootHigh[0], "{2}")
+		EndIf
 		addInputOptionSt("WeightAddFemaleMorphState", "Add Female Morph", "")
 		AddEmptyOption()
 
@@ -873,8 +875,10 @@ event OnPageReset(string page)
 	ElseIf page == Pages[6]	;Male Weight
 
 		SetCursorFillMode(LEFT_TO_RIGHT)
-		addSliderOptionSt("WeightMaleRootLowState", "$DVT_RootLow", WeightManager.RootLow[0], "{2}")
-		addSliderOptionSt("WeightMaleRootHighState", "$DVT_RootHigh", WeightManager.RootHigh[0], "{2}")
+		If WeightManager.SkeletonScaling
+			addSliderOptionSt("WeightMaleRootLowState", "$DVT_RootLow", WeightManager.RootLow[0], "{2}")
+			addSliderOptionSt("WeightMaleRootHighState", "$DVT_RootHigh", WeightManager.RootHigh[0], "{2}")
+		EndIf
 		addInputOptionSt("WeightAddMaleMorphState", "Add Male Morph", "")
 		AddEmptyOption()
 
@@ -910,8 +914,10 @@ event OnPageReset(string page)
 	ElseIf page == Pages[7]	;Creature Weight
 
 		SetCursorFillMode(LEFT_TO_RIGHT)
-		addSliderOptionSt("WeightCreatureRootLowState", "$DVT_RootLow", WeightManager.RootLow[0], "{2}")
-		addSliderOptionSt("WeightCreatureRootHighState", "$DVT_RootHigh", WeightManager.RootHigh[0], "{2}")
+		If WeightManager.SkeletonScaling
+			addSliderOptionSt("WeightCreatureRootLowState", "$DVT_RootLow", WeightManager.RootLow[0], "{2}")
+			addSliderOptionSt("WeightCreatureRootHighState", "$DVT_RootHigh", WeightManager.RootHigh[0], "{2}")
+		EndIf
 		addInputOptionSt("WeightAddCreatureMorphState", "Add Creature Morph", "")
 		AddEmptyOption()
 

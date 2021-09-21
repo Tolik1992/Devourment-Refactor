@@ -25,6 +25,7 @@ Bool Property ActorsEnabled = false Auto Hidden
 Bool Property FemalesEnabled = false Auto Hidden
 Bool Property MalesEnabled = false Auto Hidden
 Bool Property CreaturesEnabled = false Auto Hidden
+Bool Property SkeletonScaling = false Auto Hidden
 Bool Property LinearChanges = false Auto Hidden
 Float Property WeightLoss = 0.05 auto Hidden
 Float Property WeightRate = 4.0 auto Hidden
@@ -343,7 +344,7 @@ float Function ChangeActorWeight(Actor target, float afChange, float afPreview =
 
 	Utility.Wait(0.001) ; A hacky fix but should prevent us from changing bodies while menus or console is up.
 
-	if RootLow[iRoot] != 1.0 && RootHigh[iRoot] != 1.0
+	if SkeletonScaling && RootLow[iRoot] != RootHigh[iRoot]
 		if fTargetWeight < 0.0
 			NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, 1.0 - fTargetWeight * RootLow[iRoot])
 			NIOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
