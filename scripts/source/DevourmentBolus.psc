@@ -14,7 +14,7 @@ String property name auto
 Faction property PlayerFaction auto
 bool property eatConsumables = true auto
 
-bool DEBUGGING = false
+bool DEBUGGING = true
 float angleZ = 0.0
 float force = 10.0
 int value = 0
@@ -26,10 +26,11 @@ Event OnInit()
 EndEvent
 
 
-Function Initialize(String newName, Actor newOwner, Actor newPred)
+Function Initialize(String newName, Actor newOwner, Actor newPred, bool consume = true)
 	SetName(newName)
 	owner = newOwner
 	intialPred = newPred
+	eatConsumables = consume
 
 	SetActorOwner(owner.GetLeveledActorBase())
 	SetFactionOwner(None)
@@ -97,7 +98,10 @@ Function OnItemAdded(Form baseItem, int itemCount, ObjectReference itemReference
 
 	; For edible forms (potions and ingredients), feed them to the owner.
 	if eatConsumables && (baseItem as Potion || baseItem as Ingredient)
-		Log4(PREFIX, "OnItemAdded", "CONSUMING", Namer(baseItem), Namer(itemReference), itemCount)
+		if DEBUGGING 
+			Log4(PREFIX, "OnItemAdded", "CONSUMING", Namer(baseItem), Namer(itemReference), itemCount)
+		endIf
+		
 		if Manager.ConsumeItem(intialPred, baseItem, itemReference, itemCount)
 			if itemReference
 				RemoveItem(itemReference, itemCount, true, intialPred)

@@ -2368,16 +2368,16 @@ Function DisplayQuickSettings()
 		ENTRY_SUBJECT = menu.AddEntryItem("Subject: " + playerName)
 	endIf
 
-	int ENTRY_BELLY1 = menu.AddEntryItem("View " + playerName + "'s' contents", entryHasChildren = true)
+	int ENTRY_BELLY1 = menu.AddEntryItem("View " + playerName + "'s contents", entryHasChildren = true)
 	AddPredContents(menu, ENTRY_BELLY1, playerRef)
 
-	if target2 != PlayerRef
-		int ENTRY_BELLY2 = menu.AddEntryItem("View " + target2Name + "'s' contents", entryHasChildren = true)
+	if target2 != None && target2 != PlayerRef
+		int ENTRY_BELLY2 = menu.AddEntryItem("View " + target2Name + "'s contents", entryHasChildren = true)
 		AddPredContents(menu, ENTRY_BELLY2, target2)
 	endIf
 
-	if target3 != PlayerRef && target3 != target2
-		int ENTRY_BELLY3 = menu.AddEntryItem("View " + target3Name + "'s' contents", entryHasChildren = true)
+	if target3 != None && target3 != PlayerRef && target3 != target2
+		int ENTRY_BELLY3 = menu.AddEntryItem("View " + target3Name + "'s contents", entryHasChildren = true)
 		AddPredContents(menu, ENTRY_BELLY3, target3)
 	endIf
 
@@ -2559,7 +2559,11 @@ Function DisplayQuickSettings()
 			exit = true
 
 		elseif result == ENTRY_INVENTORY_EAT
-			Power_EatThis.cast(playerRef, playerRef)
+			Actor fakePlayer = Manager.FakePlayer
+			fakePlayer.MoveTo(PlayerRef)
+			fakePlayer.SetAlpha(0.0, false)
+			Power_EatThis.cast(playerRef, fakePlayer)
+			exit = true
 
 		elseif result == ENTRY_SLEEP
 			PlayerAlias.VoreSleep()

@@ -3785,7 +3785,7 @@ function hideLocally(Actor pred, Actor prey)
 	;	prey.setPosition(PX, PY, PZ)
 	;endIf
 
-	ghostify(prey)
+	Ghostify(prey)
 
 	if !prey.hasSpell(NotThere_Trapped)
 		prey.addSpell(NotThere_Trapped, false)

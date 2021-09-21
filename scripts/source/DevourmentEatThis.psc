@@ -7,6 +7,7 @@ DevourmentManager property Manager auto
 Container property BolusContainer auto
 
 
+bool DEBUGGING = true
 String PREFIX = "DevourmentEatThis"
 DevourmentBolus bolus = none
 Actor receiverPred = none
@@ -18,22 +19,23 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Dispel()
 		return 
 	endIf
-	
+
 	bolus = Manager.FakePlayer.placeAtMe(BolusContainer) as DevourmentBolus
 	receiverPred = akTarget
 
 	if akTarget == Manager.FakePlayer
 		actualPred = PlayerRef
-		bolus.eatConsumables = false
 	else
 		actualPred = akTarget
-		bolus.eatConsumables = true
 	endIf
 
-	bolus.Initialize(Namer(PlayerRef, true) + "'s stash", PlayerRef, actualPred)
+	if DEBUGGING
+		Log2(PREFIX, "OnEffectStart", Namer(receiverPred), Namer(actualPred))
+	endIf
+
+	bolus.Initialize(Namer(PlayerRef, true) + "'s stash", PlayerRef, actualPred, consume = actualPred != PlayerRef)
 	RegisterForMenu("GiftMenu")
 	receiverPred.ShowGiftMenu(true, none, true, false)
-	;Log2(PREFIX, "OnEffectStart", Namer(actualPred), Namer(receiverPred))
 EndEvent
 
 
@@ -43,9 +45,17 @@ EndEvent
 
 Event OnMenuClose(string menuName)
 	if bolus.GetNumItems() > 0
+		if DEBUGGING
+			Log1(PREFIX, "OnMenuClose", "Bolus Size: " + bolus.GetNumItems())
+		endIf
+
 		Manager.RegisterDigestion(actualPred, bolus, false, 0)
 		Manager.PlayVoreAnimation_Item(actualPred, bolus, 0, true)
 	else
+		if DEBUGGING
+			Log1(PREFIX, "OnMenuClose", "Bolus empty, deleting.")
+		endIf
+	
 		bolus.delete()
 	endIf
 
@@ -59,7 +69,9 @@ EndEvent
 
 
 Function OnItemAdded(Form baseItem, int itemCount, ObjectReference itemReference, ObjectReference source)
-	;Log6(PREFIX, "OnItemAdded", Namer(baseItem), itemCount, Namer(itemReference), Namer(source), Namer(actualPred), Namer(receiverPred))
+	if DEBUGGING
+		Log6(PREFIX, "OnItemAdded", Namer(baseItem), itemCount, Namer(itemReference), Namer(source), Namer(actualPred), Namer(receiverPred))
+	endIf
 
 	if source == PlayerRef
 		if itemReference
