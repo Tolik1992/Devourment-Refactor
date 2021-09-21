@@ -2401,7 +2401,7 @@ Function DisplayQuickSettings()
 	int ENTRY_PERK_PRED = menu.AddEntryItem("Pred Perks", ENTRY_PERKS)
 	int ENTRY_PERK_PREY = menu.AddEntryItem("Prey Perks", ENTRY_PERKS)
 
-	int ENTRY_TOGGLES = menu.AddEntryItem("Toggles")
+	int ENTRY_TOGGLES = menu.AddEntryItem("Toggles", entryHasChildren = true)
 	int ENTRY_LOOSE = menu.AddEntryItem(ToggleString("Loose item vore", LooseItemVore), ENTRY_TOGGLES)
 	int ENTRY_REBIRTH = menu.AddEntryItem(ToggleString("Automatic rebirth", AutoRebirth), ENTRY_TOGGLES)
 	int ENTRY_CROUCH = menu.AddEntryItem(ToggleString("Crouch Scat", Manager.CrouchScat), ENTRY_TOGGLES)
