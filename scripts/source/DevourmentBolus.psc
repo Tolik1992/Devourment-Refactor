@@ -12,7 +12,7 @@ Actor property intialPred auto
 Actor property owner auto
 String property name auto
 Faction property PlayerFaction auto
-
+bool property eatConsumables = true auto
 
 bool DEBUGGING = false
 float angleZ = 0.0
@@ -96,8 +96,8 @@ Function OnItemAdded(Form baseItem, int itemCount, ObjectReference itemReference
 	totalCount += itemCount
 
 	; For edible forms (potions and ingredients), feed them to the owner.
-	if baseItem as Potion || baseItem as Ingredient
-		Log3(PREFIX, "OnItemAdded", Namer(baseItem), Namer(itemReference), itemCount)
+	if eatConsumables && (baseItem as Potion || baseItem as Ingredient)
+		Log4(PREFIX, "OnItemAdded", "CONSUMING", Namer(baseItem), Namer(itemReference), itemCount)
 		if Manager.ConsumeItem(intialPred, baseItem, itemReference, itemCount)
 			if itemReference
 				RemoveItem(itemReference, itemCount, true, intialPred)

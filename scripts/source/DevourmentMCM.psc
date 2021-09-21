@@ -2579,3 +2579,10 @@ Function DisplayQuickSettings()
 		endIf
 	endWhile
 EndFunction
+
+
+DevourmentMCM Function instance() global
+	{ Returns the DevourmentMCM instance, for situations in which a property isn't helpful (like global functions). }
+	return Quest.GetQuest("DevourmentMCM") as DevourmentMCM
+EndFunction
+	

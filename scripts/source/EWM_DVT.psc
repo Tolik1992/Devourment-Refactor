@@ -4,7 +4,6 @@ import Logging
 
 Actor property playerRef auto
 DevourmentManager property Manager auto
-DevourmentMCM property MCM auto
 Spell[] property Spells auto
 String PREFIX = "EWM_DVT"
 
@@ -80,7 +79,7 @@ EndEvent
 
 Event On_EWMDVTQuick()
 	;castOnTarget(Spells[5])
-	MCM.DisplayQuickSettings()
+	DevourmentMCM.instance().DisplayQuickSettings()
 EndEvent
 
 
