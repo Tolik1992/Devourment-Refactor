@@ -33,12 +33,10 @@ LOCUS_COCK 		= 5
 ; * Check Devious Devices keywords
 ; * Subdivide and make WeightGain morphs for all creatures.
 ; * Split all creatures into their own predator toggles. Leverage SPID.
-; * Add a more convenient way to swallow items from inventory.
 ; * Option to stop Vore Magic perks gating Vore spells outright.
 ; * Silent Swallow makes Disposal noises silent to the user ??
 ; * Add something to make Dragons that vore the player stay put.
 ; * SCL-inspired PlayerThoughts function?
-; * Way for the player to initiate vore with a Random Locus.
 ; * Dialogue to intiiate Vore with friendly animals ?
 ; * Seperate out WeightManager settings so people can import/export their bodyshapes easier.
 ; * Now that the onload dependancy check is gone, make child checks less frustrating.
@@ -170,8 +168,6 @@ bool property killPlayer = true auto
 bool property MicroMode = false auto
 bool property malePreds = true auto
 bool property notifications = true auto
-;bool property PlayerCentric = false auto
-;bool property PlayerAvoidant = false auto
 bool property screamSounds = true auto
 bool property shitItems = false auto
 bool property SwallowHeal = true auto
