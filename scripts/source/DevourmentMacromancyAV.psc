@@ -20,6 +20,7 @@ float Smoothness
 float Unsmoothness
 float currentScale
 float MacromancyScaling
+bool performanceMode
 bool isFemale
 Actor target
 
@@ -33,26 +34,31 @@ Event received when this effect is first started (OnInit may not have been run y
 		return
 	endif
 
-	;CCQ = Quest.GetQuest("001CustomizableCamera")
 	AVProxy_Size = Manager.AVProxy_Size
 	MacromancyScaling = Manager.MacromancyScaling
 	Unsmoothness = Speed
 	Smoothness = 1.0 - Unsmoothness
-	
+	performanceMode = Manager.PERFORMANCE
 	target = akTarget
-	currentScale = 1.0
+
+	if performanceMode
+		currentScale = MacromancyScaling * AVProxy_Size.GetCurrentValue(target) / 100.0
+	else
+		currentScale = 1.0
+	endIf
+
 	isFemale = Manager.IsFemale(target)
 
 	Manager.UncacheVoreWeight(akTarget)
-	NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, MacromancyScaling * currentScale)
+	NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, currentScale)
 	NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 	RegisterForSingleUpdate(0.0)
-	Log2(PREFIX, "OnEffectStart", Namer(target), AVProxy_Size.GetCurrentValue(target) / 100.0)
+	;Log2(PREFIX, "OnEffectStart", Namer(target), AVProxy_Size.GetCurrentValue(target) / 100.0)
 endEvent
 
 
 Event OnUpdate()
-	float targetScale = AVProxy_Size.GetCurrentValue(target) / 100.0
+	float targetScale = MacromancyScaling * AVProxy_Size.GetCurrentValue(target) / 100.0
 	
 	if targetScale < 0.01
 		targetScale = 0.01
@@ -61,14 +67,18 @@ Event OnUpdate()
 	float diff = targetScale - currentScale
 	
 	if diff < -0.01 || diff > 0.01
-		currentScale = Smoothness * currentScale + Unsmoothness * targetScale
-		NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, MacromancyScaling * currentScale)
+		if performanceMode
+			currentScale = targetScale
+		elseif diff < -0.2
+			currentScale -= 0.2
+		elseif diff > 0.2
+			currentScale += 0.2
+		else
+			currentScale = Smoothness * currentScale + Unsmoothness * targetScale
+		endIf
+
+		NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, currentScale)
 		NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
-
-		;if target == PlayerRef && CCQ
-		;	(CCQ as CustomizableCamera).MacromancyAutoChange(CurrentScale)
-		;endIf
-
 		RegisterForSingleUpdate(0.050)
 
 	elseif !target.HasMagicEffectWithKeyword(DevourmentSize)
@@ -86,5 +96,5 @@ functions on this effect will fail)
 }
 	NIOverride.RemoveNodeTransformScale(target, false, isFemale, rootNode, PREFIX)
 	NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
-	Log1(PREFIX, "OnEffectFinish", Namer(target))
+	;Log1(PREFIX, "OnEffectFinish", Namer(target))
 endEvent

@@ -39,7 +39,6 @@ Event received when this effect is first started (OnInit may not have been run y
 		return
 	endif
 
-	;CCQ = Quest.GetQuest("001CustomizableCamera")
 	MacromancyScaling = Manager.MacromancyScaling
 	Unsmoothness = Speed
 	Smoothness = 1.0 - Unsmoothness
@@ -58,7 +57,6 @@ Event received when this effect is first started (OnInit may not have been run y
 	NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, MacromancyScaling * currentScale)
 	NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 	RegisterForSingleUpdate(0.0)
-	Log2(PREFIX, "OnEffectStart", Namer(target), currentScale)
 endEvent
 
 
@@ -69,10 +67,6 @@ Event OnUpdate()
 		currentScale = Smoothness * currentScale + Unsmoothness * targetScale
 		NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, MacromancyScaling * currentScale)
 		NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
-
-		;if target == PlayerRef && CCQ
-		;	(CCQ as CustomizableCamera).MacromancyAutoChange(CurrentScale)
-		;endIf
 
 		RegisterForSingleUpdate(0.050)
 		
@@ -92,6 +86,5 @@ functions on this effect will fail)
 }
 	NIOverride.RemoveNodeTransformScale(target, false, isFemale, rootNode, PREFIX)
 	NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
-	Log1(PREFIX, "OnEffectFinish", Namer(target))
 endEvent
 
