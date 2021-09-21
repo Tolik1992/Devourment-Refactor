@@ -77,6 +77,7 @@
 						"$DVT_Noms2",
 						"$DVT_Noms3"
 						],
+						"shortNames": ["$DVT_ShortNoms0", "$DVT_ShortNoms1", "$DVT_ShortNoms2", "$DVT_ShortNoms3"],
 						"defaultValue": 0
 					}
 				},
@@ -204,6 +205,30 @@
 					  	"step": 0.1,
 						"defaultValue": 2.0,
 					  	"formatString": "{2}"
+					}
+				},
+				{
+					"text": "$DVT_SkillGain",
+					"help": "$DVT_Help_SkillGain",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "SkillGain",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_AttributeGain",
+					"help": "$DVT_Help_AttributeGain",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "AttributeGain",
+						"defaultValue": true
 					}
 				},
 				{
@@ -966,7 +991,7 @@
 						"form": "Devourment.esp|A9B",   
 						"scriptName": "DevourmentWeightManager",     
 						"function": "SyncSettings",
-						"params": [true]
+						"params": [false]
 					}
 				},
 				{

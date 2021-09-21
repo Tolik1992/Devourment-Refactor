@@ -176,6 +176,8 @@ bool property UseHelpMessages = false auto
 bool property bossesSuperPrey = true auto
 bool property entitlement = false auto
 bool property EndoStruggling = true auto
+bool property SkillGain = true auto
+bool property AttributeGain = true auto
 float property AcidDamageModifier = 1.0 auto
 float property BurpsRate = 16.0 auto
 float property GurglesRate = 8.0 auto
@@ -3153,8 +3155,8 @@ EndFunction
 
 Event VoreSkills(Form f1, Form f2)
 { 
-If the prey had skills that exceeded the pred's, the pred gets a bonus to the highest one.
-If the prey had attributes or that exceeded the pred's, the pred gets a bonus to each.
+If the prey had skills that exceeded the preds', the pred gets a bonus to the highest one.
+If the prey had attributes that exceeded the preds', the pred gets a bonus to each.
 
 This function gets called using the Devourment_VoreSkills event, because its very slow and needs to 
 run in parallel to the main loop.
@@ -3174,66 +3176,70 @@ run in parallel to the main loop.
 	String highest = ""
 	Float highestVal = 0.0
 
-	int index = Skills.length
-	While index
-		index -= 1
-		String skillName = Skills[index]
-		float skillVal = prey.getBaseActorValue(skillName)
-		if skillVal > highestVal && skillVal > pred.getBaseActorValue(skillName)
-			highest = skillName
-			highestVal = skillVal
-		endIf
-	EndWhile
+	If SkillGain
+		int index = Skills.length
+		While index
+			index -= 1
+			String skillName = Skills[index]
+			float skillVal = prey.getBaseActorValue(skillName)
+			if skillVal > highestVal && skillVal > pred.getBaseActorValue(skillName)
+				highest = skillName
+				highestVal = skillVal
+			endIf
+		EndWhile
 
-	if highestVal != 0.0
-		if pred == playerRef
-			Game.IncrementSkill(highest)
+		if highestVal != 0.0
+			if pred == playerRef
+				Game.IncrementSkill(highest)
+			else
+				pred.setActorValue(highest, pred.getBaseActorValue(highest) + 1.0)
+			endIf
+		endIf
+	EndIf
+
+	If AttributeGain
+		bool hp = false
+		bool sp = false
+		bool mp = false
+
+		float gain
+		if pred.hasPerk(Menu.ConsumeEssence)
+			gain = 2.0
 		else
-			pred.setActorValue(highest, pred.getBaseActorValue(highest) + 1.0)
+			gain = 1.0
 		endIf
-	endIf
 
-	bool hp = false
-	bool sp = false
-	bool mp = false
+		if prey.getBaseActorValue("Health") > pred.getBaseActorValue("Health")
+			hp = true
+			pred.modActorValue("Health", gain)
+		endIf
 
-	float gain
-	if pred.hasPerk(Menu.ConsumeEssence)
-		gain = 2.0
-	else
-		gain = 1.0
-	endIf
+		if prey.getBaseActorValue("Stamina") > pred.getBaseActorValue("Stamina")
+			sp = true
+			pred.modActorValue("Stamina", gain)
+		endIf
 
-	if prey.getBaseActorValue("Health") > pred.getBaseActorValue("Health")
-		hp = true
-		pred.modActorValue("Health", gain)
-	endIf
+		if prey.getBaseActorValue("Magicka") > pred.getBaseActorValue("Magicka") / 2.0
+			mp = true
+			pred.modActorValue("Magicka", gain)
+		endIf
 
-	if prey.getBaseActorValue("Stamina") > pred.getBaseActorValue("Stamina")
-		sp = true
-		pred.modActorValue("Stamina", gain)
-	endIf
-
-	if prey.getBaseActorValue("Magicka") > pred.getBaseActorValue("Magicka") / 2.0
-		mp = true
-		pred.modActorValue("Magicka", gain)
-	endIf
-
-	if hp && sp && mp
-		Notify(predName + " gained " + gain as int + " points of health, stamina, and magicka from " + preyName)
-	elseif hp && sp
-		Notify(predName + " gained " + gain as int + " points of health and stamina from " + preyName)
-	elseif hp && mp
-		Notify(predName + " gained " + gain as int + " points of health and magicka from " + preyName)
-	elseif sp && mp
-		Notify(predName + " gained " + gain as int + " points of stamina and magicka from " + preyName)
-	elseif hp
-		Notify(predName + " gained " + gain as int + " points of health from " + preyName)
-	elseif sp
-		Notify(predName + " gained " + gain as int + " points of staminafrom " + preyName)
-	elseif mp
-		Notify(predName + " gained " + gain as int + " points of magicka from " + preyName)
-	endIf
+		if hp && sp && mp
+			Notify(predName + " gained " + gain as int + " points of health, stamina, and magicka from " + preyName)
+		elseif hp && sp
+			Notify(predName + " gained " + gain as int + " points of health and stamina from " + preyName)
+		elseif hp && mp
+			Notify(predName + " gained " + gain as int + " points of health and magicka from " + preyName)
+		elseif sp && mp
+			Notify(predName + " gained " + gain as int + " points of stamina and magicka from " + preyName)
+		elseif hp
+			Notify(predName + " gained " + gain as int + " points of health from " + preyName)
+		elseif sp
+			Notify(predName + " gained " + gain as int + " points of staminafrom " + preyName)
+		elseif mp
+			Notify(predName + " gained " + gain as int + " points of magicka from " + preyName)
+		endIf
+	EndIf
 EndEvent
 
 
