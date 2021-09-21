@@ -7,7 +7,7 @@ DevourmentManager property Manager auto
 Container property BolusContainer auto
 
 
-bool DEBUGGING = true
+bool DEBUGGING = false
 String PREFIX = "DevourmentEatThis"
 DevourmentBolus bolus = none
 Actor receiverPred = none

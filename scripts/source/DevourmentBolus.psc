@@ -14,7 +14,7 @@ String property name auto
 Faction property PlayerFaction auto
 bool property eatConsumables = true auto
 
-bool DEBUGGING = true
+bool DEBUGGING = false
 float angleZ = 0.0
 float force = 10.0
 int value = 0
