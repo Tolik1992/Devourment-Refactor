@@ -93,20 +93,24 @@ EndEvent
 
 Function DefaultReformation()
 	Log0(PREFIX, "DefaultReformation")
-	game.FadeOutGame(true,true, 0.0, 1.0)
+	;game.FadeOutGame(true,true, 0.0, 1.0)
 	
 	Actor reviver = GetReformationHost()
+	Log2(PREFIX, "DefaultReformation", "Reviver selection:", Namer(reviver))
+
 	if reviver == none || reviver.IsDead() || reviver.IsDisabled()
+		Log1(PREFIX, "GetReformationHost", "Invalid reviver, killing player.")
 		Manager.KillPlayer_ForReal()
 		return
 	endIf
 	
 	if Manager.IsPrey(reviver)
+		Log1(PREFIX, "GetReformationHost", "Reviver is prey, forcing escape.")
 		Manager.ForceEscape(reviver)
 	endIf
 
 	Manager.RegisterReformation(reviver, PlayerRef, 0)
-	game.FadeOutGame(false,true, 4.0, 1.0)
+	;game.FadeOutGame(false,true, 4.0, 1.0)
 EndFunction
 
 

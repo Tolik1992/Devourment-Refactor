@@ -233,6 +233,21 @@ Function gotoDead(int newPreyData)
 EndFunction
 
 
+Function gotoReforming(int newPreyData)
+	if !assertExists(PREFIX, "gotoReforming", "newPreyData", newPreyData)
+		return
+	endIf
+	
+	if Manager.DEBUGGING
+		LogJ(PREFIX, "gotoReforming", newPreyData, Manager.getPred(newPreyData))
+	endIf
+	
+	preyData = newPreyData
+	PredRef.ForceRefTo(Manager.getPred(preyData))
+	gotostate("PlayerIsReforming")
+EndFunction
+
+
 Function StartPlayerStruggle()
 	int index = Utility.randomInt(0, 1)
 	selectedStruggleKey = STRUGGLE_KEY1
@@ -755,7 +770,72 @@ When the shout key is pressed, it will call Manager.KillPlayer() to finish up.
 EndState
 
 
-;=================================================
+State PlayerIsReforming
+	;/
+	This state means that the player is dead but reforming.
+	/;
+	
+		Event onBeginState()
+			if Manager.DEBUGGING
+				Log2(PREFIX, "PlayerIsReforming.onBeginState", AliasNamer(PredRef), AliasNamer(ApexRef))
+			endIf
+			
+			PlayerIsDead.SetValue(1.0)
+			Actor apex = ApexRef.GetReference() as Actor
+	
+			if apex && IsControllable(apex, endo = true)
+				TakeControlOf(apex)
+			endIf
+	
+			Game.SetInCharGen(false, true, false)
+			RegisterForSingleUpdate(5.0)
+		EndEvent
+	
+	
+		Event onUpdate()
+			float percent = Manager.GetDigestionPercent(preyData)
+			Debug.Notification(percent + "% reformed")
+			RegisterForSingleUpdate(8.0)
+		EndEvent
+	
+	
+		Event onEndState()
+			if Manager.DEBUGGING
+				Log0(PREFIX, "PlayerIsReforming.onEndState")
+			endIf
+			
+			Message.resetHelpMessage("DVT_DEAD")
+			PlayerIsDead.SetValue(0.0)
+			Game.SetInCharGen(false, false, false)
+	
+			Actor apex = Manager.FindApex(PlayerRef)
+			Actor pred = PredRef.GetReference() as Actor
+	
+			if apex 
+				ReleaseControlOf(apex)
+			endIf
+			if pred
+				ReleaseControlOf(pred)
+			endIf
+		EndEvent
+	
+	
+		Function gotoEliminate()
+			if Manager.DEBUGGING
+				Log1(PREFIX, "PlayerIsReforming.gotoEliminate", "Cannot enter PlayerEliminate state when the player is reforming.")
+			endIf
+		EndFunction
+	
+	
+		Event DA_EndBlackout(string eventName, string strArg, float numArg, Form sender)
+			gotoDefault()
+		EndEvent
+		
+		
+	EndState
+	
+	
+	;=================================================
 ; Utility functions.
 
 

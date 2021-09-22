@@ -6,7 +6,7 @@ scriptName DevourmentLocationTracker extends ActiveMagicEffect
 import Logging
 
 
-bool DEBUGGING = false
+bool DEBUGGING = true
 
 Actor property PlayerRef auto
 Cell property StomachCell auto
@@ -24,9 +24,9 @@ ActorBase OwnedCellOwner1 = none
 Faction OwnedCellOwner2 = none
 
 
-float distanceMove = 250.0
+float distanceMove = 300.0
 float distanceTooClose = 200.0
-float distanceTooFar = 600.0
+float distanceTooFar = 800.0
 
 
 event OnEffectStart(Actor target, Actor caster)
@@ -52,7 +52,10 @@ event OnEffectFinish(Actor target, Actor caster)
 		Log0(PREFIX, "OnEffectFinish")
 	endIf
 	
-	subject.stopTranslation()
+	if translationSystem
+		subject.stopTranslation()
+	endIf
+
 	ResetCellOwners()
 EndEvent
 
@@ -169,10 +172,28 @@ Function MoveSubject(ObjectReference center, bool cellChange = false)
 		float px = center.GetPositionX() - distanceMove
 		float py = center.GetPositionY() - distanceMove
 		float pz = center.GetPositionZ()
+
+		if DEBUGGING
+			Log1(PREFIX, "MoveSubject", "Performing relocation-translation.")
+		endIf
+
 		subject.stopTranslation()
 		subject.SetPosition(px, py, pz)
 		subject.TranslateTo(px, py, pz + 20.0, 0.0, 0.0, 0.0, 0.01)
+	elseif cellChange
+		if DEBUGGING
+			Log1(PREFIX, "MoveSubject", "Using MoveTo().")
+		endIf
+
+		subject.moveTo(center, -distanceMove, -distanceMove, 0.0, false)
 	else
-		subject.moveTo(center, -distanceMove, -distanceMove)
+		if DEBUGGING
+			Log1(PREFIX, "MoveSubject", "Using SetPosition().")
+		endIf
+
+		float px = center.GetPositionX() - distanceMove
+		float py = center.GetPositionY() - distanceMove
+		float pz = center.GetPositionZ()
+		subject.SetPosition(px, py, pz)
 	endIf
 EndFunction

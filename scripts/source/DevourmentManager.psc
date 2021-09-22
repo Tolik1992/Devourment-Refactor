@@ -479,10 +479,10 @@ State Running
 		; dtReal < 0.05 : don't bother with an update unless at least 100 milliseconds have passed.
 		; dtGame > 1.0 : if an entire DAY of game time passed, then player is being weird and we wont even acknowledge them.
 		;
-		; dtReal > 2.0 && dtGame < 0.00694 : if 2s real-time has passed but less than 10m game-time, the player
+		; dtReal > 2.0 && dtGame < 0.00694 : if 10s real-time has passed but less than 10m game-time, the player
 		; was probably in a menu or saved/loaded the game. If they were sleeping or resting, dtGame would be at least 0.00694 (10 minutes).
 		;
-		if paused || dtReal < 0.1 || dtGame > 1.0 || (dtReal > 2.0 && dtGame < 0.00694)
+		if paused || dtReal < 0.1 || dtGame > 1.0 || (dtReal > 10.0 && dtGame < 0.00694)
 			; Don't do shit.
 			
 		else
@@ -873,7 +873,7 @@ EndFunction
 
 
 Function RegisterReformation(Actor pred, Actor prey, int locus)
-{ Registers the swallowing of a fake prey by f1. }
+{ Registers the swallowing of a fake prey. }
 	if !(pred && prey && pred != prey)
 		assertNotNone(PREFIX, "RegisterFakeDigestion", "pred", pred)
 		assertNotNone(PREFIX, "RegisterFakeDigestion", "prey", prey)
@@ -901,7 +901,7 @@ Function RegisterReformation(Actor pred, Actor prey, int locus)
 	
 	if prey == playerRef
 		DisappearPreyBy(pred, prey, true, false)
-		PlayerAlias.gotoDead(preyData)
+		PlayerAlias.gotoReforming(preyData)
 	endIf
 
 	if GetState() != "Running"
@@ -2059,7 +2059,7 @@ Removes a single dead content from the pred and places a scat pile or bones behi
 		assertNotNone(PREFIX, "defecateDigested", "content", content)
 		assertTrue(PREFIX, "defecateDigested", "Has(pred, content)", Has(pred, content))
 		LogJ(PREFIX, "defecateDigested", preyData, apex, pred, content)
-		Log1(PREFIX, "defecateDigested", local)
+		Log1(PREFIX, "defecateDigested", "local="+local)
 	endIf
 
 	RemoveFromStomach(pred, content, preyData)
@@ -2371,6 +2371,7 @@ Function KillPlayer(Actor pred)
 			DefecateOne(playerRef, force = true)
 		endIf
 		pred.AddSpell(StatusSpells[5])
+		ReplacePrey(pred, playerRef, fakePlayer)
 		ReformationQuest.StartReformation()
 	
 	elseif BYK == 0 && Menu.AutoRebirth && GetLocusFor(PlayerRef) == 2 && !IsPrey(pred)
