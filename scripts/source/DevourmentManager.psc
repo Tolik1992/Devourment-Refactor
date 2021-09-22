@@ -32,7 +32,6 @@ LOCUS_COCK 		= 5
 ; PLANNED FEATURES
 ; * Check Devious Devices keywords
 ; * Subdivide and make WeightGain morphs for all creatures.
-; * Split all creatures into their own predator toggles. Leverage SPID.
 ; * Option to stop Vore Magic perks gating Vore spells outright.
 ; * Silent Swallow makes Disposal noises silent to the user ??
 ; * Add something to make Dragons that vore the player stay put.
@@ -93,6 +92,7 @@ GlobalVariable[] property HealthMeterColours auto
 Idle Property IdleStop Auto
 Idle property IdleDragon auto
 Idle property IdleVore auto
+Int[] property CreaturePredatorToggles auto
 Keyword property ActorTypeAnimal auto
 Keyword property ActorTypeCreature auto
 Keyword property ActorTypeDaedra auto
@@ -149,6 +149,7 @@ Spell property ScriptedVore auto
 Spell property CordycepsFrenzy auto
 Spell[] property SoundsOfDigestion auto
 Spell[] property StatusSpells auto
+String[] property CreaturePredatorStrings auto
 String[] property Skills auto
 int[] property EdibleTypes auto
 
@@ -4501,19 +4502,16 @@ EndFunction
 
 
 bool Function validPredator(Actor target)
-	if MalePreds && FemalePreds && CreaturePreds && !VEGAN_MODE
-		return true
-
-	elseif target.HasKeyword(ActorTypeNPC)
-		if MalePreds && FemalePreds && !VEGAN_MODE
-			return true
-		else
-			int sex = target.getLeveledActorBase().getSex()
-			return (sex == 0 && MalePreds && !VEGAN_MODE) || (sex != 0 && FemalePreds)
-		endIf
-	else
-		return CreaturePreds && target.hasKeyword(ActorTypeCreature)
-	endIf
+	If target.hasKeyword(ActorTypeCreature) && CreaturePreds
+		String targetRace = Remapper.RemapRaceName(target)
+		Int iPos = CreaturePredatorStrings.Find(targetRace)
+		Return CreaturePredatorToggles[iPos]
+	ElseIf target.HasKeyword(ActorTypeNPC)
+		int sex = target.getLeveledActorBase().getSex()	;We only care for Sex where humanoids are concerned.
+		return (sex == 0 && MalePreds && !VEGAN_MODE) || (sex != 0 && FemalePreds)
+	Else
+		Return False
+	EndIf
 EndFunction
 
 
@@ -6533,6 +6531,8 @@ bool Function saveSettings(String settingsFileName)
 
 	int data = JMap.object()
 
+	JMap.SetObj(data, "CreaturePredatorToggles",	JArray.objectWithInts(CreaturePredatorToggles))
+
 	JMap.setInt(data, "CombatAcceleration", CombatAcceleration as int)
 	JMap.setInt(data, "scatTypeNPC", 		scatTypeNPC)
 	JMap.setInt(data, "scatTypeCreature", 	scatTypeCreature)
@@ -6607,6 +6607,8 @@ bool Function loadSettings(String settingsFileName)
 	if !JValue.isExists(data)
 		return false
 	endIf
+
+	CreaturePredatorToggles =	JArray.asIntArray(JMap.getObj(data, "CreaturePredatorToggles", JArray.ObjectWithInts(CreaturePredatorToggles)))
 
 	CombatAcceleration = 	JMap.getInt(data, "CombatAcceleration", 	CombatAcceleration as int) as bool
 	scatTypeNPC = 			JMap.getInt(data, "scatTypeNPC", 			scatTypeNPC)
