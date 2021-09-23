@@ -16,7 +16,6 @@ String PREFIX = "DevourmentLocationTracker"
 float property UpdateInterval = 2.0 autoreadonly
 
 
-bool translationSystem = true
 bool dead = false
 Cell OwnedCell = none
 Actor subject
@@ -24,9 +23,9 @@ ActorBase OwnedCellOwner1 = none
 Faction OwnedCellOwner2 = none
 
 
-float distanceMove = 300.0
-float distanceTooClose = 200.0
-float distanceTooFar = 800.0
+float distanceMove = 1000.0
+float distanceTooClose = 500.0
+float distanceTooFar = 3000.0
 
 
 event OnEffectStart(Actor target, Actor caster)
@@ -52,10 +51,7 @@ event OnEffectFinish(Actor target, Actor caster)
 		Log0(PREFIX, "OnEffectFinish")
 	endIf
 	
-	if translationSystem
-		subject.stopTranslation()
-	endIf
-
+	subject.stopTranslation()
 	ResetCellOwners()
 EndEvent
 
@@ -106,6 +102,8 @@ Event onUpdate()
 			Log1(PREFIX, "OnUpdate", "In dialogue -- skipping player relocation.")
 		endIf
 
+		subject.StopTranslation()
+
 	else
 		if Manager.DEBUGGING
 			Log4(PREFIX, "OnUpdate", Namer(apex), Namer(apexCell), Namer(subjectCell), distance)
@@ -123,6 +121,7 @@ Event onUpdate()
 				Log1(PREFIX, "onUpdate", "Relocating Player to an appropriate distance.")
 			endIf
 			MoveSubject(apex)
+
 		endIf
 	endIf
 	
@@ -168,32 +167,37 @@ EndFunction
 
 
 Function MoveSubject(ObjectReference center, bool cellChange = false)
-	if translationSystem && !cellChange
-		float px = center.GetPositionX() - distanceMove
-		float py = center.GetPositionY() - distanceMove
-		float pz = center.GetPositionZ()
-
-		if DEBUGGING
-			Log1(PREFIX, "MoveSubject", "Performing relocation-translation.")
-		endIf
-
-		subject.stopTranslation()
-		subject.SetPosition(px, py, pz)
-		subject.TranslateTo(px, py, pz + 20.0, 0.0, 0.0, 0.0, 0.01)
-	elseif cellChange
+	if cellChange
 		if DEBUGGING
 			Log1(PREFIX, "MoveSubject", "Using MoveTo().")
 		endIf
 
 		subject.moveTo(center, -distanceMove, -distanceMove, 0.0, false)
+
 	else
 		if DEBUGGING
-			Log1(PREFIX, "MoveSubject", "Using SetPosition().")
+			Log1(PREFIX, "MoveSubject", "Using TranslateTo().")
 		endIf
 
 		float px = center.GetPositionX() - distanceMove
 		float py = center.GetPositionY() - distanceMove
 		float pz = center.GetPositionZ()
-		subject.SetPosition(px, py, pz)
+
+		subject.stopTranslation()
+		subject.TranslateTo(px, py, pz, 0.0, 0.0, 0.0, 1000.0)
 	endIf
 EndFunction
+
+
+Event OnTranslationComplete()
+	if DEBUGGING
+		Actor apex = Manager.FindApex(subject)
+		float distance = subject.GetDistance(apex)
+		Log2(PREFIX, "OnTranslationComplete", distance, "Using TranslateTo(z+20).")
+	endIf
+
+	float px = subject.GetPositionX()
+	float py = subject.GetPositionY()
+	float pz = subject.GetPositionZ()
+	subject.TranslateTo(px, py, pz + 20.0, 0.0, 0.0, 0.0, 0.01)
+EndEvent
