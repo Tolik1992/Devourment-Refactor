@@ -7,6 +7,7 @@ import DevourmentUtil
 DevourmentManager property Manager auto
 DevourmentMCM property DevourMCM auto
 DevourmentDialog property DialogQuest auto
+DevourmentWeightManager property WeightManager auto
 Actor Property PlayerRef auto
 Faction property Follower auto
 Furniture property BedRoll auto
@@ -66,6 +67,11 @@ Event OnInit()
 	RegisterForKey(COMPEL_KEY)
 	RegisterForKey(SHOUT_KEY)
 	self.LoadGameChecks()
+EndEvent
+
+
+Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
+	WeightManager.OnObjectEquipped(akBaseObject, akReference)
 EndEvent
 
 
