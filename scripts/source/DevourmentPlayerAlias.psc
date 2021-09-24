@@ -313,9 +313,9 @@ EndFunction
 
 Event OnKeyUp(int keyCode, float holdTime)
 	;StruggleLatch = true
-	if KeyCode == COMPEL_KEY && Manager.DEBUGGING
+	if KeyCode == COMPEL_KEY ;&& Manager.DEBUGGING
 		Manager.CompelVore()
-	elseif KeyCode == FORGET_KEY && Manager.DEBUGGING
+	elseif KeyCode == FORGET_KEY ;&& Manager.DEBUGGING
 		int count = ForgetEquippedSpells()
 		ConsoleUtil.PrintMessage("Unlearned " + count + " spells/powers.")
 	elseif KeyCode == QUICK_KEY
@@ -1254,11 +1254,11 @@ Function RegisterForKeys()
 		RegisterForKey(ATTACK_KEY)
 	endIf
 
-	if Manager.DEBUGGING && COMPEL_KEY > 1
+	if COMPEL_KEY > 1 ;&& Manager.DEBUGGING
 		RegisterForKey(COMPEL_KEY)
 	endIf
 
-	if Manager.DEBUGGING && FORGET_KEY > 1
+	if FORGET_KEY > 1 ;&& Manager.DEBUGGING
 		RegisterForKey(FORGET_KEY)
 	endIf
 EndFunction

@@ -1182,7 +1182,7 @@ state compelVoreKeyState
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Sets the Compel Vore key. Forces actors to vore or endo each others. Only works in Debugging mode.")
+		SetInfoText("Sets the Compel Vore key. Forces actors to vore or endo each others. Formerly a Debugging only feature.")
 	endEvent
 endState
 
@@ -1210,7 +1210,7 @@ state ForgetKeyState
 	endEvent
 
 	event OnHighlightST()
-		SetInfoText("Sets the Forget Spells key. The player will lose any spells or powers that are equipped. Only works in Debugging mode.")
+		SetInfoText("Sets the Forget Spells key. The player will lose any spells or powers that are equipped. Formerly a Debugging only feature.")
 	endEvent
 endState
 
