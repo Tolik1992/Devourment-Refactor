@@ -1043,7 +1043,7 @@ function dvt.GetLocusHealth(pred, playerStruggle, useElimination)
 		local locus = preyData.locus + 1
 		local health
 
-		if preyData.ForceStruggling then
+		if (preyData.vore or preyData.endo) and preyData.ForceStruggling then
 			health = 1.0
 		elseif prey == playerRef and playerStruggle >= 0.0 then
 			health = playerStruggle or 0.0
