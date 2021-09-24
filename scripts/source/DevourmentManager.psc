@@ -5248,7 +5248,7 @@ EndFunction
 
 
 Function BurdenUpdate(Actor subject)
-	float burden = JLua.evalLuaFlt("return dvt.GetBurdenLinear(args.pred)", JLua.setForm("pred", pred))
+	float burden = JLua.evalLuaFlt("return dvt.GetBurdenLinear(args.pred)", JLua.setForm("pred", subject))
 	
 	; Controls the slowdown effect and stomach scaling.
 	subject.setActorValue("variable10", burden)
