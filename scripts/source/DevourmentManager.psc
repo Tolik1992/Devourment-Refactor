@@ -1051,7 +1051,7 @@ Function EndoDigestion(Actor pred, Actor prey, int preyData, float dt)
 
 	; Warm the player.
 	if prey == PlayerRef && FrostFallInstalled
-		FrostUtil.ModPlayerExposure(-10.0)
+		FrostUtil.ModPlayerExposure(-10.0, -1.0)
 	endIf
 	
 	float timerMax = JMap.getFlt(preyData, "timerMax")
@@ -1164,7 +1164,7 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 		
 	; Warm the player.
 	elseif prey == playerRef && FrostFallInstalled
-		FrostUtil.ModPlayerExposure(-10.0)
+		FrostUtil.ModPlayerExposure(-10.0, -1.0)
 	endIf
 endFunction
 
@@ -4488,7 +4488,7 @@ bool Function IsFull(Actor pred)
 	elseif multiPrey == MULTI_SIZE1 || multiPrey == MULTI_SIZE2
 		if DEBUGGING
 			int fullness = (100.0 * GetFullness(pred)) as int
-			ConsoleUtil.PrintMessage(Namer(pred) + " is " + fullness + "%% full (capacity=" + GetCapacity(pred) + ", burden=" + GetBurden(pred) + ").")
+			ConsoleUtil.PrintMessage(Namer(pred) + " is " + fullness + "%% full (capacity=" + GetCapacity(pred) + ", burden=" + GetFullness(pred) + ").")
 		endIf
 		return GetFullness(pred) >= 1.0
 		
@@ -5248,7 +5248,7 @@ EndFunction
 
 
 Function BurdenUpdate(Actor subject)
-	float burden = JLua.evalLuaFlt("return dvt.GetBurden(args.t)", JLua.setForm("t", subject))
+	float burden = JLua.evalLuaFlt("return dvt.GetBurdenLinear(args.pred)", JLua.setForm("pred", pred))
 	
 	; Controls the slowdown effect and stomach scaling.
 	subject.setActorValue("variable10", burden)
