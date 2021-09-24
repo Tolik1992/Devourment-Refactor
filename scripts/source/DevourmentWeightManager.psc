@@ -294,13 +294,17 @@ float Function ChangeActorWeight(Actor target, float afChange, float afPreview =
 	bool isFemale = Manager.IsFemale(target)
 	;Log3(PREFIX, "ChangeActorWeight", Namer(target), CurrentWeight, afChange)
 
+	If target == PlayerRef && !PlayerEnabled
+		Return fOldWeight
+	EndIf
+	
 	If !target.HasKeyword(ActorTypeCreature)
 		If isFemale
-			If !FemalesEnabled
+			If !FemalesEnabled && target != PlayerRef
 				Return fOldWeight
 			EndIf
 		Else
-			If !MalesEnabled
+			If !MalesEnabled && target != PlayerRef
 				Return fOldWeight
 			EndIf
 			iRoot = 1
@@ -308,7 +312,7 @@ float Function ChangeActorWeight(Actor target, float afChange, float afPreview =
 			morphsEnd = 64
 		EndIf
 	Else
-		If !CreaturesEnabled
+		If !CreaturesEnabled && target != PlayerRef
 			Return fOldWeight
 		EndIf
 		iRoot = 2
