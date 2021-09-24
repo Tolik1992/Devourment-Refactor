@@ -36,6 +36,7 @@ Float Property IngredientBaseGain = 0.04 Auto Hidden
 Float Property PotionBaseGain = 0.02 Auto Hidden
 Float Property FoodBaseGain = 0.10 Auto Hidden
 Float Property HighValueMultiplier = 2.0 Auto Hidden
+Float Property DoPreview = 0.0 Auto hidden
 
 String property rootNode = "NPC Root [Root]" autoReadOnly
 
@@ -276,10 +277,6 @@ EndFunction
 
 float Function GetCurrentActorWeight(Actor target)
 	return StorageUtil.GetFloatValue(target, "DevourmentActorWeight", 0.0)
-EndFunction
-
-Function PreviewPlayerWeight(float afPreview)
-	ChangeActorWeight(PlayerRef, 0.0, afPreview)
 EndFunction
 
 float Function ChangeActorWeight(Actor target, float afChange, float afPreview = 0.0)

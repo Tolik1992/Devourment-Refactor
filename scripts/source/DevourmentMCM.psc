@@ -624,6 +624,16 @@ event OnConfigClose()
 		endIf
 	EndIf
 	PerkMenuQueue = 0
+
+	If WeightManager.DoPreview != 0.0
+		If !WeightManager.PlayerEnabled
+			Debug.MessageBox("Devourment WeightManager Preview was called but you didn't enable Player weight morphs. Please enable this in the MCM.")
+		Else
+			WeightManager.ChangeActorWeight(PlayerRef, 0.0, WeightManager.DoPreview)
+		EndIf
+	EndIf
+	WeightManager.DoPreview = 0.0
+
 endEvent
 
 
