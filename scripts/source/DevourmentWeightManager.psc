@@ -278,6 +278,10 @@ float Function GetCurrentActorWeight(Actor target)
 	return StorageUtil.GetFloatValue(target, "DevourmentActorWeight", 0.0)
 EndFunction
 
+Function PreviewPlayerWeight(float afPreview)
+	ChangeActorWeight(PlayerRef, 0.0, afPreview)
+EndFunction
+
 float Function ChangeActorWeight(Actor target, float afChange, float afPreview = 0.0)
 	{ All-purpose function for losing and gaining Weight. }
 
@@ -502,14 +506,14 @@ Function LoadSettingsFrom(int data)
 	NoValueFood = 			JArray.asFormArray(JMap.getObj(data, "NoValueFood", JArray.ObjectWithForms(NoValueFood)))
 
 	if MorphStrings == none 
-		MorphStrings = new String[128]
-		MorphsHigh = new float[128]
-		MorphsLow = new float[128]
+		MorphStrings = new String[96]
+		MorphsHigh = new float[96]
+		MorphsLow = new float[96]
 
-    elseif MorphStrings.length < 128
-        Utility.ResizeStringArray(MorphStrings, 128)
-        Utility.ResizeFloatArray(MorphsHigh, 128)
-        Utility.ResizeFloatArray(MorphsLow, 128)
+    elseif MorphStrings.length < 96
+        Utility.ResizeStringArray(MorphStrings, 96)
+        Utility.ResizeFloatArray(MorphsHigh, 96)
+        Utility.ResizeFloatArray(MorphsLow, 96)
     endIf
 EndFunction
 
