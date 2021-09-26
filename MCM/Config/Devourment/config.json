@@ -14,11 +14,86 @@
 		},
 		{
 			"pageDisplayName": "$DVT_Page_General",
-			"cursorFillMode": "topToBottom",
+			"cursorFillMode": "leftToRight",
 			"content": [
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
+				{
+					"type": "empty"
+				},
 				{
 					"text": "$DVT_Header_Difficulty",
 					"type": "header"
+				},
+				{
+					"type": "empty"
 				},
 				{
 					"text": "$DVT_DifficultyPreset",
@@ -332,8 +407,31 @@
 					}
 				},
 				{
+					"text": "$DVT_PlayerBias",
+					"help": "$DVT_Help_PlayerBias",
+					"type": "enum",
+					"valueOptions": {
+						"options": [
+							"$DVT_PlayerNoPref",
+							"$DVT_PlayerAvoidant",
+							"$DVT_PlayerCentric"
+						],
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "playerPreference",
+						"defaultValue": 0
+					}	
+				},
+				{
+					"type": "empty"
+				},
+				{
 					"text": "$DVT_Header_WhoGetsDigested",
 					"type": "header"
+				},
+				{
+					"type": "empty"
 				},
 				{
 					"text": "$DVT_DigestNonessentials",
@@ -369,75 +467,446 @@
 					}
 				},
 				{
-					"text": "$DVT_Header_WhoCanPred",
+					"type": "empty"
+				},
+				{
+					"text": "$DVT_Header_CreaturesExtended",
 					"type": "header"
 				},
 				{
-					"type": "hiddenToggle",
-					"groupControl": 1,
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-					  	"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-					  	"propertyName": "VEGAN_MODE"
-					}
+					"type": "empty"
 				},
 				{
-					"text": "$DVT_MalePred",
-					"help": "$DVT_Help_MalePred",
-					"type": "toggle",
-					"groupCondition": {"NOT": 1},
-          			"groupBehavior": "skip",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "malePreds",
-						"defaultValue": true
-					}
-				},
-				{
-					"text": "$DVT_FemPred",
-					"help": "$DVT_Help_FemPred",
-					"type": "toggle",
-					"groupCondition": {"NOT": 1},
-          			"groupBehavior": "skip",
-					"valueOptions": {
-						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentManager",
-						"propertyName": "femalePreds",
-						"defaultValue": true
-					}
-				},
-				{
-					"text": "$DVT_creaturePred",
-					"help": "$DVT_Help_creaturePred",
+					"text": "$DVT_DraugrPred",
+					"help": "$DVT_Help_DraugrPred",
 					"type": "toggle",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
 						"scriptName": "DevourmentManager",
-						"propertyName": "creaturePreds",
+						"propertyName": "draugrPred",
 						"defaultValue": true
 					}
 				},
 				{
-					"text": "$DVT_PlayerBias",
-					"help": "$DVT_Help_PlayerBias",
-					"type": "enum",
+					"text": "$DVT_DragonPred",
+					"help": "$DVT_Help_DragonPred",
+					"type": "toggle",
 					"valueOptions": {
-						"options": [
-							"$DVT_PlayerNoPref",
-							"$DVT_PlayerAvoidant",
-							"$DVT_PlayerCentric"
-						],
 						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueInt",
+						"sourceType": "PropertyValueBool",
 						"scriptName": "DevourmentManager",
-						"propertyName": "playerPreference",
-						"defaultValue": 0
-					}	
+						"propertyName": "dragonPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_WolfPred",
+					"help": "$DVT_Help_WolfPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "wolfPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_DogPred",
+					"help": "$DVT_Help_DogPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "dogPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_BearPred",
+					"help": "$DVT_Help_BearPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "bearPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_DeerPred",
+					"help": "$DVT_Help_DeerPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "deerPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_SabrecatPred",
+					"help": "$DVT_Help_SabrecatPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "sabrecatPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_HorsePred",
+					"help": "$DVT_Help_HorsePred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "horsePred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_CowPred",
+					"help": "$DVT_Help_CowPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "cowPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_GoatPred",
+					"help": "$DVT_Help_GoatPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "GoatPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_SpiderPred",
+					"help": "$DVT_Help_SpiderPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "SpiderPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_ChaurusPred",
+					"help": "$DVT_Help_ChaurusPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "ChaurusPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_MammothPred",
+					"help": "$DVT_Help_MammothPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "MammothPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_AtronachPred",
+					"help": "$DVT_Help_AtronachPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "AtronachPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_IceWraithPred",
+					"help": "$DVT_Help_IceWraithPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "IceWraithPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_VampireLordPred",
+					"help": "$DVT_Help_VampireLordPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "VampireLordPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_WerewolfPred",
+					"help": "$DVT_Help_WerewolfPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "WerewolfPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_TrollPred",
+					"help": "$DVT_Help_TrollPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "TrollPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_SkeeverPred",
+					"help": "$DVT_Help_SkeeverPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "SkeeverPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_RazorfishPred",
+					"help": "$DVT_Help_RazorfishPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "RazorfishPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_RabbitPred",
+					"help": "$DVT_Help_RabbitPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "RabbitPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_FoxPred",
+					"help": "$DVT_Help_FoxPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "FoxPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_MudcrabPred",
+					"help": "$DVT_Help_MudcrabPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "MudcrabPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_SprigganPred",
+					"help": "$DVT_Help_SprigganPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "SprigganPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_WispmotherPred",
+					"help": "$DVT_Help_WispmotherPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "WispmotherPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_GiantPred",
+					"help": "$DVT_Help_GiantPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "GiantPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_ChickenPred",
+					"help": "$DVT_Help_ChickenPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "ChickenPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_HorkerPred",
+					"help": "$DVT_Help_HorkerPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "HorkerPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_DwemerPred",
+					"help": "$DVT_Help_DwemerPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "DwemerPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_HagravenPred",
+					"help": "$DVT_Help_HagravenPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "HagravenPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_FalmerPred",
+					"help": "$DVT_Help_FalmerPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "FalmerPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_DragonPriestPred",
+					"help": "$DVT_Help_DragonPriestPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "DragonPriestPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_AshHopperPred",
+					"help": "$DVT_Help_AshHopperPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "AshHopperPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_GargoylePred",
+					"help": "$DVT_Help_GargoylePred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "GargoylePred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_LurkerPred",
+					"help": "$DVT_Help_LurkerPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "LurkerPred",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_SeekerPred",
+					"help": "$DVT_Help_SeekerPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "SeekerPred",
+						"defaultValue": true
+					}
 				}
 			]
 		},

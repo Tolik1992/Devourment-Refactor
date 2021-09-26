@@ -13,8 +13,6 @@ String[] Property MorphStrings auto
 { This Array as well as the other Morph and Root arrays is divided up between Female, Male and Creature. }
 Float[] Property MorphsHigh auto
 Float[] Property MorphsLow auto
-float[] property RootLow auto
-float[] property RootHigh auto
 Form[] Property HighValueFood Auto
 Form[] Property NoValueFood Auto
 Keyword Property ActorTypeCreature Auto
@@ -37,6 +35,12 @@ Float Property PotionBaseGain = 0.02 Auto Hidden
 Float Property FoodBaseGain = 0.10 Auto Hidden
 Float Property HighValueMultiplier = 2.0 Auto Hidden
 Float Property DoPreview = 0.0 Auto hidden
+Float Property fSkeletonLow = 1.0 Auto Hidden
+Float Property fSkeletonHigh = 1.0 Auto Hidden
+Float Property mSkeletonLow = 1.0 Auto Hidden
+Float Property mSkeletonHigh = 1.0 Auto Hidden
+Float Property cSkeletonLow = 1.0 Auto Hidden
+Float Property cSkeletonHigh = 1.0 Auto Hidden
 
 String property rootNode = "NPC Root [Root]" autoReadOnly
 
@@ -286,8 +290,9 @@ float Function ChangeActorWeight(Actor target, float afChange, float afPreview =
 	float fOldWeight = StorageUtil.GetFloatValue(target, "DevourmentActorWeight", 0.0)
 	int morphsEnd = 32
 	int iSlider = 0
-	Int iRoot = 0
 	Float fTargetWeight = fOldWeight
+	float skeletonLow = 1.0
+	float skeletonHigh = 1.0
 	bool isFemale = Manager.IsFemale(target)
 	;Log3(PREFIX, "ChangeActorWeight", Namer(target), CurrentWeight, afChange)
 
@@ -300,21 +305,25 @@ float Function ChangeActorWeight(Actor target, float afChange, float afPreview =
 			If !FemalesEnabled && target != PlayerRef
 				Return fOldWeight
 			EndIf
+			skeletonLow = fSkeletonLow
+			skeletonHigh = fSkeletonHigh
 		Else
 			If !MalesEnabled && target != PlayerRef
 				Return fOldWeight
 			EndIf
-			iRoot = 1
 			iSlider = 32
 			morphsEnd = 64
+			skeletonLow = mSkeletonLow
+			skeletonHigh = mSkeletonHigh
 		EndIf
 	Else
 		If !CreaturesEnabled && target != PlayerRef
 			Return fOldWeight
 		EndIf
-		iRoot = 2
 		iSlider = 64
 		morphsEnd = 96
+		skeletonLow = cSkeletonLow
+		skeletonHigh = cSkeletonHigh
 	EndIf
 
 	if afChange != 0.0	;REGULAR FUNCTIONALITY
@@ -349,12 +358,12 @@ float Function ChangeActorWeight(Actor target, float afChange, float afPreview =
 
 	Utility.Wait(0.001) ; A hacky fix but should prevent us from changing bodies while menus or console is up.
 
-	if SkeletonScaling && RootLow[iRoot] != RootHigh[iRoot]
+	if SkeletonScaling && skeletonLow != skeletonHigh
 		if fTargetWeight < 0.0
-			NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, 1.0 - fTargetWeight * RootLow[iRoot])
+			NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, 1.0 - fTargetWeight * skeletonLow)
 			NIOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 		else
-			NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, 1.0 + fTargetWeight * RootHigh[iRoot])
+			NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, 1.0 + fTargetWeight * skeletonHigh)
 			NIOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 		endIf
 	endIf
@@ -497,9 +506,13 @@ Function LoadSettingsFrom(int data)
 	PotionBaseGain =		JMap.GetFlt(data, "PotionBaseGain", PotionBaseGain)
 	FoodBaseGain =			JMap.GetFlt(data, "FoodBaseGain", FoodBaseGain)
 	HighValueMultiplier = 	JMap.GetFlt(data, "HighValueMultiplier", HighValueMultiplier)
+	fSkeletonLow = 			JMap.GetFlt(data, "fSkeletonLow", fSkeletonLow)
+	fSkeletonHigh = 		JMap.GetFlt(data, "fSkeletonHigh", fSkeletonHigh)
+	mSkeletonLow = 			JMap.GetFlt(data, "mSkeletonLow", mSkeletonLow)
+	mSkeletonHigh = 		JMap.GetFlt(data, "mSkeletonHigh", mSkeletonHigh)
+	cSkeletonLow = 			JMap.GetFlt(data, "cSkeletonLow", cSkeletonLow)
+	cSkeletonHigh = 		JMap.GetFlt(data, "cSkeletonHigh", cSkeletonHigh)
 
-	RootLow = 				JArray.asFloatArray(JMap.getObj(data, "RootLow", JArray.ObjectWithFloats(RootLow)))
-	RootHigh = 				JArray.asFloatArray(JMap.getObj(data, "RootHigh", JArray.ObjectWithFloats(RootHigh)))
 	MorphStrings = 			JArray.asStringArray(JMap.getObj(data, "MorphStrings", JArray.ObjectWithStrings(MorphStrings)))
 	MorphsHigh = 			JArray.asFloatArray(JMap.getObj(data, "MorphsHigh", JArray.ObjectWithFloats(MorphsHigh)))
 	MorphsLow = 			JArray.asFloatArray(JMap.getObj(data, "MorphsLow", JArray.ObjectWithFloats(MorphsLow)))
@@ -536,13 +549,17 @@ Function SaveSettingsTo(int data)
 	JMap.SetFlt(data, "PotionBaseGain", 		PotionBaseGain)
 	JMap.SetFlt(data, "FoodBaseGain", 			FoodBaseGain)
 	JMap.SetFlt(data, "HighValueMultiplier", 	HighValueMultiplier)
-	JMap.SetObj(data, "RootLow", 				JArray.objectWithFloats(RootLow))
-	JMap.SetObj(data, "RootHigh", 				JArray.objectWithFloats(RootHigh))
 	JMap.SetObj(data, "MorphStrings", 			JArray.objectWithStrings(MorphStrings))
 	JMap.SetObj(data, "MorphsHigh", 			JArray.objectWithFloats(MorphsHigh))
 	JMap.SetObj(data, "MorphsLow", 				JArray.objectWithFloats(MorphsLow))
 	JMap.SetObj(data, "HighValueFood", 			JArray.objectWithForms(HighValueFood))
 	JMap.SetObj(data, "NoValueFood", 			JArray.objectWithForms(NoValueFood))
+	JMap.SetFlt(data, "fSkeletonLow", 			fSkeletonLow)
+	JMap.SetFlt(data, "fSkeletonHigh", 			fSkeletonHigh)
+	JMap.SetFlt(data, "mSkeletonLow", 			mSkeletonLow)
+	JMap.SetFlt(data, "mSkeletonHigh", 			mSkeletonHigh)
+	JMap.SetFlt(data, "cSkeletonLow", 			cSkeletonLow)
+	JMap.SetFlt(data, "cSkeletonHigh", 			cSkeletonHigh)
 EndFunction
 
 

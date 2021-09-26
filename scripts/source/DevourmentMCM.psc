@@ -674,11 +674,11 @@ event OnPageReset(string page)
 	target = GetTarget()	;We use this so often we should just refresh it whenever.
 	targetName = Namer(target, true)
 
-	if Pages.find(page) < 0
-		LoadCustomContent("Devourment\Title.dds", 0, 126)
-	else
-		UnloadCustomContent()
-	endIf
+	;if Pages.find(page) < 0
+	;	LoadCustomContent("Devourment\Title.dds", 0, 126)
+	;else
+	;	UnloadCustomContent()
+	;endIf
 
 	If page == Pages[0]
 		int perkPoints = Manager.GetPerkPoints(target)
@@ -752,9 +752,10 @@ event OnPageReset(string page)
 
 	ElseIf page == Pages[1]
 
-		setCursorFillMode(TOP_TO_BOTTOM)
-		setCursorPosition(1)
+		setCursorFillMode(LEFT_TO_RIGHT)
+		setCursorPosition(0)
 		addHeaderOption("$DVT_Header_Shortcuts")
+		addEmptyOption()
 		AddKeyMapOptionST("VoreKeyState", "$DVT_VoreKey", PlayerAlias.VORE_KEY)
 		AddKeyMapOptionST("EndoKeyState", "$DVT_EndoKey", PlayerAlias.ENDO_KEY)
 		AddKeyMapOptionST("CombKeyState", "$DVT_CombKey", PlayerAlias.COMB_KEY)
@@ -762,14 +763,25 @@ event OnPageReset(string page)
 		AddKeyMapOptionST("QuickSettingsKeyState", "$DVT_DevourmentKey", PlayerAlias.QUICK_KEY)
 		AddKeyMapOptionST("compelVoreKeyState", "$DVT_CompelVoreKey", PlayerAlias.COMPEL_KEY)
 		AddKeyMapOptionST("ForgetKeyState", "$DVT_ForgetKey", PlayerAlias.FORGET_KEY)
+		addEmptyOption()
 
 		addHeaderOption("$DVT_Header_Skulls")
+		addEmptyOption()
 		addToggleOptionSt("SkullsSeparateState", "$DVT_SkullsSeparate", SkullHandler.SkullsSeparate)
 		addToggleOptionSt("SkullsForEveryoneState", "$DVT_SkullsEveryone", SkullHandler.SkullsForEveryone)
 		addToggleOptionSt("SkullsForUniqueState", "$DVT_SkullsUnique", SkullHandler.SkullsForUnique || SkullHandler.SkullsForEveryone)
 		addToggleOptionSt("SkullsForEssentialState", "$DVT_SkullsEssential", SkullHandler.SkullsForEssential || SkullHandler.SkullsForEveryone)
 		addToggleOptionSt("SkullsForUnleveledState", "$DVT_SkullsUnleveled", SkullHandler.SkullsForUnleveled || SkullHandler.SkullsForEveryone)
 		addToggleOptionSt("SkullsForDragonsState", "$DVT_SkullsDragons", SkullHandler.SkullsForDragons)
+
+		addHeaderOption("$DVT_Header_WhoCanPred")
+		addEmptyOption()
+		If !Manager.VEGAN_MODE
+			addToggleOptionSt("MalePredState", "$DVT_MalePred", Manager.malePreds)
+			addToggleOptionSt("FemalePredState", "$DVT_FemPred", Manager.femalePreds)
+		EndIf
+		addToggleOptionSt("CreaturePredState", "$DVT_creaturePred", Manager.creaturePreds)
+		addEmptyOption()
 
 	ElseIf page == Pages[3]
 
@@ -846,8 +858,8 @@ event OnPageReset(string page)
 
 		SetCursorFillMode(LEFT_TO_RIGHT)
 		If WeightManager.SkeletonScaling
-			addSliderOptionSt("WeightFemaleRootLowState", "$DVT_RootLow", WeightManager.RootLow[0], "{2}")
-			addSliderOptionSt("WeightFemaleRootHighState", "$DVT_RootHigh", WeightManager.RootHigh[0], "{2}")
+			addSliderOptionSt("WeightFemaleRootLowState", "$DVT_RootLow", WeightManager.fSkeletonLow, "{2}")
+			addSliderOptionSt("WeightFemaleRootHighState", "$DVT_RootHigh", WeightManager.fSkeletonHigh, "{2}")
 		EndIf
 		addInputOptionSt("WeightAddFemaleMorphState", "Add Female Morph", "")
 		AddEmptyOption()
@@ -886,8 +898,8 @@ event OnPageReset(string page)
 
 		SetCursorFillMode(LEFT_TO_RIGHT)
 		If WeightManager.SkeletonScaling
-			addSliderOptionSt("WeightMaleRootLowState", "$DVT_RootLow", WeightManager.RootLow[0], "{2}")
-			addSliderOptionSt("WeightMaleRootHighState", "$DVT_RootHigh", WeightManager.RootHigh[0], "{2}")
+			addSliderOptionSt("WeightMaleRootLowState", "$DVT_RootLow", WeightManager.mSkeletonLow, "{2}")
+			addSliderOptionSt("WeightMaleRootHighState", "$DVT_RootHigh", WeightManager.mSkeletonHigh, "{2}")
 		EndIf
 		addInputOptionSt("WeightAddMaleMorphState", "Add Male Morph", "")
 		AddEmptyOption()
@@ -925,8 +937,8 @@ event OnPageReset(string page)
 
 		SetCursorFillMode(LEFT_TO_RIGHT)
 		If WeightManager.SkeletonScaling
-			addSliderOptionSt("WeightCreatureRootLowState", "$DVT_RootLow", WeightManager.RootLow[0], "{2}")
-			addSliderOptionSt("WeightCreatureRootHighState", "$DVT_RootHigh", WeightManager.RootHigh[0], "{2}")
+			addSliderOptionSt("WeightCreatureRootLowState", "$DVT_RootLow", cSkeletonLow, "{2}")
+			addSliderOptionSt("WeightCreatureRootHighState", "$DVT_RootHigh", cSkeletonHigh, "{2}")
 		EndIf
 		addInputOptionSt("WeightAddCreatureMorphState", "Add Creature Morph", "")
 		AddEmptyOption()
@@ -1091,6 +1103,48 @@ bool Function ConflictCheck(String reference, String conflictControl, String con
 
 	return ShowMessage(myMsg, true)
 endFunction
+
+state MalePredState
+	event OnDefaultST()
+		Manager.malePreds = true
+		setToggleOptionValueST(Manager.malePreds)
+	endEvent
+	event OnSelectST()
+		Manager.malePreds = !Manager.malePreds
+		setToggleOptionValueST(Manager.malePreds)
+	endEvent
+	event OnHighlightST()
+		SetInfoText("$DVT_Help_MalePred")
+	endEvent
+endstate
+
+state FemalePredState
+	event OnDefaultST()
+		Manager.femalePreds = true
+		setToggleOptionValueST(Manager.femalePreds)
+	endEvent
+	event OnSelectST()
+		Manager.femalePreds = !Manager.femalePreds
+		setToggleOptionValueST(Manager.femalePreds)
+	endEvent
+	event OnHighlightST()
+		SetInfoText("$DVT_Help_FemPred")
+	endEvent
+endstate
+
+state CreaturePredState
+	event OnDefaultST()
+		Manager.creaturePreds = true
+		setToggleOptionValueST(Manager.creaturePreds)
+	endEvent
+	event OnSelectST()
+		Manager.creaturePreds = !Manager.creaturePreds
+		setToggleOptionValueST(Manager.creaturePreds)
+	endEvent
+	event OnHighlightST()
+		SetInfoText("$DVT_Help_creaturePred")
+	endEvent
+endstate
 
 state PredPerksState
 	event OnDefaultST()
@@ -1435,19 +1489,19 @@ endstate
 
 state WeightFemaleRootLowState
 	Event OnSliderOpenST()
-		SetSliderDialogStartValue(WeightManager.RootLow[0])
+		SetSliderDialogStartValue(WeightManager.fSkeletonLow)
 		SetSliderDialogDefaultValue(1.0)
-		SetSliderDialogRange(0.1, WeightManager.RootHigh[0])
+		SetSliderDialogRange(0.1, WeightManager.fSkeletonHigh)
 		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
-		WeightManager.RootLow[0] = a_value
+		WeightManager.fSkeletonLow = a_value
 		SetSliderOptionValueST(a_value, "{2}")
 	endEvent
 
 	event OnDefaultST()
-		WeightManager.RootLow[0] = 1.0
+		WeightManager.fSkeletonLow = 1.0
 		SetSliderOptionValueST(1.0, "{2}")
 	endEvent
 
@@ -1458,19 +1512,19 @@ endState
 
 state WeightFemaleRootHighState
 	Event OnSliderOpenST()
-		SetSliderDialogStartValue(WeightManager.RootHigh[0])
+		SetSliderDialogStartValue(WeightManager.fSkeletonHigh)
 		SetSliderDialogDefaultValue(1.0)
-		SetSliderDialogRange(WeightManager.RootLow[0], 5.0)
+		SetSliderDialogRange(WeightManager.fSkeletonLow, 5.0)
 		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
-		WeightManager.RootHigh[0] = a_value
+		WeightManager.fSkeletonHigh = a_value
 		SetSliderOptionValueST(a_value, "{2}")
 	endEvent
 
 	event OnDefaultST()
-		WeightManager.RootHigh[0] = 1.0
+		WeightManager.fSkeletonHigh = 1.0
 		SetSliderOptionValueST(1.0, "{2}")
 	endEvent
 
@@ -1481,19 +1535,19 @@ endState
 
 state WeightMaleRootLowState
 	Event OnSliderOpenST()
-		SetSliderDialogStartValue(WeightManager.RootLow[1])
+		SetSliderDialogStartValue(WeightManager.mSkeletonLow)
 		SetSliderDialogDefaultValue(1.0)
-		SetSliderDialogRange(0.1, WeightManager.RootHigh[1])
+		SetSliderDialogRange(0.1, WeightManager.mSkeletonHigh)
 		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
-		WeightManager.RootLow[1] = a_value
+		WeightManager.mSkeletonLow = a_value
 		SetSliderOptionValueST(a_value, "{2}")
 	endEvent
 
 	event OnDefaultST()
-		WeightManager.RootLow[1] = 1.0
+		WeightManager.mSkeletonLow = 1.0
 		SetSliderOptionValueST(1.0, "{2}")
 	endEvent
 
@@ -1504,19 +1558,19 @@ endState
 
 state WeightMaleRootHighState
 	Event OnSliderOpenST()
-		SetSliderDialogStartValue(WeightManager.RootHigh[1])
+		SetSliderDialogStartValue(WeightManager.mSkeletonHigh)
 		SetSliderDialogDefaultValue(1.0)
-		SetSliderDialogRange(WeightManager.RootLow[1], 5.0)
+		SetSliderDialogRange(WeightManager.mSkeletonLow, 5.0)
 		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
-		WeightManager.RootHigh[1] = a_value
+		WeightManager.mSkeletonHigh = a_value
 		SetSliderOptionValueST(a_value, "{2}")
 	endEvent
 
 	event OnDefaultST()
-		WeightManager.RootHigh[1] = 1.0
+		WeightManager.mSkeletonHigh = 1.0
 		SetSliderOptionValueST(1.0, "{2}")
 	endEvent
 
@@ -1528,19 +1582,19 @@ endState
 ;/ To be uncommented once more creature WG sliders are done. TODO
 state WeightCreatureRootLowState
 	Event OnSliderOpenST()
-		SetSliderDialogStartValue(WeightManager.RootLow[2])
+		SetSliderDialogStartValue(WeightManager.cSkeletonLow)
 		SetSliderDialogDefaultValue(1.0)
-		SetSliderDialogRange(0.1, WeightManager.RootHigh[2])
+		SetSliderDialogRange(0.1, WeightManager.cSkeletonHigh)
 		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
-		WeightManager.RootLow[2] = a_value
+		WeightManager.cSkeletonLow = a_value
 		SetSliderOptionValueST(a_value, "{2}")
 	endEvent
 
 	event OnDefaultST()
-		WeightManager.RootLow[2] = 1.0
+		WeightManager.cSkeletonLow = 1.0
 		SetSliderOptionValueST(1.0, "{2}")
 	endEvent
 
@@ -1551,19 +1605,19 @@ endState
 
 state WeightCreatureRootHighState
 	Event OnSliderOpenST()
-		SetSliderDialogStartValue(WeightManager.RootHigh[2])
+		SetSliderDialogStartValue(WeightManager.cSkeletonHigh)
 		SetSliderDialogDefaultValue(1.0)
-		SetSliderDialogRange(WeightManager.RootLow[2], 5.0)
+		SetSliderDialogRange(WeightManager.cSkeletonLow, 5.0)
 		SetSliderDialogInterval(0.01)
 	endEvent
 
 	event OnSliderAcceptST(float a_value)
-		WeightManager.RootHigh[2] = a_value
+		WeightManager.cSkeletonHigh = a_value
 		SetSliderOptionValueST(a_value, "{2}")
 	endEvent
 
 	event OnDefaultST()
-		WeightManager.RootHigh[2] = 1.0
+		WeightManager.cSkeletonHigh = 1.0
 		SetSliderOptionValueST(1.0, "{2}")
 	endEvent
 
