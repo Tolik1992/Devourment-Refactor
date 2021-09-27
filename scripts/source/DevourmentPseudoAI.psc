@@ -45,8 +45,6 @@ EndEvent
 
 
 Event OnEffectFinish(Actor akTarget, Actor akCaster)
-	UnregisterForAnimationEvent(pred, "HitFrame")
-	UnregisterForActorAction(0)
 EndEvent 
 
 
@@ -82,6 +80,7 @@ EndEvent
 
 
 Event OnActorAction(int actionType, Actor akActor, Form source, int slot)
+	registerForSingleUpdate(CombatInterval)
 	Actor prey = pred.GetCombatTarget()
 
 	if combatCheck(prey, pred.getCombatState())
@@ -90,12 +89,11 @@ Event OnActorAction(int actionType, Actor akActor, Form source, int slot)
 		endIf
 		DoANom(prey)
 	endIf
-
-	registerForSingleUpdate(CombatInterval)
 EndEvent
 
 
 Event OnAnimationEvent(ObjectReference akSource, string asEventName)
+	registerForSingleUpdate(CombatInterval)
 	Actor prey = pred.GetCombatTarget()
 
 	if combatCheck(prey, pred.getCombatState())
@@ -104,8 +102,6 @@ Event OnAnimationEvent(ObjectReference akSource, string asEventName)
 		endIf
 		DoANom(prey)
 	endIf
-
-	registerForSingleUpdate(CombatInterval)
 EndEvent
 
 
@@ -114,7 +110,6 @@ bool Function combatCheck(Actor newTarget, int combatState)
 		return false
 
 	elseif combatState > 0 && newTarget && PlayerCheck(newTarget) && Manager.IsValidDigestion(pred, newTarget)
-
 		if DEBUGGING
 			Log4(PREFIX, "combatCheck", "PASSED", predName, combatState, Namer(newTarget))
 		endIf
