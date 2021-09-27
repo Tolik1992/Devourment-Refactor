@@ -44,7 +44,7 @@ Function Eliminate(Actor pred)
 
 			if content
 				if JLua.evalLuaInt("return dvt.isExcretable(args)", Manager.GetPreyData(content), 0, false)
-					eliminateList.AddEntryItem(Namer(content, !Manager.DEBUGGING))
+					eliminateList.AddEntryItem(Namer(content, true))
 					excretable[listIndex] = content
 					listIndex += 1
 				endIf

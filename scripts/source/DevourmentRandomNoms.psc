@@ -59,7 +59,7 @@ endEvent
 
 Function SearchForNoms0()
 	if !ViablePrey(playerRef)
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log1(PREFIX, "SearchForNoms0", "Player not viable as prey.")
 		endIf
 		return
@@ -80,7 +80,7 @@ Function SearchForNoms0()
 		endIf
 	endWhile
 
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogActors(PREFIX, "SearchForNoms0", "viablePreds", viablePreds)
 	endIf
 
@@ -124,7 +124,7 @@ Function SearchForNoms2()
 	endIf
 
 	if pred.getLevel() < prey.getLevel() && !LibFire.ActorIsFollower(pred) && ViablePredator(prey) && ViablePrey(pred)
-		if Manager.Debugging
+		if Debugging
 			Log1(PREFIX, "SearchForNom2", "Doing pred-Prey swap")
 		endIf
 		Actor temp = pred
@@ -150,7 +150,7 @@ Function SearchForNoms3()
 	endIf
 
 	if pred.getLevel() < prey.getLevel() && ViablePredator(prey) && ViablePrey(pred)
-		if Manager.Debugging
+		if Debugging
 			Log1(PREFIX, "SearchForNom3", "Doing pred-Prey swap")
 		endIf
 		Actor temp = pred
@@ -187,7 +187,7 @@ Actor Function SearchForPred(Actor prey)
 		pred = viablePreds[Utility.RandomInt(0, numViablePreds - 1)]
 	endIf	 
 	
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogActors(PREFIX, "SearchForPred", "potentialPreds", potentialPreds)
 		LogActors(PREFIX, "SearchForPred", "viablePreds", viablePreds)
 		Log1(PREFIX, "SearchForPred", "Selected predator: " + Namer(pred))
@@ -232,7 +232,7 @@ Actor Function SearchForPrey_Player()
 		prey = viablePrey[Utility.RandomInt(0, numViablePrey - 1)]
 	endIf
 
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogActors(PREFIX, "SearchForPrey_Player", "potentialPrey", potentialPrey)
 		LogActors(PREFIX, "SearchForPrey_Player", "viablePrey", viablePrey)
 		Log1(PREFIX, "SearchForPrey_Player", "Selected prey: " + Namer(prey))
@@ -267,7 +267,7 @@ Actor Function SearchForPrey_NonPlayer()
 		prey = viablePrey[Utility.RandomInt(0, numViablePrey - 1)]
 	endIf
 
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogActors(PREFIX, "SearchForPrey_NonPlayer", "potentialPrey", potentialPrey)
 		LogActors(PREFIX, "SearchForPrey_NonPlayer", "viablePrey", viablePrey)
 		Log1(PREFIX, "SearchForPrey_NonPlayer", "Selected prey: " + Namer(prey))
@@ -302,7 +302,7 @@ Actor Function SearchForPrey_Anyone()
 		prey = viablePrey[Utility.RandomInt(0, numViablePrey - 1)]
 	endIf
 
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogActors(PREFIX, "SearchForPrey_Anyone", "potentialPrey", potentialPrey)
 		LogActors(PREFIX, "SearchForPrey_Anyone", "viablePrey", viablePrey)
 		Log1(PREFIX, "SearchForPrey_Anyone", "Selected prey: " + Namer(prey))
@@ -313,7 +313,7 @@ EndFunction
 
 
 bool Function ViablePredator(Actor pred)
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log1(PREFIX, "ViablePredator", Namer(pred))
 	endIf
 
@@ -322,7 +322,7 @@ EndFunction
 
 
 bool Function ViablePrey(Actor prey)
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log1(PREFIX, "ViablePrey", Namer(prey))
 	endIf
 
@@ -336,7 +336,7 @@ Function DoANom(Actor pred, Actor prey)
 	Log3(PREFIX, "DoANom", "RandomNom prepared:", Namer(pred), Namer(prey))
 
 	if !Manager.HasRoomForPrey(pred, prey)
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log1(PREFIX, "DoANom", "Too full, inducing vomit.")
 		endIf
 		Manager.RegisterVomitAll(pred)
@@ -376,7 +376,7 @@ bool Function LoadedCheck(Actor pred)
 		pred = none
 		return false
 	else
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log1(PREFIX, "LoadedCheck", "Passed")
 		endIf
 		return true

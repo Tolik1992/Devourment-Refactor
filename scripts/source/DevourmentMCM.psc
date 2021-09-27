@@ -211,7 +211,7 @@ EndFunction
 Function AddBolusContents(UIListMenu menu, int parentEntry, ObjectReference bolus)
 	Form[] bolusContents = bolus.GetContainerForms()
 	if bolusContents.length > 0
-		String description = Namer(bolusContents[0], !Manager.DEBUGGING)
+		String description = Namer(bolusContents[0], true)
 	
 		int bolusIndex = 0
 		while bolusIndex < bolusContents.length
@@ -226,7 +226,7 @@ Function AddBolusContents(UIListMenu menu, int parentEntry, ObjectReference bolu
 EndFunction
 
 Function AddPreyDetails(UIListMenu menu, int parentEntry, Actor prey)
-	menu.AddEntryItem("Name: " + Namer(prey, !Manager.DEBUGGING), parentEntry)
+	menu.AddEntryItem("Name: " + Namer(prey, true), parentEntry)
 	menu.AddEntryItem("Level: " + prey.GetLevel(), parentEntry)
 	menu.AddEntryItem("Pred skill: " + Manager.GetPredSkill(prey) as int, parentEntry)
 	menu.AddEntryItem("Prey skill: " + Manager.GetPreySkill(prey) as int, parentEntry)
@@ -251,9 +251,9 @@ EndFunction
 
 String Function NameWithCount(Form item, int count)
 	if count == 1
-		return Namer(item, !Manager.DEBUGGING)
+		return Namer(item, true)
 	else
-		return Namer(item, !Manager.DEBUGGING) + " (" + count + ")"
+		return Namer(item, true) + " (" + count + ")"
 	endIf
 endFunction
 
@@ -327,8 +327,6 @@ bool Function ShowPerkSubMenu(bool pred, actor subject = None)
 					endIf
 					if perkPoints > 0
 						entries[perkIndex] = menu.AddEntryItem("Add Perk", ENTRY_PERK)
-					elseif Manager.DEBUGGING
-						entries[perkIndex] = menu.AddEntryItem("Add Perk (DEBUGGING)", ENTRY_PERK)
 					endIf
 					perkIndex += 1
 				endIf
@@ -355,7 +353,7 @@ bool Function ShowPerkSubMenu(bool pred, actor subject = None)
 				perkPoints = Manager.DecrementPerkPoints(subject)
 			endIf
 
-			if perkPoints <= 0 && !Manager.DEBUGGING
+			if perkPoints <= 0
 				exit = true
 			endIf
 		endIf
@@ -1229,7 +1227,7 @@ state compelVoreKeyState
 			PlayerAlias.COMPEL_KEY = newKeyCode
 			SetKeyMapOptionValueST(PlayerAlias.COMPEL_KEY)
 
-			if Manager.DEBUGGING && PlayerAlias.COMPEL_KEY > 1
+			if PlayerAlias.COMPEL_KEY > 1
 				PlayerAlias.RegisterForKey(PlayerAlias.COMPEL_KEY)
 			endIf
 		endIf
@@ -1240,7 +1238,7 @@ state compelVoreKeyState
 		PlayerAlias.COMPEL_KEY = 43
 		SetKeyMapOptionValueST(PlayerAlias.COMPEL_KEY)
 		
-		if Manager.DEBUGGING
+		if PlayerAlias.COMPEL_KEY > 1
 			PlayerAlias.RegisterForKey(PlayerAlias.COMPEL_KEY)
 		endIf
 	endEvent
@@ -1257,7 +1255,7 @@ state ForgetKeyState
 			PlayerAlias.FORGET_KEY = newKeyCode
 			SetKeyMapOptionValueST(PlayerAlias.FORGET_KEY)
 
-			if Manager.DEBUGGING && PlayerAlias.FORGET_KEY > 1
+			if PlayerAlias.FORGET_KEY > 1
 				PlayerAlias.RegisterForKey(PlayerAlias.FORGET_KEY)
 			endIf
 		endIf
@@ -1267,10 +1265,6 @@ state ForgetKeyState
 		PlayerAlias.UnRegisterForKey(PlayerAlias.FORGET_KEY)
 		PlayerAlias.FORGET_KEY = 0
 		SetKeyMapOptionValueST(PlayerAlias.FORGET_KEY)
-		
-		if Manager.DEBUGGING
-			PlayerAlias.RegisterForKey(PlayerAlias.FORGET_KEY)
-		endIf
 	endEvent
 
 	event OnHighlightST()
@@ -2497,12 +2491,7 @@ Function DisplayQuickSettings()
 		ENTRY_COUNTER = menu.AddEntryItem(ToggleString("Counter-Vore", CounterVoreEnabled), ENTRY_TOGGLES)
 	endIf
 
-	int ENTRY_TEST1 = -100
-	int ENTRY_TEST2 = -100
-	if Manager.DEBUGGING
-		ENTRY_TEST1 = menu.AddEntryItem("Overlay Test")
-		ENTRY_TEST2 = menu.AddEntryItem("Name Test")
-	endIf
+	int ENTRY_NAMETEST = menu.AddEntryItem("Name Test")
 
 	int ENTRY_FORTIS = -100
 	if subject.HasPerk(DigestItems_arr[2])
@@ -2639,11 +2628,7 @@ Function DisplayQuickSettings()
 			PlayerAlias.VoreSleep()
 			exit = true
 
-		elseif result == ENTRY_TEST1 
-			PlayerAlias.ClearFaceOverlays(PlayerRef)
-			exit = true
-
-		elseif result == ENTRY_TEST2
+		elseif result == ENTRY_NAMETEST
 			String name1 = subject.GetLeveledActorBase().GetName()
 			String name2 = subject.GetActorBase().GetName()
 			String name3 = subject.GetDisplayName()

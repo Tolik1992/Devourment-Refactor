@@ -6,14 +6,15 @@ scriptName DevourmentLocationTracker extends ActiveMagicEffect
 import Logging
 
 
-bool DEBUGGING = true
-
 Actor property PlayerRef auto
 Cell property StomachCell auto
 DevourmentManager Property Manager auto
 DevourmentDialog property DialogQuest auto
-String PREFIX = "DevourmentLocationTracker"
 float property UpdateInterval = 2.0 autoreadonly
+
+
+String PREFIX = "DevourmentLocationTracker"
+bool DEBUGGING = false
 
 
 bool dead = false
@@ -105,7 +106,7 @@ Event onUpdate()
 		subject.StopTranslation()
 
 	else
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log4(PREFIX, "OnUpdate", Namer(apex), Namer(apexCell), Namer(subjectCell), distance)
 		endIf
 

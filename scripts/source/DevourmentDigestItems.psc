@@ -6,7 +6,6 @@ import Logging
 DevourmentManager property Manager auto
 
 
-String PREFIX = "DevourmentDigestItems"
 Perk property TummyBank auto
 Perk property Selective auto
 MiscObject property Gold auto
@@ -14,6 +13,10 @@ Keyword[] property MaterialKeywords auto
 Form[] property BreakdownItems auto
 float ValueRatioLimit = 10.0
 bool tummyBanking = false
+
+bool DEBUGGING = false
+String PREFIX = "DevourmentDigestItems"
+
 
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
@@ -147,7 +150,7 @@ bool Function DigestItem(Actor caster, DevourmentBolus bolus, Form item, int cou
 		destination = bolus
 	endIf
 
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log3(PREFIX, "DigestItem", Namer(item), materialIndex, match)
 	endIf
 

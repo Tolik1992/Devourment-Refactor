@@ -10,6 +10,8 @@ import DevourmentUtil
 DevourmentManager property Manager auto hidden
 Quest property Sexlab auto hidden
 Quest property SLA auto hidden
+
+bool DEBUGGING = false
 String PREFIX = "DevourmentSexlab"
 
 
@@ -135,7 +137,7 @@ EndEvent
 bool Function Masturbate(Actor subject)
 { Tells an actor to play a masturbation animation. }
 	if !(subject && Sexlab)
-		if Manager.DEBUGGING
+		if DEBUGGING
 			assertNotNone(PREFIX, "Masturbate", "subject", subject)
 			assertNotNone(PREFIX, "Masturbate", "Sexlab", Sexlab)
 		endIf
@@ -148,7 +150,7 @@ bool Function Masturbate(Actor subject)
 	actors[0] = subject
 	sslBaseAnimation[] anims = (Sexlab as SexLabFramework).PickAnimationsByActors(actors)
 	
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogStrings(PREFIX, "Masturbate", "anims", makeNameArray(anims))
 	endIf
 
@@ -163,7 +165,7 @@ EndFunction
 bool Function Kisses(Actor kissyFace1, Actor kissyFace2, bool swallowAfter, bool endo)
 { Tells a pair of actors to play a kissing animation. }
 	if !(kissyFace1 && kissyFace2 && Sexlab)
-		if Manager.DEBUGGING
+		if DEBUGGING
 			assertNotNone(PREFIX, "onKisses", "kissyFace1", kissyFace1)
 			assertNotNone(PREFIX, "onKisses", "kissyFace2", kissyFace2)
 			assertNotNone(PREFIX, "Masturbate", "Sexlab", Sexlab)
@@ -174,7 +176,7 @@ bool Function Kisses(Actor kissyFace1, Actor kissyFace2, bool swallowAfter, bool
 	Log2(PREFIX, "Kisses", Namer(kissyFace1), Namer(kissyFace2))
 	sslBaseAnimation[] anims = (Sexlab as SexLabFramework).GetAnimationsByTags(2, "kiss,kissing", "forced,aggressive,rape,M", false)
 
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogStrings(PREFIX, "Kisses", "anims", makeNameArray(anims))
 	endIf
 
@@ -252,7 +254,7 @@ int Function SwallowArousal(Actor pred, Actor prey, bool endo)
 	bool isLewd = (Sexlab as SexlabFramework).Stats.IsLewd(pred)
 	bool lewdnessMatch = (isLewd && !endo) || (!isLewd && endo)
 
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log7(PREFIX, "SwallowArousal", Namer(pred), Namer(prey), gender, pref, isLewd, genderMatch, lewdnessMatch)
 	endIf
 

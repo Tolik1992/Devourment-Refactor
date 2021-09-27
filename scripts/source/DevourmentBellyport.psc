@@ -25,7 +25,7 @@ Event OnEffectStart(Actor prey, Actor pred)
 		return
 	elseif prey.GetLevel() > pred.GetLevel() || (pred != playerRef && Manager.IsFull(pred))
 		return
-	elseif pred == PlayerRef && !Manager.DEBUGGING && !Manager.HasRoomForPrey(pred, prey)
+	elseif pred == PlayerRef && !Manager.HasRoomForPrey(pred, prey)
 		Manager.HelpAgnosticMessage(Message_Full, "DVT_FULL", 3.0, 0.1)
 		Manager.PlayerFullnessMeter.ForceMeterDisplay(true)
 		return

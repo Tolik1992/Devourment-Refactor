@@ -9,7 +9,8 @@ CommonMeterInterfaceHandler property PlayerStruggleMeter auto
 
 
 String PREFIX = "DevourmentEffect_Struggling"
-bool DEBUGGING
+bool DEBUGGING = false
+
 Actor pred
 int preyData
 bool constricted
@@ -21,7 +22,6 @@ String playerName
 
 
 Event OnEffectStart(Actor target, Actor caster)
-	DEBUGGING = Manager.DEBUGGING
 	preyData = Manager.GetPreyData(PlayerRef)
 	playerName = Namer(PlayerRef, true)
 	struggleProgress = 0.0
