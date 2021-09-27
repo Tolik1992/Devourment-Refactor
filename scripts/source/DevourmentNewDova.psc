@@ -318,10 +318,6 @@ EndFunction
 Function TransferEquipment(Actor source, Actor dest)
 	Form[] equipped = PO3_SKSEFunctions.AddAllEquippedItemsToArray(source)
 
-	if Manager.DEBUGGING
-		LogForms(PREFIX, "TransferEquipment", "equipped", equipped)
-	endIf
-
 	Int mask = 1
 	while mask != 0
 		Form wornForm = dest.getWornForm(mask)

@@ -45,6 +45,7 @@ int property STRUGGLE_KEY2 = 0 auto
 
 
 String PREFIX = "DevourmentPlayerAlias"
+bool DEBUGGING = false
 Actor cameraTarget = none
 bool StruggleLatch = false
 int selectedStruggleKey = 0
@@ -166,7 +167,7 @@ EndEvent
 ; Struggle system for the player.
 
 Function gotoDefault()
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log0(PREFIX, "gotoDefault")
 	endIf
 	
@@ -181,7 +182,7 @@ Function gotoEndo(int newPreyData)
 		return
 	endIf
 	
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogJ(PREFIX, "gotoEndo", newPreyData, Manager.getPred(newPreyData))
 	endIf
 	
@@ -197,7 +198,7 @@ Function gotoVore(int newPreyData)
 		return
 	endIf
 	
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogJ(PREFIX, "gotoVore", newPreyData, Manager.getPred(newPreyData))
 	endIf
 	
@@ -209,14 +210,14 @@ EndFunction
 
 
 Function CheckClearEliminate()
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log0(PREFIX, "CheckClearEliminate")
 	endIf
 EndFunction
 
 
 Function gotoEliminate()
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log0(PREFIX, "gotoEliminate")
 	endIf
 	
@@ -229,7 +230,7 @@ Function gotoDead(int newPreyData)
 		return
 	endIf
 	
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogJ(PREFIX, "gotoDead", newPreyData, Manager.getPred(newPreyData))
 	endIf
 	
@@ -244,7 +245,7 @@ Function gotoReforming(int newPreyData)
 		return
 	endIf
 	
-	if Manager.DEBUGGING
+	if DEBUGGING
 		LogJ(PREFIX, "gotoReforming", newPreyData, Manager.getPred(newPreyData))
 	endIf
 	
@@ -290,7 +291,7 @@ EndFunction
 Function PlayerStruggle(int keyCode)
 	bool success = keyCode == selectedStruggleKey && keyCode != 0
 
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log3(PREFIX, "PlayerStruggle", keyCode, selectedStruggleKey, success)
 	endIf
 
@@ -312,10 +313,9 @@ EndFunction
 
 
 Event OnKeyUp(int keyCode, float holdTime)
-	;StruggleLatch = true
-	if KeyCode == COMPEL_KEY ;&& Manager.DEBUGGING
+	if KeyCode == COMPEL_KEY
 		Manager.CompelVore()
-	elseif KeyCode == FORGET_KEY ;&& Manager.DEBUGGING
+	elseif KeyCode == FORGET_KEY
 		int count = ForgetEquippedSpells()
 		ConsoleUtil.PrintMessage("Unlearned " + count + " spells/powers.")
 	elseif KeyCode == QUICK_KEY
@@ -334,7 +334,7 @@ endEvent
 
 
 Event OnKeyDown(int keyCode)
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log1(PREFIX, "OnKeyDown", keycode)
 	endIf
 	
@@ -343,7 +343,7 @@ Event OnKeyDown(int keyCode)
 			Actor talker = Manager.FindATalker()
 			if talker
 				DialogQuest.DoDialog_PlayerAndPrey(talker, false)
-			elseif Manager.DEBUGGING
+			elseif DEBUGGING
 				ConsoleUtil.PrintMessage("No live prey found.")
 			endIf
 		endIf
@@ -398,7 +398,7 @@ This state means that the player is free (not prey).
 
 
 	Event OnBeginState()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log0(PREFIX, "DefaultState.OnBeginState")
 		endIf
 		RegisterForKey(SHOUT_KEY)
@@ -421,7 +421,7 @@ This state means that the player is free (not prey) and has fully digested prey 
 
 
 	Event onBeginState()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log0(PREFIX, "PlayerEliminate.onBeginState")
 		endIf
 		RegisterForKey(SHOUT_KEY)
@@ -434,7 +434,7 @@ This state means that the player is free (not prey) and has fully digested prey 
 	EndEvent
 
 	Event onEndState()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log0(PREFIX, "PlayerDefecate.onEndState")
 		endIf
 		UnRegisterForKey(SHOUT_KEY)
@@ -442,13 +442,13 @@ This state means that the player is free (not prey) and has fully digested prey 
 	EndEvent
 
 	Function gotoEliminate()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log1(PREFIX, "gotoEliminate", "DevourmentPlayerAlias is already in PlayerEliminate state.")
 		endIf
 	EndFunction
 
 	Function CheckClearEliminate()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log0(PREFIX, "PlayerEliminate.CheckClearEliminate")
 		endIf
 		
@@ -469,7 +469,7 @@ This state means that the player is inside a hostile predator.
 /;
 
 	Event onBeginState()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log2(PREFIX, "PlayerVore.onBeginState", AliasNamer(PredRef), AliasNamer(ApexRef))
 		endIf
 		
@@ -500,7 +500,7 @@ This state means that the player is inside a hostile predator.
 
 
 	Event OnKeyDown(int keyCode)
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log1(PREFIX, "PlayerVore.onKeyDown", keyCode)
 		endIf
 		if KeyCode == DIALOGUE_KEY
@@ -516,7 +516,7 @@ This state means that the player is inside a hostile predator.
 
 
 	Event onEndState()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log2(PREFIX, "PlayerVore.onEndState", AliasNamer(PredRef), AliasNamer(ApexRef))
 		endIf
 		
@@ -536,7 +536,7 @@ This state means that the player is inside a hostile predator.
 
 
 	Function gotoEliminate()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log1(PREFIX, "PlayerVore.gotoEliminate", "Cannot enter PlayerEliminate state when the player is prey.")
 		endIf
 	EndFunction
@@ -555,7 +555,7 @@ This state means that the player is inside a friendly predator.
 
 
 	Event onBeginState()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log2(PREFIX, "PlayerEndo.onBeginState", AliasNamer(PredRef), AliasNamer(ApexRef))
 		endIf
 
@@ -598,7 +598,7 @@ This state means that the player is inside a friendly predator.
 	
 	
 	Event OnKeyDown(int keyCode)
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log1(PREFIX, "PlayerEndo.onKeyDown", keyCode)
 		endif
 		
@@ -616,7 +616,7 @@ This state means that the player is inside a friendly predator.
 
 	
 	Event onEndState()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log2(PREFIX, "PlayerEndo.onEndState", AliasNamer(PredRef), AliasNamer(ApexRef))
 		endIf
 		Message.resetHelpMessage("DVT_VOMIT")
@@ -688,7 +688,7 @@ When the shout key is pressed, it will call Manager.KillPlayer() to finish up.
 /;
 
 	Event onBeginState()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log2(PREFIX, "PlayerIsDead.onBeginState", AliasNamer(PredRef), AliasNamer(ApexRef))
 		endIf
 		
@@ -722,7 +722,7 @@ When the shout key is pressed, it will call Manager.KillPlayer() to finish up.
 
 
 	Event OnKeyDown(int keyCode)
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log1(PREFIX, "PlayerIsDead.onKeyDown", keyCode)
 		endIf
 		
@@ -740,7 +740,7 @@ When the shout key is pressed, it will call Manager.KillPlayer() to finish up.
 
 
 	Event onEndState()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log0(PREFIX, "PlayerIsDead.onEndState")
 		endIf
 		
@@ -762,7 +762,7 @@ When the shout key is pressed, it will call Manager.KillPlayer() to finish up.
 
 
 	Function gotoEliminate()
-		if Manager.DEBUGGING
+		if DEBUGGING
 			Log1(PREFIX, "PlayerIsDead.gotoEliminate", "Cannot enter PlayerEliminate state when the player is dead.")
 		endIf
 	EndFunction
@@ -782,7 +782,7 @@ State PlayerIsReforming
 	/;
 	
 		Event onBeginState()
-			if Manager.DEBUGGING
+			if DEBUGGING
 				Log2(PREFIX, "PlayerIsReforming.onBeginState", AliasNamer(PredRef), AliasNamer(ApexRef))
 			endIf
 			
@@ -806,7 +806,7 @@ State PlayerIsReforming
 	
 	
 		Event onEndState()
-			if Manager.DEBUGGING
+			if DEBUGGING
 				Log0(PREFIX, "PlayerIsReforming.onEndState")
 			endIf
 			
@@ -827,7 +827,7 @@ State PlayerIsReforming
 	
 	
 		Function gotoEliminate()
-			if Manager.DEBUGGING
+			if DEBUGGING
 				Log1(PREFIX, "PlayerIsReforming.gotoEliminate", "Cannot enter PlayerEliminate state when the player is reforming.")
 			endIf
 		EndFunction
@@ -847,7 +847,7 @@ State PlayerIsReforming
 
 Function CameraAndControlCheck(Actor apex, Actor prey, bool endo)
 	{ For an arbitrary apex and prey, make sure that if the player is involved, ApexRef, the camera, and the player controls all get updated. }
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log6(PREFIX, "CameraAndControlCheck", "apex=" + Namer(apex), "prey=" + Namer(prey), endo, "PlayerApex=" + Namer(Manager.FindApex(playerRef)), AliasNamer(PredRef), AliasNamer(ApexRef))
 	endIf
 
@@ -884,7 +884,7 @@ Function setCameraTarget(Actor newTarget)
 		Game.ForceThirdPerson()
 	endIf
 
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Debug.TraceStack("DevourmentPlayerAlias.SetCameraTarget(" + Namer(newTarget) + ")")
 	endIf
 EndFunction
@@ -1098,7 +1098,7 @@ EndFunction
 
 
 bool Function IsControllable(Actor target, bool endo)
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log6(PREFIX, "IsControllable", Namer(target), endo, target.isInFaction(Follower), target.IsPlayerTeammate(), target.IsPlayersLastRiddenHorse(), target.HasKeyword(Manager.ActorTypeNPC))
 	endIf
 
@@ -1115,7 +1115,7 @@ EndFunction
 
 
 bool Function TakeControlOf(Actor target)
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log1(PREFIX, "ReleaseControlOf", Namer(target))
 	endIf
 
@@ -1124,7 +1124,7 @@ bool Function TakeControlOf(Actor target)
 	endIf
 
 	if !target.GetPlayerControls()
-		ConsoleUtil.PrintMessage("Taking player control of " + Namer(target, !Manager.DEBUGGING))
+		ConsoleUtil.PrintMessage("Taking player control of " + Namer(target, !DEBUGGING))
 		target.SetPlayerControls(true)
 		target.enableAI(true)
 		puppet = target
@@ -1140,12 +1140,12 @@ EndFunction
 
 
 bool Function ReleaseControlOf(Actor target)
-	if Manager.DEBUGGING
+	if DEBUGGING
 		Log1(PREFIX, "ReleaseControlOf", Namer(target))
 	endIf
 
 	if target.GetPlayerControls()
-		ConsoleUtil.PrintMessage("Releasing player control of " + Namer(target, !Manager.DEBUGGING))
+		ConsoleUtil.PrintMessage("Releasing player control of " + Namer(target, !DEBUGGING))
 		target.SetPlayerControls(false)
 		target.enableAI(true)
 	endIf
@@ -1254,11 +1254,11 @@ Function RegisterForKeys()
 		RegisterForKey(ATTACK_KEY)
 	endIf
 
-	if COMPEL_KEY > 1 ;&& Manager.DEBUGGING
+	if COMPEL_KEY > 1 ;&& DEBUGGING
 		RegisterForKey(COMPEL_KEY)
 	endIf
 
-	if FORGET_KEY > 1 ;&& Manager.DEBUGGING
+	if FORGET_KEY > 1 ;&& DEBUGGING
 		RegisterForKey(FORGET_KEY)
 	endIf
 EndFunction

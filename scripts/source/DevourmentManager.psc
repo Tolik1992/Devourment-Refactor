@@ -54,7 +54,6 @@ import Logging
 ;-- Properties --------------------------------------
 
 
-bool property DEBUGGING = false auto
 bool property PERFORMANCE = false auto
 bool property VEGAN_MODE = false auto
 
@@ -317,6 +316,7 @@ float lastRealTimeProcessed = 0.0
 float lastGameTimeProcessed = 0.0
 
 
+bool DEBUGGING = false
 String PREFIX = "DevourmentManager"
 float UpdateInterval = 0.50
 bool firstRun = true

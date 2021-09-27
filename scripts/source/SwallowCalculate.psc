@@ -60,8 +60,6 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		prey = akCaster
 	endif
 
-	DEBUGGING = Manager.DEBUGGING
-
 	if DEBUGGING
 		Log5(PREFIX, "OnEffectStart", Namer(pred), Namer(prey), endo, Reversed, Scripted)
 	endIf

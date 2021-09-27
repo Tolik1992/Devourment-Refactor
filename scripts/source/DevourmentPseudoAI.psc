@@ -18,7 +18,7 @@ float property CombatInterval = 5.0 autoReadOnly
 String PREFIX = "DevourmentPseudoAI"
 String predName
 Actor Pred
-bool DEBUGGING
+bool DEBUGGING = false
 bool bleedoutVore
 float reach
 
@@ -31,7 +31,6 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		return
 	endIf
 
-	DEBUGGING = Manager.DEBUGGING
 	pred = akTarget
 	predName = Namer(pred, true)
 	reach = SwallowRange + pred.GetLength()
@@ -61,7 +60,6 @@ EndEvent
 Event onLoad()
 { When a pred is loaded, refresh their state. }
 
-	DEBUGGING = Manager.DEBUGGING
 	if DEBUGGING
 		Log1(PREFIX, "onLoad", predName)
 	endIf

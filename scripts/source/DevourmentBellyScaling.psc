@@ -14,7 +14,7 @@ String[] property StruggleSliders auto
 
 
 String PREFIX = "DevourmentBellyScaling"
-bool DEBUGGING
+bool DEBUGGING = false
 bool isFemale
 Actor target
 
@@ -48,8 +48,6 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 	isFemale = Manager.IsFemale(target)
 	PlayerStruggleBumps = Manager.whoStruggles > 0
 
-	DEBUGGING = Manager.DEBUGGING
-	
 	DATA = JValue.retain(JValue.objectFromPrototype(PROTOTYPE), PREFIX)
 	OUTPUT_BODY = JMap.GetObj(DATA, "output_body")
 	OUTPUT_BUMPS = JMap.GetObj(DATA, "output_bumps")
