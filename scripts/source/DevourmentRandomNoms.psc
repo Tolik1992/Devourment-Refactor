@@ -352,19 +352,9 @@ EndFunction
 
 bool Function PlayerCheck(Actor target)
 	if target == PlayerRef
-		If Manager.playerPreference == 1
-			Return False
-		Else
-			Return True
-		EndIf
-		;return !Manager.PlayerAvoidant
+		return Manager.playerPreference != 1
 	else
-		If Manager.playerPreference == 2
-			Return False
-		Else
-			Return True
-		EndIf
-		;return !Manager.PlayerCentric
+		return Manager.playerPreference != 2
 	endIf
 EndFunction
 

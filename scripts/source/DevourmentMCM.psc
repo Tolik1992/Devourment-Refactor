@@ -148,10 +148,6 @@ endFunction
 Function RecalculateLocusCumulative()
 	LocusCumulative = Utility.CreateFloatArray(LocusChances.length)
 	
-	if Manager.VEGAN_MODE
-		LocusChances[5] = 0.0
-	endIf
-
 	float sum = 0
 	int locus = LocusChances.length
 
@@ -195,11 +191,7 @@ String Function GetLocusName(int locus)
 	elseif locus == 4
 		return "Breast (right)"
 	elseif locus == 5
-		if Manager.VEGAN_MODE
-			return "DISABLED"
-		else
-			return "Cock"
-		endIf
+		return "Cock"
 	elseif locus < 0
 		return "Random"
 	else
@@ -768,10 +760,8 @@ event OnPageReset(string page)
 
 		addHeaderOption("$DVT_Header_WhoCanPred")
 		addEmptyOption()
-		If !Manager.VEGAN_MODE
-			addToggleOptionSt("MalePredState", "$DVT_MalePred", Manager.malePreds)
-			addToggleOptionSt("FemalePredState", "$DVT_FemPred", Manager.femalePreds)
-		EndIf
+		addToggleOptionSt("MalePredState", "$DVT_MalePred", Manager.malePreds)
+		addToggleOptionSt("FemalePredState", "$DVT_FemPred", Manager.femalePreds)
 		addToggleOptionSt("CreaturePredState", "$DVT_creaturePred", Manager.creaturePreds)
 		addEmptyOption()
 
@@ -838,13 +828,11 @@ event OnPageReset(string page)
 				addSliderOptionSt("Chance_Locus4", "$DVT_LocusChance", LocusChances[4], "{2}")
 			endIf
 
-			if !Manager.VEGAN_MODE
-				AddHeaderOption("Locus 5 - Scrotum")
-				addInputOptionSt("Slider_Locus5State", "$DVT_LocusSlider", Morphs.Locus_Sliders[5])
-				addSliderOptionSt("Scaling_Locus5State", "$DVT_LocusScale", Morphs.Locus_Scales[5], "{2}")
-				addSliderOptionSt("Scaling_Locus5_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[5], "{2}")
-				addSliderOptionSt("Chance_Locus5", "$DVT_LocusChance", LocusChances[5], "{2}")
-			endIf
+			AddHeaderOption("Locus 5 - Scrotum")
+			addInputOptionSt("Slider_Locus5State", "$DVT_LocusSlider", Morphs.Locus_Sliders[5])
+			addSliderOptionSt("Scaling_Locus5State", "$DVT_LocusScale", Morphs.Locus_Scales[5], "{2}")
+			addSliderOptionSt("Scaling_Locus5_MaxState", "$DVT_LocusMaximum", Morphs.Locus_Maxes[5], "{2}")
+			addSliderOptionSt("Chance_Locus5", "$DVT_LocusChance", LocusChances[5], "{2}")
 		endIf
 	ElseIf page == Pages[5]	;Female Weight
 

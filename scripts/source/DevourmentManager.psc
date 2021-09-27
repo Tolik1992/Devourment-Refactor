@@ -55,7 +55,7 @@ import Logging
 
 
 bool property PERFORMANCE = false auto
-bool property VEGAN_MODE = false auto
+;bool property VEGAN_MODE = false auto
 
 Actor property FakePlayer auto
 Actor property PlayerRef Auto
@@ -236,6 +236,7 @@ int property scatTypeBolus = 1 auto
 int property scatTypeCreature = 1 auto
 int property scatTypeNPC = 2 auto
 int property playerPreference = 0 auto
+int property companionPredPreference = 0 auto
 int property VomitStyle = 2 auto
 int property whoStruggles = 2 auto
 int property BYK = 0 auto
@@ -347,8 +348,9 @@ Event OnInit()
 	
 	if firstRun && JContainers.fileExistsAtPath(Menu.SettingsFileName)
 		LoadSettings(Menu.SettingsFileName)
-		firstRun = false
 	endIf
+
+	firstRun = false
 
 	blockForms = Utility.CreateFormArray(256)
 	blockCodes = Utility.CreateStringArray(256)
@@ -642,6 +644,9 @@ Return value is a flag indicating whether the predator is still active.
 	
 	ObjectReference content = JFormMap.nextKey(stomach) as ObjectReference
 	while content
+		if DEBUGGING
+			Log1(PREFIX, "ProcessPredator", Namer(content))
+		endIf
 		int preyData = JFormMap.getObj(stomach, content)
 		vomitted = ProcessContent(pred, content, preyData, vomitted, dt)
 		content = JFormMap.nextKey(stomach, content) as ObjectReference
@@ -683,9 +688,12 @@ EndFunction
 
 bool Function ProcessContent(Actor pred, ObjectReference content, int preyData, bool vomitted, float dt)
 { Processes updates for a single stomach content. }
-
 	int stateCode = JLua.evalLuaInt("return dvt.GetStateCode(args)", preyData)
 
+	if DEBUGGING
+		Log5(PREFIX, "ProcessContent", Namer(pred), Namer(content), vomitted, dt, statecode)
+	endIf
+	
 	if stateCode == 5 ;IsVomit(preyData)
 		if !vomitted
 			ProduceVomit_async(pred, content, preyData)
@@ -795,8 +803,10 @@ Event RegisterDigestion(Form f1, Form f2, bool endo, int locus)
 		; If stomach stripping is enabled, strip the prey.
 		if StomachStrip && prey.haskeyword(ActorTypeNPC)
 			if prey == PlayerRef ; This helps to ensure your gear doesn't get stuck in an NPC's inventory.
-				PlayerRef.UnequipItemSlot(0x00000004) ; 32, body
-				PlayerRef.UnequipItemSlot(0x00000200) ; 39, shield
+				PlayerRef.UnequipItemSlot(32)
+				PlayerRef.UnequipItemSlot(39)
+				;PlayerRef.UnequipItemSlot(0x00000004) ; 32, body
+				;PlayerRef.UnequipItemSlot(0x00000200) ; 39, shield
 			else
 				DigestEquipment(pred, prey, locus, 0)
 			endIf
@@ -3319,7 +3329,7 @@ The calculation incorporates:
 	holdingTime *= GetPerkMultiplier(pred, Menu.IronStomach_arr, 1.0, 0.5)
 	
 	if DEBUGGING
-		Log2(PREFIX, "getHoldingTime", Namer(pred), holdingTime)
+		Log5(PREFIX, "getHoldingTime", Namer(pred), holdingTime, X, 5.0 + 0.55 * X, GetPerkMultiplier(pred, Menu.IronStomach_arr, 1.0, 0.5))
 	endIf
 	
 	return holdingTime
@@ -4547,11 +4557,15 @@ EndFunction
 
 
 bool Function validPredator(Actor target)
+	If LibFire.ActorIsFollower(target) && companionPredPreference > 0
+        return companionPredPreference == 1
+    EndIf
+
 	If target.hasKeyword(ActorTypeCreature) && CreaturePreds
 		Return CreaturePredatorToggles[CreaturePredatorStrings.Find(Remapper.RemapRaceName(target))]
 	ElseIf target.HasKeyword(ActorTypeNPC)
 		int sex = target.getLeveledActorBase().getSex()	;We only care for Sex where humanoids are concerned.
-		return (sex == 0 && MalePreds && !VEGAN_MODE) || (sex != 0 && FemalePreds)
+		return (sex == 0 && MalePreds) || (sex != 0 && FemalePreds)
 	Else
 		Return False
 	EndIf
