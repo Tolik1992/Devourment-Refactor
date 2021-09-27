@@ -199,7 +199,7 @@ bool property VampireLordPred = true Auto
 bool property WerewolfPred = true Auto
 bool property TrollPred = true Auto
 bool property SkeeverPred = true Auto
-bool property RazorfishPred = true Auto
+bool property SlaughterfishPred = true Auto
 bool property RabbitPred = true Auto
 bool property FoxPred = true Auto
 bool property MudcrabPred = true Auto
@@ -4541,9 +4541,7 @@ EndFunction
 
 bool Function validPredator(Actor target)
 	If target.hasKeyword(ActorTypeCreature) && CreaturePreds
-		String targetRace = Remapper.RemapRaceName(target)
-		Int iPos = CreaturePredatorStrings.Find(targetRace)
-		Return CreaturePredatorToggles[iPos]
+		Return CreaturePredatorToggles[CreaturePredatorStrings.Find(Remapper.RemapRaceName(target))]
 	ElseIf target.HasKeyword(ActorTypeNPC)
 		int sex = target.getLeveledActorBase().getSex()	;We only care for Sex where humanoids are concerned.
 		return (sex == 0 && MalePreds && !VEGAN_MODE) || (sex != 0 && FemalePreds)

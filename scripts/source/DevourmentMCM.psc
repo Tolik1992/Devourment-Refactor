@@ -1001,6 +1001,84 @@ event OnPageReset(string page)
 
 endEvent
 
+Event OnSettingChange(string a_ID)
+
+	if a_ID == "DraugrPred:Creatures"
+		Manager.CreaturePredatorToggles[0] = Manager.DraugrPred as Int
+	elseif a_ID == "DragonPred:Creatures"
+		Manager.CreaturePredatorToggles[1] = Manager.DragonPred as Int
+	elseif a_ID == "WolfPred:Creatures"
+		Manager.CreaturePredatorToggles[2] = Manager.WolfPred as Int
+	elseif a_ID == "DogPred:Creatures"
+		Manager.CreaturePredatorToggles[3] = Manager.DogPred as Int
+	elseif a_ID == "BearPred:Creatures"
+		Manager.CreaturePredatorToggles[4] = Manager.BearPred as Int
+	elseif a_ID == "DeerPred:Creatures"
+		Manager.CreaturePredatorToggles[5] = Manager.DeerPred as Int
+	elseif a_ID == "SabrecatPred:Creatures"
+		Manager.CreaturePredatorToggles[6] = Manager.SabrecatPred as Int
+	elseif a_ID == "HorsePred:Creatures"
+		Manager.CreaturePredatorToggles[7] = Manager.HorsePred as Int
+	elseif a_ID == "CowPred:Creatures"
+		Manager.CreaturePredatorToggles[8] = Manager.CowPred as Int
+	elseif a_ID == "GoatPred:Creatures"
+		Manager.CreaturePredatorToggles[9] = Manager.GoatPred as Int
+	elseif a_ID == "SpiderPred:Creatures"
+		Manager.CreaturePredatorToggles[10] = Manager.SpiderPred as Int
+	elseif a_ID == "ChaurusPred:Creatures"
+		Manager.CreaturePredatorToggles[11] = Manager.ChaurusPred as Int
+	elseif a_ID == "MammothPred:Creatures"
+		Manager.CreaturePredatorToggles[12] = Manager.MammothPred as Int
+	elseif a_ID == "AtronachPred:Creatures"
+		Manager.CreaturePredatorToggles[13] = Manager.AtronachPred as Int
+	elseif a_ID == "IcewraithPred:Creatures"
+		Manager.CreaturePredatorToggles[14] = Manager.IceWraithPred as Int
+	elseif a_ID == "VampireLordPred:Creatures"
+		Manager.CreaturePredatorToggles[15] = Manager.VampireLordPred as Int
+	elseif a_ID == "WerewolfPred:Creatures"
+		Manager.CreaturePredatorToggles[16] = Manager.WerewolfPred as Int
+	elseif a_ID == "TrollPred:Creatures"
+		Manager.CreaturePredatorToggles[17] = Manager.TrollPred as Int
+	elseif a_ID == "SkeeverPred:Creatures"
+		Manager.CreaturePredatorToggles[18] = Manager.SkeeverPred as Int
+	elseif a_ID == "SlaugherfishPred:Creatures"
+		Manager.CreaturePredatorToggles[19] = Manager.SlaughterfishPred as Int
+	elseif a_ID == "RabbitPred:Creatures"
+		Manager.CreaturePredatorToggles[20] = Manager.RabbitPred as Int
+	elseif a_ID == "FoxPred:Creatures"
+		Manager.CreaturePredatorToggles[21] = Manager.FoxPred as Int
+	elseif a_ID == "MudcrabPred:Creatures"
+		Manager.CreaturePredatorToggles[22] = Manager.MudcrabPred as Int
+	elseif a_ID == "SprigganPred:Creatures"
+		Manager.CreaturePredatorToggles[23] = Manager.SprigganPred as Int
+	elseif a_ID == "WispmotherPred:Creatures"
+		Manager.CreaturePredatorToggles[24] = Manager.WispmotherPred as Int
+	elseif a_ID == "GiantPred:Creatures"
+		Manager.CreaturePredatorToggles[25] = Manager.GiantPred as Int
+	elseif a_ID == "ChickenPred:Creatures"
+		Manager.CreaturePredatorToggles[26] = Manager.ChickenPred as Int
+	elseif a_ID == "HorkerPred:Creatures"
+		Manager.CreaturePredatorToggles[27] = Manager.HorkerPred as Int
+	elseif a_ID == "DwemerPred:Creatures"
+		Manager.CreaturePredatorToggles[28] = Manager.DwemerPred as Int
+	elseif a_ID == "HagravenPred:Creatures"
+		Manager.CreaturePredatorToggles[29] = Manager.HagravenPred as Int
+	elseif a_ID == "FalmerPred:Creatures"
+		Manager.CreaturePredatorToggles[30] = Manager.FalmerPred as Int
+	elseif a_ID == "DragonPriestPred:Creatures"
+		Manager.CreaturePredatorToggles[31] = Manager.DragonPriestPred as Int
+	elseif a_ID == "AshHopperPred:Creatures"
+		Manager.CreaturePredatorToggles[32] = Manager.AshHopperPred as Int
+	elseif a_ID == "GargoylePred:Creatures"
+		Manager.CreaturePredatorToggles[33] = Manager.GargoylePred as Int
+	elseif a_ID == "LurkerPred:Creatures"
+		Manager.CreaturePredatorToggles[34] = Manager.LurkerPred as Int
+	elseif a_ID == "SeekerPred:Creatures"
+		Manager.CreaturePredatorToggles[35] = Manager.SeekerPred as Int
+	endIf
+
+EndEvent
+
 event OnOptionInputOpen(int oid)
 	{Used exclusively for dynamic lists.}
 

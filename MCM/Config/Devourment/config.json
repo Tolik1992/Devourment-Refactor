@@ -477,6 +477,7 @@
 					"type": "empty"
 				},
 				{
+					"id": "DraugrPred:Creatures",
 					"text": "$DVT_DraugrPred",
 					"help": "$DVT_Help_DraugrPred",
 					"type": "toggle",
@@ -489,6 +490,7 @@
 					}
 				},
 				{
+					"id": "DragonPred:Creatures",
 					"text": "$DVT_DragonPred",
 					"help": "$DVT_Help_DragonPred",
 					"type": "toggle",
@@ -501,6 +503,7 @@
 					}
 				},
 				{
+					"id": "WolfPred:Creatures",
 					"text": "$DVT_WolfPred",
 					"help": "$DVT_Help_WolfPred",
 					"type": "toggle",
@@ -513,6 +516,7 @@
 					}
 				},
 				{
+					"id": "DogPred:Creatures",
 					"text": "$DVT_DogPred",
 					"help": "$DVT_Help_DogPred",
 					"type": "toggle",
@@ -525,6 +529,7 @@
 					}
 				},
 				{
+					"id": "BearPred:Creatures",
 					"text": "$DVT_BearPred",
 					"help": "$DVT_Help_BearPred",
 					"type": "toggle",
@@ -537,6 +542,7 @@
 					}
 				},
 				{
+					"id": "DeerPred:Creatures",
 					"text": "$DVT_DeerPred",
 					"help": "$DVT_Help_DeerPred",
 					"type": "toggle",
@@ -549,6 +555,7 @@
 					}
 				},
 				{
+					"id": "SabrecatPred:Creatures",
 					"text": "$DVT_SabrecatPred",
 					"help": "$DVT_Help_SabrecatPred",
 					"type": "toggle",
@@ -561,6 +568,7 @@
 					}
 				},
 				{
+					"id": "HorsePred:Creatures",
 					"text": "$DVT_HorsePred",
 					"help": "$DVT_Help_HorsePred",
 					"type": "toggle",
@@ -573,6 +581,7 @@
 					}
 				},
 				{
+					"id": "CowPred:Creatures",
 					"text": "$DVT_CowPred",
 					"help": "$DVT_Help_CowPred",
 					"type": "toggle",
@@ -585,6 +594,7 @@
 					}
 				},
 				{
+					"id": "GoatPred:Creatures",
 					"text": "$DVT_GoatPred",
 					"help": "$DVT_Help_GoatPred",
 					"type": "toggle",
@@ -597,6 +607,7 @@
 					}
 				},
 				{
+					"id": "SpiderPred:Creatures",
 					"text": "$DVT_SpiderPred",
 					"help": "$DVT_Help_SpiderPred",
 					"type": "toggle",
@@ -609,6 +620,7 @@
 					}
 				},
 				{
+					"id": "ChaurusPred:Creatures",
 					"text": "$DVT_ChaurusPred",
 					"help": "$DVT_Help_ChaurusPred",
 					"type": "toggle",
@@ -621,6 +633,7 @@
 					}
 				},
 				{
+					"id": "MammothPred:Creatures",
 					"text": "$DVT_MammothPred",
 					"help": "$DVT_Help_MammothPred",
 					"type": "toggle",
@@ -633,6 +646,7 @@
 					}
 				},
 				{
+					"id": "AtronachPred:Creatures",
 					"text": "$DVT_AtronachPred",
 					"help": "$DVT_Help_AtronachPred",
 					"type": "toggle",
@@ -645,6 +659,7 @@
 					}
 				},
 				{
+					"id": "IcewraithPred:Creatures",
 					"text": "$DVT_IceWraithPred",
 					"help": "$DVT_Help_IceWraithPred",
 					"type": "toggle",
@@ -657,6 +672,7 @@
 					}
 				},
 				{
+					"id": "VampireLordPred:Creatures",
 					"text": "$DVT_VampireLordPred",
 					"help": "$DVT_Help_VampireLordPred",
 					"type": "toggle",
@@ -669,6 +685,7 @@
 					}
 				},
 				{
+					"id": "WerewolfPred:Creatures",
 					"text": "$DVT_WerewolfPred",
 					"help": "$DVT_Help_WerewolfPred",
 					"type": "toggle",
@@ -681,6 +698,7 @@
 					}
 				},
 				{
+					"id": "TrollPred:Creatures",
 					"text": "$DVT_TrollPred",
 					"help": "$DVT_Help_TrollPred",
 					"type": "toggle",
@@ -693,6 +711,7 @@
 					}
 				},
 				{
+					"id": "SkeeverPred:Creatures",
 					"text": "$DVT_SkeeverPred",
 					"help": "$DVT_Help_SkeeverPred",
 					"type": "toggle",
@@ -705,18 +724,20 @@
 					}
 				},
 				{
-					"text": "$DVT_RazorfishPred",
-					"help": "$DVT_Help_RazorfishPred",
+					"id": "SlaugherfishPred:Creatures",
+					"text": "$DVT_SlaughterfishPred",
+					"help": "$DVT_Help_SlaughterfishPred",
 					"type": "toggle",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
 						"scriptName": "DevourmentManager",
-						"propertyName": "RazorfishPred",
+						"propertyName": "SlaughterfishPred",
 						"defaultValue": true
 					}
 				},
 				{
+					"id": "RabbitPred:Creatures",
 					"text": "$DVT_RabbitPred",
 					"help": "$DVT_Help_RabbitPred",
 					"type": "toggle",
@@ -729,6 +750,7 @@
 					}
 				},
 				{
+					"id": "FoxPred:Creatures",
 					"text": "$DVT_FoxPred",
 					"help": "$DVT_Help_FoxPred",
 					"type": "toggle",
@@ -741,6 +763,7 @@
 					}
 				},
 				{
+					"id": "MudcrabPred:Creatures",
 					"text": "$DVT_MudcrabPred",
 					"help": "$DVT_Help_MudcrabPred",
 					"type": "toggle",
@@ -753,6 +776,7 @@
 					}
 				},
 				{
+					"id": "SprigganPred:Creatures",
 					"text": "$DVT_SprigganPred",
 					"help": "$DVT_Help_SprigganPred",
 					"type": "toggle",
@@ -765,6 +789,7 @@
 					}
 				},
 				{
+					"id": "WispmotherPred:Creatures",
 					"text": "$DVT_WispmotherPred",
 					"help": "$DVT_Help_WispmotherPred",
 					"type": "toggle",
@@ -777,6 +802,7 @@
 					}
 				},
 				{
+					"id": "GiantPred:Creatures",
 					"text": "$DVT_GiantPred",
 					"help": "$DVT_Help_GiantPred",
 					"type": "toggle",
@@ -789,6 +815,7 @@
 					}
 				},
 				{
+					"id": "ChickenPred:Creatures",
 					"text": "$DVT_ChickenPred",
 					"help": "$DVT_Help_ChickenPred",
 					"type": "toggle",
@@ -801,6 +828,7 @@
 					}
 				},
 				{
+					"id": "HorkerPred:Creatures",
 					"text": "$DVT_HorkerPred",
 					"help": "$DVT_Help_HorkerPred",
 					"type": "toggle",
@@ -813,6 +841,7 @@
 					}
 				},
 				{
+					"id": "DwemerPred:Creatures",
 					"text": "$DVT_DwemerPred",
 					"help": "$DVT_Help_DwemerPred",
 					"type": "toggle",
@@ -825,6 +854,7 @@
 					}
 				},
 				{
+					"id": "HagravenPred:Creatures",
 					"text": "$DVT_HagravenPred",
 					"help": "$DVT_Help_HagravenPred",
 					"type": "toggle",
@@ -837,6 +867,7 @@
 					}
 				},
 				{
+					"id": "FalmerPred:Creatures",
 					"text": "$DVT_FalmerPred",
 					"help": "$DVT_Help_FalmerPred",
 					"type": "toggle",
@@ -849,6 +880,7 @@
 					}
 				},
 				{
+					"id": "DragonPriestPred:Creatures",
 					"text": "$DVT_DragonPriestPred",
 					"help": "$DVT_Help_DragonPriestPred",
 					"type": "toggle",
@@ -861,6 +893,7 @@
 					}
 				},
 				{
+					"id": "AshHopperPred:Creatures",
 					"text": "$DVT_AshHopperPred",
 					"help": "$DVT_Help_AshHopperPred",
 					"type": "toggle",
@@ -873,6 +906,7 @@
 					}
 				},
 				{
+					"id": "GargoylePred:Creatures",
 					"text": "$DVT_GargoylePred",
 					"help": "$DVT_Help_GargoylePred",
 					"type": "toggle",
@@ -885,6 +919,7 @@
 					}
 				},
 				{
+					"id": "LurkerPred:Creatures",
 					"text": "$DVT_LurkerPred",
 					"help": "$DVT_Help_LurkerPred",
 					"type": "toggle",
@@ -897,6 +932,7 @@
 					}
 				},
 				{
+					"id": "SeekerPred:Creatures",
 					"text": "$DVT_SeekerPred",
 					"help": "$DVT_Help_SeekerPred",
 					"type": "toggle",
