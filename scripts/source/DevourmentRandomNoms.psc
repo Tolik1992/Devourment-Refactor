@@ -25,13 +25,13 @@ bool DEBUGGING = false
 
 
 Event OnInit()
-	Log0(PREFIX, "OnInit")
+	;Log0(PREFIX, "OnInit")
 	RegisterForSingleUpdate(NomsInterval)
 EndEvent
 
 
 Event OnUpdate()
-	Log0(PREFIX, "OnUpdate")
+	;Log0(PREFIX, "OnUpdate")
 
 	if !PlayerRef.IsInCombat() && Utility.RandomFloat() < NomsChance
 		if AutoNoms == 0

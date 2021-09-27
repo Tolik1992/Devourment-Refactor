@@ -396,6 +396,11 @@ Perform all of the checks and registrations necessary on load.
 This is not actually connected to the event system, because this is a quest
 script. Instead it's called from DevourmentPlayerAlias.
 }
+	; Don't even try this until the database has been created.
+	if firstRun
+		return
+	endIf
+
 	if !(Game.GetFormFromFile(0x1a66b, "Skyrim.esm") as Actor).IsChild() \
 	|| !(Game.GetFormFromFile(0x1348b, "Skyrim.esm") as Actor).IsChild() \
 	|| Game.GetModByName("NonEssentialChildren.esp") != 255 \
@@ -1095,7 +1100,7 @@ Function EndoDigestion(Actor pred, Actor prey, int preyData, float dt)
 	float timerMax = JMap.getFlt(preyData, "timerMax")
 	if timerMax > 0.0
 		float timer = JMap.getFlt(preyData, "timer")
-		if timer <= 0.0 && CanEscapeEndo(preyData)
+		if timer <= 0.0 && EndoTimeout && CanEscapeEndo(preyData)
 			if DEBUGGING
 				Log4(PREFIX, "EndoDigestion", preyData, Namer(pred), Namer(prey), "HoldingTime expired, calling RegisterVomit.")
 			endIf
@@ -1193,7 +1198,7 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 		KillPrey(pred, prey, preyData, dt, eligibleForDigestion)
 		
 	; If they're not dead and are capable of escape and have waited out the timer, let them escape.
-	elseif timer <= 0.0 && CanEscapeVore(preyData)
+	elseif timer <= 0.0 && VoreTimeout && CanEscapeVore(preyData)
 		if DEBUGGING
 			Log4(PREFIX, "VoreDigestion", preyData, Namer(pred), Namer(prey), "HoldingTime expired, calling RegisterVomit.")
 		endIf
@@ -3738,7 +3743,9 @@ Function ReappearPreyAt(Actor prey, ObjectReference loc, float lateral = 0.0, fl
 		prey.removeSpell(NotThere_Trapped)
 	endIf
 
-	prey.moveTo(loc)
+	if prey.GetParentCell() != loc.GetParentCell()
+		prey.moveTo(loc)
+	endIf
 
 	if StorageUtil.HasIntValue(prey, "DevourmentReborn")
 		StorageUtil.UnsetIntValue(prey, "DevourmentReborn")
@@ -5475,28 +5482,6 @@ EndFunction
 
 
 ;==================================================================================================
-; Faction functions.
-;==================================================================================================
-
-
-bool Function isVorish(Actor target)
-	return target != none && target.hasKeyword(Vorish)
-EndFunction
-
-
-Function ToggleVorish(Actor target, bool toggle)
-	Log2(PREFIX, "ToggleVorish", Namer(target), toggle)
-	if target != playerRef
-		if toggle
-			PO3_SKSEFunctions.AddKeywordToForm(target, Vorish)
-		else
-			PO3_SKSEFunctions.RemoveKeywordOnForm(target, Vorish)
-		endIf
-	endIf
-EndFunction
-
-
-;==================================================================================================
 ; Prey functions.
 ;==================================================================================================
 
@@ -5764,12 +5749,12 @@ EndFunction
 
 
 bool Function canEscapeVore(int preyData)
-	return VoreTimeout && JLua.evalLuaInt("return dvt.CanEscape(args)", preyData, 0, false) as bool
+	return JLua.evalLuaInt("return dvt.CanEscape(args)", preyData, 0, false) as bool
 EndFunction
 
 
 bool Function canEscapeEndo(int preyData)
-	return EndoTimeout && JLua.evalLuaInt("return dvt.CanEscape(args)", preyData, 0, false) as bool
+	return JLua.evalLuaInt("return dvt.CanEscape(args)", preyData, 0, false) as bool
 EndFunction
 
 

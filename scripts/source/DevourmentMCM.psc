@@ -87,7 +87,6 @@ String property PreyPerkFile = "data\\skse\\plugins\\devourment\\PreyPerkData.js
 ; Properties required for MCM pages.
 Actor Property target Auto Hidden
 String Property targetName Auto Hidden
-Bool Property isAutoPred Auto Hidden
 
 ; Variables.
 string[] equipList
@@ -129,9 +128,9 @@ event OnConfigInit()
 	equipList[2] = "$DVT_EquipSkeptic"
 endEvent
 
-Event OnVersionUpdate(int newVersion)
-	Upgrade(CurrentVersion, newVersion)
-EndEvent
+;Event OnVersionUpdate(int newVersion)
+;	Upgrade(CurrentVersion, newVersion)
+;EndEvent
 
 Function Upgrade(int oldVersion, int newVersion)
 { Version 118 is a clean break, so upgrades all start from there. }
@@ -363,11 +362,6 @@ bool Function ShowPerkSubMenu(bool pred, actor subject = None)
 	return true
 EndFunction
 
-Function ToggleVorish(bool Toggle)
-	Manager.ToggleVorish(target, Toggle)	;Ugly. TODO, make into bool function confirming success.
-	isAutoPred = Manager.IsVorish(target)	
-EndFunction
-
 Function Vomit()
 	if !vomitActivated
 		Manager.vomit(target)
@@ -456,7 +450,7 @@ Function setDifficultyPreset(int preset)
 		Manager.NPCBonus = 0.1
 		Manager.endoAnyone = true
 		Manager.killPlayer = false
-		Manager.VoreTimeout = false
+		Manager.VoreTimeout = true
 		Manager.swallowHeal = true
 		Manager.whoStruggles = 0
 		Manager.DigestionTime = 60.0
@@ -469,7 +463,7 @@ Function setDifficultyPreset(int preset)
 		Manager.NPCBonus = 0.5
 		Manager.endoAnyone = true
 		Manager.killPlayer = false
-		Manager.VoreTimeout = false
+		Manager.VoreTimeout = true
 		Manager.swallowHeal = true
 		Manager.whoStruggles = 1
 		Manager.DigestionTime = 120.0
@@ -482,7 +476,7 @@ Function setDifficultyPreset(int preset)
 		Manager.NPCBonus = 1.0
 		Manager.endoAnyone = false
 		Manager.killPlayer = true
-		Manager.VoreTimeout = true
+		Manager.VoreTimeout = false
 		Manager.swallowHeal = true
 		Manager.whoStruggles = 2
 		Manager.DigestionTime = 180.0
@@ -495,7 +489,7 @@ Function setDifficultyPreset(int preset)
 		Manager.NPCBonus = 2.0
 		Manager.endoAnyone = false
 		Manager.killPlayer = true
-		Manager.VoreTimeout = true
+		Manager.VoreTimeout = false
 		Manager.swallowHeal = false
 		Manager.whoStruggles = 2
 		Manager.DigestionTime = 300.0
@@ -508,7 +502,7 @@ Function setDifficultyPreset(int preset)
 		Manager.NPCBonus = 5.0
 		Manager.endoAnyone = false
 		Manager.killPlayer = true
-		Manager.VoreTimeout = true
+		Manager.VoreTimeout = false
 		Manager.swallowHeal = false
 		Manager.whoStruggles = 2
 		Manager.DigestionTime = 600.0
@@ -523,7 +517,7 @@ Function setDifficultyPreset(int preset)
 		Manager.killPlayer = true
 		Manager.killNPCs = true
 		Manager.killEssential = true
-		Manager.VoreTimeout = true
+		Manager.VoreTimeout = false
 		Manager.swallowHeal = true
 		Manager.whoStruggles = 2
 		Manager.endoAnyone = true
@@ -541,7 +535,7 @@ int function checkDifficultyPreset()
 		&& Manager.NPCBonus == 0.1 \
 		&& Manager.endoAnyone == true \
 		&& Manager.killPlayer == false \
-		&& Manager.VoreTimeout == false \
+		&& Manager.VoreTimeout == true \
 		&& Manager.swallowHeal == true \
 		&& Manager.whoStruggles == 0
 		return 0
@@ -551,7 +545,7 @@ int function checkDifficultyPreset()
 		&& Manager.NPCBonus == 0.5 \
 		&& Manager.endoAnyone == true \
 		&& Manager.killPlayer == false \
-		&& Manager.VoreTimeout == false \
+		&& Manager.VoreTimeout == true \
 		&& Manager.swallowHeal == true \
 		&& Manager.whoStruggles == 1
 		return 1
@@ -561,7 +555,7 @@ int function checkDifficultyPreset()
 		&& Manager.NPCBonus == 1.0 \
 		&& Manager.endoAnyone == false \
 		&& Manager.killPlayer == true \
-		&& Manager.VoreTimeout == true \
+		&& Manager.VoreTimeout == false \
 		&& Manager.swallowHeal == true \
 		&& Manager.whoStruggles == 2
 		return 2
@@ -571,7 +565,7 @@ int function checkDifficultyPreset()
 		&& Manager.NPCBonus == 2.0 \
 		&& Manager.endoAnyone == false \
 		&& Manager.killPlayer == true \
-		&& Manager.VoreTimeout == true \
+		&& Manager.VoreTimeout == false \
 		&& Manager.swallowHeal == false \
 		&& Manager.whoStruggles == 2
 		return 3
@@ -581,7 +575,7 @@ int function checkDifficultyPreset()
 		&& Manager.NPCBonus == 5.0 \
 		&& Manager.endoAnyone == false \
 		&& Manager.killPlayer == true \
-		&& Manager.VoreTimeout == true \
+		&& Manager.VoreTimeout == false \
 		&& Manager.swallowHeal == false \
 		&& Manager.whoStruggles == 2
 		return 4
@@ -866,32 +860,26 @@ event OnPageReset(string page)
 		float[] MultLow = WeightManager.MorphsLow
 		float[] MultHigh = WeightManager.MorphsHigh
 
-		;int cutoff = MorphStrings.length / 2 - 2
-		
-
 		int index = 0
-		while index < 32 && MorphStrings[index] != ""
-		;Female morphs span elements 0 through 31.
-			;if index == cutoff
-			;	setCursorPosition(1)
-			;	AddHeaderOption("Morphs")
-			;endIf
-
-			int[] quad = new int[4]
-			quad[0] = index
-			quad[1] = AddInputOption("Morph", MorphStrings[index])
-			AddEmptyOption()
-			quad[2] = AddInputOption("Low", MultLow[index])
-			quad[3] = AddInputOption("High", MultHigh[index])
-			
-
-			int oQuad = JArray.objectWithInts(quad)
-			JIntMap.SetObj(optionsMap, quad[1], oQuad)
-			JIntMap.SetObj(optionsMap, quad[2], oQuad)
-			JIntMap.SetObj(optionsMap, quad[3], oQuad)
+		while index < 32
+			;Female morphs span elements 0 through 31.
+			if MorphStrings[index] != ""
+				int[] quad = new int[4]
+				quad[0] = index
+				quad[1] = AddInputOption("Morph", MorphStrings[index])
+				AddEmptyOption()
+				quad[2] = AddInputOption("Low", MultLow[index])
+				quad[3] = AddInputOption("High", MultHigh[index])
+				
+				int oQuad = JArray.objectWithInts(quad)
+				JIntMap.SetObj(optionsMap, quad[1], oQuad)
+				JIntMap.SetObj(optionsMap, quad[2], oQuad)
+				JIntMap.SetObj(optionsMap, quad[3], oQuad)
+			endIf
 
 			index += 1
 		endWhile
+
 	ElseIf page == Pages[6]	;Male Weight
 
 		SetCursorFillMode(LEFT_TO_RIGHT)
@@ -906,30 +894,26 @@ event OnPageReset(string page)
 		float[] MultLow = WeightManager.MorphsLow
 		float[] MultHigh = WeightManager.MorphsHigh
 
-		;int cutoff = MorphStrings.length / 2 - 2
-		
 		int index = 32
-		while index < 64 && MorphStrings[index] != ""
-		;Male morphs span elements 32 through 63.
-			;if index == cutoff
-			;	setCursorPosition(1)
-			;	AddHeaderOption("Morphs")
-			;endIf
+		while index < 64
+			;Male morphs span elements 32 through 63.
+			if MorphStrings[index] != ""
+				int[] quad = new int[4]
+				quad[0] = index
+				quad[1] = AddInputOption("Morph", MorphStrings[index])
+				AddEmptyOption()
+				quad[2] = AddInputOption("Low", MultLow[index])
+				quad[3] = AddInputOption("High", MultHigh[index])
 
-			int[] quad = new int[4]
-			quad[0] = index
-			quad[1] = AddInputOption("Morph", MorphStrings[index])
-			AddEmptyOption()
-			quad[2] = AddInputOption("Low", MultLow[index])
-			quad[3] = AddInputOption("High", MultHigh[index])
-
-			int oQuad = JArray.objectWithInts(quad)
-			JIntMap.SetObj(optionsMap, quad[1], oQuad)
-			JIntMap.SetObj(optionsMap, quad[2], oQuad)
-			JIntMap.SetObj(optionsMap, quad[3], oQuad)
+				int oQuad = JArray.objectWithInts(quad)
+				JIntMap.SetObj(optionsMap, quad[1], oQuad)
+				JIntMap.SetObj(optionsMap, quad[2], oQuad)
+				JIntMap.SetObj(optionsMap, quad[3], oQuad)
+			endIf
 
 			index += 1
 		endWhile
+
 	;/ To be uncommented once more creature WG sliders are done. TODO
 	ElseIf page == Pages[7]	;Creature Weight
 
@@ -948,24 +932,21 @@ event OnPageReset(string page)
 		;int cutoff = MorphStrings.length / 2 - 2
 		
 		int index = 64
-		while index < 96 && MorphStrings[index] != ""
-		;Creature morphs span elements 64 through 95.
-			;if index == cutoff
-			;	setCursorPosition(1)
-			;	AddHeaderOption("Morphs")
-			;endIf
+		while index < 96
+			;Creature morphs span elements 64 through 95.
+			if MorphStrings[index] != ""
+				int[] quad = new int[4]
+				quad[0] = index
+				quad[1] = AddInputOption("Morph", MorphStrings[index])
+				AddEmptyOption()
+				quad[2] = AddInputOption("Low", MultLow[index])
+				quad[3] = AddInputOption("High", MultHigh[index])
 
-			int[] quad = new int[4]
-			quad[0] = index
-			quad[1] = AddInputOption("Morph", MorphStrings[index])
-			AddEmptyOption()
-			quad[2] = AddInputOption("Low", MultLow[index])
-			quad[3] = AddInputOption("High", MultHigh[index])
-
-			int oQuad = JArray.objectWithInts(quad)
-			JIntMap.SetObj(optionsMap, quad[1], oQuad)
-			JIntMap.SetObj(optionsMap, quad[2], oQuad)
-			JIntMap.SetObj(optionsMap, quad[3], oQuad)
+				int oQuad = JArray.objectWithInts(quad)
+				JIntMap.SetObj(optionsMap, quad[1], oQuad)
+				JIntMap.SetObj(optionsMap, quad[2], oQuad)
+				JIntMap.SetObj(optionsMap, quad[3], oQuad)
+			endIf
 
 			index += 1
 		endWhile
@@ -1157,10 +1138,6 @@ Event OnPageSelect(string a_page)
 	if difficulty < 5
 		difficulty = checkDifficultyPreset()
 	endIf
-
-	If a_page == Pages[8]
-		isAutoPred = Manager.IsVorish(target)
-	EndIf
 EndEvent
 
 bool Function ConflictCheck(String reference, String conflictControl, String conflictName)

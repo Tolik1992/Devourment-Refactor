@@ -374,14 +374,6 @@ ObjectReference[] Function createRefArray(int size) global
 EndFunction
 
 
-;=================================================
-; Internals.
-; Don't touch.
-;
-
-;Spell[] property EmptySpell auto
-
-
 int Function ArrayAddFormEx(Form[] arr, Form val) global
 	{ Adds a form to a form array. If the form is already present, its index will be returned. The array will be expended if necessary. }
 	int index = arr.find(val)

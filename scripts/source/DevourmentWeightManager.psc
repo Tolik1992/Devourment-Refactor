@@ -458,11 +458,26 @@ EndFunction
 
 
 bool Function removeMorph(int iSliderIndex)
-
     MorphStrings[iSliderIndex] = ""
-
+	CompactifyMorphs()
 	SyncSettings(true)
     return true
+EndFunction
+
+
+Function CompactifyMorphs()
+	int firstBlank = MorphStrings.find("")
+	int i = firstBlank + 1
+	
+	while i < MorphStrings.length
+		if MorphStrings[i] != ""
+			MorphStrings[firstBlank] = MorphStrings[i]
+			MorphsHigh[firstBlank] = MorphsHigh[i]
+			MorphsLow[firstBlank] = MorphsLow[i]
+			firstBlank += 1
+		endIf
+		i += 1
+	endWhile
 EndFunction
 
 

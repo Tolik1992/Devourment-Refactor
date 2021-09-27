@@ -1792,21 +1792,6 @@
 					}
 				},
 				{
-					"text": "$DVT_AutoPred",
-					"help": "$DVT_Help_AutoPred",
-					"type": "toggle",
-					"valueOptions": {
-						"sourceType": "PropertyValueBool",
-						"scriptName": "DevourmentMCM", 
-						"propertyName": "isAutoPred"
-					},
-					"action": {
-						"type": "CallFunction",
-						"function": "ToggleVorish",
-						"params": ["{value}"]
-					}
-				},
-				{
 					"type": "hiddenToggle",
 					"groupControl": 5,
 					"valueOptions": {
