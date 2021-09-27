@@ -21,6 +21,7 @@ int property AutoNoms = 0 auto
 	
 
 String PREFIX = "DevourmentRandomNoms"
+bool DEBUGGING = false
 
 
 Event OnInit()
@@ -379,5 +380,27 @@ bool Function LoadedCheck(Actor pred)
 			Log1(PREFIX, "LoadedCheck", "Passed")
 		endIf
 		return true
+	endIf
+EndFunction
+
+
+Function PrefillCheck(Actor pred) 
+	if DEBUGGING
+		Log1(PREFIX, "PrefillCheck", Namer(pred))
+	endIF
+
+	if Manager.validPredator(pred) && pred.HasKeywordString("ActorTypeNPC") && pred.Is3DLoaded()
+
+		float prefilledChance = Manager.PreFilledChance
+		if pred.HasKeyword(Manager.DevourmentSuperPred)
+			preFilledChance *= 3.0
+		endIf
+
+		if Utility.RandomFloat() < preFilledChance && !PlayerRef.HasLOS(pred)
+			Manager.RegisterFakeDigestion(pred, -1.0)
+			if DEBUGGING
+				Log2(PREFIX, "PrefillCheck", Namer(pred), "Prefilling to 1.0.")
+			endIF
+		endIf
 	endIf
 EndFunction

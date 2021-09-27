@@ -37,9 +37,11 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	reach = SwallowRange + pred.GetLength()
 	bleedoutVore = !Game.IsPluginInstalled("SexLabDefeat.esp")
 
-	RegisterForSingleUpdate(CombatInterval)
-	RegisterForAnimationEvent(pred, "HitFrame")
-	RegisterForActorAction(0)
+	if Manager.validPredator(pred)
+		RegisterForSingleUpdate(CombatInterval)
+		RegisterForAnimationEvent(pred, "HitFrame")
+		RegisterForActorAction(0)
+	endIf
 EndEvent
 
 
@@ -113,7 +115,7 @@ bool Function combatCheck(Actor newTarget, int combatState)
 	if combatState == 0 || newTarget == none || pred == none
 		return false
 
-	elseif combatState > 0 && newTarget && Manager.validPredator(pred) && Manager.IsValidDigestion(pred, newTarget) && PlayerCheck(newTarget)
+	elseif combatState > 0 && newTarget && PlayerCheck(newTarget) && Manager.IsValidDigestion(pred, newTarget)
 
 		if DEBUGGING
 			Log4(PREFIX, "combatCheck", "PASSED", predName, combatState, Namer(newTarget))
@@ -185,42 +187,10 @@ Function DoANom(Actor prey)
 EndFunction
 
 
-Function PrefillCheck(Actor pred_) 
-	if DEBUGGING
-		Log1(PREFIX, "PrefillCheck", predName)
-	endIF
-
-	if Manager.validPredator(pred) && pred.HasKeywordString("ActorTypeNPC") && pred.Is3DLoaded()
-
-		float prefilledChance = Manager.PreFilledChance
-		if pred.HasKeyword(Manager.DevourmentSuperPred)
-			preFilledChance *= 3.0
-		endIf
-
-		if Utility.RandomFloat() < preFilledChance && !PlayerRef.HasLOS(pred)
-			Manager.RegisterFakeDigestion(pred, -1.0)
-			if DEBUGGING
-				Log2(PREFIX, "PrefillCheck", predName, "Prefilling to 1.0.")
-			endIF
-		endIf
-	endIf
-EndFunction
-
-
 bool Function PlayerCheck(Actor target)
 	if target == PlayerRef
-		If Manager.playerPreference == 1
-			Return False
-		Else
-			Return True
-		EndIf
-		;return !Manager.PlayerAvoidant
+		return Manager.playerPreference != 1
 	else
-		If Manager.playerPreference == 2
-			Return False
-		Else
-			Return True
-		EndIf
-		;return !Manager.PlayerCentric
+		return Manager.playerPreference != 2
 	endIf
 EndFunction
