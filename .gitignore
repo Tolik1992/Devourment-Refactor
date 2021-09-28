@@ -1,3 +1,5 @@
 .vscode/tasks.json
 DevourmentRefactor.ppj
-Devourment-Refactor-*.7z
+Devourment*.7z
+ListFile
+Build.ps1
