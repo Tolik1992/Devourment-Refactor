@@ -1,4 +1,4 @@
-﻿2021-09-27
+﻿2021-09-28
 [list]
 [*] Fixed stomach stripping when the player is prey.
 [*] Across the board performance tweaks.
@@ -10,6 +10,8 @@
 [*] Simple SLAccidents implementation.
 [*] Reorganized QuickMenu, added debug section.
 [*] Fixed some papyrus log spam.
+[*] Better NPC spell-casting.
+[*] Individual creature toggles[/list]
 
 2021-09-21
 [list]
