@@ -67,7 +67,7 @@ EndEvent
 
 ; Event that is triggered when this actor begins to die
 Event OnDying(Actor akKiller)
-	Log2(PREFIX, "OnDying", Namer(prey), "DYING!")
+	;Log2(PREFIX, "OnDying", Namer(prey), "DYING!")
 	if prey == Manager.playerRef
 		gotostate("Inactive")
 	endIf
@@ -100,7 +100,9 @@ state Active
 			endIf
 		
 		elseif akBaseObject as Spell || akBaseObject as Shout
-			Log1(PREFIX, "OnObjectEquipped", "Spell/Shout -- equipping DummySpell and DummyShout.")
+			if DEBUGGING
+				Log1(PREFIX, "OnObjectEquipped", "Spell/Shout -- equipping DummySpell and DummyShout.")
+			endIf
 			prey.equipSpell(DummySpell, 0)
 			prey.equipShout(DummyShout)
 

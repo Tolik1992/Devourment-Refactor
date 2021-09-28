@@ -197,11 +197,11 @@ endState
 
 state DeleteState
 	event onBeginState()
-		Log0(PREFIX, "DeleteState.onBeginState")
+		;Log0(PREFIX, "DeleteState.onBeginState")
 		registerForSingleUpdate(2.0)
 	endEvent
 	event OnUpdate()
-		Log0(PREFIX, "DeleteState.OnUpdate")
+		;Log0(PREFIX, "DeleteState.OnUpdate")
 		if dropper != none
 			dropper.disableNoWait()
 			dropper.delete()

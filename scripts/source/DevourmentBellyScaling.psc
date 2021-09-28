@@ -149,7 +149,7 @@ EndEvent
 
 
 Event OnPlayerStruggle(bool successful, float times)
-	Log3(PREFIX, "OnPlayerStruggle", successful, times, playerStruggle)
+	;Log3(PREFIX, "OnPlayerStruggle", successful, times, playerStruggle)
 	if Manager.GetPredFor(PlayerRef) == target
 		playerStruggle = 1.0
 	endIf
@@ -157,7 +157,6 @@ EndEvent
 
 
 Event OnUpdate()
-
 	float totalScale = JLua.evalLuaFlt("dvt.BumpSliders(args, " + playerStruggle + ")", DATA, 0, 0.0)
 	float[] outputBody = JArray.asFloatArray(OUTPUT_BODY)
 	float[] outputBumps = JArray.asFloatArray(OUTPUT_BUMPS)
@@ -219,8 +218,6 @@ EndEvent
 
 
 Event OnEffectFinish(Actor akTarget, Actor akCaster)
-	Log1(PREFIX, "OnEffectFinish", Namer(target))
-
 	DATA = JValue.release(DATA)
 	NIOverride.ClearBodyMorphKeys(target, PREFIX)
 

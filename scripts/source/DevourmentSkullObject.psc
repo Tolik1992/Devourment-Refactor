@@ -25,26 +25,11 @@ EndFunction
 
 
 Function InitializeFor(Actor thePrey)
-	Log1(PREFIX, "InitializeFor", Namer(thePrey))
+	;Log1(PREFIX, "InitializeFor", Namer(thePrey))
 	SetDisplayName(Namer(thePrey, true) + "'s Skull")
 	PO3_SKSEFunctions.SetLinkedRef(self, thePrey, DevourmentSkull)
 	StorageUtil.SetFormValue(self, "DevourmentRevivee", thePrey)
 EndFunction
-
-
-Event OnInit()
-	Log0(PREFIX, "OnInit")
-EndEvent
-
-
-Event OnLoad()
-	Log0(PREFIX, "OnLoad")
-EndEvent
-
-
-Event OnUnload()
-	Log0(PREFIX, "OnUnload")
-EndEvent
 
 
 Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldContainer)
