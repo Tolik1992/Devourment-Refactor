@@ -109,8 +109,9 @@ Event SexlabAnimationEnding(int tid, bool HasPlayer)
 		elseif tags.find("CockVore") >= 0
 			Log1(PREFIX, "SexlabAnimationEnding", "CockVore found.")
 			Manager.RegisterDigestion(pred, prey, true, 4)
-		else
-			Log1(PREFIX, "SexlabAnimationEnding", "No vore tags founds.")
+		elseif thread.positions.find(Manager.PlayerRef) >= 0 && Utility.RandomInt(100) < 10
+			Log1(PREFIX, "SexlabAnimationEnding", "Accidental Digestion")
+			Manager.SwitchLethalAll(Manager.PlayerRef, true)
 		endIf
 	endIf
 EndEvent

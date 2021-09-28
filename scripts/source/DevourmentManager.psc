@@ -968,15 +968,17 @@ EndFunction
 Function SwitchLethalAll(Actor pred, bool toggle)
 	{ Toggles all of a pred's prey from lethal to non-lethal and vice versa. }
 
-	int stomach = GetStomach(pred)
-	
-	if !assertNotNone(PREFIX, "SwitchLethalAll", "pred", pred) \
-	|| !assertExists(PREFIX, "SwitchLethalAll", "stomach", stomach)
+	if !assertNotNone(PREFIX, "SwitchLethalAll", "pred", pred)
 		return
 	endIf
 
 	if DEBUGGING
 		Log1(PREFIX, "SwitchLethalAll", Namer(pred))
+	endIf
+
+	int stomach = GetStomach(pred)
+	if !JValue.IsExists(stomach)
+		return
 	endIf
 
 	bool blocked = RegisterBlock("SwitchLethalAll", pred)
@@ -4146,25 +4148,24 @@ Function PrefillCheck()
 	if PreFilledChance <= 0.0
 		return
 	endIf
-	
-	if DEBUGGING
-		Log0(PREFIX, "PrefillCheck")
-	endIF
 
-	Actor[] candidates = MiscUtil.ScanCellNPCs(PlayerRef, HasKeyword = ActorTypeNPC)
+	Actor[] candidates = MiscUtil.ScanCellNPCs(PlayerRef)
+	if DEBUGGING
+		Log1(PREFIX, "PrefillCheck", ActorArrayToString(candidates))
+	endIF
 
 	int i = candidates.length
 	while i
 		i -= 1
 		Actor candidate = candidates[i]
 
-		if validPredator(candidate) && candidate.Is3DLoaded()
-			float chance = PreFilledChance
-			if candidate.HasKeyword(DevourmentSuperPred)
-				chance *= 3.0
-			endIf
-	
-			if Utility.RandomFloat() < chance && !PlayerRef.HasLOS(candidate)
+		float chance = PreFilledChance
+		if candidate.HasKeyword(DevourmentSuperPred)
+			chance *= 3.0
+		endIf
+
+		if Utility.RandomFloat() < chance && !PlayerRef.HasLOS(candidate)
+			if candidate != PlayerRef && validPredator(candidate) && candidate.Is3DLoaded() && candidate.HasKeyword(ActorTypeNPC)
 				RegisterFakeDigestion(candidate, -1.0)
 				if DEBUGGING
 					Log2(PREFIX, "PrefillCheck", Namer(candidate), "Prefilling")

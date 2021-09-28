@@ -6,6 +6,10 @@
 [*] Fewer freezes when the player is swallowed. 
 [*] Fixed a bug that would cause part of the morphs lists to be hidden.
 [*] Localized the DEBUGGING flag for each script.
+[*] Trial implementation of Prefilled that doesn't rely on PseudoAI.
+[*] Simple SLAccidents implementation.
+[*] Reorganized QuickMenu, added debug section.
+[*] Fixed some papyrus log spam.
 
 2021-09-21
 [list]

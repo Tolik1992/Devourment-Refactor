@@ -390,17 +390,6 @@ Function ExportDatabase()
 	ForcePageReset()
 EndFunction
 
-Function MaxSkills()
-	Manager.GivePredXP(target, 10000.0)
-	Manager.GivePreyXP(target, 10000.0)
-	ForcePageReset()
-EndFunction
-
-Function MaxPerks()
-	Manager.IncreaseVoreLevel(target, 100)
-	ForcePageReset()
-EndFunction
-
 Function FlushVomitQueue()
 	if !flushActivated
 		Manager.VOMIT_CLEAR()
@@ -516,8 +505,9 @@ Function setDifficultyPreset(int preset)
 		Manager.multiPrey = Manager.MULTI_UNLIMITED
 		Manager.DigestionTime = 10.0
 	endIf
-	Manager.AdjustPreyData()
 
+	Manager.AdjustPreyData()
+	ForcePageReset()
 EndFunction
 
 int function checkDifficultyPreset() 
@@ -2534,22 +2524,33 @@ Function DisplayQuickSettings()
 		ENTRY_COUNTER = menu.AddEntryItem(ToggleString("Counter-Vore", CounterVoreEnabled), ENTRY_TOGGLES)
 	endIf
 
-	int ENTRY_NAMETEST = menu.AddEntryItem("Name Test")
-
+	int ENTRY_ACTIONS = menu.AddEntryItem("Actions")
+	int ENTRY_VOMIT = -100
+	int ENTRY_POOP = -100
 	int ENTRY_FORTIS = -100
-	if subject.HasPerk(DigestItems_arr[2])
-		ENTRY_FORTIS = menu.AddEntryItem("Digest Items")
-	endIf
-
-	int ENTRY_VOMIT = menu.AddEntryItem("Regurgitate")
-	int ENTRY_POOP = menu.AddEntryItem("Defecate")
-	int ENTRY_INVENTORY_EAT = menu.AddEntryItem("Inventory Vore")
-
 	int ENTRY_SLEEP = -100
-	if Manager.IsPrey(playerRef) && playerRef.HasPerk(Comfy) && Manager.RelativelySafe(playerRef)
-		ENTRY_SLEEP = menu.AddEntryItem("Vore Sleep")
+
+	if Manager.getStomachCount(subject) > 0
+		ENTRY_VOMIT = menu.AddEntryItem("Regurgitate", ENTRY_ACTIONS)
+		ENTRY_POOP = menu.AddEntryItem("Defecate", ENTRY_ACTIONS)
+
+		if subject.HasPerk(DigestItems_arr[2])
+			ENTRY_FORTIS = menu.AddEntryItem("Digest Items", ENTRY_ACTIONS)
+		endIf
 	endIf
-	
+
+	int ENTRY_INVENTORY_EAT = menu.AddEntryItem("Inventory Vore", ENTRY_ACTIONS)
+
+	if Manager.IsPrey(playerRef) && playerRef.HasPerk(Comfy) && Manager.RelativelySafe(playerRef)
+		ENTRY_SLEEP = menu.AddEntryItem("Vore Sleep", ENTRY_ACTIONS)
+	endIf
+
+	int ENTRY_DEBUG = menu.AddEntryItem("Debug", entryHasChildren = true)
+	int ENTRY_COMPEL = menu.AddEntryItem("Compel Vore", ENTRY_DEBUG)
+	int ENTRY_MAXSKILLS = menu.AddEntryItem("Max Skills", ENTRY_DEBUG)
+	int ENTRY_MAXPERKS = menu.AddEntryItem("Max Perks", ENTRY_DEBUG)
+	int ENTRY_NAMETEST = menu.AddEntryItem("Name Test", ENTRY_DEBUG)
+
 	int ENTRY_EXIT = menu.AddEntryItem("Exit")
 	
 	bool exit = false
@@ -2645,10 +2646,10 @@ Function DisplayQuickSettings()
 			exit = true
 
 		elseif result == ENTRY_FORTIS
-			if LibFire.ActorIsFollower(subject)
-				Power_DigestItems.cast(subject, subject)
-			else
+			if subject == PlayerRef
 				Power_DigestItems.cast(PlayerRef, PlayerRef)
+			elseif LibFire.ActorIsFollower(subject)
+				Power_DigestItems.cast(subject, subject)
 			endIf
 			exit = true
 
@@ -2675,9 +2676,20 @@ Function DisplayQuickSettings()
 			String name1 = subject.GetLeveledActorBase().GetName()
 			String name2 = subject.GetActorBase().GetName()
 			String name3 = subject.GetDisplayName()
-			Debug.MessageBox("Levelled = '" + name1 + "', unlevelled = '" + name2 + "', display = '" + name3 + "'")
+			Debug.MessageBox("Levelled = '" + name1 + "'\nunlevelled = '" + name2 + "'\ndisplay = '" + name3 + "'")
 			exit = true
 
+		elseif result == ENTRY_COMPEL
+			Manager.CompelVore()
+			exit = true
+
+		elseif result == ENTRY_MAXSKILLS
+			Manager.GivePredXP(target, 10000.0)
+			Manager.GivePreyXP(target, 10000.0)
+			
+		elseif result == ENTRY_MAXPERKS
+			Manager.IncreaseVoreLevel(target, 100)
+			
 		endIf
 	endWhile
 EndFunction
