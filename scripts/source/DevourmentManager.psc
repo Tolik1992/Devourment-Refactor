@@ -111,7 +111,7 @@ Keyword property RapidDigestion auto
 Keyword property Secretion auto
 Keyword property Vampire auto
 Keyword property Vorish auto
-Keyword[] property DigestionKeywords auto
+Keyword[] property RaceDigestionKeywords auto
 Message property MessageDisabled auto
 Message property MenuPreyWeight auto
 Message property Message_NowDigesting auto
@@ -4373,7 +4373,7 @@ endFunction
 
 
 bool Function IsValidDigestion(Actor pred, Actor prey)
-	int keywordIndex = LibFire.ActorFindAnyKeyword(prey, DigestionKeywords)
+	int keywordIndex = LibFire.ActorFindAnyKeyword(prey, RaceDigestionKeywords)
 
 	if keywordIndex == 0 ; prey.hasKeyword(ActorTypeUndead)
 		return pred.hasPerk(Menu.DigestionUndead)
@@ -4407,7 +4407,7 @@ Determines if a prey is eligible to be digested.
 	Actor pred = f1 as Actor
 	Actor prey = f2 as Actor
 
-	int keywordIndex = LibFire.ActorFindAnyKeyword(prey, DigestionKeywords)
+	int keywordIndex = LibFire.ActorFindAnyKeyword(prey, RaceDigestionKeywords)
 
 	if keywordIndex == 0 ; prey.hasKeyword(ActorTypeUndead)
 		if !pred.hasPerk(Menu.DigestionUndead)
