@@ -2524,22 +2524,17 @@ Function DisplayQuickSettings()
 		ENTRY_COUNTER = menu.AddEntryItem(ToggleString("Counter-Vore", CounterVoreEnabled), ENTRY_TOGGLES)
 	endIf
 
-	int ENTRY_ACTIONS = menu.AddEntryItem("Actions")
-	int ENTRY_VOMIT = -100
-	int ENTRY_POOP = -100
+	int ENTRY_ACTIONS = menu.AddEntryItem("Actions", entryHasChildren = true)
 	int ENTRY_FORTIS = -100
 	int ENTRY_SLEEP = -100
 
-	if Manager.getStomachCount(subject) > 0
-		ENTRY_VOMIT = menu.AddEntryItem("Regurgitate", ENTRY_ACTIONS)
-		ENTRY_POOP = menu.AddEntryItem("Defecate", ENTRY_ACTIONS)
-
-		if subject.HasPerk(DigestItems_arr[2])
-			ENTRY_FORTIS = menu.AddEntryItem("Digest Items", ENTRY_ACTIONS)
-		endIf
-	endIf
-
+	int ENTRY_VOMIT = menu.AddEntryItem("Regurgitate", ENTRY_ACTIONS)
+	int ENTRY_POOP = menu.AddEntryItem("Defecate", ENTRY_ACTIONS)
 	int ENTRY_INVENTORY_EAT = menu.AddEntryItem("Inventory Vore", ENTRY_ACTIONS)
+
+	if subject.HasPerk(DigestItems_arr[2])
+		ENTRY_FORTIS = menu.AddEntryItem("Digest Items", ENTRY_ACTIONS)
+	endIf
 
 	if Manager.IsPrey(playerRef) && playerRef.HasPerk(Comfy) && Manager.RelativelySafe(playerRef)
 		ENTRY_SLEEP = menu.AddEntryItem("Vore Sleep", ENTRY_ACTIONS)
@@ -2684,11 +2679,11 @@ Function DisplayQuickSettings()
 			exit = true
 
 		elseif result == ENTRY_MAXSKILLS
-			Manager.GivePredXP(target, 10000.0)
-			Manager.GivePreyXP(target, 10000.0)
+			Manager.GivePredXP(PlayerRef, 10000.0)
+			Manager.GivePreyXP(PlayerRef, 10000.0)
 			
 		elseif result == ENTRY_MAXPERKS
-			Manager.IncreaseVoreLevel(target, 100)
+			Manager.IncreaseVoreLevel(PlayerRef, 100)
 			
 		endIf
 	endWhile
