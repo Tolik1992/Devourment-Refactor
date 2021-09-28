@@ -120,6 +120,7 @@ Message property UnclogMessage auto
 Message[] property Messages_Defecated auto
 Message[] property MessageIndigestible auto
 Message[] property Messages_Swallow auto
+Message[] property Messages_Retrovore auto
 MiscObject property Ipecac auto
 MusicType property DeathMusic auto
 ObjectReference property HerStomach auto

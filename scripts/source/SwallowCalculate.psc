@@ -186,6 +186,10 @@ EndEvent
 
 
 Function DoSwallow()
+	if Reversed && pred == PlayerRef
+		Manager.HelpAgnosticMessage(Manager.Messages_Retrovore[locus], "DVT_RETROVORE", 10.0, 0.1)
+	endIf
+
 	pred.addSpell(SwallowPreventSpell, false)
 	prey.addSpell(SwallowPreventSpell, false)
 	;Utility.SetIniFloat("fActorFadeOutLimit:Camera", 0.0)

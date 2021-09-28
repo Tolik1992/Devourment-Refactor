@@ -7,9 +7,9 @@ DevourmentManager property Manager auto
 Keyword property BeingSwallowed auto
 MagicEffect property DontSwallowMe auto
 Spell property VoreSpell auto
-Spell property Diminution auto
-Spell property BellyPortSpell auto
 
+Spell[] property CombatSpells auto
+int combatSpellsCount = 0
 
 float property SwallowRange = 225.0 autoReadOnly
 float property CombatInterval = 5.0 autoReadOnly
@@ -47,6 +47,29 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		RegisterForSingleUpdate(CombatInterval)
 		RegisterForAnimationEvent(pred, "HitFrame")
 		RegisterForActorAction(0)
+
+
+		int len = CombatSpells.length
+		int index = 0
+		int count = 0
+
+		while index < len
+			bool available = pred.HasSpell(CombatSpells[index])
+			if !available 
+				CombatSpells[index] = None
+			elseif index != combatSpellsCount
+				CombatSpells[combatSpellsCount] = CombatSpells[index]
+				CombatSpells[index] = None
+				combatSpellsCount += 1
+			else
+				combatSpellsCount += 1
+			endIf
+			index += 1
+		endWhile
+
+		if DEBUGGING
+			Log2(PREFIX, "OnEffectStart", Namer(pred), SpellArrayToString(CombatSpells))
+		endIf
 	endIf
 EndEvent
 
@@ -132,25 +155,24 @@ Function DoANom(Actor prey)
 			Log2(PREFIX, "DoANom_Combat", "Already being swallowed", Namer(prey))
 		endIf
 
-	elseif Manager.GetFullnessWith(pred, prey) > 1.5
-		if DEBUGGING
-			Log1(PREFIX, "DoANom_Combat", "Too full")
-		endIf
-
 	elseif pred.getDistance(prey) > reach
 		if DEBUGGING
 			Log4(PREFIX, "DoANom_Combat", "Too far", Namer(prey), pred.getDistance(prey), reach)
 		endIf
 
-		if pred.GetActorValue("Conjuration") >= 35.0
-			BellyPortSpell.Cast(pred, prey)
-		elseif pred.GetActorValue("Alteration") >= 35.0
-			Diminution.Cast(pred, prey)
+		if combatSpellsCount > 0
+			int selection = Utility.RandomInt(0, combatSpellsCount - 1)
+			CombatSpells[selection].Cast(pred, prey)
+		endIf
+
+	elseif Manager.GetFullnessWith(pred, prey) > 1.5
+		if DEBUGGING
+			Log1(PREFIX, "DoANom_Combat", "Too full")
 		endIf
 
 	else
 		VoreSpell.cast(pred, prey)
-		ConsoleUtil.PrintMessage(predName + " is trying to nom " + Namer(prey, true) + "!")
+		;ConsoleUtil.PrintMessage(predName + " is trying to nom " + Namer(prey, true) + "!")
 		if DEBUGGING
 			Log3(PREFIX, "DoANom_Combat", predName, Namer(prey, true), "Nomming")
 		endIf

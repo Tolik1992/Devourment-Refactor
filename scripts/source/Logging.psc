@@ -708,6 +708,29 @@ String Function PerkArrayToString(Perk[] arr) global
 EndFunction
 	
 	
+String Function SpellArrayToString(Spell[] arr) global
+{ Pretty-prints a Spell array as a string. }
+	String merge
+
+	if arr.length == 0
+		merge = "[]"
+	elseif arr.length == 1
+		merge = "[" + Namer(arr[0]) + "]"
+	else
+		merge = "["
+		int i = 0
+		while i < arr.length - 1
+			merge = merge + Namer(arr[i]) + ", "
+			i += 1
+		endwhile
+
+		merge = merge + Namer(arr[i]) + "]"
+	endif
+
+	return merge
+EndFunction
+	
+	
 String Function RefArrayToString(ObjectReference[] arr) global
 { Pretty-prints an ObjectReference array as a string.}
 	String merge
