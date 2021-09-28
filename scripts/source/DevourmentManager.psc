@@ -230,7 +230,7 @@ float property NomsChance = 0.05 auto
 float property prefilledChance = 0.05 auto
 float property struggleDamage = 1.0 auto
 float property CombatChanceScale = 1.0 auto
-float property MacromancyScaling = 1.0 auto
+float property MacromancyScaling = 1.2 auto
 int property AutoNoms = 0 auto
 int property multiPrey = 2 Auto
 int property scatTypeBolus = 1 auto
@@ -768,6 +768,8 @@ Event RegisterDigestion(Form f1, Form f2, bool endo, int locus)
 		endIf
 		
 		bool deadPrey = prey.isDead()
+		prey.StopCombat()
+
 		int preyData = CreatePreyData(pred, prey, endo, deadPrey, locus)
 
 		if DEBUGGING
@@ -4592,12 +4594,13 @@ EndFunction
 
 
 bool Function validPredator(Actor target)
-	If LibFire.ActorIsFollower(target) && companionPredPreference > 0
+	If companionPredPreference > 0 && LibFire.ActorIsFollower(target)
         return companionPredPreference == 1
     EndIf
 
-	If target.hasKeyword(ActorTypeCreature) && CreaturePreds
-		Return CreaturePredatorToggles[CreaturePredatorStrings.Find(Remapper.RemapRaceName(target))]
+	If CreaturePreds && target.hasKeyword(ActorTypeCreature)
+		int index = CreaturePredatorStrings.Find(Remapper.RemapRaceName(target))
+		Return index >= 0 && CreaturePredatorToggles[index]
 	ElseIf target.HasKeyword(ActorTypeNPC)
 		int sex = target.getLeveledActorBase().getSex()	;We only care for Sex where humanoids are concerned.
 		return (sex == 0 && MalePreds) || (sex != 0 && FemalePreds)

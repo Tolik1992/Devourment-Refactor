@@ -23,6 +23,10 @@ bool bleedoutVore
 float reach
 
 
+Actor currentTarget = none
+bool validTarget
+
+
 Event OnEffectStart(Actor akTarget, Actor akCaster)
 { Checks the combat state and which types of Noms are allowed. }
 
@@ -37,6 +41,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	bleedoutVore = !Game.IsPluginInstalled("SexLabDefeat.esp")
 
 	if Manager.validPredator(pred)
+		currentTarget = pred.GetCombatTarget()
+		validTarget = CombatCheck(currentTarget, pred.getCombatState())
+	
 		RegisterForSingleUpdate(CombatInterval)
 		RegisterForAnimationEvent(pred, "HitFrame")
 		RegisterForActorAction(0)
@@ -52,27 +59,18 @@ Event OnCombatStateChanged(Actor newTarget, int aeCombatState)
 	if DEBUGGING
 		Log3(PREFIX, "OnCombatStateChanged", predName, aeCombatState, Namer(newTarget))
 	endIf
-EndEvent
 
-
-Event onLoad()
-{ When a pred is loaded, refresh their state. }
-
-	if DEBUGGING
-		Log1(PREFIX, "onLoad", predName)
-	endIf
-
+	currentTarget = newTarget
+	validTarget = CombatCheck(currentTarget, aeCombatState)
 EndEvent
 
 
 Event OnUpdate()
-	Actor prey = pred.GetCombatTarget()
-
-	if combatCheck(prey, pred.getCombatState())
+	if validTarget
 		if DEBUGGING
 			Log1(PREFIX, "OnUpdate", predName)
 		endIf
-		DoANom(prey)
+		DoANom(currentTarget)
 	endIf
 
 	registerForSingleUpdate(CombatInterval)
@@ -80,46 +78,31 @@ EndEvent
 
 
 Event OnActorAction(int actionType, Actor akActor, Form source, int slot)
-	registerForSingleUpdate(CombatInterval)
-	Actor prey = pred.GetCombatTarget()
+	if validTarget
+		registerForSingleUpdate(CombatInterval) ; Reset the onUpdate timer.
 
-	if combatCheck(prey, pred.getCombatState())
 		if DEBUGGING
 			Log1(PREFIX, "OnActorAction", predName)
 		endIf
-		DoANom(prey)
+		DoANom(currentTarget)
 	endIf
 EndEvent
 
 
 Event OnAnimationEvent(ObjectReference akSource, string asEventName)
-	registerForSingleUpdate(CombatInterval)
-	Actor prey = pred.GetCombatTarget()
+	if validTarget
+		registerForSingleUpdate(CombatInterval) ; Reset the onUpdate timer.
 
-	if combatCheck(prey, pred.getCombatState())
 		if DEBUGGING
 			Log1(PREFIX, "OnAnimationEvent", predName)
 		endIf
-		DoANom(prey)
+		DoANom(currentTarget)
 	endIf
 EndEvent
 
 
 bool Function combatCheck(Actor newTarget, int combatState)
-	if combatState == 0 || newTarget == none || pred == none
-		return false
-
-	elseif combatState > 0 && newTarget && PlayerCheck(newTarget) && Manager.IsValidDigestion(pred, newTarget)
-		if DEBUGGING
-			Log4(PREFIX, "combatCheck", "PASSED", predName, combatState, Namer(newTarget))
-		endIf
-		return true
-	else 
-		if DEBUGGING
-			Log4(PREFIX, "combatCheck", "FAILED", predName, combatState, Namer(newTarget))
-		endIf
-		return false
-	endIf
+	return combatState > 0 && newTarget != none && pred != none && PlayerCheck(newTarget) && Manager.IsValidDigestion(pred, newTarget)
 endFunction	
 
 
@@ -144,17 +127,6 @@ Function DoANom(Actor prey)
 			Log1(PREFIX, "DoANom_Combat", "Bleeding out and BleedoutVore is disabled.")
 		endIf
 
-	elseif pred.getDistance(prey) > reach
-		if DEBUGGING
-			Log4(PREFIX, "DoANom_Combat", "Too far", Namer(prey), pred.getDistance(prey), reach)
-		endIf
-
-		if pred.GetActorValue("Conjuration") > 50.0
-			BellyPortSpell.Cast(pred, prey)
-		elseif pred.GetActorValue("Alteration") > 50.0
-			Diminution.Cast(pred, prey)
-		endIf
-
 	elseif prey.hasMagicEffectWithKeyword(BeingSwallowed)
 		if DEBUGGING
 			Log2(PREFIX, "DoANom_Combat", "Already being swallowed", Namer(prey))
@@ -165,9 +137,15 @@ Function DoANom(Actor prey)
 			Log1(PREFIX, "DoANom_Combat", "Too full")
 		endIf
 
-	elseif !PlayerCheck(prey)
+	elseif pred.getDistance(prey) > reach
 		if DEBUGGING
-			Log1(PREFIX, "DoANom_Combat", "Failed PlayerCheck")
+			Log4(PREFIX, "DoANom_Combat", "Too far", Namer(prey), pred.getDistance(prey), reach)
+		endIf
+
+		if pred.GetActorValue("Conjuration") >= 35.0
+			BellyPortSpell.Cast(pred, prey)
+		elseif pred.GetActorValue("Alteration") >= 35.0
+			Diminution.Cast(pred, prey)
 		endIf
 
 	else
