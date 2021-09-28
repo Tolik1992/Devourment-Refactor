@@ -111,6 +111,7 @@ Keyword property RapidDigestion auto
 Keyword property Secretion auto
 Keyword property Vampire auto
 Keyword property Vorish auto
+Keyword[] property DigestionKeywords auto
 Message property MessageDisabled auto
 Message property MenuPreyWeight auto
 Message property Message_NowDigesting auto
@@ -4372,11 +4373,13 @@ endFunction
 
 
 bool Function IsValidDigestion(Actor pred, Actor prey)
-	if prey.hasKeyword(ActorTypeUndead) 
+	int keywordIndex = LibFire.ActorFindAnyKeyword(prey, DigestionKeywords)
+
+	if keywordIndex == 0 ; prey.hasKeyword(ActorTypeUndead)
 		return pred.hasPerk(Menu.DigestionUndead)
-	elseif prey.hasKeyword(ActorTypeDaedra)
+	elseif keywordIndex == 1 ; prey.hasKeyword(ActorTypeDaedra)
 		return pred.hasPerk(Menu.DigestionDaedric)
-	elseif prey.hasKeyword(ActorTypeDwarven)
+	elseif keywordIndex == 2 ; prey.hasKeyword(ActorTypeDwarven)
 		return pred.hasPerk(Menu.DigestionDwemer)
 	else
 		return true
@@ -4403,16 +4406,18 @@ Determines if a prey is eligible to be digested.
 }
 	Actor pred = f1 as Actor
 	Actor prey = f2 as Actor
-	
-	if prey.hasKeyword(ActorTypeUndead)
+
+	int keywordIndex = LibFire.ActorFindAnyKeyword(prey, DigestionKeywords)
+
+	if keywordIndex == 0 ; prey.hasKeyword(ActorTypeUndead)
 		if !pred.hasPerk(Menu.DigestionUndead)
 			HandleInvalidDigestion(MessageIndigestible[0], pred, prey)
 		endIf
-	elseif prey.hasKeyword(ActorTypeDaedra)
+	elseif keywordIndex == 1 ; prey.hasKeyword(ActorTypeDaedra)
 		if !pred.hasPerk(Menu.DigestionDaedric)
 			HandleInvalidDigestion(MessageIndigestible[1], pred, prey)
 		endIf
-	elseif prey.hasKeyword(ActorTypeDwarven)
+	elseif keywordIndex == 2 ; prey.hasKeyword(ActorTypeDwarven)
 		if !pred.hasPerk(Menu.DigestionDwemer)
 			HandleInvalidDigestion(MessageIndigestible[2], pred, prey)
 		endIf

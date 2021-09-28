@@ -1,6 +1,4 @@
-setpqv DevourmentManager Debugging true
 prid
-tim
 player.sexchange
 player.placeatme 13479
 player.placeatme b9982
