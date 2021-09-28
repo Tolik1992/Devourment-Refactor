@@ -4142,6 +4142,39 @@ Function StopVoreSounds(Actor target)
 EndFunction
 
 
+Function PrefillCheck() 
+	if PreFilledChance <= 0.0
+		return
+	endIf
+	
+	if DEBUGGING
+		Log0(PREFIX, "PrefillCheck")
+	endIF
+
+	Actor[] candidates = MiscUtil.ScanCellNPCs(PlayerRef, HasKeyword = ActorTypeNPC)
+
+	int i = candidates.length
+	while i
+		i -= 1
+		Actor candidate = candidates[i]
+
+		if validPredator(candidate) && candidate.Is3DLoaded()
+			float chance = PreFilledChance
+			if candidate.HasKeyword(DevourmentSuperPred)
+				chance *= 3.0
+			endIf
+	
+			if Utility.RandomFloat() < chance && !PlayerRef.HasLOS(candidate)
+				RegisterFakeDigestion(candidate, -1.0)
+				if DEBUGGING
+					Log2(PREFIX, "PrefillCheck", Namer(candidate), "Prefilling")
+				endIF
+			endIf
+		endIf
+	endWhile
+EndFunction
+
+
 ;==================================================================================
 ; Troubleshooting Functions
 ;==================================================================================
