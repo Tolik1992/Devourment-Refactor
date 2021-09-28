@@ -131,9 +131,9 @@ function dvt.GetStomach(pred)
 	assert(pred, "pred must be specified.")
 	local predData = dvt.GetPredData(pred)
 	if not dvt.isPred(pred) then
-		return JFormMap.object()
+		return {}
 	else
-		return dvt.GetPredData(pred).stomach
+		return dvt.GetPredData(pred).stomach or {}
 	end
 end
 
@@ -146,9 +146,7 @@ function dvt.has(pred, prey)
 	assert(prey, "prey must be specified.")
 
 	local stomach = dvt.GetStomach(pred)
-	if not stomach then
-		return false
-	elseif stomach[prey] ~= nil then
+	if stomach[prey] ~= nil then
 		assert(stomach[prey].pred == pred, "Predator mismatch!")
 		return true
 	end
@@ -327,7 +325,7 @@ function dvt.GetRecentBolus(pred)
 	local bestBolus = nil
 	local bestAge = 0.0
 
-	for prey,preyData in pairs(stomach or {}) do
+	for prey,preyData in pairs(stomach) do
 		if preyData.bolus and preyData.owner == pred then
 			local age = dvt.GetRemainingTime(preyData)
 			if age > 0.9 and age > bestAge then
@@ -681,6 +679,8 @@ function dvt.TransferPrey(preyData, newPred)
 	local oldPred = preyData.pred
 	local oldStomach = dvt.GetStomach(oldPred)
 	local newStomach = dvt.GetStomach(newPred)
+	assert(oldStomach, "oldPred.stomach not found.")
+	assert(newStomach, "newPred.stomach not found.")
 
 	preyData.pred = newPred
 	oldStomach[key] = nil
@@ -714,8 +714,8 @@ function dvt.TransferStomach(oldPred, newPred)
 	local newPredData = dvt.GetPredData(newPred)
 	local oldPredData = dvt.GetPredData(oldPred)
 
-	local newStomach = newPredData.stomach or JFormMap.object()
-	local oldStomach = oldPredData.stomach or JFormMap.object()
+	local newStomach = newPredData.stomach
+	local oldStomach = oldPredData.stomach
 	oldPredData.stomach = JFormMap.object()
 
 	assert(oldStomach, "oldPred must be a predator.")

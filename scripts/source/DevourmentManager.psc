@@ -423,10 +423,6 @@ script. Instead it's called from DevourmentPlayerAlias.
 	Log1(PREFIX, "LoadGameChecks", "Frostfall: " + FrostFallInstalled)
 	Log1(PREFIX, "LoadGameChecks", "FNIS patch: " + FNISDetected)
 
-	;Debug.StartScriptProfiling("DevourmentBellyScaling")
-	;Debug.StartScriptProfiling("DevourmentManager")
-	;Debug.StartScriptProfiling("SwallowCalculate")
-
 	RegisterForModEvent("dhlp-Suspend", "onDHLP_Suspend")
 	RegisterForModEvent("dhlp-Resume", "onDHLP_Resume")
 
@@ -642,7 +638,7 @@ Return value is a flag indicating whether the predator is still active.
 	
 	; Loop through the stomach contents and process each one.
 	; The vomitted flag will track whether the pred has vomitted y
-	
+
 	ObjectReference content = JFormMap.nextKey(stomach) as ObjectReference
 	while content
 		if DEBUGGING
