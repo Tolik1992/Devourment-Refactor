@@ -20,10 +20,7 @@ Event OnEffectStart(Actor prey, Actor pred)
 		return
 	endif
 	
-	if prey.isChild() || pred.isChild() 
-		dispel()
-		return
-	elseif prey.GetLevel() > pred.GetLevel() || (pred != playerRef && Manager.IsFull(pred))
+	if prey.GetLevel() > pred.GetLevel() || (pred != playerRef && Manager.IsFull(pred))
 		return
 	elseif pred == PlayerRef && !Manager.HasRoomForPrey(pred, prey)
 		Manager.HelpAgnosticMessage(Message_Full, "DVT_FULL", 3.0, 0.1)
@@ -31,6 +28,6 @@ Event OnEffectStart(Actor prey, Actor pred)
 		return
 	endIf
 	
-	prey.placeatme(Graphics, 1, false, false)
 	Manager.RegisterDigestion(pred, prey, false, 0)
+	prey.placeatme(Graphics, 1, false, false)
 EndEvent
