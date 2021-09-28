@@ -10,10 +10,10 @@ DevourmentManager property Manager auto
 Actor property PlayerRef auto
 float property Speed = 0.08 auto
 Keyword property DevourmentSize auto
-;Quest property CCQ auto
 
 
 String PREFIX = "DevourmentMacromancyAV"
+bool DEBUGGING = false
 String rootNode = "NPC Root [Root]"
 ActorValueInfo AVProxy_Size
 float Smoothness
@@ -42,23 +42,21 @@ Event received when this effect is first started (OnInit may not have been run y
 	target = akTarget
 
 	if performanceMode
-		currentScale = MacromancyScaling * AVProxy_Size.GetCurrentValue(target) / 100.0
+		currentScale = getTargetScale()
 	else
 		currentScale = 1.0
 	endIf
 
 	isFemale = Manager.IsFemale(target)
-
 	Manager.UncacheVoreWeight(akTarget)
 	NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, currentScale)
 	NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 	RegisterForSingleUpdate(0.0)
-	;Log2(PREFIX, "OnEffectStart", Namer(target), AVProxy_Size.GetCurrentValue(target) / 100.0)
 endEvent
 
 
 Event OnUpdate()
-	float targetScale = MacromancyScaling * AVProxy_Size.GetCurrentValue(target) / 100.0
+	float targetScale = getTargetScale()
 	
 	if targetScale < 0.01
 		targetScale = 0.01
@@ -69,10 +67,6 @@ Event OnUpdate()
 	if diff < -0.01 || diff > 0.01
 		if performanceMode
 			currentScale = targetScale
-		elseif diff < -0.2
-			currentScale -= 0.2
-		elseif diff > 0.2
-			currentScale += 0.2
 		else
 			currentScale = Smoothness * currentScale + Unsmoothness * targetScale
 		endIf
@@ -98,3 +92,15 @@ functions on this effect will fail)
 	NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 	;Log1(PREFIX, "OnEffectFinish", Namer(target))
 endEvent
+
+
+float Function getTargetScale()
+	float av = AVProxy_Size.GetCurrentValue(target) / 100.0
+	if av < 1.0
+		return av / MacromancyScaling
+	else
+		return av * MacromancyScaling
+	endIf
+endFunction
+
+

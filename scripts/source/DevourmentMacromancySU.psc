@@ -45,16 +45,20 @@ Event received when this effect is first started (OnInit may not have been run y
 	
 	target = akTarget
 	currentScale = StorageUtil.PluckFloatValue(target, "DevourmentMacromancy", 0.5)
-	targetScale = 1.0
+	if currentScale < 1.0
+		currentScale /= MacromancyScaling
+	else
+		currentScale *= MacromancyScaling
+	endIf
 
 	if currentScale < 0.01
 		currentScale = 0.01
 	endIf
 
+	targetScale = 1.0
 	isFemale = Manager.IsFemale(target)
-	
 	Manager.UncacheVoreWeight(akTarget)
-	NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, MacromancyScaling * currentScale)
+	NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, currentScale)
 	NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 	RegisterForSingleUpdate(0.0)
 endEvent
@@ -65,7 +69,7 @@ Event OnUpdate()
 	
 	if diff < -0.01 || diff > 0.01
 		currentScale = Smoothness * currentScale + Unsmoothness * targetScale
-		NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, MacromancyScaling * currentScale)
+		NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, currentScale)
 		NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 
 		RegisterForSingleUpdate(0.050)
