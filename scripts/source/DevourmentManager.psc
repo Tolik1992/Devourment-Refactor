@@ -61,6 +61,7 @@ Actor property FakePlayer auto
 Actor property PlayerRef Auto
 ActorBase[] property RemainsBones auto
 ActorValueInfo property AVProxy_Size auto
+Armor property GutArmor auto
 CommonMeterInterfaceHandler property PlayerFullnessMeter auto
 CommonMeterInterfaceHandler property PlayerStruggleMeter auto
 CommonMeterInterfaceHandler[] property PreyHealthMeters Auto
@@ -178,6 +179,7 @@ bool property UseHelpMessages = false auto
 bool property bossesSuperPrey = true auto
 bool property entitlement = false auto
 bool property EndoStruggling = true auto
+bool property VisualStruggles = true auto
 bool property SkillGain = true auto
 bool property AttributeGain = true auto
 
@@ -6662,7 +6664,8 @@ bool Function saveSettings(String settingsFileName)
 	JMap.setInt(data, "multiPrey", 			multiPrey)
 	JMap.setInt(data, "BYK", 				BYK)
 	JMap.setInt(data, "EndoStruggling", 	EndoStruggling as int)
-
+	JMap.setInt(data, "VisualStruggles", 	VisualStruggles as int)
+	
 	JMap.setFlt(data, "StruggleDifficulty", 	StruggleDifficulty)
 	JMap.setFlt(data, "StruggleDamage", 		StruggleDamage)
 	JMap.setFlt(data, "LiveMultiplier", 		LiveMultiplier)
@@ -6731,6 +6734,8 @@ bool Function loadSettings(String settingsFileName)
 	multiPrey = 			JMap.getInt(data, "multiPrey", 				multiPrey)
 	BYK = 					JMap.getInt(data, "BYK", 					BYK)
 	EndoStruggling = 		JMap.getInt(data, "EndoStruggling", 		EndoStruggling as int) as bool
+	VisualStruggles = 		JMap.getInt(data, "VisualStruggles", 		VisualStruggles as int) as bool
+	
 	PredExperienceRate = 	JMap.getFlt(data, "PredExperienceRate", 	PredExperienceRate)
 	PreyExperienceRate = 	JMap.getFlt(data, "PreyExperienceRate", 	PreyExperienceRate)
 	StruggleDifficulty = 	JMap.getFlt(data, "StruggleDifficulty", 	StruggleDifficulty)
