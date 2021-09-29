@@ -1108,6 +1108,9 @@ Function EndoDigestion(Actor pred, Actor prey, int preyData, float dt)
 	if prey == PlayerRef && FrostFallInstalled
 		FrostUtil.ModPlayerExposure(-10.0, -1.0)
 	endIf
+
+	; Used for struggle animations.
+	JMap.setFlt(preyData, "health", prey.GetActorValuePercentage("Health"))
 	
 	float timerMax = JMap.getFlt(preyData, "timerMax")
 	if timerMax > 0.0
@@ -1175,6 +1178,8 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 
 	float healthPercentage = prey.GetActorValuePercentage("Health")
 	sendLiveDigestionEvent(pred, prey, damage, healthPercentage)
+
+	; Used for struggle animations.
 	JMap.setFlt(preyData, "health", healthPercentage)
 
 	if pred == playerRef
@@ -4332,6 +4337,31 @@ EndFunction
 Event ResetActorWeight(ObjectReference f)
 	Menu.WeightManager.ResetActorWeight(f as Actor)
 EndEvent
+
+
+Function ForgetEquippedSpells()
+	Spell s0 = playerRef.GetEquippedSpell(0)
+	Spell s1 = playerRef.GetEquippedSpell(1)
+	Spell s2 = playerRef.GetEquippedSpell(2)
+	int count = 0
+	
+	if s0
+		playerRef.RemoveSpell(s0)
+		count += 1
+	endIf
+	
+	if s1
+		playerRef.RemoveSpell(s1)
+		count += 1
+	endIf
+	
+	if s2
+		playerRef.RemoveSpell(s2)
+		count += 1
+	endIf
+	
+	ConsoleUtil.PrintMessage("Unlearned " + count + " spells/powers.")
+endFunction
 
 
 Function ExportDatabase(String filename)

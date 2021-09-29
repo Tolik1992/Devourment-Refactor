@@ -147,6 +147,25 @@ EndEvent
 
 
 ;=================================================
+; Camera stuff
+
+;Function RegisterForCameraState() native
+;Function UnregisterForCameraState() native
+
+Event OnPlayerCameraState(int oldState, int newState)
+	if DEBUGGING
+		Log2(PREFIX, "OnPlayerCameraState", "oldState=" + oldState, "newState=" + newState)
+	endIf
+
+	if newState != 0
+		if JValue.isExists(preyData)
+			setCameraTarget(ApexRef.GetReference() as Actor)
+		endIf
+	endIf
+EndEvent
+
+
+;=================================================
 ; Sleep stuff.
 
 bool Function VoreSleep()
@@ -313,11 +332,24 @@ EndFunction
 
 
 Event OnKeyUp(int keyCode, float holdTime)
+	if DEBUGGING
+		if KeyCode == 55
+			if JValue.isExists(preyData)
+				if Game.GetCameraState() != 0
+					setCameraTarget(PlayerRef)
+					Game.ForceFirstPerson()
+				else
+					setCameraTarget(ApexRef.GetReference() as Actor)
+					Game.ForceThirdPerson()
+				endIf
+			endIf
+		endIf
+	endIf
+
 	if KeyCode == COMPEL_KEY
 		Manager.CompelVore()
 	elseif KeyCode == FORGET_KEY
-		int count = ForgetEquippedSpells()
-		ConsoleUtil.PrintMessage("Unlearned " + count + " spells/powers.")
+		Manager.ForgetEquippedSpells()
 	elseif KeyCode == QUICK_KEY
 		DevourMCM.DisplayQuickSettings()
 	elseif StruggleLatch && (keyCode == STRUGGLE_KEY1 || keyCode == STRUGGLE_KEY2)
@@ -895,31 +927,6 @@ bool Function isCameraTarget(Actor target)
 EndFunction
 
 
-int Function ForgetEquippedSpells()
-	Spell s0 = playerRef.GetEquippedSpell(0)
-	Spell s1 = playerRef.GetEquippedSpell(1)
-	Spell s2 = playerRef.GetEquippedSpell(2)
-	int count = 0
-	
-	if s0
-		playerRef.RemoveSpell(s0)
-		count += 1
-	endIf
-	
-	if s1
-		playerRef.RemoveSpell(s1)
-		count += 1
-	endIf
-	
-	if s2
-		playerRef.RemoveSpell(s2)
-		count += 1
-	endIf
-	
-	return count
-endFunction
-
-
 bool function ClearFaceOverlays(Actor target)
 	bool isFemale = (target.GetLeveledActorBase().GetSex() != 0)
 	String area = "Face"
@@ -1024,6 +1031,11 @@ This does most of the work of doing all the things that need to happen when the 
 	RegisterForAnimationEvent(PlayerRef, "pa_KillMove2HWA")
 	RegisterForAnimationEvent(PlayerRef, "pa_KillMove2HWDecapBleedOut")
 	RegisterForAnimationEvent(PlayerRef, "pa_KillMoveDWDecap")
+	
+	if DEBUGGING
+		RegisterForCameraState()
+		RegisterForKey(55)
+	endIf
 	
 	RegisterForTrackedStatsEvent()
 	RegisterForSleep()

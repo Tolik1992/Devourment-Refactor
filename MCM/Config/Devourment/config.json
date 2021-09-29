@@ -1282,7 +1282,8 @@
 				},
 				{
 					"text": "$DVT_Header_Other",
-					"type": "header"
+					"type": "header",
+					"position": 1
 				},
 				{
 					"text": "$DVT_VoreDialogue",
@@ -1588,8 +1589,7 @@
 				},
 				{
 					"text": "$DVT_Header_OtherWeightSettings",
-					"type": "header",
-					"position": 1
+					"type": "header"
 				},
 				{
 					"type": "empty"
