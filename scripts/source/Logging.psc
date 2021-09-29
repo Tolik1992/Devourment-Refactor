@@ -965,15 +965,16 @@ PROFILING INFO: 67ms
 		endif
 
 	elseif obj as Actor
-		Form base = (obj as Actor).getLeveledActorBase()
+		ActorBase base = (obj as Actor).getLeveledActorBase()
+		String name = base.getName()
+		if name == ""
+			name = base.getRace().getName()
+		endIf
+
 		if display
-			;if base1 != base2
-			;	return base1.getName() + "/" + base2.getName()
-			;else
-				return base.getName()
-			;endIf
+			return name
 		else
-			return base.getName() + " " + PO3_SKSEFunctions.IntToString(obj.getFormID(), true)
+			return name + " " + PO3_SKSEFunctions.IntToString(obj.getFormID(), true)
 		endif
 
 	elseif obj as DevourmentBolus
