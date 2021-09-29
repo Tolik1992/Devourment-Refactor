@@ -748,13 +748,6 @@ event OnPageReset(string page)
 		addToggleOptionSt("SkullsForUnleveledState", "$DVT_SkullsUnleveled", SkullHandler.SkullsForUnleveled || SkullHandler.SkullsForEveryone)
 		addToggleOptionSt("SkullsForDragonsState", "$DVT_SkullsDragons", SkullHandler.SkullsForDragons)
 
-		addHeaderOption("$DVT_Header_WhoCanPred")
-		addEmptyOption()
-		addToggleOptionSt("MalePredState", "$DVT_MalePred", Manager.malePreds)
-		addToggleOptionSt("FemalePredState", "$DVT_FemPred", Manager.femalePreds)
-		addToggleOptionSt("CreaturePredState", "$DVT_creaturePred", Manager.creaturePreds)
-		addEmptyOption()
-
 	ElseIf page == Pages[3]
 
 		setCursorPosition(0)
@@ -930,6 +923,7 @@ event OnPageReset(string page)
 		endWhile
 	/;
 	ElseIf page == Pages[8]
+		SetCursorFillMode(LEFT_TO_RIGHT)
 
 		if SKSE.GetVersion()
 			addTextOption("SKSE", SKSE.GetVersion() + "." + SKSE.GetVersionMinor())
@@ -951,6 +945,10 @@ event OnPageReset(string page)
 		AddSKSEDetails("PapyrusUtil", "papyrusutil plugin", "papyrusutil", PapyrusUtil.GetVersion(), PapyrusUtil.GetScriptVersion())
 		AddSKSEDetails("ConsoleUtil", "console plugin", "ConsoleUtilSSE", ConsoleUtil.GetVersion())
 		AddSKSEDetails("PO3 Papyrus Extender", "PapyrusExtender", "powerofthree's Papyrus Extender")
+		AddSKSEDetails("PO3 SPID", "powerofthree's Spell Perk Distributor", "powerofthree's Spell Perk Distributor")
+		setCursorPosition(1)
+		AddSKSEDetails("LibFire", "LibFire", "LibFire")
+		AddSKSEDetails("MCM Helper", "MCMHelper", "MCMHelper")
 		AddSKSEDetails("NIOverride", "NIOverride", "skee", NIOverride.GetScriptVersion())
 		AddQuestDetails("RaceMenu", "RaceMenu", RaceMenuBase.GetScriptVersionRelease())
 		AddQuestDetails("XPMSE", "XPMSEMCM", XPMSELib.GetXPMSELibVersion() as String)
@@ -1135,48 +1133,6 @@ bool Function ConflictCheck(String reference, String conflictControl, String con
 	return ShowMessage(myMsg, true)
 endFunction
 
-state MalePredState
-	event OnDefaultST()
-		Manager.malePreds = true
-		setToggleOptionValueST(Manager.malePreds)
-	endEvent
-	event OnSelectST()
-		Manager.malePreds = !Manager.malePreds
-		setToggleOptionValueST(Manager.malePreds)
-	endEvent
-	event OnHighlightST()
-		SetInfoText("$DVT_Help_MalePred")
-	endEvent
-endstate
-
-state FemalePredState
-	event OnDefaultST()
-		Manager.femalePreds = true
-		setToggleOptionValueST(Manager.femalePreds)
-	endEvent
-	event OnSelectST()
-		Manager.femalePreds = !Manager.femalePreds
-		setToggleOptionValueST(Manager.femalePreds)
-	endEvent
-	event OnHighlightST()
-		SetInfoText("$DVT_Help_FemPred")
-	endEvent
-endstate
-
-state CreaturePredState
-	event OnDefaultST()
-		Manager.creaturePreds = true
-		setToggleOptionValueST(Manager.creaturePreds)
-	endEvent
-	event OnSelectST()
-		Manager.creaturePreds = !Manager.creaturePreds
-		setToggleOptionValueST(Manager.creaturePreds)
-	endEvent
-	event OnHighlightST()
-		SetInfoText("$DVT_Help_creaturePred")
-	endEvent
-endstate
-
 state PredPerksState
 	event OnDefaultST()
 		PerkMenuQueue = 0
@@ -1268,12 +1224,12 @@ state compelVoreKeyState
 
 	event OnDefaultST()
 		PlayerAlias.UnRegisterForKey(PlayerAlias.COMPEL_KEY)
-		PlayerAlias.COMPEL_KEY = 43
+		PlayerAlias.COMPEL_KEY = 0 ; 43
 		SetKeyMapOptionValueST(PlayerAlias.COMPEL_KEY)
 		
-		if PlayerAlias.COMPEL_KEY > 1
-			PlayerAlias.RegisterForKey(PlayerAlias.COMPEL_KEY)
-		endIf
+		;if PlayerAlias.COMPEL_KEY > 1
+		;	PlayerAlias.RegisterForKey(PlayerAlias.COMPEL_KEY)
+		;endIf
 	endEvent
 
 	event OnHighlightST()

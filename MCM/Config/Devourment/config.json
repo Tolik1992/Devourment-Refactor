@@ -77,18 +77,6 @@
 					"type": "empty"
 				},
 				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
 					"text": "$DVT_Header_Difficulty",
 					"type": "header"
 				},
@@ -469,18 +457,73 @@
 				{
 					"type": "empty"
 				},
+
 				{
-					"text": "$DVT_Header_CreaturesExtended",
+					"text": "$DVT_Header_WhoCanPred",
 					"type": "header"
 				},
 				{
 					"type": "empty"
 				},
 				{
+					"text": "$DVT_FemPred",
+					"help": "$DVT_Help_FemPred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "femalePreds",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_MalePred",
+					"help": "$DVT_Help_MalePred",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "malePreds",
+						"defaultValue": true
+					}
+				},
+				{
+					"text": "$DVT_creaturePred",
+					"help": "$DVT_Help_creaturePred",
+					"type": "toggle",
+					"groupControl": 1,
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "creaturePreds",
+						"defaultValue": true
+					}
+				},
+				{
+					"type": "empty"
+				},
+
+				{
+					"text": "$DVT_Header_CreaturesExtended",
+					"type": "header",
+					"groupCondition": 1,
+  					"groupBehavior": "hide"
+				},
+				{
+					"type": "empty",
+					"groupCondition": 1,
+  					"groupBehavior": "hide"
+				},
+				{
 					"id": "DraugrPred:Creatures",
 					"text": "$DVT_DraugrPred",
 					"help": "$DVT_Help_DraugrPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -494,6 +537,8 @@
 					"text": "$DVT_DragonPred",
 					"help": "$DVT_Help_DragonPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -507,6 +552,8 @@
 					"text": "$DVT_WolfPred",
 					"help": "$DVT_Help_WolfPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -520,6 +567,8 @@
 					"text": "$DVT_DogPred",
 					"help": "$DVT_Help_DogPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -533,6 +582,8 @@
 					"text": "$DVT_BearPred",
 					"help": "$DVT_Help_BearPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -546,6 +597,8 @@
 					"text": "$DVT_DeerPred",
 					"help": "$DVT_Help_DeerPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -559,6 +612,8 @@
 					"text": "$DVT_SabrecatPred",
 					"help": "$DVT_Help_SabrecatPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -572,6 +627,8 @@
 					"text": "$DVT_HorsePred",
 					"help": "$DVT_Help_HorsePred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -585,6 +642,8 @@
 					"text": "$DVT_CowPred",
 					"help": "$DVT_Help_CowPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -598,6 +657,8 @@
 					"text": "$DVT_GoatPred",
 					"help": "$DVT_Help_GoatPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -611,6 +672,8 @@
 					"text": "$DVT_SpiderPred",
 					"help": "$DVT_Help_SpiderPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -624,6 +687,8 @@
 					"text": "$DVT_ChaurusPred",
 					"help": "$DVT_Help_ChaurusPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -637,6 +702,8 @@
 					"text": "$DVT_MammothPred",
 					"help": "$DVT_Help_MammothPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -650,6 +717,8 @@
 					"text": "$DVT_AtronachPred",
 					"help": "$DVT_Help_AtronachPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -660,9 +729,11 @@
 				},
 				{
 					"id": "IcewraithPred:Creatures",
-					"text": "$DVT_IceWraithPred",
+					"text": "$DVT_IcewraithPred",
 					"help": "$DVT_Help_IceWraithPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -676,6 +747,8 @@
 					"text": "$DVT_VampireLordPred",
 					"help": "$DVT_Help_VampireLordPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -689,6 +762,8 @@
 					"text": "$DVT_WerewolfPred",
 					"help": "$DVT_Help_WerewolfPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -702,6 +777,8 @@
 					"text": "$DVT_TrollPred",
 					"help": "$DVT_Help_TrollPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -715,6 +792,8 @@
 					"text": "$DVT_SkeeverPred",
 					"help": "$DVT_Help_SkeeverPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -728,6 +807,8 @@
 					"text": "$DVT_SlaughterfishPred",
 					"help": "$DVT_Help_SlaughterfishPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -741,6 +822,8 @@
 					"text": "$DVT_RabbitPred",
 					"help": "$DVT_Help_RabbitPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -754,6 +837,8 @@
 					"text": "$DVT_FoxPred",
 					"help": "$DVT_Help_FoxPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -767,6 +852,8 @@
 					"text": "$DVT_MudcrabPred",
 					"help": "$DVT_Help_MudcrabPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -780,6 +867,8 @@
 					"text": "$DVT_SprigganPred",
 					"help": "$DVT_Help_SprigganPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -793,6 +882,8 @@
 					"text": "$DVT_WispmotherPred",
 					"help": "$DVT_Help_WispmotherPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -806,6 +897,8 @@
 					"text": "$DVT_GiantPred",
 					"help": "$DVT_Help_GiantPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -819,6 +912,8 @@
 					"text": "$DVT_ChickenPred",
 					"help": "$DVT_Help_ChickenPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -832,6 +927,8 @@
 					"text": "$DVT_HorkerPred",
 					"help": "$DVT_Help_HorkerPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -845,6 +942,8 @@
 					"text": "$DVT_DwemerPred",
 					"help": "$DVT_Help_DwemerPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -858,6 +957,8 @@
 					"text": "$DVT_HagravenPred",
 					"help": "$DVT_Help_HagravenPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -871,6 +972,8 @@
 					"text": "$DVT_FalmerPred",
 					"help": "$DVT_Help_FalmerPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -884,6 +987,8 @@
 					"text": "$DVT_DragonPriestPred",
 					"help": "$DVT_Help_DragonPriestPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -897,6 +1002,8 @@
 					"text": "$DVT_AshHopperPred",
 					"help": "$DVT_Help_AshHopperPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -910,6 +1017,8 @@
 					"text": "$DVT_GargoylePred",
 					"help": "$DVT_Help_GargoylePred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -923,6 +1032,8 @@
 					"text": "$DVT_LurkerPred",
 					"help": "$DVT_Help_LurkerPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -936,6 +1047,8 @@
 					"text": "$DVT_SeekerPred",
 					"help": "$DVT_Help_SeekerPred",
 					"type": "toggle",
+					"groupCondition": 1,
+  					"groupBehavior": "hide",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|96A", 
 						"sourceType": "PropertyValueBool",
@@ -1475,7 +1588,8 @@
 				},
 				{
 					"text": "$DVT_Header_OtherWeightSettings",
-					"type": "header"
+					"type": "header",
+					"position": 1
 				},
 				{
 					"type": "empty"
