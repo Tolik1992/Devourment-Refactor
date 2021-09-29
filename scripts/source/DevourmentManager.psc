@@ -6783,6 +6783,7 @@ bool Function loadSettings(String settingsFileName)
 	
 	PlayerAlias.DefaultLocus = JMap.getInt(data, "DefaultLocus", PlayerAlias.DefaultLocus)
 	Menu.AltPerkMenus = 	JMap.getInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int) as bool
+	Menu.RecalculateLocusCumulative()
 	
 	SkullHandler.LoadSettingsFrom(data)
 	Menu.WeightManager.LoadSettingsFrom(data)
