@@ -321,7 +321,7 @@ float lastRealTimeProcessed = 0.0
 float lastGameTimeProcessed = 0.0
 
 
-bool DEBUGGING = true
+bool DEBUGGING = false
 String PREFIX = "DevourmentManager"
 float UpdateInterval = 0.50
 bool firstRun = true
@@ -930,16 +930,12 @@ EndFunction
 
 Function RegisterReformation(Actor pred, Actor prey, int locus)
 { Registers the swallowing of a fake prey. }
-	Log3(PREFIX, "RegisterReformation", Namer(pred), Namer(prey), locus)
-
 	if !(pred && prey && pred != prey)
 		assertNotNone(PREFIX, "RegisterReformation", "pred", pred)
 		assertNotNone(PREFIX, "RegisterReformation", "prey", prey)
 		assertNotSame(PREFIX, "RegisterReformation", pred, prey)
 		return
 	endIf
-
-	Log1(PREFIX, "RegisterReformation", "A")
 
 	if pred.isChild()
 		assertFalse(PREFIX, "RegisterReformation", "pred.isChild()", pred.isChild())
@@ -948,13 +944,9 @@ Function RegisterReformation(Actor pred, Actor prey, int locus)
 		return
 	endIf
 
-	Log1(PREFIX, "RegisterReformation", "B")
-
 	int preyData = CreatePreyData(pred, prey, true, true, locus)
 	SetReforming(preyData)
 	
-	Log1(PREFIX, "RegisterReformation", "C")
-
 	if DEBUGGING
 		Log4(PREFIX, "RegisterReformation", Namer(pred), Namer(prey), locus, LuaS("preyData", preyData))
 	endIf
@@ -4972,17 +4964,20 @@ Function VOMIT_CLEAR()
 		slot -= 1
 
 		ObjectReference content = VomitLocks_Prey[slot]
-		Actor pred = GetPredFor(content)
-		int preyData = GetPreyData(content)
-		ManualVomit(pred, content, preyData, forced=true)
-		
-		VomitLocks_Prey[slot] = None
-		VomitLocks_Pred[slot] = None
-
-		UnRegisterBlock("VOMIT_LOCK", pred)
-		if content as Actor
+		if content
+			Actor pred = GetPredFor(content)
+			if pred
+				int preyData = GetPreyData(content)
+				if JValue.isExists(preyData)
+					ManualVomit(pred, content, preyData, forced=true)
+				endIf
+				UnRegisterBlock("VOMIT_LOCK", pred)
+			endIf
 			UnRegisterBlock("VOMIT_LOCK", content as Actor)
 		endIf
+
+		VomitLocks_Prey[slot] = None
+		VomitLocks_Pred[slot] = None
 	endWhile
 EndFunction
 
