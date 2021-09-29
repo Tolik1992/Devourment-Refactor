@@ -321,7 +321,7 @@ float lastRealTimeProcessed = 0.0
 float lastGameTimeProcessed = 0.0
 
 
-bool DEBUGGING = false
+bool DEBUGGING = true
 String PREFIX = "DevourmentManager"
 float UpdateInterval = 0.50
 bool firstRun = true
@@ -930,23 +930,31 @@ EndFunction
 
 Function RegisterReformation(Actor pred, Actor prey, int locus)
 { Registers the swallowing of a fake prey. }
+	Log3(PREFIX, "RegisterReformation", Namer(pred), Namer(prey), locus)
+
 	if !(pred && prey && pred != prey)
-		assertNotNone(PREFIX, "RegisterFakeDigestion", "pred", pred)
-		assertNotNone(PREFIX, "RegisterFakeDigestion", "prey", prey)
-		assertNotSame(PREFIX, "RegisterFakeDigestion", pred, prey)
+		assertNotNone(PREFIX, "RegisterReformation", "pred", pred)
+		assertNotNone(PREFIX, "RegisterReformation", "prey", prey)
+		assertNotSame(PREFIX, "RegisterReformation", pred, prey)
 		return
 	endIf
 
+	Log1(PREFIX, "RegisterReformation", "A")
+
 	if pred.isChild()
-		assertFalse(PREFIX, "RegisterFakeDigestion", "pred.isChild()", pred.isChild())
+		assertFalse(PREFIX, "RegisterReformation", "pred.isChild()", pred.isChild())
 		return
-	elseif !assertTrue(PREFIX, "RegisterFakeDigestion", "VerifyPred(pred)", VerifyPred(pred))
+	elseif !assertTrue(PREFIX, "RegisterReformation", "VerifyPred(pred)", VerifyPred(pred))
 		return
 	endIf
+
+	Log1(PREFIX, "RegisterReformation", "B")
 
 	int preyData = CreatePreyData(pred, prey, true, true, locus)
 	SetReforming(preyData)
 	
+	Log1(PREFIX, "RegisterReformation", "C")
+
 	if DEBUGGING
 		Log4(PREFIX, "RegisterReformation", Namer(pred), Namer(prey), locus, LuaS("preyData", preyData))
 	endIf
@@ -963,6 +971,8 @@ Function RegisterReformation(Actor pred, Actor prey, int locus)
 	if GetState() != "Running"
 		gotostate("Running")
 	endIf
+
+	SendReformationEvent(pred, prey)
 EndFunction
 
 
@@ -6608,6 +6618,14 @@ Function SendDeadDigestionEvent(Actor pred, Actor prey, float remaining) global
 	ModEvent.pushForm(handle, pred)
 	ModEvent.pushForm(handle, prey)
 	ModEvent.pushFloat(handle, remaining)
+	ModEvent.Send(handle)
+EndFunction
+
+
+Function SendReformationEvent(Actor pred, Actor prey) global
+	int handle = ModEvent.create("Devourment_onReformation")
+	ModEvent.pushForm(handle, pred)
+	ModEvent.pushForm(handle, prey)
 	ModEvent.Send(handle)
 EndFunction
 

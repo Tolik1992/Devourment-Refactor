@@ -35,10 +35,8 @@ int ATTACK_KEY = 0
 
 
 String PREFIX = "DevourmentPlayerAlias"
-bool DEBUGGING = false
+bool DEBUGGING = true
 Actor cameraTarget = none
-;bool StruggleLatch = false
-;int selectedStruggleKey = 0
 
 
 Message StruggleNotification = none
@@ -240,6 +238,7 @@ Function gotoDead(int newPreyData)
 	endIf
 	
 	preyData = newPreyData
+	ApexRef.ForceRefTo(Manager.FindApex(PlayerRef))
 	PredRef.ForceRefTo(Manager.getPred(preyData))
 	gotostate("PlayerIsDead")
 EndFunction
@@ -255,6 +254,7 @@ Function gotoReforming(int newPreyData)
 	endIf
 	
 	preyData = newPreyData
+	ApexRef.ForceRefTo(Manager.FindApex(PlayerRef))
 	PredRef.ForceRefTo(Manager.getPred(preyData))
 	gotostate("PlayerIsReforming")
 EndFunction
@@ -504,7 +504,7 @@ This state means that the player is inside a hostile predator.
 		endIf
 
 		Actor pred = PredRef.GetReference() as Actor
-		if pred
+		if pred && pred != apex
 			ReleaseControlOf(pred)
 		endIf
 
@@ -720,6 +720,7 @@ When the shout key is pressed, it will call Manager.KillPlayer() to finish up.
 				Log1(PREFIX, "PlayerIsDead.OnKeyDown", "Wait for SafeProcess().")
 			else
 				UnRegisterForUpdate()
+				UnRegisterForKey(SHOUT_KEY)
 				Manager.KillPlayer(PredRef.GetReference() as Actor)
 			endIf
 		endIf
@@ -768,65 +769,65 @@ State PlayerIsReforming
 	This state means that the player is dead but reforming.
 	/;
 	
-		Event onBeginState()
-			if DEBUGGING
-				Log2(PREFIX, "PlayerIsReforming.onBeginState", AliasNamer(PredRef), AliasNamer(ApexRef))
-			endIf
-			
-			PlayerIsDead.SetValue(1.0)
-			Actor apex = ApexRef.GetReference() as Actor
-	
-			if apex && IsControllable(apex, endo = true)
-				TakeControlOf(apex)
-			endIf
-	
-			Game.SetInCharGen(false, true, false)
-			RegisterForSingleUpdate(5.0)
-		EndEvent
-	
-	
-		Event onUpdate()
-			float percent = Manager.GetDigestionPercent(preyData)
-			Debug.Notification(percent + "% reformed")
-			RegisterForSingleUpdate(8.0)
-		EndEvent
-	
-	
-		Event onEndState()
-			if DEBUGGING
-				Log0(PREFIX, "PlayerIsReforming.onEndState")
-			endIf
-			
-			Message.resetHelpMessage("DVT_DEAD")
-			PlayerIsDead.SetValue(0.0)
-			Game.SetInCharGen(false, false, false)
-	
-			Actor apex = Manager.FindApex(PlayerRef)
-			Actor pred = PredRef.GetReference() as Actor
-	
-			if apex 
-				ReleaseControlOf(apex)
-			endIf
-			if pred
-				ReleaseControlOf(pred)
-			endIf
-		EndEvent
-	
-	
-		Function gotoEliminate()
-			if DEBUGGING
-				Log1(PREFIX, "PlayerIsReforming.gotoEliminate", "Cannot enter PlayerEliminate state when the player is reforming.")
-			endIf
-		EndFunction
-	
-	
-		Event DA_EndBlackout(string eventName, string strArg, float numArg, Form sender)
-			gotoDefault()
-		EndEvent
+	Event onBeginState()
+		if DEBUGGING
+			Log2(PREFIX, "PlayerIsReforming.onBeginState", AliasNamer(PredRef), AliasNamer(ApexRef))
+		endIf
 		
+		PlayerIsDead.SetValue(1.0)
+		Actor apex = ApexRef.GetReference() as Actor
+
+		if apex && IsControllable(apex, endo = true)
+			TakeControlOf(apex)
+		endIf
+
+		Game.SetInCharGen(false, true, false)
+		RegisterForSingleUpdate(5.0)
+	EndEvent
+
+
+	Event onUpdate()
+		float percent = Manager.GetDigestionPercent(preyData)
+		Debug.Notification(percent + "% reformed")
+		RegisterForSingleUpdate(8.0)
+	EndEvent
+
+
+	Event onEndState()
+		if DEBUGGING
+			Log0(PREFIX, "PlayerIsReforming.onEndState")
+		endIf
 		
-	EndState
+		Message.resetHelpMessage("DVT_DEAD")
+		PlayerIsDead.SetValue(0.0)
+		Game.SetInCharGen(false, false, false)
+
+		Actor apex = Manager.FindApex(PlayerRef)
+		Actor pred = PredRef.GetReference() as Actor
+
+		if apex 
+			ReleaseControlOf(apex)
+		endIf
+		if pred && pred != apex
+			ReleaseControlOf(pred)
+		endIf
+	EndEvent
+
+
+	Function gotoEliminate()
+		if DEBUGGING
+			Log1(PREFIX, "PlayerIsReforming.gotoEliminate", "Cannot enter PlayerEliminate state when the player is reforming.")
+		endIf
+	EndFunction
+
+
+	Event DA_EndBlackout(string eventName, string strArg, float numArg, Form sender)
+		gotoDefault()
+	EndEvent
 	
+	
+EndState
+
 	
 	;=================================================
 ; Utility functions.
