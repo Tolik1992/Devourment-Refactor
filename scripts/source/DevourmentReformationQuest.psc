@@ -72,7 +72,6 @@ Function DefaultReformation()
 		Manager.ForceEscape(reviver)
 	endIf
 
-	Log1(PREFIX, "DefaultReformation", "Prepared: calling RegisterReformation now!")
 	Manager.RegisterReformation(reviver, PlayerRef, 0)
 EndFunction
 

@@ -35,7 +35,7 @@ int ATTACK_KEY = 0
 
 
 String PREFIX = "DevourmentPlayerAlias"
-bool DEBUGGING = true
+bool DEBUGGING = false
 Actor cameraTarget = none
 
 
