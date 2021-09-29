@@ -292,6 +292,46 @@ function dvt.BumpSliders(data, playerStruggle)
 end
 
 
+function dvt.GutSliders(data)
+	if not data then
+		return 0.0
+	end
+
+	assert(data, "data must not be nil.")
+	
+	-- DO BUMP SCALING --
+
+	for i,bump in ipairs(data.bumps) do
+		if not bump.A then
+			bump.A = JMap.object()
+			bump.B = JMap.object()
+			bump.C = JMap.object()
+		end
+
+		if math.random() > data.oddity then
+			if not bump.A.active then
+				dvt.StartThread(bump.A, data.StruggleAmplitude, data.minDuration, data.maxDuration)
+			elseif not bump.B.active then
+				dvt.StartThread(bump.B, data.StruggleAmplitude, data.minDuration, data.maxDuration)
+			elseif not bump.C.active then
+				dvt.StartThread(bump.C, data.StruggleAmplitude, data.minDuration, data.maxDuration)
+			end
+		end
+
+		dvt.UpdateThread(bump.A)
+		dvt.UpdateThread(bump.B)
+		dvt.UpdateThread(bump.C)
+		bump.total = bump.A.output + bump.B.output + bump.C.output
+
+		if data.output_bumps[i] == bump.total or data.output_bumps[i] == -bump.total then
+			data.output_bumps[i] = -bump.total
+		else	
+			data.output_bumps[i] = bump.total
+		end
+	end
+end
+
+
 --[[--
 --]]--
 function dvt.StartThread(thread, amplitude, minDuration, maxDuration)
@@ -1043,18 +1083,16 @@ function dvt.GetLocusHealth(pred, playerStruggle, useElimination)
 		local locus = preyData.locus + 1
 		local health
 
-		if preyData.ForceStruggling and (preyData.vore or preyData.endo) then
-			health = preyData.health or 0.0
-		elseif prey == playerRef and playerStruggle >= 0.0 then
+		if prey == playerRef and playerStruggle >= 0.0 then
 			health = playerStruggle or 0.0
-		else
+		elseif preyData.vore or (preyData.ForceStruggling and preyData.endo) then
 			health = preyData.health or 0.0
 		end
 
 		if locus == locusUnbirth or (locus == locusButt and useElimination > 0) then
 			locusHealth[locusStomach] = math.max(locusHealth[locusStomach] or 0.0, health)
 		else
-			locusHealth[locus] = math.max(locusHealth[locus] or 0.0, health)
+			locusHealth[locus] = math.max(locusHealth[locus] or 0.0, health or 0.0)
 		end
 	end
 
