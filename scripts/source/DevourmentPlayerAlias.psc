@@ -17,8 +17,6 @@ Message property Message_PlayerDigested auto
 Message property Message_Puke auto
 Message property Message_Excrete auto
 Message property Message_Absorb auto
-Message property StrugglePrompt_Gamepad auto
-Message property StrugglePrompt_Keyboard auto
 Message[] property Messages_BeingDigested auto
 Perk property PlayerAbilities auto
 ReferenceAlias property ApexRef auto
@@ -30,19 +28,17 @@ int property DefaultLocus = 0 auto
 
 
 float property INTERVAL = 3.0 autoreadonly
-int property SHOUT_KEY = 0 auto
-int property TOGGLE_POV = 0 auto
-int property BLOCK_KEY = 0 auto
-int property ATTACK_KEY = 0 auto
-int property STRUGGLE_KEY1 = 0 auto
-int property STRUGGLE_KEY2 = 0 auto
+int SHOUT_KEY = 0
+int TOGGLE_POV = 0
+int BLOCK_KEY = 0
+int ATTACK_KEY = 0
 
 
 String PREFIX = "DevourmentPlayerAlias"
 bool DEBUGGING = false
 Actor cameraTarget = none
-bool StruggleLatch = false
-int selectedStruggleKey = 0
+;bool StruggleLatch = false
+;int selectedStruggleKey = 0
 
 
 Message StruggleNotification = none
@@ -175,9 +171,6 @@ Event OnSleepStop(bool abInterrupted)
 EndEvent
 
 
-;=================================================
-; Struggle system for the player.
-
 Function gotoDefault()
 	if DEBUGGING
 		Log0(PREFIX, "gotoDefault")
@@ -268,72 +261,21 @@ EndFunction
 
 
 Function StartPlayerStruggle()
-	int index = Utility.randomInt(0, 1)
-	selectedStruggleKey = STRUGGLE_KEY1
-	RegisterForKey(selectedStruggleKey)
-	StruggleLatch = true
-	
 	if !PlayerRef.HasSpell(PlayerStruggleSpell)
 		PlayerRef.AddSpell(PlayerStruggleSpell)
-	endIf
-
-	PlayerStruggle(0)
-
-	if Game.UsingGamepad()
-		;Manager.HelpAgnosticMessage(StrugglePrompt_Gamepad, "DVT_STRUGGLE", 4.0, 60.0)
-	else
-		;Manager.HelpAgnosticMessage(StrugglePrompt_Keyboard, "DVT_STRUGGLE", 4.0, 60.0)
 	endIf
 EndFunction
 
 
 Function StopPlayerStruggle()
-	int index = 0
-	UnregisterForKey(STRUGGLE_KEY1)
-	UnregisterForKey(STRUGGLE_KEY2)
-
 	if PlayerRef.HasSpell(PlayerStruggleSpell)
 		PlayerRef.RemoveSpell(PlayerStruggleSpell)
-	endIf
-
-	Message.ResetHelpMessage("DVT_STRUGGLE")
-EndFunction
-
-
-Function PlayerStruggle(int keyCode)
-	bool success = keyCode == selectedStruggleKey && keyCode != 0
-
-	if DEBUGGING
-		Log3(PREFIX, "PlayerStruggle", keyCode, selectedStruggleKey, success)
-	endIf
-
-	if success
-		int handle = ModEvent.Create("Devourment_PlayerStruggle")
-		ModEvent.PushBool(handle, success)
-		ModEvent.PushFloat(handle, 0.2)
-		ModEvent.Send(handle)
-
-		if selectedStruggleKey == STRUGGLE_KEY1
-			selectedStruggleKey = STRUGGLE_KEY2
-		else
-			selectedStruggleKey = STRUGGLE_KEY1
-		endIf
-
-		RegisterForKey(selectedStruggleKey)
 	endIf
 EndFunction
 
 
 Event OnKeyUp(int keyCode, float holdTime)
-
-	if StruggleLatch && (keyCode == STRUGGLE_KEY1 || keyCode == STRUGGLE_KEY2)
-		StruggleLatch = false
-		if !DialogQuest.Activated && SafeProcess() && Manager.canStruggle(playerRef, preyData)
-			PlayerStruggle(keyCode)
-		endIf
-		StruggleLatch = true
-	
-	elseif keyCode == TOGGLE_POV
+	if keyCode == TOGGLE_POV
 		;if JValue.isExists(preyData)
 		;	if Game.GetCameraState() != 0
 		;		setCameraTarget(PlayerRef)
@@ -494,7 +436,6 @@ State PlayerVore
 ;/
 This state means that the player is inside a hostile predator.
 * It initiates dialogue if it's called via Dialogue Key.
-* It listens for struggle keys and initiates dialog if it's pressed.
 * It transfers the camera to the predator.
 /;
 
@@ -1055,7 +996,6 @@ This does most of the work of doing all the things that need to happen when the 
 	
 	Message.resetHelpMessage("DVT_DEAD")
 	Message.resetHelpMessage("DVT_POOP")
-	Message.resetHelpMessage("DVT_STRUGGLE")
 	Message.resetHelpMessage("DVT_VOMIT")
 	Message.resetHelpMessage("DVT_PERKGAIN")
 	Message.resetHelpMessage("DVT_SKILLGAIN")
@@ -1185,14 +1125,6 @@ EndFunction
 Function UnregisterForKeys()
 	UnregisterForKey(SHOUT_KEY)
 
-	if STRUGGLE_KEY1 > 1
-		UnregisterForKey(STRUGGLE_KEY1)
-	endIf
-
-	if STRUGGLE_KEY2 > 1
-		UnregisterForKey(STRUGGLE_KEY2)
-	endIf
-	
 	if BLOCK_KEY > 1
 		UnregisterForKey(BLOCK_KEY)
 	endIf
@@ -1204,14 +1136,6 @@ EndFunction
 
 
 Function RegisterForKeys()
-	if Game.UsingGamepad()
-		STRUGGLE_KEY1 = Input.GetMappedKey("Left Attack/Block")
-		STRUGGLE_KEY2 = Input.getMappedKey("Right Attack/Block")
-	else
-		STRUGGLE_KEY1 = Input.getMappedKey("Strafe Left", 0)
-		STRUGGLE_KEY2 = Input.getMappedKey("Strafe Right", 0)
-	endIf
-
 	if Input.getMappedKey("Shout") != SHOUT_KEY
 		UnregisterForKey(SHOUT_KEY)
 		SHOUT_KEY = Input.getMappedKey("Shout")
