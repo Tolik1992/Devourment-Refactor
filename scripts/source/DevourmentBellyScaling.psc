@@ -46,7 +46,7 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 
 	target = akTarget
 	isFemale = Manager.IsFemale(target)
-	PlayerStruggleBumps = Manager.whoStruggles > 0
+	PlayerStruggleBumps = Manager.whoStruggles > 0 && Manager.VisualStruggles
 
 	DATA = JValue.retain(JValue.objectFromPrototype(PROTOTYPE), PREFIX)
 	OUTPUT_BODY = JMap.GetObj(DATA, "output_body")
@@ -148,8 +148,7 @@ Event onLiveDigestion(Form pred, Form prey, float damage, float percent)
 EndEvent
 
 
-Event OnPlayerStruggle(bool successful, float times)
-	;Log3(PREFIX, "OnPlayerStruggle", successful, times, playerStruggle)
+Event OnPlayerStruggle()
 	if Manager.GetPredFor(PlayerRef) == target
 		playerStruggle = 1.0
 	endIf
