@@ -98,7 +98,7 @@ bool flushActivated = false
 int predSkillInfo
 int preySkillInfo
 
-String PREFIX = "DevourmentManager"
+String PREFIX = "DevourmentMCM"
 int Property difficulty = 2 Auto
 
 int bellyPreset = 1
@@ -160,7 +160,9 @@ EndFunction
 
 Function AddPredContents(UIListMenu menu, int parentEntry, Actor pred)
 	Form[] stomach = Manager.getStomachArray(pred) as Form[]
+
 	if Manager.EmptyStomach(stomach)
+		Log1(PREFIX, "AddPredContents", "EMPTY STOMACH")
 		menu.AddEntryItem("(Nothing)", parentEntry)
 	else
 		int stomachIndex = 0
