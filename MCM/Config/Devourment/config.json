@@ -27,49 +27,49 @@
 					"id": "DialogueHotkey",
 					"text": "$DVT_DialogueKey",
 					"type": "keymap",
-					"help": "$DVT_DialogueKeyHelp",
+					"help": "$DVT_Help_DialogueKey",
 					"ignoreConflicts": false
 				},
 				{
 					"id": "CompelVoreHotkey",
 					"text": "$DVT_CompelVoreKey",
 					"type": "keymap",
-					"help": "$DVT_CompelVoreKeyHelp",
+					"help": "$DVT_Help_CompelVoreKey",
 					"ignoreConflicts": false
 				},
 				{
 					"id": "ForgetSpellsHotkey",
 					"text": "$DVT_ForgetKey",
 					"type": "keymap",
-					"help": "$DVT_ForgetKeyHelp",
+					"help": "$DVT_Help_ForgetKey",
 					"ignoreConflicts": false
 				},
 				{
 					"id": "QuickMenuHotkey",
 					"text": "$DVT_DevourmentKey",
 					"type": "keymap",
-					"help": "$DVT_DevourmentKeyHelp",
+					"help": "$DVT_Help_DevourmentKey",
 					"ignoreConflicts": false
 				},
 				{
 					"id": "VoreHotkey",
 					"text": "$DVT_VoreKey",
 					"type": "keymap",
-					"help": "$DVT_VoreKeyHelp",
+					"help": "$DVT_Help_VoreKey",
 					"ignoreConflicts": false
 				},
 				{
 					"id": "EndoHotkey",
 					"text": "$DVT_EndoKey",
 					"type": "keymap",
-					"help": "$DVT_EndoKeyHelp",
+					"help": "$DVT_Help_EndoKey",
 					"ignoreConflicts": false
 				},
 				{
 					"id": "CombHotkey",
 					"text": "$DVT_CombKey",
 					"type": "keymap",
-					"help": "$DVT_CombKeyHelp",
+					"help": "$DVT_Help_CombKey",
 					"ignoreConflicts": false
 				},
 				{
@@ -85,7 +85,7 @@
 				},
 				{
 					"text": "$DVT_SkullsSeparate",
-					"help": "$DVT_SkullsSeparateHelp",
+					"help": "$DVT_Help_SkullsSeparate",
 					"type": "toggle",
 					"valueOptions": {
 						"sourceForm": "Devourment.esp|CF7", 
@@ -97,7 +97,7 @@
 				},
 				{
 					"text": "$DVT_SkullsEveryone",
-					"help": "$DVT_SkullsEveryoneHelp",
+					"help": "$DVT_Help_SkullsEveryone",
 					"type": "toggle",
 					"groupControl": 6,
 					"valueOptions": {
@@ -110,7 +110,7 @@
 				},
 				{
 					"text": "$DVT_SkullsUnique",
-					"help": "$DVT_SkullsUniqueHelp",
+					"help": "$DVT_Help_SkullsUnique",
 					"type": "toggle",
 					"groupCondition": {"NOT": 6},
   					"groupBehavior": "hide",
@@ -124,7 +124,7 @@
 				},
 				{
 					"text": "$DVT_SkullsEssential",
-					"help": "$DVT_SkullsEssentialHelp",
+					"help": "$DVT_Help_SkullsEssential",
 					"type": "toggle",
 					"groupCondition": {"NOT": 6},
   					"groupBehavior": "hide",
@@ -138,7 +138,7 @@
 				},
 				{
 					"text": "$DVT_SkullsUnleveled",
-					"help": "$DVT_SkullsUnleveledHelp",
+					"help": "$DVT_Help_SkullsUnleveled",
 					"type": "toggle",
 					"groupCondition": {"NOT": 6},
   					"groupBehavior": "hide",
@@ -152,7 +152,7 @@
 				},
 				{
 					"text": "$DVT_SkullsDragons",
-					"help": "$DVT_SkullsDragonsHelp",
+					"help": "$DVT_Help_SkullsDragons",
 					"type": "toggle",
 					"groupCondition": {"NOT": 6},
   					"groupBehavior": "hide",
@@ -448,6 +448,18 @@
 					}
 				},
 				{
+					"text": "$DVT_playerStruggling",
+					"help": "$DVT_Help_playerStruggling",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "VisualStruggles",
+						"defaultValue": true
+					}
+				},
+				{
 					"text": "$DVT_VoreTimeout",
 					"help": "$DVT_Help_VoreTimeout",
 					"type": "toggle",
@@ -500,9 +512,7 @@
 						"defaultValue": 0
 					}	
 				},
-				{
-					"type": "empty"
-				},
+
 				{
 					"text": "$DVT_Header_WhoGetsDigested",
 					"type": "header"
@@ -591,10 +601,10 @@
 						"defaultValue": true
 					}
 				},
+
 				{
 					"type": "empty"
 				},
-
 				{
 					"text": "$DVT_Header_CreaturesExtended",
 					"type": "header",
@@ -1620,12 +1630,6 @@
 					}
 				},
 				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
 					"text": "$DVT_Header_SecondaryWeight",
 					"type": "header"
 				},
@@ -1669,12 +1673,6 @@
 						"function": "SyncSettings",
 						"params": [true]
 					}
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
 				},
 				{
 					"text": "$DVT_Header_OtherWeightSettings",
@@ -2116,7 +2114,8 @@
 				},
 				{
 					"text": "$DVT_Header_DebugTools",
-					"type": "header"
+					"type": "header",
+					"position": 1
 				},
 				{
 					"text": "$DVT_Unrestricted",
