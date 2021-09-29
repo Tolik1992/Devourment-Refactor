@@ -1,7 +1,11 @@
-﻿2021-09-
+﻿2021-09-29
 [list]
 [*] Changed all hotkeys to use MCM Helper.
-[*] Added some infrastructure for Internal.
+[*] Added some infrastructure for "Internal".
+[*] Removed unused reformation quest registration system.
+[*] Significant improvements to phylactery player reformation.
+[*] Struggle system should be much more responsive now.
+[*] Minor reorganization of MCM.
 [/list]
 
 2021-09-28
