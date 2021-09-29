@@ -2897,9 +2897,9 @@ Function CompelVore()
 		return
 	endIf
 
-	if !DEBUGGING
-		return
-	endif
+	;if !DEBUGGING
+	;	return
+	;endif
 	
 	Actor center = FindApex(playerRef)
 	if !center
@@ -4337,6 +4337,16 @@ EndFunction
 Event ResetActorWeight(ObjectReference f)
 	Menu.WeightManager.ResetActorWeight(f as Actor)
 EndEvent
+
+
+Function HotkeyDialogue()
+	PlayerAlias.HotkeyDialogue()
+EndFunction
+
+
+Function HotkeyVore(int i)
+	PlayerAlias.HotkeyVore(i)
+EndFunction
 
 
 Function ForgetEquippedSpells()
@@ -6687,14 +6697,6 @@ bool Function saveSettings(String settingsFileName)
 
 	JMap.setInt(data, "PlayerAlias.DefaultLocus", PlayerAlias.DefaultLocus)
 	
-	JMap.setInt(data, "DIALOGUE_KEY",		PlayerAlias.DIALOGUE_KEY)
-	JMap.setInt(data, "COMPEL_KEY",		PlayerAlias.COMPEL_KEY)
-	JMap.setInt(data, "QUICK_KEY",		PlayerAlias.QUICK_KEY)
-	JMap.setInt(data, "VORE_KEY",		PlayerAlias.VORE_KEY)
-	JMap.setInt(data, "ENDO_KEY",		PlayerAlias.ENDO_KEY)
-	JMap.setInt(data, "COMB_KEY",		PlayerAlias.COMB_KEY)
-	JMap.setInt(data, "FORGET_KEY",		PlayerAlias.FORGET_KEY)
-
 	SkullHandler.SaveSettingsTo(data)
 	Menu.WeightManager.SaveSettingsTo(data)
 	Menu.Morphs.SaveSettingsTo(data)
@@ -6762,16 +6764,6 @@ bool Function loadSettings(String settingsFileName)
 	malePreds = 			JMap.getInt(data, "malePreds", 				malePreds as int) as bool
 	
 	PlayerAlias.DefaultLocus = JMap.getInt(data, "DefaultLocus", PlayerAlias.DefaultLocus)
-	PlayerAlias.UnregisterForKeys()
-	PlayerAlias.DIALOGUE_KEY = 	JMap.getInt(data, "DIALOGUE_KEY",		PlayerAlias.DIALOGUE_KEY)
-	PlayerAlias.COMPEL_KEY = 	JMap.getInt(data, "COMPEL_KEY",		PlayerAlias.COMPEL_KEY)
-	PlayerAlias.QUICK_KEY = 	JMap.getInt(data, "QUICK_KEY",		PlayerAlias.QUICK_KEY)
-	PlayerAlias.VORE_KEY = 		JMap.getInt(data, "VORE_KEY",		PlayerAlias.VORE_KEY)
-	PlayerAlias.ENDO_KEY = 		JMap.getInt(data, "ENDO_KEY",		PlayerAlias.ENDO_KEY)
-	PlayerAlias.COMB_KEY = 		JMap.getInt(data, "COMB_KEY",		PlayerAlias.COMB_KEY)
-	PlayerAlias.FORGET_KEY = 	JMap.getInt(data, "FORGET_KEY",		PlayerAlias.FORGET_KEY)
-	PlayerAlias.RegisterForKeys()
-	
 	Menu.AltPerkMenus = 	JMap.getInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int) as bool
 	
 	SkullHandler.LoadSettingsFrom(data)

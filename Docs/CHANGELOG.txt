@@ -1,4 +1,10 @@
-﻿2021-09-28
+﻿2021-09-
+[list]
+[*] Changed all hotkeys to use MCM Helper.
+[*] Added some infrastructure for Internal.
+[/list]
+
+2021-09-28
 [list]
 [*] Fixed stomach stripping when the player is prey.
 [*] Across the board performance tweaks.

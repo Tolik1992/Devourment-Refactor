@@ -17,65 +17,154 @@
 			"cursorFillMode": "leftToRight",
 			"content": [
 				{
-					"type": "empty"
+					"text": "$DVT_Header_Shortcuts",
+					"type": "header"
 				},
 				{
 					"type": "empty"
 				},
 				{
+					"id": "DialogueHotkey",
+					"text": "$DVT_DialogueKey",
+					"type": "keymap",
+					"help": "$DVT_DialogueKeyHelp",
+					"ignoreConflicts": false
+				},
+				{
+					"id": "CompelVoreHotkey",
+					"text": "$DVT_CompelVoreKey",
+					"type": "keymap",
+					"help": "$DVT_CompelVoreKeyHelp",
+					"ignoreConflicts": false
+				},
+				{
+					"id": "ForgetSpellsHotkey",
+					"text": "$DVT_ForgetKey",
+					"type": "keymap",
+					"help": "$DVT_ForgetKeyHelp",
+					"ignoreConflicts": false
+				},
+				{
+					"id": "QuickMenuHotkey",
+					"text": "$DVT_DevourmentKey",
+					"type": "keymap",
+					"help": "$DVT_DevourmentKeyHelp",
+					"ignoreConflicts": false
+				},
+				{
+					"id": "VoreHotkey",
+					"text": "$DVT_VoreKey",
+					"type": "keymap",
+					"help": "$DVT_VoreKeyHelp",
+					"ignoreConflicts": false
+				},
+				{
+					"id": "EndoHotkey",
+					"text": "$DVT_EndoKey",
+					"type": "keymap",
+					"help": "$DVT_EndoKeyHelp",
+					"ignoreConflicts": false
+				},
+				{
+					"id": "CombHotkey",
+					"text": "$DVT_CombKey",
+					"type": "keymap",
+					"help": "$DVT_CombKeyHelp",
+					"ignoreConflicts": false
+				},
+				{
 					"type": "empty"
+				},
+
+				{
+					"text": "$DVT_Header_Skulls",
+					"type": "header"
 				},
 				{
 					"type": "empty"
 				},
 				{
-					"type": "empty"
+					"text": "$DVT_SkullsSeparate",
+					"help": "$DVT_SkullsSeparateHelp",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsSeparate",
+						"defaultValue": false
+					}
 				},
 				{
-					"type": "empty"
+					"text": "$DVT_SkullsEveryone",
+					"help": "$DVT_SkullsEveryoneHelp",
+					"type": "toggle",
+					"groupControl": 6,
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsForEveryone",
+						"defaultValue": false
+					}
 				},
 				{
-					"type": "empty"
+					"text": "$DVT_SkullsUnique",
+					"help": "$DVT_SkullsUniqueHelp",
+					"type": "toggle",
+					"groupCondition": {"NOT": 6},
+  					"groupBehavior": "hide",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsForUnique",
+						"defaultValue": true
+					}
 				},
 				{
-					"type": "empty"
+					"text": "$DVT_SkullsEssential",
+					"help": "$DVT_SkullsEssentialHelp",
+					"type": "toggle",
+					"groupCondition": {"NOT": 6},
+  					"groupBehavior": "hide",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsForEssential",
+						"defaultValue": true
+					}
 				},
 				{
-					"type": "empty"
+					"text": "$DVT_SkullsUnleveled",
+					"help": "$DVT_SkullsUnleveledHelp",
+					"type": "toggle",
+					"groupCondition": {"NOT": 6},
+  					"groupBehavior": "hide",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsForUnleveled",
+						"defaultValue": false
+					}
 				},
 				{
-					"type": "empty"
+					"text": "$DVT_SkullsDragons",
+					"help": "$DVT_SkullsDragonsHelp",
+					"type": "toggle",
+					"groupCondition": {"NOT": 6},
+  					"groupBehavior": "hide",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "SkullsForDragons",
+						"defaultValue": true
+					}
 				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
-				{
-					"type": "empty"
-				},
+				
 				{
 					"text": "$DVT_Header_Difficulty",
 					"type": "header"

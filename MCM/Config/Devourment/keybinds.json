@@ -1,0 +1,82 @@
+{
+	"modName": "Devourment",
+	"keybinds": [
+		{
+			"id": "DialogueHotkey",
+			"desc": "$DVT_DialogueKeyHelp",
+			"action": {
+				"type": "CallFunction",
+				"form": "Devourment.esp|96A",
+				"scriptName": "DevourmentManager",
+				"function": "HotkeyDialogue",
+				"params": []
+			}
+		},
+		{
+			"id": "CompelVoreHotkey",
+			"desc": "$DVT_CompelVoreKeyHelp",
+			"action": {
+				"type": "CallFunction",
+				"form": "Devourment.esp|96A",
+				"scriptName": "DevourmentManager",
+				"function": "CompelVore",
+				"params": []
+			}
+		},
+		{
+			"id": "ForgetSpellsHotkey",
+			"desc": "$DVT_ForgetKeyHelp",
+			"action": {
+				"type": "CallFunction",
+				"form": "Devourment.esp|96A",
+				"scriptName": "DevourmentManager",
+				"function": "ForgetEquippedSpells",
+				"params": []
+			}
+		},
+		{
+			"id": "QuickMenuHotkey",
+			"desc": "$DVT_DevourmentKeyHelp",
+			"action": {
+				"type": "CallFunction",
+				"form": "Devourment.esp|81A",
+				"scriptName": "DevourmentMCM",
+				"function": "DisplayQuickSettings",
+				"params": []
+			}
+		},
+		{
+			"id": "VoreHotkey",
+			"desc": "$DVT_VoreKeyHelp",
+			"action": {
+				"type": "CallFunction",
+				"form": "Devourment.esp|96A",
+				"scriptName": "DevourmentManager",
+				"function": "HotkeyVore",
+				"params": [0]
+			}
+		},
+		{
+			"id": "EndoHotkey",
+			"desc": "$DVT_EndoKeyHelp",
+			"action": {
+				"type": "CallFunction",
+				"form": "Devourment.esp|96A",
+				"scriptName": "DevourmentManager",
+				"function": "HotkeyVore",
+				"params": [1]
+			}
+		},
+		{
+			"id": "CombHotkey",
+			"desc": "$DVT_CombKeyHelp",
+			"action": {
+				"type": "CallFunction",
+				"form": "Devourment.esp|96A",
+				"scriptName": "DevourmentManager",
+				"function": "HotkeyVore",
+				"params": [2]
+			}
+		}
+	]
+}

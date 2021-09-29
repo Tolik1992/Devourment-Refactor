@@ -30,14 +30,8 @@ int property DefaultLocus = 0 auto
 
 
 float property INTERVAL = 3.0 autoreadonly
-int property DIALOGUE_KEY = 34 auto ; G by default
-int property SHOUT_KEY = 44 auto ; Z by default
-int property COMPEL_KEY = 0 auto ; 43  ; \ by default
-int property QUICK_KEY = 78 auto ; NP+ by default
-int property VORE_KEY = 0 auto
-int property ENDO_KEY = 0 auto
-int property COMB_KEY = 0 auto
-int property FORGET_KEY = 0 auto
+int property SHOUT_KEY = 0 auto
+int property TOGGLE_POV = 0 auto
 int property BLOCK_KEY = 0 auto
 int property ATTACK_KEY = 0 auto
 int property STRUGGLE_KEY1 = 0 auto
@@ -65,7 +59,6 @@ ObjectReference bedrollRef = none
 Event OnInit()
 	Utility.wait(3.0)
 	Manager.LoadGameChecks()
-	RegisterForKey(COMPEL_KEY)
 	RegisterForKey(SHOUT_KEY)
 	self.LoadGameChecks()
 EndEvent
@@ -332,32 +325,25 @@ EndFunction
 
 
 Event OnKeyUp(int keyCode, float holdTime)
-	if DEBUGGING
-		if KeyCode == 55
-			if JValue.isExists(preyData)
-				if Game.GetCameraState() != 0
-					setCameraTarget(PlayerRef)
-					Game.ForceFirstPerson()
-				else
-					setCameraTarget(ApexRef.GetReference() as Actor)
-					Game.ForceThirdPerson()
-				endIf
-			endIf
-		endIf
-	endIf
 
-	if KeyCode == COMPEL_KEY
-		Manager.CompelVore()
-	elseif KeyCode == FORGET_KEY
-		Manager.ForgetEquippedSpells()
-	elseif KeyCode == QUICK_KEY
-		DevourMCM.DisplayQuickSettings()
-	elseif StruggleLatch && (keyCode == STRUGGLE_KEY1 || keyCode == STRUGGLE_KEY2)
+	if StruggleLatch && (keyCode == STRUGGLE_KEY1 || keyCode == STRUGGLE_KEY2)
 		StruggleLatch = false
 		if !DialogQuest.Activated && SafeProcess() && Manager.canStruggle(playerRef, preyData)
 			PlayerStruggle(keyCode)
 		endIf
 		StruggleLatch = true
+	
+	elseif keyCode == TOGGLE_POV
+		;if JValue.isExists(preyData)
+		;	if Game.GetCameraState() != 0
+		;		setCameraTarget(PlayerRef)
+		;		Game.ForceFirstPerson()
+		;	else
+		;		setCameraTarget(ApexRef.GetReference() as Actor)
+		;		Game.ForceThirdPerson()
+		;	endIf
+		;endIf
+	
 	elseif blocking && puppet
 		Debug.SendAnimationEvent(puppet, "BlockStop")
 		blocking = false
@@ -365,21 +351,28 @@ Event OnKeyUp(int keyCode, float holdTime)
 endEvent
 
 
+Function HotkeyDialogue()
+	if DEBUGGING
+		Log0(PREFIX, "HotkeyDialogue")
+	endIf
+
+	if VoreDialog.GetValue() != 0.0 && !DialogQuest.Activated && SafeProcess() && Manager.HasLivePrey(playerRef)
+		Actor talker = Manager.FindATalker()
+		if talker
+			DialogQuest.DoDialog_PlayerAndPrey(talker, false)
+		elseif DEBUGGING
+			ConsoleUtil.PrintMessage("No live prey found.")
+		endIf
+	endIf
+EndFunction
+
+
 Event OnKeyDown(int keyCode)
 	if DEBUGGING
 		Log1(PREFIX, "OnKeyDown", keycode)
 	endIf
 	
-	if KeyCode == DIALOGUE_KEY
-		if VoreDialog.GetValue() != 0.0 && !DialogQuest.Activated && SafeProcess() && Manager.HasLivePrey(playerRef)
-			Actor talker = Manager.FindATalker()
-			if talker
-				DialogQuest.DoDialog_PlayerAndPrey(talker, false)
-			elseif DEBUGGING
-				ConsoleUtil.PrintMessage("No live prey found.")
-			endIf
-		endIf
-	elseif KeyCode == SHOUT_KEY
+	if KeyCode == SHOUT_KEY
 		ObjectReference grabbed = Game.GetPlayerGrabbedRef()
 		if grabbed 
 			if !(grabbed as actor)
@@ -397,20 +390,25 @@ Event OnKeyDown(int keyCode)
 			endIf
 		
 		endIf
-	elseif KeyCode == VORE_KEY
+	endIf
+EndEvent
+
+
+Function HotkeyVore(int i)
+	if i == 0
 		ObjectReference targeted = Game.GetCurrentCrossHairRef()
 		if targeted && targeted as Actor
 			SwallowSpells[0].cast(PlayerRef, targeted)
 		endIf
-	elseif KeyCode == ENDO_KEY
+	elseif i == 1
 		ObjectReference targeted = Game.GetCurrentCrossHairRef()
 		if targeted && targeted as Actor
 			SwallowSpells[1].cast(PlayerRef, targeted)
 		endIf
-	elseif KeyCode == COMB_KEY
+	elseif i == 2
 		SwallowSpells[2].cast(PlayerRef, PlayerRef)
 	endIf
-EndEvent
+EndFunction
 
 
 Event DA_EndBlackout(string eventName, string strArg, float numArg, Form sender)
@@ -531,17 +529,24 @@ This state means that the player is inside a hostile predator.
 	EndEvent
 
 
+	Function HotkeyDialogue()
+		if DEBUGGING
+			Log1(PREFIX, "PlayerVore.HotkeyDialogue", "Puppet=" + Namer(Puppet))
+		endIf
+	
+		if Puppet && Puppet.GetPlayerControls()
+			ReleaseControlOf(Puppet)			
+		elseif VoreDialog.GetValue() != 0.0 && !DialogQuest.Activated && SafeProcess()
+			DialogQuest.DoDialog_PlayerAndApex()
+		endIf
+	EndFunction
+	
+	
 	Event OnKeyDown(int keyCode)
 		if DEBUGGING
 			Log1(PREFIX, "PlayerVore.onKeyDown", keyCode)
 		endIf
-		if KeyCode == DIALOGUE_KEY
-			if Puppet && Puppet.GetPlayerControls()
-				ReleaseControlOf(Puppet)			
-			elseif VoreDialog.GetValue() != 0.0 && !DialogQuest.Activated && SafeProcess()
-				DialogQuest.DoDialog_PlayerAndApex()
-			endIf
-		elseif CheckAttack(KeyCode)
+		if CheckAttack(KeyCode)
 			;
 		endIf
 	EndEvent
@@ -629,16 +634,25 @@ This state means that the player is inside a friendly predator.
 	EndEvent
 	
 	
+	Function HotkeyDialogue()
+		if DEBUGGING
+			Log1(PREFIX, "PlayerEndo.HotkeyDialogue", "Puppet=" + Namer(Puppet))
+		endIf
+	
+		if Puppet && Puppet.GetPlayerControls()
+			ReleaseControlOf(Puppet)			
+		elseif VoreDialog.GetValue() != 0.0 && !DialogQuest.Activated && SafeProcess()
+			DialogQuest.DoDialog_PlayerAndApex()
+		endIf
+	EndFunction
+	
+	
 	Event OnKeyDown(int keyCode)
 		if DEBUGGING
 			Log1(PREFIX, "PlayerEndo.onKeyDown", keyCode)
 		endif
 		
-		if KeyCode == DIALOGUE_KEY
-			if VoreDialog.GetValue() != 0.0 && !DialogQuest.Activated && SafeProcess()
-				DialogQuest.DoDialog_PlayerAndApex()
-			endIf
-		elseif KeyCode == SHOUT_KEY
+		if KeyCode == SHOUT_KEY
 			UnRegisterForKey(SHOUT_KEY)
 			Manager.RegisterVomit(playerRef)
 		elseif CheckAttack(KeyCode)
@@ -1032,11 +1046,6 @@ This does most of the work of doing all the things that need to happen when the 
 	RegisterForAnimationEvent(PlayerRef, "pa_KillMove2HWDecapBleedOut")
 	RegisterForAnimationEvent(PlayerRef, "pa_KillMoveDWDecap")
 	
-	if DEBUGGING
-		RegisterForCameraState()
-		RegisterForKey(55)
-	endIf
-	
 	RegisterForTrackedStatsEvent()
 	RegisterForSleep()
 	RegisterForControl("Wait")
@@ -1184,40 +1193,12 @@ Function UnregisterForKeys()
 		UnregisterForKey(STRUGGLE_KEY2)
 	endIf
 	
-	if DIALOGUE_KEY > 1
-		UnregisterForKey(DIALOGUE_KEY)
-	endIf
-
-	if QUICK_KEY > 1
-		UnregisterForKey(QUICK_KEY)
-	endIf
-
-	if VORE_KEY > 1
-		UnregisterForKey(VORE_KEY)
-	endIf
-
-	if ENDO_KEY > 1
-		UnregisterForKey(ENDO_KEY)
-	endIf
-
-	if COMB_KEY > 1
-		UnregisterForKey(COMB_KEY)
-	endIf
-
 	if BLOCK_KEY > 1
 		UnregisterForKey(BLOCK_KEY)
 	endIf
 
 	if ATTACK_KEY > 1
 		UnregisterForKey(ATTACK_KEY)
-	endIf
-
-	if COMPEL_KEY > 1
-		UnregisterForKey(COMPEL_KEY)
-	endIf
-
-	if FORGET_KEY > 1
-		UnregisterForKey(FORGET_KEY)
 	endIf
 EndFunction
 
@@ -1236,42 +1217,20 @@ Function RegisterForKeys()
 		SHOUT_KEY = Input.getMappedKey("Shout")
 	endIf
 	
+	if Input.getMappedKey("Toggle POV") != TOGGLE_POV
+		UnregisterForKey(TOGGLE_POV)
+		TOGGLE_POV = Input.getMappedKey("Shout")
+	endIf
+
 	RegisterForKey(SHOUT_KEY)
+	RegisterForKey(TOGGLE_POV)
 	
-	if DIALOGUE_KEY > 1
-		RegisterForKey(DIALOGUE_KEY)
-	endIf
-
-	if QUICK_KEY > 1
-		RegisterForKey(QUICK_KEY)
-	endIf
-
-	if VORE_KEY > 1
-		RegisterForKey(VORE_KEY)
-	endIf
-
-	if ENDO_KEY > 1
-		RegisterForKey(ENDO_KEY)
-	endIf
-
-	if COMB_KEY > 1
-		RegisterForKey(COMB_KEY)
-	endIf
-
 	if BLOCK_KEY > 1
 		RegisterForKey(BLOCK_KEY)
 	endIf
 
 	if ATTACK_KEY > 1
 		RegisterForKey(ATTACK_KEY)
-	endIf
-
-	if COMPEL_KEY > 1 ;&& DEBUGGING
-		RegisterForKey(COMPEL_KEY)
-	endIf
-
-	if FORGET_KEY > 1 ;&& DEBUGGING
-		RegisterForKey(FORGET_KEY)
 	endIf
 EndFunction
 
