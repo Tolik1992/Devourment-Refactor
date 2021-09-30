@@ -98,6 +98,7 @@ Actor Function GetReformationHost()
 	endIf
 
 	Debug.MessageBox("Who does your soul reach out to?")
+	Utility.WaitMenuMode(0.1)
 
 	UIListMenu hostList = UIExtensions.GetMenu("UIListMenu") as UIListMenu
 	hostList.ResetMenu()
