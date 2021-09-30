@@ -79,6 +79,7 @@ bool property UnrestrictedItemVore = false auto Hidden
 bool property GentleGas = false auto Hidden
 bool property CounterVoreEnabled = true auto Hidden
 bool property DigestToInventory = false auto Hidden
+bool property FoundBugFixesSSE = false auto
 String property ExportFilename = "data\\skse\\plugins\\devourment\\db_export.json" autoreadonly Hidden
 String property SettingsFileName = "data\\skse\\plugins\\devourment\\settings.json" autoreadonly Hidden
 String property PredPerkFile = "data\\skse\\plugins\\devourment\\PredPerkData.json" autoreadonly Hidden
@@ -854,9 +855,14 @@ event OnPageReset(string page)
 			String NetscriptLog = MiscUtil.ReadFromFile("Data/NetScriptFramework/NetScriptFramework.log.txt")
 			AddLogVersion("NetScriptFramework", NetscriptLog, " Initializing framework version %d+", "%d+")
 			AddLogCheck("CustomSkillFramework", NetscriptLog, "CustomSkills.dll")
+			AddLogCheck("ScrambledBugs", NetscriptLog, "ScrambledBugs.dll")
+			FoundBugFixesSSE = AddLogCheck("BugFixesSSE", NetscriptLog, "BugFixesSSE.dll")			
 		else
 			addTextOption("NetScriptFramework", "MISSING")
 			addTextOption("CustomSkillFramework", "MISSING")
+			addTextOption("ScrambledBugs", "MISSING")
+			addTextOption("BugFixesSSE", "MISSING")
+			FoundBugFixesSSE = false
 		endIf
 
 		AddSKSEDetails("SSEEngineFixes", "EngineFixes plugin", "EngineFixes plugin")
@@ -1997,37 +2003,43 @@ state UseLocusMorphsState
 	endEvent
 endstate
 
-Function AddLogVersion(String label, String log, String linePattern, String subPattern)
+bool Function AddLogVersion(String label, String log, String linePattern, String subPattern)
 	int data = JLua.setStr("log", log, JLua.SetStr("p1", linePattern, JLua.SetStr("p2", subPattern)))
 	String result = JLua.evalLuaStr("return args.log:match(args.p1):match(args.p2)", data)
 	
 	if result != "" 
 		addTextOption(label, result)
+		return true
 	else
 		addTextOption(label, "MISSING")
+		return false
 	endIf
 EndFunction
 
-Function AddLogCheck(String label, String log, String linePattern)
+bool Function AddLogCheck(String label, String log, String linePattern)
 	int data = JLua.setStr("log", log, JLua.SetStr("p1", linePattern))
 	String result = JLua.evalLuaStr("return args.log:match(args.p1)", data)
 	
 	if result != "" 
 		addTextOption(label, "Found")
+		return true
 	else
 		addTextOption(label, "MISSING")
+		return false
 	endIf
 EndFunction
 
-Function AddQuestDetails(String label, String name, String v1)
+bool Function AddQuestDetails(String label, String name, String v1)
 	if Quest.getQuest(name)
 		addTextOption(label, v1)
+		return true
 	else
 		addTextOption(label, "MISSING")
+		return false
 	endIf
 EndFunction
 
-Function AddSKSEDetails(String label, String pluginLE, String pluginSE, String v1 = "", String v2 = "")
+bool Function AddSKSEDetails(String label, String pluginLE, String pluginSE, String v1 = "", String v2 = "")
 	int skseVersion = 0
 	
 	if SKSE.GetPluginVersion(pluginSE) >= 0
@@ -2036,7 +2048,7 @@ Function AddSKSEDetails(String label, String pluginLE, String pluginSE, String v
 		skseVersion = SKSE.GetPluginVersion(pluginLE)
 	else
 		addTextOption(label, "MISSING")
-		return
+		return false
 	endIf
 	
 	if v1 != "" && v2 != ""
@@ -2046,6 +2058,8 @@ Function AddSKSEDetails(String label, String pluginLE, String pluginSE, String v
 	else
 		addTextOption(label, skseVersion)
 	endIf
+
+	return true
 EndFunction
 
 Function DisplayQuickSettings()
