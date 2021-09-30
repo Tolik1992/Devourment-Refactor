@@ -44,8 +44,8 @@ Event OnEffectStart(Actor target, Actor caster)
 		STRUGGLE_KEY1 = Input.GetMappedKey("Left Attack/Block")
 		STRUGGLE_KEY2 = Input.getMappedKey("Right Attack/Block")
 	else
-		STRUGGLE_KEY1 = Input.getMappedKey("Strafe Left", 0)
-		STRUGGLE_KEY2 = Input.getMappedKey("Strafe Right", 0)
+		STRUGGLE_KEY1 = Input.getMappedKey("Strafe Left")
+		STRUGGLE_KEY2 = Input.getMappedKey("Strafe Right")
 	endIf
 
 	selectedStruggleKey = STRUGGLE_KEY1
