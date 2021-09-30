@@ -10,12 +10,14 @@ DevourmentMorphs property Morphs auto
 Actor property PlayerRef auto
 Armor[] property Fullnesses auto
 FormList property FullnessTypes_All auto
+Keyword property ActorTypeNPC auto
 String[] property StruggleSliders auto
 
 
 String PREFIX = "DevourmentBellyScaling"
 bool DEBUGGING = false
 bool isFemale
+bool isNPC
 Actor target
 
 int DATA = 0
@@ -27,7 +29,6 @@ String PROTOTYPE = "{ \"currentScale\" : 0.0, \"targetScale\" : 0.0, \"currentSc
 bool UseMorphVore = true
 bool UseStruggleSliders = true
 bool UseLocationalMorphs = true
-int EquippableBellyType = 1
 float UpdateTime = 0.05
 float playerStruggle = 0.0
 bool PlayerStruggleBumps
@@ -46,53 +47,67 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 
 	target = akTarget
 	isFemale = Manager.IsFemale(target)
+	isNPC = target.HasKeyword(ActorTypeNPC)
+
+	UseMorphVore = Morphs.UseMorphVore
 	PlayerStruggleBumps = Manager.whoStruggles > 0 && Manager.VisualStruggles
+	UseStruggleSliders = Morphs.UseStruggleSliders && !Manager.PERFORMANCE
+	UseLocationalMorphs = Morphs.UseLocationalMorphs && IsNPC
 
 	DATA = JValue.retain(JValue.objectFromPrototype(PROTOTYPE), PREFIX)
 	OUTPUT_BODY = JMap.GetObj(DATA, "output_body")
 	OUTPUT_BUMPS = JMap.GetObj(DATA, "output_bumps")
-
-	int SETTINGS = Morphs.GetSettings(target)
-	JMap.addPairs(DATA, SETTINGS, false)
 	JMap.SetForm(DATA, "target", target)
 
-	Sliders = JArray.asStringArray(JMap.GetObj(SETTINGS, "Locus_Sliders"))
+	if UseStruggleSliders
+		JMap.setInt(DATA, "UseStruggleSliders", 1)
+		JMap.setFlt(DATA, "StruggleAmplitude", Morphs.StruggleAmplitude)
+	endIf
+
+	if UseLocationalMorphs
+		JMap.setInt(DATA, "UseLocationalMorphs", 1)
+		if Morphs.UseEliminationLocus
+			JMap.setInt(DATA, "UseEliminationLocus", 1)
+		endIf
+	endIf
+
+	if Manager.PERFORMANCE
+		JMap.setFlt(DATA, "MorphSpeed", 1.0)
+	else
+		JMap.setFlt(DATA, "MorphSpeed", Morphs.MorphSpeed)
+	endIf
+
+	if !isNPC
+		JMap.setFlt(DATA, "CreatureScaling", Morphs.CreatureScaling)
+	endIf
+	
+	Manager.CommitMorphsToDB()
+
+	Sliders = Morphs.Locus_Sliders
 	IsNode = Utility.CreateBoolArray(Sliders.length)
 
 	int sliderIndex = Sliders.length
 	while sliderIndex
 		sliderIndex -= 1
 		String slider = Sliders[sliderIndex]
-		if target.HasNode(slider) || StringUtil.find(slider, "NPC ") >= 0
-			IsNode[sliderIndex] = true
-		else
-			IsNode[sliderIndex] = false
-		endIf
+		IsNode[sliderIndex] = target.HasNode(slider) || StringUtil.find(slider, "NPC ") >= 0
 	endWhile
 
-	if Manager.PERFORMANCE
-		UseStruggleSliders = false
-		JMap.setFlt(DATA, "MorphSpeed", 1.0)
-		JMap.setInt(DATA, "UseStruggleSliders", 0)
-		UpdateTime = 1.0
-	else
-		UseStruggleSliders = JMap.GetInt(SETTINGS, "UseStruggleSliders", Morphs.UseStruggleSliders as int) as bool
-	endIf
+	if target.HasKeyword(ActorTypeNPC)
+		int EquippableBellyType = Morphs.EquippableBellyType
+		if EquippableBellyType >= 0 && EquippableBellyType < Fullnesses.length
+			Armor belly = Fullnesses[EquippableBellyType]
+			target.equipItem(belly, false, true)
 
-	EquippableBellyType = JMap.GetInt(SETTINGS, "EquippableBellyType", Morphs.EquippableBellyType)
-	
-	if EquippableBellyType >= 0 && EquippableBellyType < Fullnesses.length
-		Armor belly = Fullnesses[EquippableBellyType]
-		target.equipItem(belly, false, true)
-
-		if !belly.HasKeywordString("SexlabNoStrip")
-			Keyword NoStrip = Keyword.GetKeyword("SexlabNoStrip")
-			if NoStrip
-				PO3_SKSEFunctions.AddKeywordToForm(belly, NoStrip)
+			if !belly.HasKeywordString("SexlabNoStrip")
+				Keyword NoStrip = Keyword.GetKeyword("SexlabNoStrip")
+				if NoStrip
+					PO3_SKSEFunctions.AddKeywordToForm(belly, NoStrip)
+				endIf
 			endIf
+		else
+			target.removeItem(FullnessTypes_All, 99, true)
 		endIf
-	else
-		target.removeItem(FullnessTypes_All, 99, true)
 	endIf
 
 	if Sliders.length < 1 || IsNode.length < 1 || !JValue.IsExists(DATA)

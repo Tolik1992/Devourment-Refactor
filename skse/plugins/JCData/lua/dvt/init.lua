@@ -188,27 +188,23 @@ end
 
 
 function dvt.BumpSliders(data, playerStruggle)
-	if not data then
-		return 0.0
-	end
-
 	assert(data, "data must not be nil.")
 	assert(data.target, "data.target must not be nil.")
-	
-	--local loci = {"stomach", "anal", "unbirth", "breastl", "breastr", "cock", "other"}
+	local DB = dvt.getDB()
 	
 	-- DO BODY SCALING --
 	local smoothness = data.MorphSpeed or 0.007
-	local threshold = data.ScalingThreshold or 0.001
+	local threshold = 0.001
 
 	-- Overall scale, for when locuses are not in use.
-	data.targetScale = dvt.GetBurden(data.target)
+	data.targetScale = dvt.GetBurden(data.target) * (data.CreatureScaling or 1.0)
+
 	local diff = data.targetScale - data.currentScale
 	if diff * diff < threshold then
 		data.output_scale = -1.0
 	else
 		data.currentScale = (1.0 - smoothness) * data.currentScale + smoothness * data.targetScale
-		data.output_scale = math.min(data.currentScale * data.Locus_Scales[1], data.Locus_Maxes[1])
+		data.output_scale = math.min(data.currentScale * DB.Locus_Scales[1], DB.Locus_Maxes[1])
 	end
 
 	-- Partitioned scaling, for when locuses ARE in use.
@@ -227,7 +223,7 @@ function dvt.BumpSliders(data, playerStruggle)
 
 			else
 				data.currentScales[locus] = (1.0 - smoothness) * data.currentScales[locus] + smoothness * data.targetScales[locus]
-				local outputScale = math.min(data.currentScales[locus] * data.Locus_Scales[locus], data.Locus_Maxes[locus])
+				local outputScale = math.min(data.currentScales[locus] * DB.Locus_Scales[locus], DB.Locus_Maxes[locus])
 
 				-- If the output value is unchanged, flip it negative so that DevourmentBellyScaling.psc knows to ignore it.
 				if data.output_body[locus] == outputScale or data.output_body[locus] == -outputScale then
@@ -275,9 +271,9 @@ function dvt.BumpSliders(data, playerStruggle)
 
 			local newScale
 			if data.UseLocationalMorphs then
-				newScale = (bump.total or 0.0) * data.Locus_Scales[locus], data.Locus_Maxes[locus]
+				newScale = (bump.total or 0.0) * DB.Locus_Scales[locus], DB.Locus_Maxes[locus]
 			else
-				newScale = (bump.total or 0.0) * math.min(data.currentScale * data.Locus_Scales[1], data.Locus_Maxes[1])
+				newScale = (bump.total or 0.0) * math.min(data.currentScale * DB.Locus_Scales[1], DB.Locus_Maxes[1])
 			end
 
 			if data.output_bumps[i] == newScale or data.output_bumps[i] == -newScale then
@@ -297,10 +293,6 @@ function dvt.GutSliders(data)
 		return 0.0
 	end
 
-	assert(data, "data must not be nil.")
-	
-	-- DO BUMP SCALING --
-
 	for i,bump in ipairs(data.bumps) do
 		if not bump.A then
 			bump.A = JMap.object()
@@ -310,11 +302,11 @@ function dvt.GutSliders(data)
 
 		if math.random() > data.oddity then
 			if not bump.A.active then
-				dvt.StartThread(bump.A, data.StruggleAmplitude, data.minDuration, data.maxDuration)
+				dvt.StartThread(bump.A, 1.0, data.minDuration, data.maxDuration)
 			elseif not bump.B.active then
-				dvt.StartThread(bump.B, data.StruggleAmplitude, data.minDuration, data.maxDuration)
+				dvt.StartThread(bump.B, 1.0, data.minDuration, data.maxDuration)
 			elseif not bump.C.active then
-				dvt.StartThread(bump.C, data.StruggleAmplitude, data.minDuration, data.maxDuration)
+				dvt.StartThread(bump.C, 1.0, data.minDuration, data.maxDuration)
 			end
 		end
 
