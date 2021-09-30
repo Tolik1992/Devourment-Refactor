@@ -92,6 +92,7 @@ String Property targetName Auto Hidden
 string[] equipList
 
 bool resetBellies = false
+bool resetWeights = false
 bool vomitActivated = false
 bool flushActivated = false
 
@@ -102,12 +103,13 @@ String PREFIX = "DevourmentMCM"
 int Property difficulty = 2 Auto
 
 int bellyPreset = 1
-
 int optionsMap
+
 
 int function GetVersion()
 	return 119
 endFunction
+
 
 event OnConfigInit()
 	Pages = new string[10]
@@ -128,9 +130,11 @@ event OnConfigInit()
 	equipList[2] = "$DVT_EquipSkeptic"
 endEvent
 
+
 ;Event OnVersionUpdate(int newVersion)
 ;	Upgrade(CurrentVersion, newVersion)
 ;EndEvent
+
 
 Function Upgrade(int oldVersion, int newVersion)
 { Version 118 is a clean break, so upgrades all start from there. }
@@ -145,6 +149,7 @@ Function Upgrade(int oldVersion, int newVersion)
 	endif
 endFunction
 
+
 Function RecalculateLocusCumulative()
 	LocusCumulative = Utility.CreateFloatArray(LocusChances.length)
 	
@@ -157,6 +162,7 @@ Function RecalculateLocusCumulative()
 		LocusCumulative[locus] = sum
 	endWhile
 EndFunction
+
 
 Function AddPredContents(UIListMenu menu, int parentEntry, Actor pred)
 	Form[] stomach = Manager.getStomachArray(pred) as Form[]
@@ -181,6 +187,7 @@ Function AddPredContents(UIListMenu menu, int parentEntry, Actor pred)
 	endIf
 EndFunction
 
+
 String Function GetLocusName(int locus)
 	if locus == 0
 		return "Swallow"
@@ -201,6 +208,7 @@ String Function GetLocusName(int locus)
 	endIf
 EndFunction
 
+
 Function AddBolusContents(UIListMenu menu, int parentEntry, ObjectReference bolus)
 	Form[] bolusContents = bolus.GetContainerForms()
 	if bolusContents.length > 0
@@ -217,6 +225,7 @@ Function AddBolusContents(UIListMenu menu, int parentEntry, ObjectReference bolu
 		menu.AddEntryItem("(EMPTY)", parentEntry)
 	endIf
 EndFunction
+
 
 Function AddPreyDetails(UIListMenu menu, int parentEntry, Actor prey)
 	menu.AddEntryItem("Name: " + Namer(prey, true), parentEntry)
@@ -242,6 +251,7 @@ Function AddPreyDetails(UIListMenu menu, int parentEntry, Actor prey)
 	endIf
 EndFunction
 
+
 String Function NameWithCount(Form item, int count)
 	if count == 1
 		return Namer(item, true)
@@ -250,6 +260,7 @@ String Function NameWithCount(Form item, int count)
 	endIf
 endFunction
 
+
 String Function ToggleString(String name, bool toggle)
 	if toggle
 		return name + ": [X]"
@@ -257,6 +268,7 @@ String Function ToggleString(String name, bool toggle)
 		return name + ": [ ]"
 	endIf
 EndFunction
+
 
 bool Function ShowPerkSubMenu(bool pred, actor subject = None)
 
@@ -356,6 +368,7 @@ bool Function ShowPerkSubMenu(bool pred, actor subject = None)
 	return true
 EndFunction
 
+
 Function Vomit()
 	if !vomitActivated
 		Manager.vomit(target)
@@ -363,6 +376,7 @@ Function Vomit()
 		ForcePageReset()
 	endif
 EndFunction
+
 
 Function SettingsContext(bool save)
 	if save
@@ -385,12 +399,14 @@ Function SettingsContext(bool save)
 	ForcePageReset()
 EndFunction
 
+
 Function ExportDatabase()
 	Manager.ExportDatabase(ExportFilename)
 	;Parent.ShowMessage("JContainers database exported to '" + ExportFilename + "'.", false)
 	Debug.MessageBox("JContainers database exported to '" + ExportFilename + "'.")
 	ForcePageReset()
 EndFunction
+
 
 Function FlushVomitQueue()
 	if !flushActivated
@@ -400,10 +416,12 @@ Function FlushVomitQueue()
 	endIf
 EndFunction
 
+
 Function resetPrey()
 	Manager.resetPrey(target)
 	ForcePageReset()
 EndFunction
+
 
 Function ResetVisuals()
 	Manager.UnassignAllPreyMeters()
@@ -413,6 +431,7 @@ Function ResetVisuals()
 	Debug.MessageBox("Ran the visuals reset procedure.")
 	ForcePageReset()
 EndFunction
+
 
 Function ResetDevourment()
 	Manager.ResetDevourment()
@@ -568,10 +587,12 @@ int function checkDifficultyPreset()
 	endIf
 endFunction
 
+
 event onConfigOpen()
 	vomitActivated = false
 	flushActivated = false
 	resetBellies = false
+	resetWeights = false
 endEvent
 
 
@@ -584,6 +605,11 @@ event OnConfigClose()
 	if resetBellies
 		resetBellies = false
 		Manager.ResetBellies()
+	endIf
+
+	if resetWeights
+		resetWeights = false
+		WeightManager.ResetActorWeights()
 	endIf
 
 	If PerkMenuQueue == 1
@@ -605,7 +631,7 @@ event OnConfigClose()
 		If !WeightManager.PlayerEnabled
 			Debug.MessageBox("Devourment WeightManager Preview was called but you didn't enable Player weight morphs. Please enable this in the MCM.")
 		Else
-			WeightManager.ChangeActorWeight(PlayerRef, 0.0, WeightManager.DoPreview)
+			WeightManager.ChangeActorWeight(PlayerRef, 0.0, source="Preview", preview=WeightManager.DoPreview)
 		EndIf
 	EndIf
 	WeightManager.DoPreview = 0.0
@@ -784,29 +810,8 @@ event OnPageReset(string page)
 		addInputOptionSt("WeightAddFemaleMorphState", "Add Female Morph", "")
 		AddEmptyOption()
 
-		String[] MorphStrings = WeightManager.MorphStrings
-		float[] MultLow = WeightManager.MorphsLow
-		float[] MultHigh = WeightManager.MorphsHigh
-
-		int index = 0
-		while index < 32
-			;Female morphs span elements 0 through 31.
-			if MorphStrings[index] != ""
-				int[] quad = new int[4]
-				quad[0] = index
-				quad[1] = AddInputOption("Morph", MorphStrings[index])
-				AddEmptyOption()
-				quad[2] = AddInputOption("Low", MultLow[index])
-				quad[3] = AddInputOption("High", MultHigh[index])
-				
-				int oQuad = JArray.objectWithInts(quad)
-				JIntMap.SetObj(optionsMap, quad[1], oQuad)
-				JIntMap.SetObj(optionsMap, quad[2], oQuad)
-				JIntMap.SetObj(optionsMap, quad[3], oQuad)
-			endIf
-
-			index += 1
-		endWhile
+		;Female morphs span elements 0 through 31.
+		AddMorphQuads(WeightManager.MorphStrings, WeightManager.MorphsLow, WeightManager.MorphsHigh, 0, 32)
 
 	ElseIf page == Pages[6]	;Male Weight
 
@@ -818,29 +823,8 @@ event OnPageReset(string page)
 		addInputOptionSt("WeightAddMaleMorphState", "Add Male Morph", "")
 		AddEmptyOption()
 
-		String[] MorphStrings = WeightManager.MorphStrings
-		float[] MultLow = WeightManager.MorphsLow
-		float[] MultHigh = WeightManager.MorphsHigh
-
-		int index = 32
-		while index < 64
-			;Male morphs span elements 32 through 63.
-			if MorphStrings[index] != ""
-				int[] quad = new int[4]
-				quad[0] = index
-				quad[1] = AddInputOption("Morph", MorphStrings[index])
-				AddEmptyOption()
-				quad[2] = AddInputOption("Low", MultLow[index])
-				quad[3] = AddInputOption("High", MultHigh[index])
-
-				int oQuad = JArray.objectWithInts(quad)
-				JIntMap.SetObj(optionsMap, quad[1], oQuad)
-				JIntMap.SetObj(optionsMap, quad[2], oQuad)
-				JIntMap.SetObj(optionsMap, quad[3], oQuad)
-			endIf
-
-			index += 1
-		endWhile
+		; Male morphs span elements 32 through 63.
+		AddMorphQuads(WeightManager.MorphStrings, WeightManager.MorphsLow, WeightManager.MorphsHigh, 32, 32)
 
 	;/ To be uncommented once more creature WG sliders are done. TODO
 	ElseIf page == Pages[7]	;Creature Weight
@@ -853,32 +837,10 @@ event OnPageReset(string page)
 		addInputOptionSt("WeightAddCreatureMorphState", "Add Creature Morph", "")
 		AddEmptyOption()
 
-		String[] MorphStrings = WeightManager.MorphStrings
-		float[] MultLow = WeightManager.MorphsLow
-		float[] MultHigh = WeightManager.MorphsHigh
-
-		;int cutoff = MorphStrings.length / 2 - 2
-		
-		int index = 64
-		while index < 96
-			;Creature morphs span elements 64 through 95.
-			if MorphStrings[index] != ""
-				int[] quad = new int[4]
-				quad[0] = index
-				quad[1] = AddInputOption("Morph", MorphStrings[index])
-				AddEmptyOption()
-				quad[2] = AddInputOption("Low", MultLow[index])
-				quad[3] = AddInputOption("High", MultHigh[index])
-
-				int oQuad = JArray.objectWithInts(quad)
-				JIntMap.SetObj(optionsMap, quad[1], oQuad)
-				JIntMap.SetObj(optionsMap, quad[2], oQuad)
-				JIntMap.SetObj(optionsMap, quad[3], oQuad)
-			endIf
-
-			index += 1
-		endWhile
+		; Creature morphs span elements 64 through 95.
+		AddMorphQuads(WeightManager.MorphStrings, WeightManager.MorphsLow, WeightManager.MorphsHigh, 64, 32)
 	/;
+
 	ElseIf page == Pages[8]
 		SetCursorFillMode(LEFT_TO_RIGHT)
 
@@ -911,6 +873,7 @@ event OnPageReset(string page)
 	EndIf
 
 endEvent
+
 
 Event OnSettingChange(string a_ID)
 
@@ -991,7 +954,7 @@ Event OnSettingChange(string a_ID)
 EndEvent
 
 event OnOptionInputOpen(int oid)
-	{Used exclusively for dynamic lists.}
+{ Old style event handling is used for the weightmanager morphs. }
 
 	parent.OnOptionInputOpen(oid)
 	if !AssertTrue(PREFIX, "OnOptionInputOpen", "JIntMap.HasKey(optionsMap, oid)", JIntMap.HasKey(optionsMap, oid))
@@ -1021,9 +984,11 @@ event OnOptionInputOpen(int oid)
 	endIf
 endEvent
 
-event OnOptionInputAccept(int oid, string a_input)
 
+event OnOptionInputAccept(int oid, string a_input)
+{ Old style event handling is used for the weightmanager morphs. }
 	parent.OnOptionInputAccept(oid, a_input)
+
 	if !AssertTrue(PREFIX, "OnOptionInputAccept", "JIntMap.hasKey(optionsMap, oid)", JIntMap.hasKey(optionsMap, oid))
 		return
 	endIf
@@ -1061,8 +1026,20 @@ event OnOptionInputAccept(int oid, string a_input)
 		MultHigh[index] = val
 		SetInputOptionValue(oid, val)
 	endIf
-	WeightManager.SyncSettings(true)
+
+	resetWeights = true
 endEvent
+
+
+Function SyncWeightManager(bool registration, bool reset)
+	if registration
+		WeightManager.EventRegistration()
+	endIf
+	if reset
+		resetWeights = true
+	endIf
+EndFunction
+
 
 Event OnPageSelect(string a_page)
     optionsMap = JValue.ReleaseAndRetain(optionsMap, JIntMap.Object(), PREFIX)
@@ -1072,22 +1049,30 @@ Event OnPageSelect(string a_page)
 	endIf
 EndEvent
 
-bool Function ConflictCheck(String reference, String conflictControl, String conflictName)
-{Taken from Nether's Follower Framework. }
-	if !conflictControl || reference == conflictName
-		return true
-	endIf
 
-	string myMsg
+Function AddMorphQuads(String[] morphNames, float[] multLow, float[] multHigh, int offset, int count)
+	int index = offset
+	int endpoint = offset + count
 
-	if conflictName
-		myMsg = "This key is already mapped to \"" + conflictControl + "\" (" + conflictName + ")\n\nContinue?"
-	else
-		myMsg = "This key is already mapped to \"" + conflictControl + "\"\n\nContinue?"
-	endif
+	while index < endpoint
+		if morphNames[index] != ""
+			int[] quad = new int[4]
+			quad[0] = index
+			quad[1] = AddInputOption("Morph", morphNames[index])
+			AddEmptyOption()
+			quad[2] = AddInputOption("Low", multLow[index])
+			quad[3] = AddInputOption("High", multHigh[index])
 
-	return ShowMessage(myMsg, true)
-endFunction
+			int oQuad = JArray.objectWithInts(quad)
+			JIntMap.SetObj(optionsMap, quad[1], oQuad)
+			JIntMap.SetObj(optionsMap, quad[2], oQuad)
+			JIntMap.SetObj(optionsMap, quad[3], oQuad)
+		endIf
+
+		index += 1
+	endWhile
+EndFunction
+
 
 state PredPerksState
 	event OnDefaultST()
@@ -1112,6 +1097,7 @@ state PredPerksState
 	endEvent
 endstate
 
+
 state PreyPerksState
 	event OnDefaultST()
 		PerkMenuQueue = 0
@@ -1134,6 +1120,7 @@ state PreyPerksState
 		SetInfoText("If selected, then the Prey perk tree will be displayed once the MCM is closed.")
 	endEvent
 endstate
+
 
 state WeightFemaleRootLowState
 	Event OnSliderOpenST()
@@ -1158,6 +1145,7 @@ state WeightFemaleRootLowState
 	endEvent
 endState
 
+
 state WeightFemaleRootHighState
 	Event OnSliderOpenST()
 		SetSliderDialogStartValue(WeightManager.fSkeletonHigh)
@@ -1180,6 +1168,7 @@ state WeightFemaleRootHighState
 		SetInfoText("$DVT_Help_FemaleRootHigh")
 	endEvent
 endState
+
 
 state WeightMaleRootLowState
 	Event OnSliderOpenST()
@@ -1227,6 +1216,7 @@ state WeightMaleRootHighState
 	endEvent
 endState
 
+
 ;/ To be uncommented once more creature WG sliders are done. TODO
 state WeightCreatureRootLowState
 	Event OnSliderOpenST()
@@ -1250,6 +1240,7 @@ state WeightCreatureRootLowState
 		SetInfoText("$DVT_Help_CreatureRootLow")
 	endEvent
 endState
+
 
 state WeightCreatureRootHighState
 	Event OnSliderOpenST()
@@ -1275,6 +1266,7 @@ state WeightCreatureRootHighState
 endState
 /;
 
+
 state WeightAddFemaleMorphState
 	event OnInputOpenST()
 		SetInputDialogStartText("")
@@ -1290,6 +1282,7 @@ state WeightAddFemaleMorphState
 	endEvent
 endState
 
+
 state WeightAddMaleMorphState
 	event OnInputOpenST()
 		SetInputDialogStartText("")
@@ -1304,6 +1297,7 @@ state WeightAddMaleMorphState
 		SetInfoText("Add a male weight morph.")
 	endEvent
 endState
+
 
 ;/ To be uncommented once more creature WG sliders are done. TODO
 state WeightAddCreatureMorphState
@@ -1671,7 +1665,7 @@ state Slider_Locus3State
 			SetInfoText(\
 			"Slider/Node for Locus 3 (which is the left breast by default). Recommendations:\n" + \
 			"'BVoreL' is the left breast vore slider from the MorphVore 3BAv2 body.\n" + \
-			"'NPC L Breast' is the left breast node from the XPMSE skeleton. It works with almost everything.")
+			"'CME L PreBreast' is the left breast node from the XPMSE skeleton. It works with almost everything but it can interfere with physics.")
 		else
 			SetInfoText("Slider/Node for Locus 3 (which is the breasts by default).\n" + \
 			"Recommended: 'BreastsNewSH' is a slider in CBBE, 3BA, and BHUNP; it's supported by many armors and outfits.")
@@ -1701,7 +1695,7 @@ state Slider_Locus4State
 			SetInfoText(\
 			"Slider/Node for Locus 4 (which is the right breast by default). Recommendations:\n" + \
 			"'BVoreR' is the right breast vore slider from the MorphVore 3BAv2 body.\n" + \
-			"'NPC R Breast' is the right breast node from the XPMSE skeleton. It works with almost everything.")
+			"'CME R PreBreast' is the left breast node from the XPMSE skeleton. It works with almost everything but it can interfere with physics.")
 		else
 		endIf
 	endEvent

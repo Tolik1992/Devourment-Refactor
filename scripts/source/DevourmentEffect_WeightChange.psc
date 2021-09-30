@@ -25,7 +25,7 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 
 			while count && WeightManager.GetCurrentActorWeight(akTarget) < WeightManager.MaximumWeight
 				count -= 1
-				WeightManager.ChangeActorWeight(akTarget, increment)
+				WeightManager.ChangeActorWeight(akTarget, increment, source="Weight-change potion")
 				Utility.wait(0.1)
 			endWhile
 		endIf
@@ -35,7 +35,7 @@ event OnEffectStart(Actor akTarget, Actor akCaster)
 
 			while count && WeightManager.GetCurrentActorWeight(akTarget) > WeightManager.MinimumWeight
 				count -= 1
-				WeightManager.ChangeActorWeight(akTarget, -increment)
+				WeightManager.ChangeActorWeight(akTarget, -increment, source="Weight-change potion")
 				Utility.wait(0.1)
 			endWhile
 		endIf

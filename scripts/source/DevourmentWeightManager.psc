@@ -10,7 +10,6 @@ import Logging
 Actor Property PlayerRef Auto
 DevourmentManager Property Manager auto
 String[] Property MorphStrings auto
-{ This Array as well as the other Morph and Root arrays is divided up between Female, Male and Creature. }
 Float[] Property MorphsHigh auto
 Float[] Property MorphsLow auto
 Form[] Property HighValueFood Auto
@@ -46,27 +45,19 @@ String property rootNode = "NPC Root [Root]" autoReadOnly
 
 String PREFIX = "DevourmentWeightManager"
 
+
 Event OnInit()
-	SyncSettings()
+	EventRegistration()
 EndEvent
+
 
 Event OnPlayerLoadGame()
-	SyncSettings()
+	EventRegistration()
 EndEvent
 
-Function SyncSettings(bool resetActorWeights = false)
-{ Intended to be called whenever MCM settings change. Optionally, resets weights. }
-	If PlayerEnabled || CompanionsEnabled || ActorsEnabled
-        EventRegistration(True)
-    EndIf
-	If resetActorWeights
-		ResetActorWeights()
-	EndIf
-EndFunction
 
-Function EventRegistration(Bool Register)
-    If Register
-		ConsoleUtil.PrintMessage("WeightManagement started.")
+Function EventRegistration()
+    If PlayerEnabled || CompanionsEnabled || ActorsEnabled
         RegisterForModEvent("Devourment_OnDeadDigestion", "DeadDigest")
         RegisterForModEvent("Devourment_onDeadReforming", "DeadReform")
         RegisterForModEvent("Devourment_onConsumeItem", "ItemConsume")
@@ -86,9 +77,10 @@ Function EventRegistration(Bool Register)
     EndIf
 EndFunction
 
+
 Event OnUpdate()
 	if PlayerEnabled
-		ChangeActorWeight(PlayerRef, -WeightLoss)
+		ChangeActorWeight(PlayerRef, -WeightLoss, source="time passing")
 	endIf
 
 	if CompanionsEnabled && !ActorsEnabled
@@ -96,7 +88,7 @@ Event OnUpdate()
 		int index = nearby.length
 		while index
 			index -= 1
-			ChangeActorWeight(nearby[index], -WeightLoss)
+			ChangeActorWeight(nearby[index], -WeightLoss, source="time passing")
 		endWhile
 	elseif ActorsEnabled
 		Actor[] nearby = LibFire.FindNearbyActors(PlayerRef, 2048.0)
@@ -104,7 +96,7 @@ Event OnUpdate()
 		while index
 			index -= 1
 			if nearby[index].HasKeywordString("ActorTypeNPC")
-				ChangeActorWeight(nearby[index], -WeightLoss)
+				ChangeActorWeight(nearby[index], -WeightLoss, source="time passing")
 			endIf
 		endWhile
 	endIf
@@ -114,9 +106,10 @@ Event OnUpdate()
 	endIf
 EndEvent 
 
+
 Event OnUpdateGameTime()
 	if PlayerEnabled
-		ChangeActorWeight(PlayerRef, -WeightLoss)
+		ChangeActorWeight(PlayerRef, -WeightLoss, source="time passing")
 	endIf
 
 	if CompanionsEnabled || ActorsEnabled
@@ -133,7 +126,7 @@ Event OnUpdateGameTime()
 			index -= 1
 			Actor who = nearby[index]
 			if !who.IsDead() && who.IsEnabled() && who.HasKeywordString("ActorTypeNPC")
-				ChangeActorWeight(who, -WeightLoss)
+				ChangeActorWeight(who, -WeightLoss, source="time passing")
 			endIf
 		endWhile
 	endif
@@ -143,15 +136,18 @@ Event OnUpdateGameTime()
 	endIf
 EndEvent 
 
+
 Event OnSleepStart(float afSleepStartTime, float afDesiredSleepEndTime)
-	ChangeActorWeight(PlayerRef, -afDesiredSleepEndTime / (WeightRate * 24.0))
+	ChangeActorWeight(PlayerRef, -afDesiredSleepEndTime / (WeightRate * 24.0), source="sleep")
 EndEvent
+
 
 Event SexlabAnimationEnd(int tid, bool HasPlayer)
 	if HasPlayer
-		ChangeActorWeight(PlayerRef, -WeightLoss)
+		ChangeActorWeight(PlayerRef, -WeightLoss, source="orgasm")
 	endIf
 EndEvent
+
 
 Event DeadDigest(Form f1, Form f2, float remaining)
 	; This prevents gaining weight from prey that are reformed or fully digested.
@@ -169,8 +165,9 @@ Event DeadDigest(Form f1, Form f2, float remaining)
     ;This will fire every tick of digestion so set it low and gradual.
     ;It would be much less computationally heavy to just wait until Digestion is over
     ;and *then* do this, but people want fidelity, to see the WG in action as they digest things.
-	float currentWeight = ChangeActorWeight(pred, VoreBaseGain / Manager.DigestionTime)
+	float currentWeight = ChangeActorWeight(pred, VoreBaseGain / Manager.DigestionTime, source="digesting prey")
 EndEvent
+
 
 Event DeadReform(Form f1, Form f2, float remaining)
 	; This prevents gaining weight from prey that are reformed or fully digested.
@@ -185,8 +182,9 @@ Event DeadReform(Form f1, Form f2, float remaining)
         return
     endIf
 
-	float currentWeight = ChangeActorWeight(pred, -VoreBaseGain / Manager.DigestionTime)
+	float currentWeight = ChangeActorWeight(pred, -VoreBaseGain / Manager.DigestionTime, source="reforming prey")
 EndEvent
+
 
 Event ItemConsume(Form consumer, Form itemBase, int count)
 { Event that fires when Devourment Actors consume something via Object Vore / Feeding. Also called for Player Equip events. }
@@ -203,27 +201,26 @@ Event ItemConsume(Form consumer, Form itemBase, int count)
         return
     endIf
 
-	float baseWeight = itemBase.GetWeight()
+	float baseWeight = itemBase.GetWeight() * count
 
     If FoodBaseGain > 0.0 && itemBase.HasKeywordString("VendorItemFood")
         If HighValueFood.Find(itemBase) >= 0
-			ConsoleUtil.PrintMessage(Namer(itemBase) + ": high value food.")
-            ChangeActorWeight(pred, FoodBaseGain * baseWeight * HighValueMultiplier)
+            ChangeActorWeight(pred, FoodBaseGain * baseWeight * HighValueMultiplier, source="rich food: " + Namer(itemBase, true))
         else
-			ConsoleUtil.PrintMessage(Namer(itemBase) + ": regular food.")
-            ChangeActorWeight(pred, FoodBaseGain * baseWeight)
+            ChangeActorWeight(pred, FoodBaseGain * baseWeight, source="food: " + Namer(itemBase, true))
         EndIf
-		Manager.RegisterFakeDigestion(pred, baseWeight * count * 2.0)
+		Manager.RegisterFakeDigestion(pred, baseWeight * 2.0)
 
     ElseIf PotionBaseGain > 0.0 && itemBase.HasKeywordString("VendorItemPotion")
-        ChangeActorWeight(pred, PotionBaseGain)
-		Manager.RegisterFakeDigestion(pred, baseWeight * count)
+        ChangeActorWeight(pred, PotionBaseGain, source="potion: " + Namer(itemBase, true))
+		Manager.RegisterFakeDigestion(pred, baseWeight)
         
     ElseIf IngredientBaseGain > 0.0 && itemBase as Ingredient
-        ChangeActorWeight(pred, IngredientBaseGain * baseWeight)
-		Manager.RegisterFakeDigestion(pred, baseWeight * count)
+        ChangeActorWeight(pred, IngredientBaseGain * baseWeight, source="ingredient: " + Namer(itemBase, true))
+		Manager.RegisterFakeDigestion(pred, baseWeight)
     EndIf
 EndEvent
+
 
 Event OnObjectEquipped(Form type, ObjectReference ref)
 	if PlayerEnabled
@@ -233,8 +230,10 @@ Event OnObjectEquipped(Form type, ObjectReference ref)
 	endIf
 EndEvent
 
+
 auto state DefaultState
 endState
+
 
 Function LearnValue(int Type)
 	if Type == 0
@@ -244,6 +243,7 @@ Function LearnValue(int Type)
 	endif
 EndFunction
 
+
 state LearnNoValue
 	Event OnObjectEquipped(Form type, ObjectReference ref)
 		if type as Potion || type as Ingredient
@@ -251,6 +251,7 @@ state LearnNoValue
 		endIf
 	EndEvent
 endState
+
 
 state LearnHighValue
 	Event OnObjectEquipped(Form type, ObjectReference ref)
@@ -260,37 +261,48 @@ state LearnHighValue
 	EndEvent
 endState
 
+
 Function ResetActorWeight(Actor target)
-	Log1(PREFIX, "ResetActorWeight", Namer(target))
 	if target
 		bool isFemale = Manager.IsFemale(target)
+		bool keepWeight = target == PlayerRef || (CompanionsEnabled && LibFire.ActorIsFollower(target))
+
 		NIOverride.RemoveNodeTransformScale(target, false, isFemale, rootNode, PREFIX)
 		NIOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 
 		if NiOverride.HasBodyMorphKey(target, PREFIX)
+			NiOverride.ClearBodyMorphKeys(target, PREFIX)
+			NiOverride.ClearBodyMorphKeys(target, PREFIX)
+		endIf
+
+		if keepWeight
+			ChangeActorWeight(target, 0.0, source="reset")
+		else
 			StorageUtil.UnSetFloatValue(target, "DevourmentActorWeight")
-			NiOverride.ClearBodyMorphKeys(target, PREFIX)
-			NiOverride.ClearBodyMorphKeys(target, PREFIX)
 		endIf
 	endIf
 EndFunction
 
+
 Function ResetActorWeights()
+	Utility.Wait(0.1)
 	NiOverride.ForEachMorphedReference("ResetActorWeight", Manager)
 EndFunction
+
 
 float Function GetCurrentActorWeight(Actor target)
 	return StorageUtil.GetFloatValue(target, "DevourmentActorWeight", 0.0)
 EndFunction
 
-float Function ChangeActorWeight(Actor target, float afChange, float afPreview = 0.0)
+
+float Function ChangeActorWeight(Actor target, float afChange, String source = "", float preview = 0.0)
 	{ All-purpose function for losing and gaining Weight. }
 
 	;Initialise required function variables.
 	float fOldWeight = StorageUtil.GetFloatValue(target, "DevourmentActorWeight", 0.0)
-	int morphsEnd = 32
+	int endPoint = 32
 	int iSlider = 0
-	Float fTargetWeight = fOldWeight
+	float fTargetWeight = fOldWeight
 	float skeletonLow = 1.0
 	float skeletonHigh = 1.0
 	bool isFemale = Manager.IsFemale(target)
@@ -312,7 +324,7 @@ float Function ChangeActorWeight(Actor target, float afChange, float afPreview =
 				Return fOldWeight
 			EndIf
 			iSlider = 32
-			morphsEnd = 64
+			endPoint = 64
 			skeletonLow = mSkeletonLow
 			skeletonHigh = mSkeletonHigh
 		EndIf
@@ -321,39 +333,37 @@ float Function ChangeActorWeight(Actor target, float afChange, float afPreview =
 			Return fOldWeight
 		EndIf
 		iSlider = 64
-		morphsEnd = 96
+		endPoint = 96
 		skeletonLow = cSkeletonLow
 		skeletonHigh = cSkeletonHigh
 	EndIf
 
 	if afChange != 0.0	;REGULAR FUNCTIONALITY
-		If LinearChanges	; There's gotta be a nicer way to write this but fuck if I know.
-			Float fRatio = fOldWeight / MaximumWeight	;May be insufficient in case of people with weird setups.
-			If fRatio < 0.0
-				fRatio += 1.0
-				If fRatio > 0.7
-					fRatio = 0.7
-				EndIf
-				afChange *= fRatio
-			Else
-				fRatio -= 1.0
-				If fRatio > -0.3
-					fRatio = -0.3
-				EndIf
-				afChange *= -fRatio
-			EndIf
+		If LinearChanges
+			fTargetWeight += afChange * linearize(fOldWeight, MaximumWeight)
+		else
+			fTargetWeight += afChange
 		EndIf
-		fTargetWeight += afChange
+
 		if fTargetWeight < MinimumWeight	; Clamp values.
 			fTargetWeight = MinimumWeight
 		elseif fTargetWeight > MaximumWeight
 			fTargetWeight = MaximumWeight
 		endIf
+
 		StorageUtil.SetFloatValue(target, "DevourmentActorWeight", fTargetWeight) ; Save our Weight on the actor.
-		ConsoleUtil.PrintMessage(Namer(target, true) + "'s weight to changed by " + afChange + " to " + fTargetWeight + ". Close console to see changes.")
-	elseif afPreview != 0.0	; PREVIEWING
-		ConsoleUtil.PrintMessage("Previewing " + Namer(target, true) + " at weight " + afPreview + " when console closes.")
-		fTargetWeight = afPreview
+
+		if Manager.Notifications
+			if source != ""
+				ConsoleUtil.PrintMessage(Namer(target, true) + "'s weight to changed by " + afChange + " to " + fTargetWeight + " because of " + source + ".")
+			else
+				ConsoleUtil.PrintMessage(Namer(target, true) + "'s weight to changed by " + afChange + " to " + fTargetWeight + ".")
+			endIf
+		endIf
+
+	elseif preview != 0.0	; PREVIEWING
+		ConsoleUtil.PrintMessage("Previewing " + Namer(target, true) + " at weight " + preview + ".")
+		fTargetWeight = preview
 	endIf
 
 	Utility.Wait(0.001) ; A hacky fix but should prevent us from changing bodies while menus or console is up.
@@ -369,12 +379,12 @@ float Function ChangeActorWeight(Actor target, float afChange, float afPreview =
 	endIf
 
 	if fTargetWeight < 0.0	; Targets need to be inverted for the sliders to end up at correct values if target is below 0.0 weight.
-		While iSlider < morphsEnd && MorphStrings[iSlider] != ""	;I'm curious if MorphStrings[iSlider] != "" could cause edge-case bugs if user deletes old morphs behind new morphs.
+		While iSlider < endPoint && MorphStrings[iSlider] != ""
 			NiOverride.SetBodyMorph(target, MorphStrings[iSlider], PREFIX, -fTargetWeight * MorphsLow[iSlider])
 			iSlider += 1
 		EndWhile
 	else
-		While iSlider < morphsEnd && MorphStrings[iSlider] != ""
+		While iSlider < endPoint && MorphStrings[iSlider] != ""
 			NiOverride.SetBodyMorph(target, MorphStrings[iSlider], PREFIX, fTargetWeight * MorphsHigh[iSlider])
 			iSlider += 1
 		EndWhile
@@ -385,13 +395,32 @@ float Function ChangeActorWeight(Actor target, float afChange, float afPreview =
 EndFunction
 
 
+float Function linearize(float oldWeight, float maximumWeight) global
+	float ratio = oldWeight / maximumWeight
+
+	If ratio < 0.0
+		ratio += 1.0
+		If ratio > 0.7
+			ratio = 0.7
+		EndIf
+		return ratio
+	Else
+		ratio -= 1.0
+		If ratio > -0.3
+			ratio = -0.3
+		EndIf
+		return -ratio
+	EndIf
+endFunction
+
+
 bool Function isValidConsumer(Actor consumer)
 	if consumer == PlayerRef
 		return PlayerEnabled
 	elseif LibFire.ActorIsFollower(consumer)
 		return CompanionsEnabled
 	elseif consumer.GetActorBase().IsUnique()
-	;Some actors like Town Guards are recycled so we have to ensure NPCs are unique or morphs may carry over.
+		;Some actors like Town Guards are recycled so we have to ensure NPCs are unique or morphs may carry over.
 		return ActorsEnabled
 	Else
 		Return False
@@ -402,10 +431,11 @@ EndFunction
 bool Function addHighValueFood(Form food)
 	Log1(PREFIX, "addHighValueFood", Namer(food))
 	DevourmentUtil.ArrayAddFormEx(HighValueFood, food)
-	SyncSettings()
+
 	GotoState("DefaultState")
 	ConsoleUtil.PrintMessage("Added High-Value food: " + Namer(food))
 	LogForms(PREFIX, "addHighValueFood", "HighValueFood", HighValueFood)
+
 	return true
 endFunction
 
@@ -413,10 +443,11 @@ endFunction
 bool Function addNoValueFood(Form food)
 	Log1(PREFIX, "addNoValueFood", Namer(food))
 	DevourmentUtil.ArrayAddFormEx(NoValueFood, food)
-	SyncSettings()
+
 	GotoState("DefaultState")
 	ConsoleUtil.PrintMessage("Added No-Value food: " + Namer(food))
 	LogForms(PREFIX, "addNoValueFood", "NoValueFood", HighValueFood)
+
 	return true
 endFunction
 
@@ -452,7 +483,6 @@ bool Function addMorph(String name, float multHigh, float multLow, int iType)
     MorphsHigh[index] = multHigh
     MorphsLow[index] = multLow
 
-	SyncSettings(true)
 	return true
 EndFunction
 
@@ -462,17 +492,24 @@ bool Function removeMorph(int iSliderIndex)
 	MorphsHigh[iSliderIndex] = 0.0
 	MorphsLow[iSliderIndex] = 0.0
 
-	CompactifyMorphs()
-	SyncSettings(true)
+	if iSliderIndex < 32
+		CompactifyMorphs(0, 32)
+	elseif iSliderIndex < 64
+		CompactifyMorphs(32, 32)
+	else
+		CompactifyMorphs(64, 32)
+	endIf
+
     return true
 EndFunction
 
 
-Function CompactifyMorphs()
-	int firstBlank = MorphStrings.find("")
+Function CompactifyMorphs(int first, int count)
+	int firstBlank = MorphStrings.find("", first)
+	int endPoint = first + count
 	int i = firstBlank + 1
 	
-	while i < MorphStrings.length
+	while i < endPoint
 		if MorphStrings[i] != ""
 			MorphStrings[firstBlank] = MorphStrings[i]
 			MorphsHigh[firstBlank] = MorphsHigh[i]

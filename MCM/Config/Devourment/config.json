@@ -1463,11 +1463,11 @@
 						"sourceType": "PropertyValueFloat",
 						"scriptName": "DevourmentManager",
 						"propertyName": "MinimumSwallowChance",
-					  	"min": 1.0,
-					  	"max": 100.0,
-					  	"step": 1.0,
-						"defaultValue": 5.0,
-					  	"formatString": "{0}%"
+					  	"min": 0.0,
+					  	"max": 1.0,
+					  	"step": 0.01,
+						"defaultValue": 0.05,
+					  	"formatString": "{2}%"
 					}
 				},
 				{
@@ -1596,10 +1596,8 @@
 					},
 					"action": {
 						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [true]
+						"function": "SyncWeightManager",
+						"params": [true, true]
 					}
 				},
 				{
@@ -1618,10 +1616,8 @@
 					},
 					"action": {
 						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [true]
+						"function": "SyncWeightManager",
+						"params": [true, true]
 					}
 				},
 				{
@@ -1637,10 +1633,8 @@
 					},
 					"action": {
 						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [true]
+						"function": "SyncWeightManager",
+						"params": [true, true]
 					}
 				},
 				{
@@ -1663,10 +1657,8 @@
 					},
 					"action": {
 						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [true]
+						"function": "SyncWeightManager",
+						"params": [true, true]
 					}
 				},
 				{
@@ -1682,10 +1674,8 @@
 					},
 					"action": {
 						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [true]
+						"function": "SyncWeightManager",
+						"params": [true, true]
 					}
 				},
 				{
@@ -1708,10 +1698,8 @@
 					},
 					"action": {
 						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [false]
+						"function": "SyncWeightManager",
+						"params": [false, true]
 					}
 				},
 				{
@@ -1727,10 +1715,8 @@
 					},
 					"action": {
 						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [false]
+						"function": "SyncWeightManager",
+						"params": [false, true]
 					}
 				},
 				{
@@ -1747,13 +1733,6 @@
 					  	"step": 0.01,
 						"defaultValue": 0.05,
 					  	"formatString": "{2}"
-					},
-					"action": {
-						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [false]
 					}
 				},
 				{
@@ -1773,10 +1752,8 @@
 					},
 					"action": {
 						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [false]
+						"function": "SyncWeightManager",
+						"params": [true, false]
 					}
 				},
 				{
@@ -1796,10 +1773,8 @@
 					},
 					"action": {
 						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [true]
+						"function": "SyncWeightManager",
+						"params": [false, true]
 					}
 				},
 				{
@@ -1819,10 +1794,8 @@
 					},
 					"action": {
 						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [true]
+						"function": "SyncWeightManager",
+						"params": [false, true]
 					}
 				},
 				{
@@ -1839,13 +1812,6 @@
 					  	"step": 0.005,
 						"defaultValue": 0.05,
 					  	"formatString": "{3}"
-					},
-					"action": {
-						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [false]
 					}
 				},
 				{
@@ -1862,13 +1828,6 @@
 					  	"step": 0.005,
 						"defaultValue": 0.04,
 					  	"formatString": "{3}"
-					},
-					"action": {
-						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [false]
 					}
 				},
 				{
@@ -1885,13 +1844,6 @@
 					  	"step": 0.005,
 						"defaultValue": 0.02,
 					  	"formatString": "{3}"
-					},
-					"action": {
-						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [false]
 					}
 				},
 				{
@@ -1908,13 +1860,6 @@
 					  	"step": 0.005,
 						"defaultValue": 0.02,
 					  	"formatString": "{3}"
-					},
-					"action": {
-						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [false]
 					}
 				},
 				{
@@ -1931,13 +1876,6 @@
 					  	"step": 0.05,
 						"defaultValue": 2.0,
 					  	"formatString": "{2}"
-					},
-					"action": {
-						"type": "CallFunction",
-						"form": "Devourment.esp|A9B",   
-						"scriptName": "DevourmentWeightManager",     
-						"function": "SyncSettings",
-						"params": [false]
 					}
 				},
 				{

@@ -321,7 +321,7 @@ float lastRealTimeProcessed = 0.0
 float lastGameTimeProcessed = 0.0
 
 
-bool DEBUGGING = false
+bool DEBUGGING = true
 String PREFIX = "DevourmentManager"
 float UpdateInterval = 0.50
 bool firstRun = true
@@ -470,6 +470,13 @@ Function CreateDatabase()
 	if DEBUGGING
 		Log3(PREFIX, "CreateDatabase", "Database created.", DB, predators)
 	endIf
+EndFunction
+
+
+Function CommitMorphsToDB()
+	JMap.setObj(DB, "Locus_Scales", JArray.objectWithFloats(Menu.Morphs.Locus_Scales))
+	JMap.setObj(DB, "Locus_Maxes", JArray.objectWithFloats(Menu.Morphs.Locus_Maxes))
+	JMap.setObj(DB, "Locus_Sliders", JArray.objectWithStrings(Menu.Morphs.Locus_Sliders))
 EndFunction
 
 
@@ -1159,18 +1166,28 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 	endIf
 	
 	float health = prey.GetActorValue("Health")
+	bool healthIsCritical = health <= damage + 2.0
 
-	if damage > health
+	; If health is high enough that there is a comfortable margin, deal the damage.
+	;  |--------X---------------------| damage
+	;  |--------.---<=----X-----------| health
+	;
+	; If health is less than damage, decrease damage and set the healthIsCritical flag. 
+	;  |----.---<=---X----------------| damage
+	;  |----X-------------------------| health
+	;
+	; If health is very close to damage, just set the healthIsCritical flag.
+	;  |---------------X--------------| damage
+	;  |--------------X---------------| health
+	;
+	if health < damage
+		healthIsCritical
 		damage = health
-	endIf
-	
-	if health > damage + 2.0
+	elseif health <= damage + 2.0
+		healthIsCritical
+	else
 		prey.DamageActorValue("Health", damage)
-	elseif health >= 2.0
-		prey.DamageActorValue("Health", health - 1.0)
 	endIf
-	
-	health = prey.GetActorValue("Health")
 		
 	if prey != playerRef
 		if CanStruggle(prey, preyData)
@@ -1181,6 +1198,10 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 	endIf
 
 	float healthPercentage = prey.GetActorValuePercentage("Health")
+	if healthPercentage < 0.0
+		healthPercentage = 0.0
+	endIf
+
 	sendLiveDigestionEvent(pred, prey, damage, healthPercentage)
 
 	; Used for struggle animations.
@@ -1191,7 +1212,7 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 	endIf
 
 	if DEBUGGING
-		String msg = "Health reduced by " + damage + ", " + health + " health remaining (" + healthPercentage + "%), " + timer + " s until escape."
+		String msg = "Health reduced by " + damage + ", " + prey.GetActorValue("Health") + " health remaining (" + healthPercentage + "%), " + timer + " s until escape."
 		Log2(PREFIX, "VoreDigestion", Namer(prey), msg)
 		ConsoleUtil.PrintMessage(Namer(prey) + ": " + msg)
 	endIf
@@ -1203,19 +1224,19 @@ Function VoreDigestion(Actor pred, Actor prey, int preyData, float dt)
 		if pred.hasPerk(Menu.NourishmentBody)
 			pred.restoreActorValue("Health", damage * 2.0)
 			pred.restoreActorValue("Stamina", damage * 2.0)
+
+			if pred.hasPerk(Menu.NourishmentMana)
+				pred.restoreActorValue("Magicka", damage * 2.0)
+			endIf
 		else
 			pred.restoreActorValue("Health", damage)
 			pred.restoreActorValue("Stamina", damage)
-		endIf
-
-		if pred.hasPerk(Menu.NourishmentMana)
-			pred.restoreActorValue("Magicka", damage)
 		endIf
 	endIf
 	
 	; If the prey is dead (or a reasonable approximation thereof), it's time to either
 	; move them to dead digestion or vomit them out.
-	if deadPrey || health <= 2.0
+	if deadPrey || healthIsCritical
 		KillPrey(pred, prey, preyData, dt, eligibleForDigestion)
 		
 	; If they're not dead and are capable of escape and have waited out the timer, let them escape.
@@ -3577,7 +3598,7 @@ Success is automatic for prey that is dead, bleeding out, surrendered, or asleep
 	endIf
 
 	if DEBUGGING
-		ConsoleUtil.PrintMessage("ln(swallowChance) = -2" + preyHealth + " - " + preyStamina + " + (" + predSkill + " - " + preySkill + ")/(" + predSkill + " + " + preySkill + ") + (" + predSize + " - " + preySize + ")/(" + predSize + " + " + preySize + ")")
+		ConsoleUtil.PrintMessage("ln(swallowChance) = -"+CombatChanceScale+"(" + preyHealth + " + " + preyStamina + "/2) + (" + predSkill + " - " + preySkill + ")/(" + predSkill + " + " + preySkill + ") + (" + predSize + " - " + preySize + ")/(" + predSize + " + " + preySize + ")")
 		ConsoleUtil.PrintMessage("swallowChance = e^(" + healthFactor + " + " + skillFactor + " + " + sizeFactor + ")")
 		ConsoleUtil.PrintMessage("swallowChance = " + swallowChance)
 		Log6(PREFIX, "GetVoreSwallowChance", Namer(pred), Namer(prey), swallowChance, healthFactor, skillFactor, sizeFactor)
@@ -3587,8 +3608,8 @@ Success is automatic for prey that is dead, bleeding out, surrendered, or asleep
 		return 1.0
 	elseif swallowChance < MinimumSwallowChance
 		return MinimumSwallowChance
-	elseif swallowChance > 100.0
-		return 100.0
+	elseif swallowChance > 1.0
+		return 1.0
 	else
 		return swallowChance
 	endIf
@@ -4651,19 +4672,17 @@ bool Function validPredator(Actor target)
 		return false
 	endIf
 
-	If companionPredPreference > 0 && LibFire.ActorIsFollower(target)
+	if companionPredPreference > 0 && LibFire.ActorIsFollower(target)
         return companionPredPreference == 1
-    EndIf
-
-	If CreaturePreds && target.hasKeyword(ActorTypeCreature)
+    elseif creaturePreds && target.hasKeyword(ActorTypeCreature)
 		int index = CreaturePredatorStrings.Find(Remapper.RemapRaceName(target))
-		Return index >= 0 && CreaturePredatorToggles[index]
-	ElseIf target.HasKeyword(ActorTypeNPC)
+		return index >= 0 && CreaturePredatorToggles[index]
+	elseIf target.HasKeyword(ActorTypeNPC)
 		int sex = target.getLeveledActorBase().getSex()	;We only care for Sex where humanoids are concerned.
 		return (sex == 0 && MalePreds) || (sex != 0 && FemalePreds)
-	Else
+	else
 		Return False
-	EndIf
+	endIf
 EndFunction
 
 
@@ -6800,6 +6819,7 @@ bool Function loadSettings(String settingsFileName)
 	SkullHandler.LoadSettingsFrom(data)
 	Menu.WeightManager.LoadSettingsFrom(data)
 	Menu.Morphs.LoadSettingsFrom(data)
+
 	return true
 EndFunction
 
