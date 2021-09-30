@@ -1042,6 +1042,7 @@ bool Function CheckAttack(int KeyCode)
 			endIf
 		endIf
 		return true
+
 	elseif KeyCode == ATTACK_KEY
 		if puppet && DevourmentUtil.SafeProcess()
 			if !puppet.isWeaponDrawn()
@@ -1053,6 +1054,7 @@ bool Function CheckAttack(int KeyCode)
 			endIf
 		endIf
 		return true
+		
 	else
 		return false
 	endIf
@@ -1116,20 +1118,24 @@ bool Function ReleaseControlOf(Actor target)
 		puppet = none
 	endIf
 
-	UnregisterForKey(BLOCK_KEY)
-	UnregisterForKey(ATTACK_KEY)
+	if BLOCK_KEY > 1
+		UnregisterForKey(BLOCK_KEY)
+	endIf
+	if ATTACK_KEY > 1
+		UnregisterForKey(ATTACK_KEY)
+	endIf
 	
 	return true
 EndFunction
 
 
 Function UnregisterForKeys()
-	UnregisterForKey(SHOUT_KEY)
-
+	if SHOUT_KEY > 1
+		UnregisterForKey(SHOUT_KEY)
+	endIf
 	if BLOCK_KEY > 1
 		UnregisterForKey(BLOCK_KEY)
 	endIf
-
 	if ATTACK_KEY > 1
 		UnregisterForKey(ATTACK_KEY)
 	endIf
@@ -1138,12 +1144,16 @@ EndFunction
 
 Function RegisterForKeys()
 	if Input.getMappedKey("Shout") != SHOUT_KEY
-		UnregisterForKey(SHOUT_KEY)
+		if SHOUT_KEY > 1
+			UnregisterForKey(SHOUT_KEY)
+		endIf
 		SHOUT_KEY = Input.getMappedKey("Shout")
 	endIf
 	
 	if Input.getMappedKey("Toggle POV") != TOGGLE_POV
-		UnregisterForKey(TOGGLE_POV)
+		if TOGGLE_POV > 0
+			UnregisterForKey(TOGGLE_POV)
+		endIf
 		TOGGLE_POV = Input.getMappedKey("Shout")
 	endIf
 
@@ -1153,7 +1163,6 @@ Function RegisterForKeys()
 	if BLOCK_KEY > 1
 		RegisterForKey(BLOCK_KEY)
 	endIf
-
 	if ATTACK_KEY > 1
 		RegisterForKey(ATTACK_KEY)
 	endIf
