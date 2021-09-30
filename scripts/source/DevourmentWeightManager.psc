@@ -459,6 +459,9 @@ EndFunction
 
 bool Function removeMorph(int iSliderIndex)
     MorphStrings[iSliderIndex] = ""
+	MorphsHigh[iSliderIndex] = 0.0
+	MorphsLow[iSliderIndex] = 0.0
+
 	CompactifyMorphs()
 	SyncSettings(true)
     return true
@@ -474,6 +477,9 @@ Function CompactifyMorphs()
 			MorphStrings[firstBlank] = MorphStrings[i]
 			MorphsHigh[firstBlank] = MorphsHigh[i]
 			MorphsLow[firstBlank] = MorphsLow[i]
+			MorphStrings[i] = ""
+			MorphsHigh[i] = 0.0
+			MorphsLow[i] = 0.0
 			firstBlank += 1
 		endIf
 		i += 1
