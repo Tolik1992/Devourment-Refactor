@@ -951,8 +951,6 @@ String Function Namer(Form obj, bool display = false) global
 Attempts to convert a form into a useful string for debugging.
 Since this is usually for debugging, the default is for it to
 include the refID as well, unless display is set to true.
-
-PROFILING INFO: 67ms
 }
 	if obj == None
 		return None as string
@@ -965,10 +963,13 @@ PROFILING INFO: 67ms
 		endif
 
 	elseif obj as Actor
-		ActorBase base = (obj as Actor).getLeveledActorBase()
-		String name = base.getName()
+		String name = (obj as Actor).getDisplayName()
 		if name == ""
-			name = base.getRace().getName()
+			ActorBase base = (obj as Actor).getLeveledActorBase()
+			name = base.getName()
+			if name == ""
+				name = base.getRace().getName()
+			endIf
 		endIf
 
 		if display
