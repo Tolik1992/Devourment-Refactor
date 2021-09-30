@@ -125,7 +125,8 @@ EndEvent
 
 
 bool Function combatCheck(Actor newTarget, int combatState)
-	return combatState > 0 && newTarget != none && pred != none && PlayerCheck(newTarget) && Manager.IsValidDigestion(pred, newTarget)
+	return combatState > 0 && newTarget != none && pred != none && !newTarget.isChild() \
+	&& PlayerCheck(newTarget) && Manager.IsValidDigestion(pred, newTarget)
 endFunction	
 
 
