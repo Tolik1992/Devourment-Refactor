@@ -86,9 +86,11 @@ endFunction
 Event OnKeyUp(int keyCode, float holdTime)
 	if keyCode == ATTACK_KEY
 		if Game.GetCameraState() == 0
+			Debug.SendAnimationEvent(PlayerRef, "AttackStartH2HRight")
 		endIf
 	elseif keyCode == BLOCK_KEY
 		if Game.GetCameraState() == 0
+			Debug.SendAnimationEvent(PlayerRef, "AttackStartH2HLeft")
 		endIf
 	elseif StruggleLatch && (keyCode == STRUGGLE_KEY1 || keyCode == STRUGGLE_KEY2)
 		StruggleLatch = false
