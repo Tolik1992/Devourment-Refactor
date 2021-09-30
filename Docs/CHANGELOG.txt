@@ -1,4 +1,17 @@
-﻿2021-09-29
+﻿2021-09-30
+[list]
+[*] WeightManager remembers weight for player and followers when settings change.
+[*] Fixed a lag issue when changing weightmanager settings.
+[*] Fixed broken storage for No-value and High-value foods.
+[*] Added PatchUp for No-value and High-value foods for several mods.
+[*] Added retroendo spell to Vore Magic I.
+[*] Fixed MinimumSwallowChance MCM setting.
+[*] Removed some unused files.
+[*] Removed morph settings files system since it wasn't being used.
+[*] Changed recommended breast nodes.
+[/list]
+
+2021-09-29
 [list]
 [*] Changed all hotkeys to use MCM Helper.
 [*] Added some infrastructure for "Internal".

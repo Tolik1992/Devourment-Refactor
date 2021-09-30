@@ -377,14 +377,14 @@ EndFunction
 int Function ArrayAddFormEx(Form[] arr, Form val) global
 	{ Adds a form to a form array. If the form is already present, its index will be returned. The array will be expended if necessary. }
 	int index = arr.find(val)
-	if index >= 0
+	if index >= 0 && index < arr.Length
         return index
     endIf
 
     index = arr.find(none)
     if index < 0 
 		int newSize = 1 + (3 * arr.length / 2)
-        Utility.ResizeFormArray(arr, newSize, none)
+        arr = Utility.ResizeFormArray(arr, newSize, none)
 
 		index = arr.find(none)
 		if index < 0 

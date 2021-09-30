@@ -48,6 +48,9 @@ String PREFIX = "DevourmentWeightManager"
 
 Event OnInit()
 	EventRegistration()
+	
+	Utility.Wait(10.0)
+	RunPatchup()
 EndEvent
 
 
@@ -248,6 +251,7 @@ state LearnNoValue
 	Event OnObjectEquipped(Form type, ObjectReference ref)
 		if type as Potion || type as Ingredient
 			addNoValueFood(type)
+			ConsoleUtil.PrintMessage("Added No-Value food: " + Namer(type))
 		endIf
 	EndEvent
 endState
@@ -257,6 +261,7 @@ state LearnHighValue
 	Event OnObjectEquipped(Form type, ObjectReference ref)
 		if type as Potion || type as Ingredient
 			addHighValueFood(type)
+			ConsoleUtil.PrintMessage("Added High-Value food: " + Namer(type))
 		endIf
 	EndEvent
 endState
@@ -418,10 +423,18 @@ bool Function isValidConsumer(Actor consumer)
 	if consumer == PlayerRef
 		return PlayerEnabled
 	elseif LibFire.ActorIsFollower(consumer)
-		return CompanionsEnabled
+		if CompanionsEnabled
+			int sex = consumer.GetLeveledActorBase().GetSex()
+			return (MalesEnabled && sex == 0)  || (FemalesEnabled && sex != 0)
+		else
+			return false
+		endIf
 	elseif consumer.GetActorBase().IsUnique()
 		;Some actors like Town Guards are recycled so we have to ensure NPCs are unique or morphs may carry over.
-		return ActorsEnabled
+		if ActorsEnabled
+			int sex = consumer.GetLeveledActorBase().GetSex()
+			return (MalesEnabled && sex == 0)  || (FemalesEnabled && sex != 0)
+		endIf
 	Else
 		Return False
 	endIf
@@ -429,25 +442,45 @@ EndFunction
 
 
 bool Function addHighValueFood(Form food)
+	int index = HighValueFood.find(food)
+	if index >= 0 && index < HighValueFood.Length
+        return true
+    endIf
+
+    index = HighValueFood.find(none)
+    if index < 0 
+        HighValueFood = Utility.ResizeFormArray(HighValueFood, 1+(3*HighValueFood.length/2), none)
+		index = HighValueFood.find(none)
+		if index < 0 
+			return false
+		endIf
+    endIf
+
+    HighValueFood[index] = food
 	Log1(PREFIX, "addHighValueFood", Namer(food))
-	DevourmentUtil.ArrayAddFormEx(HighValueFood, food)
-
 	GotoState("DefaultState")
-	ConsoleUtil.PrintMessage("Added High-Value food: " + Namer(food))
-	LogForms(PREFIX, "addHighValueFood", "HighValueFood", HighValueFood)
-
 	return true
 endFunction
 
 
 bool Function addNoValueFood(Form food)
+	int index = NoValueFood.find(food)
+	if index >= 0 && index < NoValueFood.Length
+        return true
+    endIf
+
+    index = NoValueFood.find(none)
+    if index < 0 
+        NoValueFood = Utility.ResizeFormArray(NoValueFood, 1+(3*NoValueFood.length/2), none)
+		index = NoValueFood.find(none)
+		if index < 0 
+			return false
+		endIf
+    endIf
+
+    NoValueFood[index] = food
 	Log1(PREFIX, "addNoValueFood", Namer(food))
-	DevourmentUtil.ArrayAddFormEx(NoValueFood, food)
-
 	GotoState("DefaultState")
-	ConsoleUtil.PrintMessage("Added No-Value food: " + Namer(food))
-	LogForms(PREFIX, "addNoValueFood", "NoValueFood", HighValueFood)
-
 	return true
 endFunction
 
@@ -547,6 +580,141 @@ float Function GetGainPer100Food()
 EndFunction
 
 
+Function RunPatchup()
+	addNoValueFood(Game.GetFormFromFile(0x034CDF, "Skyrim.esm"))
+	addNoValueFood(Game.GetFormFromFile(0x074A19, "Skyrim.esm"))
+
+	addHighValueFood(Game.GetFormFromFile(0x064b30, "Skyrim.esm"))
+	addHighValueFood(Game.GetFormFromFile(0x03AD72, "Skyrim.esm"))
+	addHighValueFood(Game.GetFormFromFile(0x10394D, "Skyrim.esm"))
+	addHighValueFood(Game.GetFormFromFile(0x0669A4, "Skyrim.esm"))
+	addHighValueFood(Game.GetFormFromFile(0x0722BB, "Skyrim.esm"))
+	addHighValueFood(Game.GetFormFromFile(0x00353C, "Hearthfires.esm"))
+
+	if Game.IsPluginInstalled("RealisticNeedsAndDiseases.esp")
+		addNoValueFood(Game.GetFormFromFile(0x0053EC, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x0053EE, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x0053F0, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x00FB99, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x00FB9B, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x00FBA0, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x0053E5, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x0053E7, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x0053E9, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x00FBA3, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x00FBA5, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x00FBA7, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x05B2BC, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x05B2BE, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x05B2C0, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047FAE, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047FB0, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047FB6, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x0B6DF3, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x0B6DF0, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x0B6DEE, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x005968, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x046497, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047F98, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047F9A, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047F96, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047F94, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047F8B, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047F89, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047F88, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x0449AB, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x069FBE, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047FA7, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047FA5, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047FA4, "RealisticNeedsAndDiseases.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x047FA2, "RealisticNeedsAndDiseases.esp"))
+
+		addHighValueFood(Game.GetFormFromFile(0x012C49, "RealisticNeedsAndDiseases.esp"))
+
+	elseif Game.IsPluginInstalled("Skyrim Immersive Creatures Special Edition.esp")
+		addHighValueFood(Game.GetFormFromFile(0x00F5EA, "Skyrim Immersive Creatures Special Edition.esp"))
+		
+	elseif Game.IsPluginInstalled("SunhelmSurvival.esp")
+		addNoValueFood(Game.GetFormFromFile(0x265BE3, "SunhelmSurvival.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x265BE7, "SunhelmSurvival.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x326258, "SunhelmSurvival.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x070897, "SunhelmSurvival.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x07AA96, "SunhelmSurvival.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x326252, "SunhelmSurvival.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4DE9AE, "SunhelmSurvival.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4DE9AF, "SunhelmSurvival.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4DE9B0, "SunhelmSurvival.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4EDCC1, "SunhelmSurvival.esp"))
+
+	elseif Game.IsPluginInstalled("Minineeds.esp")
+		addNoValueFood(Game.GetFormFromFile(0x003192, "Minineeds.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x003194, "Minineeds.esp"))
+
+	elseif Game.IsPluginInstalled("INeed.esp")
+		addNoValueFood(Game.GetFormFromFile(0x00437F, "INeed.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x00437D, "INeed.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x004376, "INeed.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x03B2C5, "INeed.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x03B2C8, "INeed.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x03B2CC, "INeed.esp"))
+
+	elseif Game.IsPluginInstalled("Hunterborn.esp")
+		addNoValueFood(Game.GetFormFromFile(0x28CCFA, "Hunterborn.esp"))
+
+		addHighValueFood(Game.GetFormFromFile(0x1C2257, "Hunterborn.esp"))
+		
+	elseif Game.IsPluginInstalled("Complete Alchemy & Cooking Overhaul.esp")
+		addNoValueFood(Game.GetFormFromFile(0xCCA111, "Update.esm"))
+		addNoValueFood(Game.GetFormFromFile(0x4E3D21, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4E3D23, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4E3D25, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4E3D27, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4E3D29, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4E3D2B, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4E3D2D, "Complete Alchemy & Cooking Overhaul.esp"))		
+		addNoValueFood(Game.GetFormFromFile(0x4B633B, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x50750A, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x50750B, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x50750D, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5DC3C2, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4FD2B7, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5DC3C0, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4FD2BA, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x46A34E, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x73499B, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D2185, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D2186, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D21A0, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D21A2, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D21A4, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D21A6, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D21A8, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D21AA, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D2188, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D2192, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D2194, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D2196, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D2198, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D219A, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D219C, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D219E, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5E14C8, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x4FD2BC, "Complete Alchemy & Cooking Overhaul.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x5D72AF, "Complete Alchemy & Cooking Overhaul.esp"))
+
+		addHighValueFood(Game.GetFormFromFile(0xCCA124, "Update.esm"))
+		addHighValueFood(Game.GetFormFromFile(0xCCA143, "Update.esm"))
+		addHighValueFood(Game.GetFormFromFile(0xCCA144, "Update.esm"))
+		addHighValueFood(Game.GetFormFromFile(0xCCA120, "Update.esm"))
+		
+		addHighValueFood(Game.GetFormFromFile(0x9E0567, "Complete Alchemy & Cooking Overhaul.esp"))
+		addHighValueFood(Game.GetFormFromFile(0x9E056A, "Complete Alchemy & Cooking Overhaul.esp"))
+		addHighValueFood(Game.GetFormFromFile(0x9E056C, "Complete Alchemy & Cooking Overhaul.esp"))
+		addHighValueFood(Game.GetFormFromFile(0x9E056E, "Complete Alchemy & Cooking Overhaul.esp"))
+	endIf
+EndFunction
+
+
 Function LoadSettingsFrom(int data)
 	PlayerEnabled =			JMap.GetInt(data, "PlayerEnabled", PlayerEnabled as int) as bool
 	CompanionsEnabled =		JMap.GetInt(data, "CompanionsEnabled", CompanionsEnabled as int) as bool
@@ -583,9 +751,9 @@ Function LoadSettingsFrom(int data)
 		MorphsLow = new float[96]
 
     elseif MorphStrings.length < 96
-        Utility.ResizeStringArray(MorphStrings, 96)
-        Utility.ResizeFloatArray(MorphsHigh, 96)
-        Utility.ResizeFloatArray(MorphsLow, 96)
+        MorphStrings = Utility.ResizeStringArray(MorphStrings, 96)
+        MorphsHigh = Utility.ResizeFloatArray(MorphsHigh, 96)
+        MorphsLow = Utility.ResizeFloatArray(MorphsLow, 96)
     endIf
 EndFunction
 
