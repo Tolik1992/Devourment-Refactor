@@ -589,6 +589,24 @@
 					}
 				},
 				{
+					"text": "$DVT_CompanionPred",
+					"type": "enum",
+					"help": "$DVT_Help_CompanionPred",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueInt",
+						"scriptName": "DevourmentManager",
+						"propertyName": "companionPredPreference",
+					 	 "options": [
+						"$DVT_CompanionFull0",
+						"$DVT_CompanionFull1", 
+						"$DVT_CompanionFull2"
+						],
+						"shortNames": ["$DVT_CompanionShort0", "$DVT_CompanionShort1", "$DVT_CompanionShort2"],
+						"defaultValue": 0
+					}
+				},
+				{
 					"text": "$DVT_creaturePred",
 					"help": "$DVT_Help_creaturePred",
 					"type": "toggle",
@@ -600,10 +618,6 @@
 						"propertyName": "creaturePreds",
 						"defaultValue": true
 					}
-				},
-
-				{
-					"type": "empty"
 				},
 				{
 					"text": "$DVT_Header_CreaturesExtended",
