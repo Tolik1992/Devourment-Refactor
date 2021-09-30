@@ -2923,29 +2923,38 @@ Function CompelVore()
 		return
 	endIf
 	
-	UIListMenu nearbyList = UIExtensions.GetMenu("UIListMenu") as UIListMenu
-	nearbyList.ResetMenu()
+	UIListMenu candidateMenu = UIExtensions.GetMenu("UIListMenu") as UIListMenu
+	candidateMenu.ResetMenu()
 
 	int index = 0
+
+	Actor[] candidates = createActorArray(nearby.length)
+	int candidateIndex = 0
+
 	while index < nearby.length
-		nearbyList.AddEntryItem(Namer(nearby[index]))
+		Actor candidate = nearby[index] 
+		if candidate && !candidate.IsChild()
+			candidateMenu.AddEntryItem(Namer(candidate))
+			candidates[candidateIndex] = candidate
+			candidateIndex += 1
+		endIf
 		index += 1
 	endWhile
 
-	nearbyList.OpenMenu()
-	int result1 = nearbyList.GetResultInt()
-	if result1 < 0 || result1 >= nearby.length
+	candidateMenu.OpenMenu()
+	int candidatePred = candidateMenu.GetResultInt()
+	if candidatePred < 0 || candidatePred >= candidates.length || !candidates[candidatePred]
 		return
 	endIf
 	
-	nearbyList.OpenMenu()
-	int result2 = nearbyList.GetResultInt()
-	if result2 < 0 || result2 >= nearby.length
+	candidateMenu.OpenMenu()
+	int candidatePrey = candidateMenu.GetResultInt()
+	if candidatePrey < 0 || candidatePrey >= candidates.length || !candidates[candidatePrey]
 		return
 	endIf
 
-	Actor pred = nearby[result1]
-	Actor prey = nearby[result2]
+	Actor pred = candidates[candidatePred]
+	Actor prey = candidates[candidatePrey]
 	
 	if pred == prey
 		Debug.MessageBox("Self-vore?? Sorry, no.")
@@ -2961,13 +2970,12 @@ Function CompelVore()
 		return
 	endIf
 
+	candidateMenu.ResetMenu()
+	candidateMenu.AddEntryItem("Vore")
+	candidateMenu.AddEntryItem("Endo")
 
-	nearbyList.ResetMenu()
-	nearbyList.AddEntryItem("Vore")
-	nearbyList.AddEntryItem("Endo")
-
-	nearbyList.OpenMenu()
-	int result3 = nearbyList.GetResultInt()
+	candidateMenu.OpenMenu()
+	int result3 = candidateMenu.GetResultInt()
 	
 	if result3 == 0
 		ForceSwallow(pred, prey, false)
@@ -4639,6 +4647,10 @@ EndFunction
 
 
 bool Function validPredator(Actor target)
+	if target == None || target.isChild()
+		return false
+	endIf
+
 	If companionPredPreference > 0 && LibFire.ActorIsFollower(target)
         return companionPredPreference == 1
     EndIf
