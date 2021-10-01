@@ -50,6 +50,7 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 
 	if Manager.paused
 		Dispel()
+		return
 	endIf
 	
 	if !Reversed
@@ -99,74 +100,78 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 		Manager.PlayerFullnessMeter.ForceMeterDisplay(true)
 		dispel()
 
-	else
-		if scripted || reversed
+	elseif scripted || reversed
+		DoSwallow()
+		DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, false, true, locus)
+	
+	elseif endo
+		float swallowDifficulty = 1.0 - Manager.getEndoSwallowChance(pred, prey)
+		float d100Roll = Utility.randomFloat()
+		
+		if d100Roll < swallowDifficulty
+			if pred == playerRef
+				Manager.HelpAgnosticMessage(Message_Trust, "DVT_TRUST", 3.0, 0.1)
+				if DEBUGGING
+					Log4(PREFIX, "OnEffectStart", Namer(pred), Namer(prey), "FAILURE", d100Roll + " < " + swallowDifficulty)
+				endIf
+				if Manager.Notifications
+					ConsoleUtil.PrintMessage("Endo failed: " + (d100Roll * 100.0) + " < " + (swallowDifficulty * 100.0) + "%")
+				endIf
+			EndIf
+
+			DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, false, false, locus)
+			dispel()
+		else
 			DoSwallow()
 			DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, false, true, locus)
-		
-		elseif endo
-			float swallowDifficulty = 1.0 - Manager.getEndoSwallowChance(pred, prey)
-			float d100Roll = Utility.randomFloat()
-			
-			if d100Roll < swallowDifficulty
-				if pred == playerRef
-					Manager.HelpAgnosticMessage(Message_Trust, "DVT_TRUST", 3.0, 0.1)
-					if DEBUGGING
-						Log4(PREFIX, "OnEffectStart", Namer(pred), Namer(prey), "FAILURE", d100Roll + " < " + swallowDifficulty)
-					endIf
-					if Manager.Notifications
-						ConsoleUtil.PrintMessage("Endo failed: " + (d100Roll * 100.0) + " < " + (swallowDifficulty * 100.0) + "%")
-					endIf
-				EndIf
+		endIf
+	
+	else
+		bool stealth = pred.isSneaking() && !pred.isDetectedBy(prey)
+		bool silent = stealth && pred.hasPerk(SilentSwallow)
+		float swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(pred, prey, stealth)
 
-				DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, false, false, locus)
-				dispel()
-			else
-				DoSwallow()
-				DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, false, true, locus)
-			endIf
-		
+		if silent
+			prey.stopcombat()
+			prey.setalert(false)
+		elseif deadPrey && pred == playerRef
+			prey.SendStealAlarm(pred)
+		endIf
+
+		float d100Roll = Utility.randomFloat()
+		if d100Roll >= swallowDifficulty
+			SwallowNotification(d100Roll, swallowDifficulty, true)
+			DoSwallow()
+			DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
+
 		else
-			bool stealth = pred.isSneaking() && !pred.isDetectedBy(prey)
-			bool silent = stealth && pred.hasPerk(SilentSwallow)
-			float swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(pred, prey, stealth)
+			SwallowNotification(d100Roll, swallowDifficulty, false)
+			DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, false, locus)
 
-			if silent
-				prey.stopcombat()
-				prey.setalert(false)
-			elseif deadPrey && pred == playerRef
-				prey.SendStealAlarm(pred)
-			endIf
+			if Manager.Menu.CounterVoreEnabled && prey.HasPerk(Manager.Menu.CounterVore)
+				swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(prey, pred, false)
+				d100Roll = Utility.randomFloat()
 
-			float d100Roll = Utility.randomFloat()
-			if d100Roll >= swallowDifficulty
-				SwallowNotification(d100Roll, swallowDifficulty, true)
-				DoSwallow()
-				DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
-
-			else
-				SwallowNotification(d100Roll, swallowDifficulty, false)
-				DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, false, locus)
-
-				if Manager.Menu.CounterVoreEnabled && prey.HasPerk(Manager.Menu.CounterVore)
-					swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(prey, pred, false)
-					d100Roll = Utility.randomFloat()
-
-					if d100Roll >= swallowDifficulty
-						SwallowNotification(d100Roll, swallowDifficulty, true, counter=true)
-						reversed = true
-						pred = akTarget
-						prey = akCaster
-						DoSwallow()
-						DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
-					else
-						SwallowNotification(d100Roll, swallowDifficulty, false, counter=true)
-						dispel()
-					endIf
+				if d100Roll >= swallowDifficulty
+					SwallowNotification(d100Roll, swallowDifficulty, true, counter=true)
+					reversed = true
+					pred = akTarget
+					prey = akCaster
+					DoSwallow()
+					DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
 				else
+					SwallowNotification(d100Roll, swallowDifficulty, false, counter=true)
+					if pred.hasKeywordString("ActorTypeNPC")
+						Debug.SendAnimationEvent(pred, "StaggerStart")
+					endIf
 					dispel()
 				endIf
-			endif
+			else
+				if pred.hasKeywordString("ActorTypeNPC")
+					Debug.SendAnimationEvent(pred, "StaggerStart")
+			endIf
+			dispel()
+			endIf
 		endif
 	endif
 endEvent
@@ -217,7 +222,7 @@ Function DoSwallow()
 	;
 	; Calling SetRestrained on a dead NPC will resurrect them!
 	;
-	if prey != playerRef && !prey.isDead()
+	if prey != playerRef && !deadPrey
 		prey.setRestrained(true)
 	endIf
 
@@ -378,7 +383,7 @@ Function PlayVoreAnimation_Actor()
 				elseif locus == 1 ; AnalVore
 					Debug.SendAnimationEvent(pred, "IdleChairFrontEnter")
 					Debug.SendAnimationEvent(prey, "IdleCowerEnter")
-					Utility.Wait(0.5)
+					Utility.Wait(1.0)
 					RegisterAnimationFinisher("IdleChairFrontQuickExit", 0.5)
 				else
 					Debug.SendAnimationEvent(pred, "IdleHug")
