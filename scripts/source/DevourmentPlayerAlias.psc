@@ -310,45 +310,52 @@ EndFunction
 
 
 Event OnKeyDown(int keyCode)
-	if DEBUGGING
-		Log1(PREFIX, "OnKeyDown", keycode)
-	endIf
-	
 	if KeyCode == SHOUT_KEY
-		ObjectReference grabbed = Game.GetPlayerGrabbedRef()
-		if grabbed 
-			if !(grabbed as actor)
-				Manager.PlayVoreAnimation_Item(playerRef, grabbed, 0, true)
-				Manager.DigestItem(playerRef, grabbed, 1, none, false, DefaultLocus)
-			endIf
-		elseif DevourMCM.LooseItemVore
-			ObjectReference targeted = Game.GetCurrentCrossHairRef()
-
-			if targeted && !(targeted as actor) && !playerRef.IsInCombat() && !playerRef.IsRunning()
-				Spell equippedSpell = playerRef.GetEquippedSpell(2)
-				if SwallowSpells.find(equippedSpell) >= 0
-					Manager.LooseItemVore(playerRef, targeted)
-				endIf
-			endIf
-		
-		endIf
+		HotkeyVore(SwallowSpells.find(playerRef.GetEquippedSpell(2)))
 	endIf
 EndEvent
 
 
-Function HotkeyVore(int i)
-	if i == 0
-		ObjectReference targeted = Game.GetCurrentCrossHairRef()
-		if targeted && targeted as Actor
-			SwallowSpells[0].cast(PlayerRef, targeted)
-		endIf
-	elseif i == 1
-		ObjectReference targeted = Game.GetCurrentCrossHairRef()
-		if targeted && targeted as Actor
-			SwallowSpells[1].cast(PlayerRef, targeted)
-		endIf
-	elseif i == 2
+bool Function HotkeyVore(int i)
+	if i == 2
 		SwallowSpells[2].cast(PlayerRef, PlayerRef)
+		return true
+
+	elseif i == 0 || i == 1
+		Spell swallowSpell = SwallowSpells[i]
+		return TryGrabbedVore(swallowSpell) || TryCrosshairVore(swallowSpell)
+	endIf
+
+EndFunction
+
+
+bool Function TryGrabbedVore(Spell swallowSpell)
+	ObjectReference grabbed = Game.GetPlayerGrabbedRef()
+	if grabbed == None
+		return false
+	elseif grabbed as actor
+		swallowSpell.cast(PlayerRef, grabbed)
+		return true
+	else
+		Manager.PlayVoreAnimation_Item(playerRef, grabbed, 0, true)
+		Manager.DigestItem(playerRef, grabbed, 1, none, false, DefaultLocus)
+		return true
+	endIf
+EndFunction
+
+
+bool Function TryCrosshairVore(Spell swallowSpell)
+	ObjectReference targeted = Game.GetCurrentCrossHairRef()
+	if targeted == None 
+		return false
+	elseif targeted as Actor
+		swallowSpell.cast(PlayerRef, targeted)
+		return true
+	elseif DevourMCM.LooseItemVore && !playerRef.IsInCombat() && !playerRef.IsRunning()
+		Manager.LooseItemVore(PlayerRef, targeted)
+		return true
+	else 
+		return false
 	endIf
 EndFunction
 
