@@ -6694,8 +6694,6 @@ bool Function saveSettings(String settingsFileName)
 
 	int data = JMap.object()
 
-	JMap.SetObj(data, "CreaturePredatorToggles",	JArray.objectWithInts(CreaturePredatorToggles))
-
 	JMap.setInt(data, "CombatAcceleration", CombatAcceleration as int)
 	JMap.setInt(data, "scatTypeNPC", 		scatTypeNPC)
 	JMap.setInt(data, "scatTypeCreature", 	scatTypeCreature)
@@ -6745,11 +6743,12 @@ bool Function saveSettings(String settingsFileName)
 	JMap.setInt(data, "FemalePreds", 		FemalePreds as int)
 	JMap.setInt(data, "MalePreds", 			MalePreds as int)
 
+	JMap.SetObj(data, "CreaturePredatorToggles",	JArray.objectWithInts(CreaturePredatorToggles))
 	JMap.setInt(data, "PlayerAlias.DefaultLocus", PlayerAlias.DefaultLocus)
 	
-	SkullHandler.SaveSettingsTo(data)
-	Menu.WeightManager.SaveSettingsTo(data)
-	Menu.Morphs.SaveSettingsTo(data)
+	SkullHandler.SaveSettings(data)
+	Menu.WeightManager.SaveSettings(data)
+	Menu.Morphs.SaveSettings(data)
 
 	JValue.writeToFile(data, SettingsFileName)
 	return JContainers.fileExistsAtPath(SettingsFileName)
@@ -6763,8 +6762,6 @@ bool Function loadSettings(String settingsFileName)
 	if !JValue.isExists(data)
 		return false
 	endIf
-
-	CreaturePredatorToggles =	JArray.asIntArray(JMap.getObj(data, "CreaturePredatorToggles", JArray.ObjectWithInts(CreaturePredatorToggles)))
 
 	CombatAcceleration = 	JMap.getInt(data, "CombatAcceleration", 	CombatAcceleration as int) as bool
 	scatTypeNPC = 			JMap.getInt(data, "scatTypeNPC", 			scatTypeNPC)
@@ -6815,13 +6812,14 @@ bool Function loadSettings(String settingsFileName)
 	femalePreds = 			JMap.getInt(data, "femalePreds", 			femalePreds as int) as bool
 	malePreds = 			JMap.getInt(data, "malePreds", 				malePreds as int) as bool
 	
+	CreaturePredatorToggles =	JArray.asIntArray(JMap.getObj(data, "CreaturePredatorToggles", JArray.ObjectWithInts(CreaturePredatorToggles)))
 	PlayerAlias.DefaultLocus = JMap.getInt(data, "DefaultLocus", PlayerAlias.DefaultLocus)
 	Menu.AltPerkMenus = 	JMap.getInt(data, "AltPerkMenus",			Menu.AltPerkMenus as int) as bool
 	Menu.RecalculateLocusCumulative()
 	
-	SkullHandler.LoadSettingsFrom(data)
-	Menu.WeightManager.LoadSettingsFrom(data)
-	Menu.Morphs.LoadSettingsFrom(data)
+	SkullHandler.LoadSettings(data)
+	Menu.WeightManager.LoadSettings(data)
+	Menu.Morphs.LoadSettings(data)
 
 	return true
 EndFunction

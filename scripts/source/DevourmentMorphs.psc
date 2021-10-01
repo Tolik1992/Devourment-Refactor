@@ -21,7 +21,7 @@ Event OnInit()
 EndEvent
 
 
-Function LoadSettingsFrom(int data)
+Function LoadSettings(int data)
 	UseMorphVore = 			JMap.getInt(data, "UseMorphVore", 			UseMorphVore as int) as bool
 	UseLocationalMorphs = 	JMap.getInt(data, "UseLocationalMorphs", 	UseLocationalMorphs as int) as bool
 	useStruggleSliders = 	JMap.getInt(data, "UseStruggleSliders", 	UseStruggleSliders as int) as bool
@@ -37,7 +37,7 @@ Function LoadSettingsFrom(int data)
 EndFunction
 
 
-Function SaveSettingsTo(int data)
+Function SaveSettings(int data)
 	JMap.setInt(data, "UseMorphVore", 			UseMorphVore as int)
 	JMap.setInt(data, "UseLocationalMorphs", 	UseLocationalMorphs as int)
 	JMap.setInt(data, "UseStruggleSliders", 	UseStruggleSliders as int)

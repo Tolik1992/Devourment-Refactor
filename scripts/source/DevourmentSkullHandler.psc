@@ -210,7 +210,7 @@ bool Function ReviveSkullToWorld(Actor pred, DevourmentSkullObject skullRef)
 EndFunction
 
 
-Function LoadSettingsFrom(int data)
+Function LoadSettings(int data)
 	SkullsForDragons = 		JMap.getInt(data, "SkullsForDragons", 	SkullsForDragons as int) as bool
 	SkullsForUnique = 		JMap.getInt(data, "SkullsForUnique", 	SkullsForUnique as int) as bool
 	SkullsForEssential =	JMap.getInt(data, "SkullsForEssential",	SkullsForEssential as int) as bool
@@ -221,7 +221,7 @@ Function LoadSettingsFrom(int data)
 EndFunction
 
 
-Function SaveSettingsTo(int data)
+Function SaveSettings(int data)
 	JMap.setInt(data, "SkullsForDragons", 	SkullsForDragons as int)
 	JMap.setInt(data, "SkullsForUnique",	SkullsForUnique as int)
 	JMap.setInt(data, "SkullsForEssential",	SkullsForEssential as int)

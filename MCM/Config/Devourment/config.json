@@ -164,6 +164,21 @@
 						"defaultValue": true
 					}
 				},
+				{
+					"text": "$DVT_NamedSouls",
+					"help": "$DVT_Help_NamedSouls",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|CF7", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentSkullHandler",
+						"propertyName": "NamedSouls",
+						"defaultValue": true
+					}
+				},
+				{
+					"type": "empty"
+				},
 				
 				{
 					"text": "$DVT_Header_Difficulty",
@@ -1916,6 +1931,18 @@
 						"scriptName": "DevourmentWeightManager",     
 						"function": "LearnValue",
 						"params": [1]
+					}
+				},
+				{
+					"text": "Foods Patch",
+					"help": "Scans your modlist and fills out the No-Value and High-Value food lists. Currently scans for iNeed, iWant, Realistic Needs and Diseases, Hunterborn, SunHelm, Complete Alchemy and Cooking Overhaul, and Skyrim Immersive Creatures.",
+					"type": "text",
+					"action": {
+						"type": "CallFunction",
+						"form": "Devourment.esp|A9B",   
+						"scriptName": "DevourmentWeightManager",     
+						"function": "RunPatchups",
+						"params": []
 					}
 				}
 			]

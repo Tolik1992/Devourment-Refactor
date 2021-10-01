@@ -50,7 +50,7 @@ Event OnInit()
 	EventRegistration()
 	
 	Utility.Wait(10.0)
-	RunPatchup()
+	;RunPatchups()
 EndEvent
 
 
@@ -580,7 +580,7 @@ float Function GetGainPer100Food()
 EndFunction
 
 
-Function RunPatchup()
+Function RunPatchups()
 	addNoValueFood(Game.GetFormFromFile(0x034CDF, "Skyrim.esm"))
 	addNoValueFood(Game.GetFormFromFile(0x074A19, "Skyrim.esm"))
 
@@ -592,6 +592,7 @@ Function RunPatchup()
 	addHighValueFood(Game.GetFormFromFile(0x00353C, "Hearthfires.esm"))
 
 	if Game.IsPluginInstalled("RealisticNeedsAndDiseases.esp")
+		ConsoleUtil.PrintMessage("Scanning 'RealisticNeedsAndDiseases.esp'")
 		addNoValueFood(Game.GetFormFromFile(0x0053EC, "RealisticNeedsAndDiseases.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x0053EE, "RealisticNeedsAndDiseases.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x0053F0, "RealisticNeedsAndDiseases.esp"))
@@ -630,11 +631,15 @@ Function RunPatchup()
 		addNoValueFood(Game.GetFormFromFile(0x047FA2, "RealisticNeedsAndDiseases.esp"))
 
 		addHighValueFood(Game.GetFormFromFile(0x012C49, "RealisticNeedsAndDiseases.esp"))
+	endIf
 
-	elseif Game.IsPluginInstalled("Skyrim Immersive Creatures Special Edition.esp")
+	if Game.IsPluginInstalled("Skyrim Immersive Creatures Special Edition.esp")
+		ConsoleUtil.PrintMessage("Scanning 'Skyrim Immersive Creatures Special Edition.esp'")
 		addHighValueFood(Game.GetFormFromFile(0x00F5EA, "Skyrim Immersive Creatures Special Edition.esp"))
+	endIf
 		
-	elseif Game.IsPluginInstalled("SunhelmSurvival.esp")
+	if Game.IsPluginInstalled("SunhelmSurvival.esp")
+		ConsoleUtil.PrintMessage("Scanning 'SunhelmSurvival.esp'")
 		addNoValueFood(Game.GetFormFromFile(0x265BE3, "SunhelmSurvival.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x265BE7, "SunhelmSurvival.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x326258, "SunhelmSurvival.esp"))
@@ -645,25 +650,33 @@ Function RunPatchup()
 		addNoValueFood(Game.GetFormFromFile(0x4DE9AF, "SunhelmSurvival.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x4DE9B0, "SunhelmSurvival.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x4EDCC1, "SunhelmSurvival.esp"))
+	endIf
 
-	elseif Game.IsPluginInstalled("Minineeds.esp")
+	if Game.IsPluginInstalled("Minineeds.esp")
+		ConsoleUtil.PrintMessage("Scanning 'Minineeds.esp'")
 		addNoValueFood(Game.GetFormFromFile(0x003192, "Minineeds.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x003194, "Minineeds.esp"))
+	endIf
 
-	elseif Game.IsPluginInstalled("INeed.esp")
+	if Game.IsPluginInstalled("INeed.esp")
+		ConsoleUtil.PrintMessage("Scanning 'INeed.esp'")
 		addNoValueFood(Game.GetFormFromFile(0x00437F, "INeed.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x00437D, "INeed.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x004376, "INeed.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x03B2C5, "INeed.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x03B2C8, "INeed.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x03B2CC, "INeed.esp"))
+	endIf
 
-	elseif Game.IsPluginInstalled("Hunterborn.esp")
+	if Game.IsPluginInstalled("Hunterborn.esp")
+		ConsoleUtil.PrintMessage("Scanning 'Hunterborn.esp'")
 		addNoValueFood(Game.GetFormFromFile(0x28CCFA, "Hunterborn.esp"))
 
 		addHighValueFood(Game.GetFormFromFile(0x1C2257, "Hunterborn.esp"))
+	endIf
 		
-	elseif Game.IsPluginInstalled("Complete Alchemy & Cooking Overhaul.esp")
+	if Game.IsPluginInstalled("Complete Alchemy & Cooking Overhaul.esp")
+		ConsoleUtil.PrintMessage("Scanning 'Complete Alchemy & Cooking Overhaul.esp'")
 		addNoValueFood(Game.GetFormFromFile(0xCCA111, "Update.esm"))
 		addNoValueFood(Game.GetFormFromFile(0x4E3D21, "Complete Alchemy & Cooking Overhaul.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x4E3D23, "Complete Alchemy & Cooking Overhaul.esp"))
@@ -712,10 +725,12 @@ Function RunPatchup()
 		addHighValueFood(Game.GetFormFromFile(0x9E056C, "Complete Alchemy & Cooking Overhaul.esp"))
 		addHighValueFood(Game.GetFormFromFile(0x9E056E, "Complete Alchemy & Cooking Overhaul.esp"))
 	endIf
+
+	Debug.MessageBox("Patchup Complete")
 EndFunction
 
 
-Function LoadSettingsFrom(int data)
+Function LoadSettings(int data)
 	PlayerEnabled =			JMap.GetInt(data, "PlayerEnabled", PlayerEnabled as int) as bool
 	CompanionsEnabled =		JMap.GetInt(data, "CompanionsEnabled", CompanionsEnabled as int) as bool
 	ActorsEnabled =			JMap.GetInt(data, "ActorsEnabled", ActorsEnabled as int) as bool
@@ -738,19 +753,16 @@ Function LoadSettingsFrom(int data)
 	mSkeletonHigh = 		JMap.GetFlt(data, "mSkeletonHigh", mSkeletonHigh)
 	cSkeletonLow = 			JMap.GetFlt(data, "cSkeletonLow", cSkeletonLow)
 	cSkeletonHigh = 		JMap.GetFlt(data, "cSkeletonHigh", cSkeletonHigh)
+	
+	int tempData
 
-	MorphStrings = 			JArray.asStringArray(JMap.getObj(data, "MorphStrings", JArray.ObjectWithStrings(MorphStrings)))
-	MorphsHigh = 			JArray.asFloatArray(JMap.getObj(data, "MorphsHigh", JArray.ObjectWithFloats(MorphsHigh)))
-	MorphsLow = 			JArray.asFloatArray(JMap.getObj(data, "MorphsLow", JArray.ObjectWithFloats(MorphsLow)))
-	HighValueFood = 		JArray.asFormArray(JMap.getObj(data, "HighValueFood", JArray.ObjectWithForms(HighValueFood)))
-	NoValueFood = 			JArray.asFormArray(JMap.getObj(data, "NoValueFood", JArray.ObjectWithForms(NoValueFood)))
+	MorphStrings = JArray.asStringArray(JMap.getObj(data, "MorphStrings", JArray.ObjectWithStrings(MorphStrings)))
+	MorphsHigh = JArray.asFloatArray(JMap.getObj(data, "MorphsHigh", JArray.ObjectWithFloats(MorphsHigh)))
+	MorphsLow = JArray.asFloatArray(JMap.getObj(data, "MorphsLow", JArray.ObjectWithFloats(MorphsLow)))
+	HighValueFood = JArray.asFormArray(JMap.getObj(data, "HighValueFood", JArray.ObjectWithForms(HighValueFood)))
+	NoValueFood = JArray.asFormArray(JMap.getObj(data, "NoValueFood", JArray.ObjectWithForms(NoValueFood)))
 
-	if MorphStrings == none 
-		MorphStrings = new String[96]
-		MorphsHigh = new float[96]
-		MorphsLow = new float[96]
-
-    elseif MorphStrings.length < 96
+    if MorphStrings.length < 96 || MorphsHigh.length < 96 || MorphsLow.length < 96
         MorphStrings = Utility.ResizeStringArray(MorphStrings, 96)
         MorphsHigh = Utility.ResizeFloatArray(MorphsHigh, 96)
         MorphsLow = Utility.ResizeFloatArray(MorphsLow, 96)
@@ -758,7 +770,7 @@ Function LoadSettingsFrom(int data)
 EndFunction
 
 
-Function SaveSettingsTo(int data)
+Function SaveSettings(int data)
 	JMap.SetInt(data, "PlayerEnabled", 			PlayerEnabled as int) as bool
 	JMap.SetInt(data, "CompanionsEnabled", 		CompanionsEnabled as int) as bool
 	JMap.SetInt(data, "ActorsEnabled", 			ActorsEnabled as int) as bool
