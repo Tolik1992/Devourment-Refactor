@@ -9,6 +9,10 @@
 [*] Removed some unused files.
 [*] Removed morph settings files system since it wasn't being used.
 [*] Changed recommended breast nodes.
+[*] Fixed controller not working for struggling.
+[*] SlowFix disables itself when BugFixesSSE is detected (slowfix causes mods like "Enhanced Blood" and "Dirt And Blood" to be constantly covered in blood)
+[*] Stagger animations on failed vore attempt. Doesn't work consistently.
+[*] Item vore now works with hotkeys.
 [/list]
 
 2021-09-29
