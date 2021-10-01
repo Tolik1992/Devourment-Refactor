@@ -10,6 +10,9 @@ LOCUS_COCK 		= 5
 
 }
 ; NEEDS TESTING
+; Hotkey vore, hotkey item vore, grabbed item vore, shout key item vore, loose item vore.
+;
+;
 ; * TalkingActivator / VoreTalker
 ; * Guard bounty dialogue
 ;
@@ -55,7 +58,7 @@ import Logging
 
 
 bool property PERFORMANCE = false auto
-;bool property VEGAN_MODE = false auto
+
 
 Actor property FakePlayer auto
 Actor property PlayerRef Auto
@@ -266,7 +269,7 @@ bool property EndoTimeout = true auto
 {Controls whether prey can escape automatically during endo, or must struggle free.}
 
 
-float property minimumSwallowChance = 0.05 auto
+float property minimumSwallowChance = 5.0 auto
 {Controls the minimum chance of swallowing.}
 
 
@@ -321,7 +324,7 @@ float lastRealTimeProcessed = 0.0
 float lastGameTimeProcessed = 0.0
 
 
-bool DEBUGGING = true
+bool DEBUGGING = false
 String PREFIX = "DevourmentManager"
 float UpdateInterval = 0.50
 bool firstRun = true
@@ -3606,8 +3609,8 @@ Success is automatic for prey that is dead, bleeding out, surrendered, or asleep
 
 	if DEBUGGING && pred == playerRef
 		return 1.0
-	elseif swallowChance < MinimumSwallowChance
-		return MinimumSwallowChance
+	elseif swallowChance < MinimumSwallowChance/100.0
+		return MinimumSwallowChance/100.0
 	elseif swallowChance > 1.0
 		return 1.0
 	else
