@@ -28,6 +28,7 @@ Function Eliminate(Actor pred)
 		Form[] stomach = Manager.GetStomachArray(pred)
 		if Manager.EmptyStomach(stomach)
 			Manager.HelpAgnosticMessage(Message_Nothing, "DVT_ELIMINATEALL", 4.0, 0.0)
+			Debug.SendAnimationEvent(pred, "IdleUncontrollableCough")
 			return
 		endIf
 		
@@ -55,7 +56,11 @@ Function Eliminate(Actor pred)
 		
 		if listIndex == 0
 			Manager.HelpAgnosticMessage(Message_Nothing, "DVT_ELIMINATEALL", 4.0, 0.0)
+			Debug.SendAnimationEvent(pred, "IdleUncontrollableCough")
 			
+		elseif listIndex == 1
+			EliminateOne(excretable[0] as ObjectReference)
+
 		else
 			int resultIndex = 0
 			if listIndex > 1
