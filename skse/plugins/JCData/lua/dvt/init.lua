@@ -633,7 +633,9 @@ end
 --[[--
 --]]--
 function dvt.GetRemainingWeight(preyData)
-	if preyData.purge then
+	if not preyData then
+		return 0.0
+	elseif preyData.purge then
 		return 0.0
 	elseif preyData.alive or preyData.bolus then
 		return preyData.weight
@@ -650,7 +652,9 @@ end
 --[[--
 --]]--
 function dvt.GetRemainingTime(preyData)
-	if preyData.purge then
+	if not preyData then
+		return 0.0
+	elseif preyData.purge then
 		return 0.0
 	elseif preyData.endo then
 		return 1.0
@@ -667,6 +671,7 @@ end
 --[[--
 --]]--
 function dvt.SetRemainingTime(preyData, percent)
+	assert(preyData, "preyData must be specified.")
 	if preyData.digesting or preyData.reforming or preyData.vore then
 		preyData.timer = preyData.timerMax * math.min(math.max(percent, 0.0), 1.0)
 	end
