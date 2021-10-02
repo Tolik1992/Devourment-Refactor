@@ -161,15 +161,15 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 					DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
 				else
 					SwallowNotification(d100Roll, swallowDifficulty, false, counter=true)
-					if pred.hasKeywordString("ActorTypeNPC")
-						Debug.SendAnimationEvent(pred, "StaggerStart")
-					endIf
+					;if pred.hasKeywordString("ActorTypeNPC")
+					;	Debug.SendAnimationEvent(pred, "StaggerStart")
+					;endIf
 					dispel()
 				endIf
 			else
-				if pred.hasKeywordString("ActorTypeNPC")
-					Debug.SendAnimationEvent(pred, "StaggerStart")
-			endIf
+				;if pred.hasKeywordString("ActorTypeNPC")
+				;	Debug.SendAnimationEvent(pred, "StaggerStart")
+				;endIf
 			dispel()
 			endIf
 		endif
