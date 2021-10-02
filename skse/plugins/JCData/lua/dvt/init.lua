@@ -993,7 +993,7 @@ function dvt.PartitionBurden(pred, useElimination, scales)
 		local weightStomach = predData.fake.size 
 		scales[locusStomach] = (scales[locusStomach] or 0.0) + weightStomach * weightStomach
 
-		if useElimination > 0 then
+		if useElimination then
 			local weightButt = predData.fake.size
 			scales[locusButt] = (scales[locusButt] or 0.0) + weightButt * weightButt / 4.0
 		end
@@ -1004,13 +1004,13 @@ function dvt.PartitionBurden(pred, useElimination, scales)
 		local locus = preyData.locus + 1
 		local weight = dvt.GetRemainingWeight(preyData)
 
-		if locus == locusUnbirth or (locus == locusButt and useElimination > 0) then
+		if locus == locusUnbirth or (locus == locusButt and useElimination) then
 			scales[locusStomach] = (scales[locusStomach] or 0.0) + weight * weight + preyBurden2 / 2.0
 		else
 			scales[locus] = (scales[locus] or 0.0) + weight * weight + preyBurden2 / 2.0
 		end
 
-		if useElimination > 0 and not preyData.reforming then
+		if useElimination and not preyData.reforming then
 			local weightElimation = dvt.GetEliminatedWeight(preyData)
 			if locus == locusCock then
 				scales[locusCock] = (scales[locusCock] or 0.0) + weightElimation * weightElimation / 4.0 + preyBurden2 / 8.0
@@ -1081,7 +1081,7 @@ function dvt.GetLocusHealth(pred, playerStruggle, useElimination)
 			health = preyData.health or 0.0
 		end
 
-		if locus == locusUnbirth or (locus == locusButt and useElimination > 0) then
+		if locus == locusUnbirth or (locus == locusButt and useElimination) then
 			locusHealth[locusStomach] = math.max(locusHealth[locusStomach] or 0.0, health)
 		else
 			locusHealth[locus] = math.max(locusHealth[locus] or 0.0, health or 0.0)
