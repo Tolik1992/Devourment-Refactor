@@ -50,7 +50,7 @@ Event OnInit()
 	EventRegistration()
 	
 	Utility.Wait(10.0)
-	;RunPatchups()
+	RunPatchups()
 EndEvent
 
 
@@ -581,6 +581,7 @@ EndFunction
 
 
 Function RunPatchups()
+	Debug.Notification("Scanning main plugins.")
 	addNoValueFood(Game.GetFormFromFile(0x034CDF, "Skyrim.esm"))
 	addNoValueFood(Game.GetFormFromFile(0x074A19, "Skyrim.esm"))
 
@@ -592,7 +593,7 @@ Function RunPatchups()
 	addHighValueFood(Game.GetFormFromFile(0x00353C, "Hearthfires.esm"))
 
 	if Game.IsPluginInstalled("RealisticNeedsAndDiseases.esp")
-		ConsoleUtil.PrintMessage("Scanning 'RealisticNeedsAndDiseases.esp'")
+		Debug.Notification("Scanning 'RealisticNeedsAndDiseases.esp'")
 		addNoValueFood(Game.GetFormFromFile(0x0053EC, "RealisticNeedsAndDiseases.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x0053EE, "RealisticNeedsAndDiseases.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x0053F0, "RealisticNeedsAndDiseases.esp"))
@@ -634,12 +635,12 @@ Function RunPatchups()
 	endIf
 
 	if Game.IsPluginInstalled("Skyrim Immersive Creatures Special Edition.esp")
-		ConsoleUtil.PrintMessage("Scanning 'Skyrim Immersive Creatures Special Edition.esp'")
+		Debug.Notification("Scanning 'Skyrim Immersive Creatures Special Edition.esp'")
 		addHighValueFood(Game.GetFormFromFile(0x00F5EA, "Skyrim Immersive Creatures Special Edition.esp"))
 	endIf
 		
 	if Game.IsPluginInstalled("SunhelmSurvival.esp")
-		ConsoleUtil.PrintMessage("Scanning 'SunhelmSurvival.esp'")
+		Debug.Notification("Scanning 'SunhelmSurvival.esp'")
 		addNoValueFood(Game.GetFormFromFile(0x265BE3, "SunhelmSurvival.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x265BE7, "SunhelmSurvival.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x326258, "SunhelmSurvival.esp"))
@@ -653,13 +654,13 @@ Function RunPatchups()
 	endIf
 
 	if Game.IsPluginInstalled("Minineeds.esp")
-		ConsoleUtil.PrintMessage("Scanning 'Minineeds.esp'")
+		Debug.Notification("Scanning 'Minineeds.esp'")
 		addNoValueFood(Game.GetFormFromFile(0x003192, "Minineeds.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x003194, "Minineeds.esp"))
 	endIf
 
 	if Game.IsPluginInstalled("INeed.esp")
-		ConsoleUtil.PrintMessage("Scanning 'INeed.esp'")
+		Debug.Notification("Scanning 'INeed.esp'")
 		addNoValueFood(Game.GetFormFromFile(0x00437F, "INeed.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x00437D, "INeed.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x004376, "INeed.esp"))
@@ -669,14 +670,14 @@ Function RunPatchups()
 	endIf
 
 	if Game.IsPluginInstalled("Hunterborn.esp")
-		ConsoleUtil.PrintMessage("Scanning 'Hunterborn.esp'")
+		Debug.Notification("Scanning 'Hunterborn.esp'")
 		addNoValueFood(Game.GetFormFromFile(0x28CCFA, "Hunterborn.esp"))
 
 		addHighValueFood(Game.GetFormFromFile(0x1C2257, "Hunterborn.esp"))
 	endIf
 		
 	if Game.IsPluginInstalled("Complete Alchemy & Cooking Overhaul.esp")
-		ConsoleUtil.PrintMessage("Scanning 'Complete Alchemy & Cooking Overhaul.esp'")
+		Debug.Notification("Scanning 'Complete Alchemy & Cooking Overhaul.esp'")
 		addNoValueFood(Game.GetFormFromFile(0xCCA111, "Update.esm"))
 		addNoValueFood(Game.GetFormFromFile(0x4E3D21, "Complete Alchemy & Cooking Overhaul.esp"))
 		addNoValueFood(Game.GetFormFromFile(0x4E3D23, "Complete Alchemy & Cooking Overhaul.esp"))

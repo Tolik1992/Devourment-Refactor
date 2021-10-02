@@ -1,4 +1,11 @@
-﻿2021-09-30
+﻿2021-10-01-1
+[list]
+[*] Fixed scaling not working without EliminationLocus.
+[*] Notifications during patchup.
+[*] Trying AGAIN to fix controller struggling.
+[/list]
+
+2021-10-01
 [list]
 [*] WeightManager remembers weight for player and followers when settings change.
 [*] Fixed a lag issue when changing weightmanager settings.
@@ -6,6 +13,7 @@
 [*] Added PatchUp for No-value and High-value foods for several mods.
 [*] Added retroendo spell to Vore Magic I.
 [*] Fixed MinimumSwallowChance MCM setting.
+[*] Added NamedSouls toggle.
 [*] Removed some unused files.
 [*] Removed morph settings files system since it wasn't being used.
 [*] Changed recommended breast nodes.

@@ -41,8 +41,8 @@ Event OnEffectStart(Actor target, Actor caster)
 	struggleDamage = Manager.GetStruggleDamage(pred, PlayerRef)
 
 	if Game.UsingGamepad()
-		STRUGGLE_KEY1 = Input.GetMappedKey("Left Attack/Block")
-		STRUGGLE_KEY2 = Input.getMappedKey("Right Attack/Block")
+		STRUGGLE_KEY1 = Input.GetMappedKey("Left Attack/Block", 2)
+		STRUGGLE_KEY2 = Input.getMappedKey("Right Attack/Block", 2)
 	else
 		STRUGGLE_KEY1 = Input.getMappedKey("Strafe Left")
 		STRUGGLE_KEY2 = Input.getMappedKey("Strafe Right")
