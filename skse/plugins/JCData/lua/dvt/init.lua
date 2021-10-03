@@ -55,9 +55,21 @@ function dvt.Tick(predData, dt, rapid1, rapid2)
 					end
 				end
 			elseif preyData.reforming then
-				preyData.timer = preyData.timer + dt
+				if preyData.timer + dt >= preyData.timerMax then
+					preyData.flux = math.max(0.0, preyData.timerMax - preyData.timer)
+					preyData.timer = preyData.timerMax
+				else
+					preyData.flux = dt
+					preyData.timer = preyData.timer + dt
+				end
 			elseif preyData.digesting then
-				preyData.timer = math.max(0.0, preyData.timer - dt * rapid2)
+				if dt * rapid2 >= preyData.timer then
+					preyData.flux = preyData.timer
+					preyData.timer = 0.0
+				else
+					preyData.flux = dt
+					preyData.timer = math.max(0.0, preyData.timer - dt * rapid2)
+				end
 			end
 		end
 	end
