@@ -3359,7 +3359,7 @@ float function getDigestionTime(Actor pred, ObjectReference content)
 	float ratio = 1.0
 
 	if prey
-		ratio = GetVoreWeightRatio(pred, prey) * WeightManager.GetCurrentActorWeightPercent(prey)
+		ratio = GetVoreWeightRatio(pred, prey)
 		if ratio < 0.3 
 			ratio = 0.3
 		endIf					
@@ -6512,7 +6512,8 @@ float Function GetCumulativeSize(Actor subject)
 	endIf
 
 	float x = macromancy * scale
-	float cumulative = x * x
+	float r = WeightManager.GetCurrentActorWeightPercent(subject)
+	float cumulative = r * x * x
 
 	if DEBUGGING
 		Log4(PREFIX, "GetCumulativeSize", Namer(subject), macromancy, scale, cumulative)
