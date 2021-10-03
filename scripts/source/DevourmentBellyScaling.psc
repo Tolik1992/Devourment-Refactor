@@ -171,12 +171,14 @@ EndEvent
 
 
 Event OnUpdate()
-	float totalScale = JLua.evalLuaFlt("dvt.BumpSliders(args, " + playerStruggle + ")", DATA, 0, 0.0)
+	float totalScale = JLua.evalLuaFlt("return dvt.BumpSliders(args, " + playerStruggle + ")", DATA, 0, 0.0)
 	float[] outputBody = JArray.asFloatArray(OUTPUT_BODY)
 	float[] outputBumps = JArray.asFloatArray(OUTPUT_BUMPS)
 
 	if DEBUGGING 
-		;Log1(PREFIX, "OnUpdate" LuaS("DATA", DATA))
+		Log2(PREFIX, "OnUpdate", totalScale, LuaS("DATA", DATA))
+		LogFloats(PREFIX, "OnUpdate", "outputBody", outputBody)
+		LogFloats(PREFIX, "OnUpdate", "outputBumps", outputBumps)
 	endIf
 	
 	bool updateWeights = false
