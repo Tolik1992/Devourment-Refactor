@@ -77,6 +77,7 @@ DevourmentRemap property Remapper auto
 DevourmentPlayerAlias property PlayerAlias auto
 DevourmentReformationQuest property ReformationQuest auto
 DevourmentSkullHandler property SkullHandler auto
+DevourmentWeightManager property WeightManager auto
 Explosion property BoneExplosion auto
 Faction property PlayerFaction auto
 FormList property FullnessTypes_All auto
@@ -835,7 +836,7 @@ Event RegisterDigestion(Form f1, Form f2, bool endo, int locus)
 			endIf
 
 			if pred == playerRef || pred.GetActorBase().IsUnique()
-				WeightGain_async(pred, prey)
+				WeightGain_async(pred, prey, true)
 				incrementVictimType(pred, "corpses")
 			endIf
 
@@ -1398,7 +1399,7 @@ function FinishLiveDigestion(Actor pred, Actor prey, int preyData)
 	if pred == playerRef || pred.GetActorBase().IsUnique()
 		incrementVictims(pred)
 		voreStats(pred, prey)
-		WeightGain_async(pred, prey)
+		WeightGain_async(pred, prey, true)
 		VoreSkills_async(pred, prey)
 	endIf
 
@@ -1460,27 +1461,36 @@ Event Entitlement(Form f1, Form f2)
 EndEvent 
 
 
-Function WeightGain_async(Actor pred, Actor prey)
+Function WeightGain_async(Actor pred, Actor prey, bool gain)
 { Used to call WeightGain asynchronously using a ModEvent. }
 	if WeightGain > 0.0
 		int handle = ModEvent.create("Devourment_WeightGain")
 		ModEvent.pushForm(handle, pred)
 		ModEvent.pushForm(handle, prey)
+		ModEvent.pushBool(handle, gain)
 		ModEvent.Send(handle)
 	endIf
 EndFunction
 	
 	
-Event WeightGain(Form f1, Form f2)
+Event WeightGain(Form f1, Form f2, bool gain)
 	Actor pred = f1 as Actor
 	ActorBase predBase = pred.getLeveledActorBase()
 
 	if WeightGain > 0.0
 		float oldweight = predBase.getWeight()
 		if oldweight < 100.0
-			float newWeight = oldweight + WeightGain
-			if newWeight > 100.0
-				newWeight = 100.0
+			float newWeight
+			if gain
+				newWeight = oldweight + WeightGain
+				if newWeight > 100.0
+					newWeight = 100.0
+				endIf
+			else
+				newWeight = oldweight - WeightGain
+				if newWeight < 0.0
+					newWeight = 0.0
+				endIf
 			endIf
 
 			predBase.setWeight(newWeight)
@@ -2437,6 +2447,9 @@ Function ReformPrey(Actor pred, Actor prey, int preyData)
 		prey.RemoveFromFaction(prey.GetCrimeFaction())
 	endIf
 	
+	WeightGain_Async(pred, prey, false)
+	WeightManager.ChangeActorWeight(prey, -1.0, source="reformed")
+
 	DeactivatePrey(prey)
 	SetEndo(preyData, prey != playerRef && pred != playerRef)
 	SetMeters_Reformed(prey)
@@ -3346,7 +3359,7 @@ float function getDigestionTime(Actor pred, ObjectReference content)
 	float ratio = 1.0
 
 	if prey
-		ratio = GetVoreWeightRatio(pred, prey)
+		ratio = GetVoreWeightRatio(pred, prey) * WeightManager.GetCurrentActorWeightPercent(prey)
 		if ratio < 0.3 
 			ratio = 0.3
 		endIf					
@@ -4371,7 +4384,7 @@ EndFunction
 
 
 Event ResetActorWeight(ObjectReference f)
-	Menu.WeightManager.ResetActorWeight(f as Actor)
+	WeightManager.ResetActorWeight(f as Actor)
 EndEvent
 
 
@@ -6747,7 +6760,7 @@ bool Function saveSettings(String settingsFileName)
 	JMap.setInt(data, "PlayerAlias.DefaultLocus", PlayerAlias.DefaultLocus)
 	
 	SkullHandler.SaveSettings(data)
-	Menu.WeightManager.SaveSettings(data)
+	WeightManager.SaveSettings(data)
 	Menu.Morphs.SaveSettings(data)
 
 	JValue.writeToFile(data, SettingsFileName)
@@ -6818,7 +6831,7 @@ bool Function loadSettings(String settingsFileName)
 	Menu.RecalculateLocusCumulative()
 	
 	SkullHandler.LoadSettings(data)
-	Menu.WeightManager.LoadSettings(data)
+	WeightManager.LoadSettings(data)
 	Menu.Morphs.LoadSettings(data)
 
 	return true

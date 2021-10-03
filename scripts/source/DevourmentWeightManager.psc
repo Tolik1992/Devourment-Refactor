@@ -300,6 +300,15 @@ float Function GetCurrentActorWeight(Actor target)
 EndFunction
 
 
+float Function GetCurrentActorWeightPercent(Actor target)
+	if isValidConsumer(target)
+		return 0.3333 + 2.0*(GetCurrentActorWeight(target) - MinimumWeight) / (MaximumWeight - MinimumWeight)
+	else
+		return 1.0
+	endIf
+EndFunction
+
+
 float Function ChangeActorWeight(Actor target, float afChange, String source = "", float preview = 0.0)
 	{ All-purpose function for losing and gaining Weight. }
 
