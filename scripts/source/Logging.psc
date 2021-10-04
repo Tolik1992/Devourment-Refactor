@@ -552,6 +552,21 @@ Logger for an array.
 EndFunction
 
 
+Function LogKeywords(String prefix, String func, String name, Keyword[] arr) global
+{
+Logger for an array.
+* prefix should be the script name.
+* func should be the name of the calling function.
+}
+	if !loggingEnabled()
+		return
+	endIf
+	
+	String msg = prefix + "." + func + "(" + name + " = " + KeywordArrayToString(arr) + ")"
+	Debug.Trace(msg)
+EndFunction
+
+
 Function LogRefs(String prefix, String func, String name, ObjectReference[] arr) global
 {
 Logger for an array.
@@ -685,7 +700,31 @@ String Function FormArrayToString(Form[] arr) global
 EndFunction
 
 
-String Function PerkArrayToString(Perk[] arr) global
+String Function KeywordArrayToString(Keyword[] arr) global
+{ Pretty-prints a Keyword array as a string.
+}
+	String merge
+
+	if arr.length == 0
+		merge = "[]"
+	elseif arr.length == 1
+		merge = "[" + Namer(arr[0]) + "]"
+	else
+		merge = "["
+		int i = 0
+		while i < arr.length - 1
+			merge = merge + Namer(arr[i]) + ", "
+			i += 1
+		endwhile
+
+		merge = merge + Namer(arr[i]) + "]"
+	endif
+
+	return merge
+EndFunction
+	
+	
+	String Function PerkArrayToString(Perk[] arr) global
 { Pretty-prints a Perk array as a string. }
 	String merge
 

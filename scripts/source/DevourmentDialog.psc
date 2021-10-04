@@ -35,7 +35,7 @@ Function DoDialog_PlayerAndPrey(Actor prey, bool useTalkActivator = false)
 	|| !assertNotNone(PREFIX, "DoDialog_PlayerAndPrey", "prey", prey) \
 	|| !assertNotSame(PREFIX, "DoDialog_PlayerAndPrey", PlayerRef, prey)
 		return
-	elseif prey.hasKeyword(ActorTypeAnimal) && !prey.hasKeyword(Manager.ActorTypeNPC) && !prey.HasKeywordString("VoreTalker")
+	elseif prey.hasKeyword(ActorTypeAnimal) && !prey.hasKeyword(Manager.ActorTypeNPC) && !prey.HasKeyword(Manager.VoreTalker)
 		Log2(PREFIX, "DoDialog_PlayerAndPrey", Namer(prey), "No dialog with critters!")
 		return
 	elseif Activated
@@ -49,7 +49,7 @@ Function DoDialog_PlayerAndPrey(Actor prey, bool useTalkActivator = false)
 	ObjectReference talker = prey
 	float healthBefore = prey.GetActorValue("Health")
 	
-	if prey.HasKeywordString("VoreTalker") || useTalkActivator
+	if prey.HasKeyword(Manager.VoreTalker) || useTalkActivator
 		TheTalker.PrepareForDialog(prey)
 		talker = TheTalker
 	else

@@ -115,6 +115,7 @@ Keyword property KeywordSurrender auto
 Keyword property RapidDigestion auto
 Keyword property Secretion auto
 Keyword property Vampire auto
+Keyword property VoreTalker auto
 Keyword property Vorish auto
 Keyword[] property RaceDigestionKeywords auto
 Message property MessageDisabled auto
@@ -5415,23 +5416,31 @@ EndFunction
 
 
 bool Function IsATalker(Actor target)
-	if !target
+	if !AssertNotNone(PREFIX, "IsATalker", "target", target)
 		return false
+
+	elseif !(target.HasKeyword(ActorTypeNPC) || target.HasKeyword(VoreTalker))
+		if DEBUGGING
+			Log2(PREFIX, "IsATalker", Namer(target), "No relevant keywords.")
+		endIf
+		return false
+
 	elseif Has(playerRef, target)
-		if target.HasKeyword(ActorTypeNPC) || target.HasKeywordString("VoreTalker")
-			int preyData = GetPreyData(target)
-			return IsAlive(preyData) && !IsPrey(playerRef)
-		else
-			return false
+		int preyData = GetPreyData(target)
+		if DEBUGGING
+			LogJ(PREFIX, "IsATalker", preyData)
 		endIf
+		return IsAlive(preyData) && !IsPrey(playerRef)
+
 	elseif Has(target, playerRef)
-		if target.HasKeyword(ActorTypeNPC) || target.HasKeywordString("VoreTalker")
-			int preyData = GetPreyData(playerRef)
-			return target.HasKeyword(ActorTypeNPC) && IsAlive(preyData) && !IsPrey(target)
-		else
-			return false
+		int preyData = GetPreyData(playerRef)
+		if DEBUGGING
+			LogJ(PREFIX, "IsATalker", preyData)
 		endIf
+		return IsAlive(preyData) && !IsPrey(target)
+
 	else
+		AssertFail(PREFIX, "IsATalker", Namer(target) + " is neither pred nor prey of the player. This should NEVER happen.")
 		return false
 	endIf
 EndFunction
