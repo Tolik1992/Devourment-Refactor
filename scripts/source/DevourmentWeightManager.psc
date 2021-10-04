@@ -434,7 +434,7 @@ bool Function isValidConsumer(Actor consumer)
 	elseif LibFire.ActorIsFollower(consumer)
 		if CompanionsEnabled
 			int sex = consumer.GetLeveledActorBase().GetSex()
-			return (MalesEnabled && sex == 0)  || (FemalesEnabled && sex != 0)
+			return (MalesEnabled && sex == 0) || (FemalesEnabled && sex != 0)
 		else
 			return false
 		endIf
@@ -442,7 +442,9 @@ bool Function isValidConsumer(Actor consumer)
 		;Some actors like Town Guards are recycled so we have to ensure NPCs are unique or morphs may carry over.
 		if ActorsEnabled
 			int sex = consumer.GetLeveledActorBase().GetSex()
-			return (MalesEnabled && sex == 0)  || (FemalesEnabled && sex != 0)
+			return (MalesEnabled && sex == 0) || (FemalesEnabled && sex != 0)
+		else 
+			return false
 		endIf
 	Else
 		Return False
