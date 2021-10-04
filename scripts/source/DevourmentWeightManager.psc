@@ -168,7 +168,7 @@ Event DeadDigest(Form f1, Form f2, float remaining)
     ;This will fire every tick of digestion so set it low and gradual.
     ;It would be much less computationally heavy to just wait until Digestion is over
     ;and *then* do this, but people want fidelity, to see the WG in action as they digest things.
-	float currentWeight = ChangeActorWeight(pred, VoreBaseGain / Manager.DigestionTime, source="digesting prey")
+	ChangeActorWeight(pred, VoreBaseGain / Manager.DigestionTime, source="digesting prey")
 EndEvent
 
 
@@ -367,7 +367,7 @@ float Function ChangeActorWeight(Actor target, float afChange, String source = "
 
 		StorageUtil.SetFloatValue(target, "DevourmentActorWeight", fTargetWeight) ; Save our Weight on the actor.
 
-		if Manager.Notifications
+		if target == PlayerRef && Manager.Notifications
 			if source != ""
 				ConsoleUtil.PrintMessage(Namer(target, true) + "'s weight to changed by " + afChange + " to " + fTargetWeight + " because of " + source + ".")
 			else
@@ -382,7 +382,7 @@ float Function ChangeActorWeight(Actor target, float afChange, String source = "
 
 	Utility.Wait(0.001) ; A hacky fix but should prevent us from changing bodies while menus or console is up.
 
-	if SkeletonScaling && skeletonLow != skeletonHigh
+	if SkeletonScaling
 		if fTargetWeight < 0.0
 			NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, 1.0 - fTargetWeight * skeletonLow)
 			NIOverride.UpdateNodeTransform(target, false, isFemale, rootNode)

@@ -1,4 +1,13 @@
-﻿2021-10-01-1
+﻿2021-10-03
+[list]
+[*] Minor lua backend changes.
+[*] Fixed belly scaling not working without LocationalMorphs.
+[*] Fixed some logical errors in weightmanager.
+[*] Removed install commands for deleted ini files.
+[*] Disabled stagger on fail due to staggerlocking.
+[/list]
+
+2021-10-01-1
 [list]
 [*] Fixed scaling not working without EliminationLocus.
 [*] Notifications during patchup.
