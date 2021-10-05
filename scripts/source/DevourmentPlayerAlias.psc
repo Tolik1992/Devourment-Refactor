@@ -490,6 +490,13 @@ This state means that the player is inside a hostile predator.
 	EndFunction
 	
 	
+	bool Function HotkeyVore(int i)
+		if DEBUGGING
+			Log0(PREFIX, "PlayerVore.HotkeyVore")
+		endIf
+	EndFunction
+
+
 	Event OnKeyDown(int keyCode)
 		if DEBUGGING
 			Log1(PREFIX, "PlayerVore.onKeyDown", keyCode)
@@ -594,6 +601,13 @@ This state means that the player is inside a friendly predator.
 		endIf
 	EndFunction
 	
+	
+	bool Function HotkeyVore(int i)
+		if DEBUGGING
+			Log0(PREFIX, "PlayerEndo.HotkeyVore")
+		endIf
+	EndFunction
+
 	
 	Event OnKeyDown(int keyCode)
 		if DEBUGGING
@@ -756,6 +770,20 @@ When the shout key is pressed, it will call Manager.KillPlayer() to finish up.
 	EndEvent
 
 
+	Function HotkeyDialogue()
+		if DEBUGGING
+			Log0(PREFIX, "PlayerIsDead.HotkeyDialogue")
+		endIf
+	endFunction
+
+
+	bool Function HotkeyVore(int i)
+		if DEBUGGING
+			Log0(PREFIX, "PlayerIsDead.HotkeyVore")
+		endIf
+	EndFunction
+
+	
 	Function gotoEliminate()
 		if DEBUGGING
 			Log1(PREFIX, "PlayerIsDead.gotoEliminate", "Cannot enter PlayerEliminate state when the player is dead.")
@@ -800,6 +828,20 @@ State PlayerIsReforming
 	EndEvent
 
 
+	Function HotkeyDialogue()
+		if DEBUGGING
+			Log0(PREFIX, "PlayerIsReforming.HotkeyDialogue")
+		endIf
+	endFunction
+
+
+	bool Function HotkeyVore(int i)
+		if DEBUGGING
+			Log0(PREFIX, "PlayerIsReforming.HotkeyVore")
+		endIf
+	EndFunction
+
+	
 	Event onEndState()
 		if DEBUGGING
 			Log0(PREFIX, "PlayerIsReforming.onEndState")
