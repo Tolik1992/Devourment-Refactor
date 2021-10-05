@@ -1,8 +1,26 @@
-﻿2021-10-04
+﻿2021-10-05
 [list]
 [*] Dragons now receive the VoreTalker keyword so that they can engage in pred/prey dialogue.
 [*] Added some VERY basic dragon dialogue. Add-on makers, please do better. 
 [*] Added "Talker to Pred/Prey" and "Switch to Lethal" to QuickMenu->Actions.
+[*] Default locus in the quickmenu now respects the Dual Breast Mode toggle.
+[*] Defecate All will now actually defecate ALL.
+[*] Elimination menu will now show if stomach contents are digested.
+[*] Separate volume controls for different types of vore noise.
+[*] Blocked hotkeys from working when they shouldn't.
+[*] Increased the default weight of bears to 300; 200 seemed too low, given that skyrim's bears are huge prehistoric megafauna.
+[*] Tweaked the PseudoAI to stop swallowing corpses.
+[*] Implemented a true cooldown system for the PseudoAI, so combat vore should be less insane.
+[*] Separate combat vore cooldown times for creatures, followers, and other NPCs -- controlled in the MCM.
+[*] Performance tweak in the swallow script.
+[*] Fixed the NPC vore bonus being applied to the player.
+[*] You can now ask followers to stop swallowing enemies.
+[*] 
+[*] EXPERIMENTAL
+[*] --- Gave the superpred keyword to all vanilla and skytest predators. Animals tend to be low level, even with mods like skytest or Savage Skyrim. This will help them be more dangerous in combat. Let me know if this is unbalanced!
+[*] --- Removed Line-of-Sight check from the Prefilled NPCs system. This should make prefilled NPCs more common, but may result in them seeming to suddenly inflate.
+[*] --- Increased the weight of bears to 300; 200 seemed too low, given that skyrim's bears are huge prehistoric megafauna.
+[*] --- 
 [/list]
 
 2021-10-03

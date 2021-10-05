@@ -317,7 +317,8 @@ bool Function ViablePredator(Actor pred)
 		Log1(PREFIX, "ViablePredator", Namer(pred))
 	endIf
 
-	return pred && !pred.isDead() && !pred.isDisabled() && !pred.isChild() && !pred.IsInDialogueWithPlayer() && pred.GetCombatState() == 0 && !Manager.IsPrey(pred) && Manager.validPredator(pred) && pred.GetSleepState() < 3
+	return pred && !pred.isDead() && !pred.isDisabled() && !pred.isChild() && !pred.IsInDialogueWithPlayer() \
+	&& pred.GetCombatState() == 0 && !Manager.IsPrey(pred) && Manager.validPredator(pred) && pred.GetSleepState() < 3
 EndFunction
 
 
