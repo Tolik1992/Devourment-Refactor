@@ -4223,7 +4223,7 @@ Function PrefillCheck()
 			chance *= 3.0
 		endIf
 
-		if Utility.RandomFloat() < chance && !PlayerRef.HasLOS(candidate)
+		if Utility.RandomFloat() < chance; && !PlayerRef.HasLOS(candidate)
 			if candidate != PlayerRef && validPredator(candidate) && candidate.Is3DLoaded() && candidate.HasKeyword(ActorTypeNPC)
 				RegisterFakeDigestion(candidate, -1.0)
 				if DEBUGGING
@@ -6549,11 +6549,12 @@ float Function GetVoreWeight(Actor subject)
 	endIf
 
 	; If the weight has already been determined and stored, use that value.
-	if StorageUtil.HasFloatValue(subject, "dvtCachedWeight")
+	float cachedWeight = StorageUtil.GetFloatValue(subject, "dvtCachedWeight", -1.0)
+	if cachedWeight > 0.0
 		if DEBUGGING
-			Log2(PREFIX, "GetVoreWeight", Namer(subject), "Cache hit: " + StorageUtil.GetFloatValue(subject, "dvtCachedWeight"))
+			Log2(PREFIX, "GetVoreWeight", Namer(subject), "Cache hit: " + cachedWeight)
 		endIf
-		return StorageUtil.GetFloatValue(subject, "dvtCachedWeight")
+		return cachedWeight
 	endIf
 	
 	; We go by Race, and PapyrusUtil conveniently makes Race editorIDs available.
