@@ -21,7 +21,7 @@ Actor Pred
 bool DEBUGGING = false
 bool bleedoutVore
 float reach
-
+bool coolingDown = false
 
 Actor currentTarget = none
 bool validTarget
@@ -85,6 +85,7 @@ Event OnCombatStateChanged(Actor newTarget, int aeCombatState)
 
 	currentTarget = newTarget
 	validTarget = CombatCheck(currentTarget, aeCombatState)
+	coolingDown = false
 EndEvent
 
 
@@ -96,12 +97,13 @@ Event OnUpdate()
 		DoANom(currentTarget)
 	endIf
 
+	coolingDown = false
 	registerForSingleUpdate(CombatInterval)
 EndEvent
 
 
 Event OnActorAction(int actionType, Actor akActor, Form source, int slot)
-	if validTarget
+	if validTarget && !coolingDown
 		registerForSingleUpdate(CombatInterval) ; Reset the onUpdate timer.
 
 		if DEBUGGING
@@ -113,7 +115,7 @@ EndEvent
 
 
 Event OnAnimationEvent(ObjectReference akSource, string asEventName)
-	if validTarget
+	if validTarget && !coolingDown
 		registerForSingleUpdate(CombatInterval) ; Reset the onUpdate timer.
 
 		if DEBUGGING
