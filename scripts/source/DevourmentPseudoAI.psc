@@ -7,12 +7,10 @@ DevourmentManager property Manager auto
 Keyword property BeingSwallowed auto
 MagicEffect property DontSwallowMe auto
 Spell property VoreSpell auto
-
 Spell[] property CombatSpells auto
-int combatSpellsCount = 0
-
 float property SwallowRange = 225.0 autoReadOnly
-float property CombatInterval = 10.0 autoReadOnly
+
+int combatSpellsCount = 0
 
 
 String PREFIX = "DevourmentPseudoAI"
@@ -21,6 +19,7 @@ Actor Pred
 bool DEBUGGING = false
 bool bleedoutVore
 float reach
+float cooldownTime = 5.0
 bool coolingDown = false
 
 Actor currentTarget = none
@@ -40,11 +39,19 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	reach = SwallowRange + pred.GetLength()
 	bleedoutVore = !Game.IsPluginInstalled("SexLabDefeat.esp")
 
+	if LibFire.ActorIsFollower(pred)
+		cooldownTime = Manager.Cooldown_Follower
+	elseif pred.HasKeywordString("ActorTypeNPC")
+		cooldownTime = Manager.Cooldown_NPC
+	else
+		cooldownTime = Manager.Cooldown_Creature
+	endIf
+
 	if Manager.validPredator(pred)
 		currentTarget = pred.GetCombatTarget()
 		validTarget = CombatCheck(currentTarget, pred.getCombatState())
 	
-		RegisterForSingleUpdate(CombatInterval)
+		RegisterForSingleUpdate(cooldownTime)
 		RegisterForAnimationEvent(pred, "HitFrame")
 		RegisterForActorAction(0)
 
@@ -98,14 +105,15 @@ Event OnUpdate()
 	endIf
 
 	coolingDown = false
-	registerForSingleUpdate(CombatInterval)
+	registerForSingleUpdate(cooldownTime)
 EndEvent
 
 
 Event OnActorAction(int actionType, Actor akActor, Form source, int slot)
 	if validTarget && !coolingDown
-		registerForSingleUpdate(CombatInterval) ; Reset the onUpdate timer.
-
+		coolingDown = true
+		registerForSingleUpdate(cooldownTime) ; Reset the onUpdate timer.
+		
 		if DEBUGGING
 			Log1(PREFIX, "OnActorAction", predName)
 		endIf
@@ -116,7 +124,8 @@ EndEvent
 
 Event OnAnimationEvent(ObjectReference akSource, string asEventName)
 	if validTarget && !coolingDown
-		registerForSingleUpdate(CombatInterval) ; Reset the onUpdate timer.
+		coolingDown = true
+		registerForSingleUpdate(cooldownTime) ; Reset the onUpdate timer.
 
 		if DEBUGGING
 			Log1(PREFIX, "OnAnimationEvent", predName)

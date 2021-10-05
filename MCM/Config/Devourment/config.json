@@ -635,6 +635,57 @@
 					}
 				},
 				{
+					"text": "$DVT_CooldownFollower",
+					"help": "$DVT_Help_CooldownFollower",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "Cooldown_Follower",
+					  	"min": 2.0,
+					  	"max": 60.0,
+					  	"step": 0.5,
+						"defaultValue": 10.0,
+					  	"formatString": "{1}"
+					}
+				},
+				{
+					"text": "$DVT_CooldownNPC",
+					"help": "$DVT_Help_CooldownNPC",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "Cooldown_NPC",
+					  	"min": 2.0,
+					  	"max": 60.0,
+					  	"step": 0.5,
+						"defaultValue": 6.0,
+					  	"formatString": "{1}"
+					}
+				},
+				{
+					"text": "$DVT_CooldownCreature",
+					"help": "$DVT_Help_CooldownCreature",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "Cooldown_Creature",
+					  	"min": 2.0,
+					  	"max": 60.0,
+					  	"step": 0.5,
+						"defaultValue": 4.0,
+					  	"formatString": "{1}"
+					}
+				},
+				{
+					"type": "empty"
+				},
+				{
 					"text": "$DVT_Header_CreaturesExtended",
 					"type": "header",
 					"groupCondition": 1,
