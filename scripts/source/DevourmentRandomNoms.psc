@@ -33,7 +33,7 @@ EndEvent
 Event OnUpdate()
 	;Log0(PREFIX, "OnUpdate")
 
-	if !PlayerRef.IsInCombat() && Utility.RandomFloat() < NomsChance
+	if NomsChance > 0.0 && !PlayerRef.IsInCombat() && Utility.RandomFloat() < NomsChance
 		if AutoNoms == 0
 			SearchForNoms0()
 		elseif AutoNoms == 1
