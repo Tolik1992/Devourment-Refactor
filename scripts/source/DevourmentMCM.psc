@@ -2156,10 +2156,18 @@ Function DisplayQuickSettings()
 	int ENTRY_ACTIONS = menu.AddEntryItem("Actions", entryHasChildren = true)
 	int ENTRY_FORTIS = -100
 	int ENTRY_SLEEP = -100
-
+	int ENTRY_DIALOGUE = -100
+	
 	int ENTRY_VOMIT = menu.AddEntryItem("Regurgitate", ENTRY_ACTIONS)
 	int ENTRY_POOP = menu.AddEntryItem("Defecate", ENTRY_ACTIONS)
 	int ENTRY_INVENTORY_EAT = menu.AddEntryItem("Inventory Vore", ENTRY_ACTIONS)
+	int ENTRY_TURNLETHAL = menu.AddEntryItem("Endo->Vore", ENTRY_ACTIONS)
+	
+	if Manager.IsPrey(PlayerRef)
+		menu.AddEntryItem("Talk to Pred", ENTRY_ACTIONS)
+	elseif Manager.HasLivePrey(playerRef)
+		menu.AddEntryItem("Talk to Prey", ENTRY_ACTIONS)
+	endIf
 
 	if subject.HasPerk(DigestItems_arr[2])
 		ENTRY_FORTIS = menu.AddEntryItem("Digest Items", ENTRY_ACTIONS)
@@ -2262,10 +2270,8 @@ Function DisplayQuickSettings()
 			exit = true
 
 		elseif result == ENTRY_VOMIT
-			if LibFire.ActorIsFollower(subject)
+			if subject == PlayerRef || LibFire.ActorIsFollower(subject)
 				Power_Regurgitate.cast(subject, subject)
-			else
-				Power_Regurgitate.cast(PlayerRef, PlayerRef)
 			endIf
 			exit = true
 
@@ -2278,10 +2284,8 @@ Function DisplayQuickSettings()
 			exit = true
 
 		elseif result == ENTRY_POOP
-			if LibFire.ActorIsFollower(subject)
+			if subject == PlayerRef || LibFire.ActorIsFollower(subject)
 				Power_Defecate.cast(subject, subject)
-			else
-				Power_Defecate.cast(PlayerRef, PlayerRef)
 			endIf
 			exit = true
 
@@ -2295,6 +2299,15 @@ Function DisplayQuickSettings()
 		elseif result == ENTRY_SLEEP
 			PlayerAlias.VoreSleep()
 			exit = true
+
+		elseif result == ENTRY_TURNLETHAL
+			if subject == PlayerRef || LibFire.ActorIsFollower(subject)
+				Manager.SwitchLethalAll(subject, true)
+			endIf
+			exit = true
+
+		elseif result == ENTRY_DIALOGUE
+			PlayerAlias.HotkeyDialogue()
 
 		elseif result == ENTRY_NAMETEST
 			String name1 = subject.GetLeveledActorBase().GetName()
