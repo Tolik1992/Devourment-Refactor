@@ -410,13 +410,17 @@ Function SwallowNotification(float d100Roll, float swallowDifficulty, bool succe
 
 	if Manager.Notifications
 		if counter
-			ConsoleUtil.PrintMessage("COUNTERVORE")
-		endIf
-
-		if success
-			ConsoleUtil.PrintMessage("Vore attack succeeded: " + (d100Roll * 100.0) + " > " + (swallowDifficulty * 100.0) + "%")
+			if success
+				ConsoleUtil.PrintMessage("Countervore attack by " + Namer(pred, true) + " succeeded against " + Namer(prey, true) + ": " + (d100Roll * 100.0) + " > " + (swallowDifficulty * 100.0) + "%")
+			else
+				ConsoleUtil.PrintMessage("Countervore attack by " + Namer(pred, true) + " failed against " + Namer(prey, true) + ": " + (d100Roll * 100.0) + " > " + (swallowDifficulty * 100.0) + "%")
+			endIf
 		else
-			ConsoleUtil.PrintMessage("Vore attack failed: " + (d100Roll * 100.0) + " < " + (swallowDifficulty * 100.0) + "%")
+			if success
+				ConsoleUtil.PrintMessage("Vore attack by " + Namer(pred, true) + " succeeded against " + Namer(prey, true) + ": " + (d100Roll * 100.0) + " > " + (swallowDifficulty * 100.0) + "%")
+			else
+				ConsoleUtil.PrintMessage("Vore attack by " + Namer(pred, true) + " failed against " + Namer(prey, true) + ": " + (d100Roll * 100.0) + " > " + (swallowDifficulty * 100.0) + "%")
+			endIf
 		endIf
 	endIf
 EndFunction
