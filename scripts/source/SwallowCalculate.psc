@@ -140,37 +140,31 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 
 		float d100Roll = Utility.randomFloat()
 		if d100Roll >= swallowDifficulty
-			SwallowNotification(d100Roll, swallowDifficulty, true)
 			DoSwallow()
 			DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
+			SwallowNotification(d100Roll, swallowDifficulty, success=true)
 
 		else
-			SwallowNotification(d100Roll, swallowDifficulty, false)
 			DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, false, locus)
+			SwallowNotification(d100Roll, swallowDifficulty, success=false)
 
 			if Manager.Menu.CounterVoreEnabled && prey.HasPerk(Manager.Menu.CounterVore)
 				swallowDifficulty = 1.0 - Manager.getVoreSwallowChance(prey, pred, false)
 				d100Roll = Utility.randomFloat()
 
 				if d100Roll >= swallowDifficulty
-					SwallowNotification(d100Roll, swallowDifficulty, true, counter=true)
 					reversed = true
 					pred = akTarget
 					prey = akCaster
 					DoSwallow()
+					SwallowNotification(d100Roll, swallowDifficulty, success=true, counter=true)
 					DevourmentManager.SendSwallowAttemptEvent(pred, prey, endo, stealth, true, locus)
 				else
-					SwallowNotification(d100Roll, swallowDifficulty, false, counter=true)
-					;if pred.hasKeywordString("ActorTypeNPC")
-					;	Debug.SendAnimationEvent(pred, "StaggerStart")
-					;endIf
+					SwallowNotification(d100Roll, swallowDifficulty, success=false, counter=true)
 					dispel()
 				endIf
 			else
-				;if pred.hasKeywordString("ActorTypeNPC")
-				;	Debug.SendAnimationEvent(pred, "StaggerStart")
-				;endIf
-			dispel()
+				dispel()
 			endIf
 		endif
 	endif
