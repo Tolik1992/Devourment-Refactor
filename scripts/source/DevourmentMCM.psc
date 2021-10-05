@@ -196,10 +196,18 @@ String Function GetLocusName(int locus)
 		return "Anal"
 	elseif locus == 2
 		return "Unbirth"
-	elseif locus == 3
-		return "Breast (left)"
+	elseif locus == 3 
+		if Morphs.UseDualBreastMode
+			return "Breast (left)"
+		else
+			return "Breasts"
+		endIf
 	elseif locus == 4
-		return "Breast (right)"
+		if Morphs.UseDualBreastMode
+			return "Breast (right)"
+		else
+			return "Breasts"
+		endIf
 	elseif locus == 5
 		return "Cock"
 	elseif locus < 0
@@ -2113,7 +2121,10 @@ Function DisplayQuickSettings()
 	int[] ENTRY_LOCI = Utility.CreateIntArray(6)
 	int locusIndex = 0
 	while locusIndex < ENTRY_LOCI.length
-		ENTRY_LOCI[locusIndex] = menu.AddEntryItem(GetLocusName(locusIndex), ENTRY_LOCUS)
+		; All this work just to skip the right breast...
+		if locusIndex != 4 || Morphs.UseDualBreastMode
+			ENTRY_LOCI[locusIndex] = menu.AddEntryItem(GetLocusName(locusIndex), ENTRY_LOCUS)
+		endIf
 		locusIndex += 1
 	endWhile
 
