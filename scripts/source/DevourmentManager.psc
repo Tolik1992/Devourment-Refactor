@@ -3194,7 +3194,7 @@ Event poop(Form f)
 		return
 	endIf
 
-	DefecateAny(f as Actor)
+	DefecateAny(f as Actor, all=true)
 EndEvent
 
 
