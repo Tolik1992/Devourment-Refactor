@@ -14,7 +14,7 @@
 [*] Separate combat vore cooldown times for creatures, followers, and other NPCs -- controlled in the MCM.
 [*] Performance tweak in the swallow script.
 [*] Fixed the NPC vore bonus being applied to the player.
-[*] You can now ask followers to stop swallowing enemies.
+[*] You can now ask followers to stop swallowing enemies (or to start again).
 [*] 
 [*] EXPERIMENTAL
 [*] --- Gave the superpred keyword to all vanilla and skytest predators. Animals tend to be low level, even with mods like skytest or Savage Skyrim. This will help them be more dangerous in combat. Let me know if this is unbalanced!
