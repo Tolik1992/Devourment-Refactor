@@ -12,7 +12,7 @@ Spell[] property CombatSpells auto
 int combatSpellsCount = 0
 
 float property SwallowRange = 225.0 autoReadOnly
-float property CombatInterval = 5.0 autoReadOnly
+float property CombatInterval = 10.0 autoReadOnly
 
 
 String PREFIX = "DevourmentPseudoAI"
@@ -171,6 +171,11 @@ Function DoANom(Actor prey)
 	elseif Manager.GetFullnessWith(pred, prey) > 1.5
 		if DEBUGGING
 			Log1(PREFIX, "DoANom_Combat", "Too full")
+		endIf
+
+	elseif prey.IsDead()
+		if DEBUGGING
+			Log1(PREFIX, "DoANom_Combat", "Already dead")
 		endIf
 
 	else
