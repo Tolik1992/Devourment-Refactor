@@ -97,15 +97,22 @@ EndEvent
 
 
 Event OnUpdate()
-	if validTarget
+	if coolingDown
+		coolingDown = false
+		RegisterForSingleUpdate(Utility.RandomFloat(0.0, cooldownTime))
+
+	elseif validTarget
+		coolingDown = true
+		registerForSingleUpdate(cooldownTime)
+
 		if DEBUGGING
 			Log1(PREFIX, "OnUpdate", predName)
 		endIf
 		DoANom(currentTarget)
-	endIf
 
-	coolingDown = false
-	registerForSingleUpdate(cooldownTime)
+	else
+		registerForSingleUpdate(cooldownTime)
+	endIf
 EndEvent
 
 
