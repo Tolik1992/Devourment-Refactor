@@ -3398,8 +3398,13 @@ float function getAcidResistance(Actor prey)
 	+ Resilience perks }
 
 	float X = GetPreySkill(prey)
-	float acidResistance = 0.0025 * X * NPCBonus
+	float acidResistance = 0.0025 * X
+	if prey != playerRef
+		acidResistance *= NPCBonus
+	endIf
+	
 	acidResistance += GetPerkMultiplier(prey, Menu.Resilience_arr, 0.0, 0.1)
+
 
 	if DEBUGGING
 		Log2(PREFIX, "getAcidResistance", Namer(prey), acidResistance)
@@ -3427,13 +3432,13 @@ need to be applied in real-time.
 	float X = GetPredSkill(pred)
 	float damage = 2.0 + 0.18 * X
 
-	damage *= AcidDamageModifier * NPCBonus
+	damage *= AcidDamageModifier
 	damage *= GetPerkMultiplier(pred, Menu.StrongAcid_arr, 1.0, 0.5)
 	damage *= (1.0 - getAcidResistance(prey))
 	damage /= liveMultiplier
 
 	if pred != playerRef
-		damage *= 1.50000
+		damage *= NPCBonus
 	endIf
 
 	if DEBUGGING
