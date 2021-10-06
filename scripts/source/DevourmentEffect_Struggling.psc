@@ -92,10 +92,14 @@ Event OnKeyUp(int keyCode, float holdTime)
 		if Game.GetCameraState() == 0
 			Debug.SendAnimationEvent(PlayerRef, "AttackStartH2HLeft")
 		endIf
-	elseif StruggleLatch && (keyCode == STRUGGLE_KEY1 || keyCode == STRUGGLE_KEY2)
+	endIf
+	
+	if StruggleLatch && (keyCode == STRUGGLE_KEY1 || keyCode == STRUGGLE_KEY2)
 		StruggleLatch = false
 		if !DialogQuest.Activated && DevourmentUtil.SafeProcess() && Manager.canStruggle(playerRef, preyData)
 			ResolvePlayerStruggle(keyCode)
+		else
+			StruggleLatch = true
 		endIf
 	endIf
 EndEvent
