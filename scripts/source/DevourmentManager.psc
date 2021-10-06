@@ -6529,8 +6529,10 @@ float Function GetCumulativeSize(Actor subject)
 	endIf
 
 	float x = macromancy * scale
-	float r = WeightManager.GetCurrentActorWeightPercent(subject)
-	float cumulative = r * x * x
+	float cumulative = x * x
+
+	;float r = WeightManager.GetCurrentActorWeightPercent(subject)
+	;float cumulative = r * x * x
 
 	if DEBUGGING
 		Log4(PREFIX, "GetCumulativeSize", Namer(subject), macromancy, scale, cumulative)

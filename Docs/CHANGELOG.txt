@@ -1,4 +1,11 @@
-﻿2021-10-05
+﻿2021-10-06
+[list]
+[*] Controller users should be able to struggle now, thanks to darkyf57.
+[*] Fixed a bug that could make struggling not work at all, also thanks to darkyf57.
+[*] WeightManager no longer contributes to relative size during vore. People were getting too confused by it.
+[/list]
+
+2021-10-05
 [list]
 [*] Dragons now receive the VoreTalker keyword so that they can engage in pred/prey dialogue.
 [*] Added some VERY basic dragon dialogue. Add-on makers, please do better. 
