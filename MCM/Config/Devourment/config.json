@@ -1635,7 +1635,35 @@
 						"defaultValue": 4.0,
 					  	"formatString": "{1}"
 					}
-				}
+				},
+				{
+					"text": "$DVT_MacroMode",
+					"help": "$DVT_Help_MacroMode",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "MacroMode",
+						"defaultValue": false
+					}
+				},
+				{
+					"text": "$DVT_MacroScaling",
+					"help": "$DVT_Help_MacroScaling",
+					"type": "slider",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueFloat",
+						"scriptName": "DevourmentManager",
+						"propertyName": "MacromancyScaling",
+					  	"min": 1.0,
+					  	"max": 10.0,
+					  	"step": 0.1,
+						"defaultValue": 1.2,
+					  	"formatString": "{1}"
+					}
+				}								
 			]
 		},
 		{

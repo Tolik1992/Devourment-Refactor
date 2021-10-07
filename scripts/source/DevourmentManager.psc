@@ -173,6 +173,7 @@ bool property femalePreds = true auto
 bool property killEssential = false auto
 bool property killNPCs = true auto
 bool property killPlayer = true auto
+bool property MacroMode = false auto
 bool property MicroMode = false auto
 bool property malePreds = true auto
 bool property notifications = true auto
