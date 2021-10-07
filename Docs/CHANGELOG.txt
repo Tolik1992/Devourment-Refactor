@@ -1,4 +1,12 @@
-﻿2021-10-06
+﻿2021-10-07
+[list]
+[*] Camera control MCM setting
+[*] AI Cooldown wasn't being stored by savesettings.
+[*] Fixed QuickMenu 'Talk To'.
+[*] NPCs should no longer vore undetected prey.
+[/list]
+
+2021-10-06
 [list]
 [*] Controller users should be able to struggle now, thanks to darkyf57.
 [*] Fixed a bug that could make struggling not work at all, also thanks to darkyf57.

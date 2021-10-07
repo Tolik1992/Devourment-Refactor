@@ -1639,14 +1639,21 @@
 				{
 					"text": "$DVT_MacroMode",
 					"help": "$DVT_Help_MacroMode",
-					"type": "toggle",
+					"type": "enum",
 					"valueOptions": {
+						"options": [
+							"$DVT_Macro_Off",
+							"$DVT_Macro_SetIniFloat",
+							"$DVT_Macro_SetScale",
+							"$DVT_Macro_Hybrid"
+						],
+						"shortNames": ["Off", "SetIniFloat", "SetScale", "Hybrid"],
 						"sourceForm": "Devourment.esp|96A", 
-						"sourceType": "PropertyValueBool",
+						"sourceType": "PropertyValueInt",
 						"scriptName": "DevourmentManager",
-						"propertyName": "MacroMode",
-						"defaultValue": false
-					}
+						"propertyName": "MacromancyMode",
+						"defaultValue": 0
+					}	
 				},
 				{
 					"text": "$DVT_MacroScaling",

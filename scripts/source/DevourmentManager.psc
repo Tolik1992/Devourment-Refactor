@@ -173,7 +173,6 @@ bool property femalePreds = true auto
 bool property killEssential = false auto
 bool property killNPCs = true auto
 bool property killPlayer = true auto
-bool property MacroMode = false auto
 bool property MicroMode = false auto
 bool property malePreds = true auto
 bool property notifications = true auto
@@ -244,6 +243,7 @@ float property Cooldown_Follower = 10.0 auto
 float property Cooldown_Creature = 4.0 auto
 float property Cooldown_NPC = 6.0 auto
 int property AutoNoms = 0 auto
+int property MacromancyMode = 0 auto
 int property multiPrey = 2 Auto
 int property scatTypeBolus = 1 auto
 int property scatTypeCreature = 1 auto
@@ -6745,6 +6745,7 @@ bool Function saveSettings(String settingsFileName)
 	JMap.setInt(data, "BYK", 				BYK)
 	JMap.setInt(data, "EndoStruggling", 	EndoStruggling as int)
 	JMap.setInt(data, "VisualStruggles", 	VisualStruggles as int)
+	JMap.setInt(data, "MacromancyMode", 	MacromancyMode)
 	
 	JMap.setFlt(data, "StruggleDifficulty", 	StruggleDifficulty)
 	JMap.setFlt(data, "StruggleDamage", 		StruggleDamage)
@@ -6758,6 +6759,10 @@ bool Function saveSettings(String settingsFileName)
 	JMap.setFlt(data, "BurpsRate", 				BurpsRate)
 	JMap.setFlt(data, "GurglesRate", 			GurglesRate)
 	JMap.setFlt(data, "CameraShake", 			CameraShake)
+	JMap.setFlt(data, "Cooldown_Follower", 		Cooldown_Follower)
+	JMap.setFlt(data, "Cooldown_Creature", 		Cooldown_Creature)
+	JMap.setFlt(data, "Cooldown_NPC", 			Cooldown_NPC)
+
 	JMap.setInt(data, "AutoNoms", 				AutoNoms)
 	JMap.setInt(data, "ShitItems", 				ShitItems as int)
 	JMap.setInt(data, "VoreTimeout", 			VoreTimeout as int)
@@ -6814,6 +6819,7 @@ bool Function loadSettings(String settingsFileName)
 	BYK = 					JMap.getInt(data, "BYK", 					BYK)
 	EndoStruggling = 		JMap.getInt(data, "EndoStruggling", 		EndoStruggling as int) as bool
 	VisualStruggles = 		JMap.getInt(data, "VisualStruggles", 		VisualStruggles as int) as bool
+	MacromancyMode = 		JMap.getInt(data, "MacromancyMode", 		MacromancyMode)
 	
 	PredExperienceRate = 	JMap.getFlt(data, "PredExperienceRate", 	PredExperienceRate)
 	PreyExperienceRate = 	JMap.getFlt(data, "PreyExperienceRate", 	PreyExperienceRate)
@@ -6829,6 +6835,10 @@ bool Function loadSettings(String settingsFileName)
 	BurpsRate = 			JMap.getFlt(data, "BurpsRate", 				BurpsRate)
 	GurglesRate = 			JMap.getFlt(data, "GurglesRate", 			GurglesRate)
 	cameraShake = 			JMap.getFlt(data, "cameraShake", 			cameraShake)
+	Cooldown_Follower = 	JMap.getFlt(data, "Cooldown_Follower", 		Cooldown_Follower)
+	Cooldown_Creature = 	JMap.getFlt(data, "Cooldown_Creature", 		Cooldown_Creature)
+	Cooldown_NPC = 			JMap.getFlt(data, "Cooldown_NPC", 			Cooldown_NPC)
+
 	AutoNoms = 				JMap.getInt(data, "AutoNoms", 				AutoNoms)
 	ShitItems = 			JMap.getInt(data, "ShitItems", 				ShitItems as int) as bool
 	VoreTimeout = 			JMap.getInt(data, "VoreTimeout", 			VoreTimeout as int) as bool

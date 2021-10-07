@@ -25,12 +25,11 @@ bool isFemale
 Actor target
 
 
-bool MacroMode = true
-;string[] iniSettings
+bool SetScaleMode = false
+bool SetIniFloatMode = false
 float cameraPos0
 float cameraPos1
 float cameraPos2
-;float[] iniSettings_originalValues
 
 
 event OnEffectStart(Actor akTarget, Actor akCaster)
@@ -55,8 +54,10 @@ Event received when this effect is first started (OnInit may not have been run y
 		currentScale = 1.0
 	endIf
 
-	MacroMode = Manager.MacroMode && target == PlayerRef
-	if target == PlayerRef
+	SetIniFloatMode = target == PlayerRef && (Manager.MacromancyMode == 1 || Manager.MacromancyMode == 3)
+	SetScaleMode = target == PlayerRef && (Manager.MacromancyMode == 2 || Manager.MacromancyMode == 3)
+
+	if setIniFloatMode
 		cameraPos0 = Utility.GetINIFloat("fOverShoulderPosZ:Camera")
 		cameraPos1 = Utility.GetINIFloat("fOverShoulderCombatPosZ:Camera")
 		cameraPos2 = Utility.GetINIFloat("fVanityModeMinDist:Camera")
@@ -86,21 +87,17 @@ Event OnUpdate()
 			currentScale = Smoothness * currentScale + Unsmoothness * targetScale
 		endIf
 
-		if MacroMode
+		if SetScaleMode
 			target.SetScale(currentScale)
 		else
 			NIOverride.AddNodeTransformScale(target, false, isFemale, rootNode, PREFIX, currentScale)
 			NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 		endIf
 
-		if target == PlayerRef
-			float d = 121.0*currentScale - 121.0
+		if SetIniFloatMode
 			Utility.SetINIFloat("fOverShoulderPosZ:Camera", ((cameraPos0 + 121.0) * currentScale) - 121.0)
 			Utility.SetINIFloat("fOverShoulderCombatPosZ:Camera", ((cameraPos1 + 121.0) * currentScale) - 121.0)
 			Utility.SetINIFloat("fVanityModeMinDist:Camera", ((cameraPos2 + 121.0) * currentScale) - 121.0)
-			;Utility.SetINIFloat("fOverShoulderPosZ:Camera", cameraPos0 * currentScale + d)
-			;Utility.SetINIFloat("fOverShoulderCombatPosZ:Camera", cameraPos1 * currentScale + d)
-			;Utility.SetINIFloat("fVanityModeMinDist:Camera", cameraPos2 * currentScale + d)
 			Game.UpdateThirdPerson()
 		endIf
 
@@ -119,14 +116,14 @@ Event OnEffectFinish(Actor akTarget, Actor akCaster)
 Event received when this effect is finished (effect may already be deleted, calling
 functions on this effect will fail)
 }
-	if MacroMode
+	if SetScaleMode
 		target.SetScale(1.0)
 	else
 		NIOverride.RemoveNodeTransformScale(target, false, isFemale, rootNode, PREFIX)
 		NiOverride.UpdateNodeTransform(target, false, isFemale, rootNode)
 	endIf
 
-	if target == PlayerRef
+	if SetIniFloatMode
 		Utility.SetINIFloat("fOverShoulderPosZ:Camera", cameraPos0)
 		Utility.SetINIFloat("fOverShoulderCombatPosZ:Camera", cameraPos1)
 		Utility.SetINIFloat("fVanityModeMinDist:Camera", cameraPos2)
