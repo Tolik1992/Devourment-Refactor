@@ -2168,16 +2168,17 @@ Function DisplayQuickSettings()
 	int ENTRY_FORTIS = -100
 	int ENTRY_SLEEP = -100
 	int ENTRY_DIALOGUE = -100
-	
+	int ENTRY_TALK = -100
+
 	int ENTRY_VOMIT = menu.AddEntryItem("Regurgitate", ENTRY_ACTIONS)
 	int ENTRY_POOP = menu.AddEntryItem("Defecate", ENTRY_ACTIONS)
 	int ENTRY_INVENTORY_EAT = menu.AddEntryItem("Inventory Vore", ENTRY_ACTIONS)
 	int ENTRY_TURNLETHAL = menu.AddEntryItem("Endo->Vore", ENTRY_ACTIONS)
 	
 	if Manager.IsPrey(PlayerRef)
-		menu.AddEntryItem("Talk to Pred", ENTRY_ACTIONS)
+		ENTRY_DIALOGUE = menu.AddEntryItem("Talk to Pred", ENTRY_ACTIONS)
 	elseif Manager.HasLivePrey(playerRef)
-		menu.AddEntryItem("Talk to Prey", ENTRY_ACTIONS)
+		ENTRY_DIALOGUE = menu.AddEntryItem("Talk to Prey", ENTRY_ACTIONS)
 	endIf
 
 	if subject.HasPerk(DigestItems_arr[2])
@@ -2319,6 +2320,7 @@ Function DisplayQuickSettings()
 
 		elseif result == ENTRY_DIALOGUE
 			PlayerAlias.HotkeyDialogue()
+			exit = true
 
 		elseif result == ENTRY_NAMETEST
 			String name1 = subject.GetLeveledActorBase().GetName()
