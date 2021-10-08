@@ -776,7 +776,6 @@ function dvt.TransferStomach(oldPred, newPred)
 	for prey,preyData in pairs(oldStomach) do
 		assert(preyData.pred == oldPred)
 		newStomach[prey] = preyData
-		oldStomach[prey] = nil
 		preyData.pred = newPred
 		
 		if preyData.isfollower and newPred == player then
@@ -784,6 +783,10 @@ function dvt.TransferStomach(oldPred, newPred)
 		elseif prey == player then
 			playerTransferred = true
 		end
+	end
+
+	for prey,_ in pairs(newStomach) do
+		oldStomach[prey] = nil
 	end
 
 	return playerTransferred
