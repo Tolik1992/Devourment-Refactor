@@ -205,7 +205,7 @@ Event ItemConsume(Form consumer, Form itemBase, int count)
     endIf
 
 	float baseWeight = itemBase.GetWeight() * count
-
+	
     If FoodBaseGain > 0.0 && itemBase.HasKeywordString("VendorItemFood")
         If HighValueFood.Find(itemBase) >= 0
             ChangeActorWeight(pred, FoodBaseGain * baseWeight * HighValueMultiplier, source="rich food: " + Namer(itemBase, true))
@@ -736,6 +736,13 @@ Function RunPatchups()
 		addHighValueFood(Game.GetFormFromFile(0x9E056A, "Complete Alchemy & Cooking Overhaul.esp"))
 		addHighValueFood(Game.GetFormFromFile(0x9E056C, "Complete Alchemy & Cooking Overhaul.esp"))
 		addHighValueFood(Game.GetFormFromFile(0x9E056E, "Complete Alchemy & Cooking Overhaul.esp"))
+	endIf
+
+	if Game.IsPluginInstalled("MilkModNEW.esp")
+		Debug.Notification("Scanning 'MilkModNEW.esp'")
+		addNoValueFood(Game.GetFormFromFile(0x076D1D, "MilkModNEW.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x05311B, "MilkModNEW.esp"))
+		addNoValueFood(Game.GetFormFromFile(0x05820F, "MilkModNEW.esp"))
 	endIf
 
 	Debug.MessageBox("Patchup Complete")
