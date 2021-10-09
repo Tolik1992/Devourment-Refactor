@@ -98,19 +98,25 @@ EndEvent
 
 Event OnUpdate()
 	if coolingDown
+		if DEBUGGING
+			Log2(PREFIX, "OnUpdate", predName, "WAIT A BIT")
+		endIf
 		coolingDown = false
 		RegisterForSingleUpdate(Utility.RandomFloat(0.0, cooldownTime))
 
 	elseif validTarget
-		coolingDown = true
-		registerForSingleUpdate(cooldownTime)
-
 		if DEBUGGING
 			Log1(PREFIX, "OnUpdate", predName)
 		endIf
+		coolingDown = true
+		registerForSingleUpdate(cooldownTime)
 		DoANom(currentTarget)
 
 	else
+		if DEBUGGING
+			Log2(PREFIX, "OnUpdate", predName, "COOLDOWN")
+		endIf
+		coolingDown = false
 		registerForSingleUpdate(cooldownTime)
 	endIf
 EndEvent
@@ -125,6 +131,10 @@ Event OnActorAction(int actionType, Actor akActor, Form source, int slot)
 			Log1(PREFIX, "OnActorAction", predName)
 		endIf
 		DoANom(currentTarget)
+	else
+		if DEBUGGING
+			Log6(PREFIX, "OnActorAction", predName, "COOLDOWN", actionType, Namer(akActor), Namer(source), slot)
+		endIf
 	endIf
 EndEvent
 
@@ -138,6 +148,10 @@ Event OnAnimationEvent(ObjectReference akSource, string asEventName)
 			Log1(PREFIX, "OnAnimationEvent", predName)
 		endIf
 		DoANom(currentTarget)
+	else
+		if DEBUGGING
+			Log2(PREFIX, "OnAnimationEvent", predName, "COOLDOWN")
+		endIf
 	endIf
 EndEvent
 
@@ -148,26 +162,25 @@ bool Function combatCheck(Actor newTarget, int combatState)
 endFunction	
 
 
-Function DoANom(Actor prey)
+bool Function DoANom(Actor prey)
 { 
 	Don't swallow anyone who is already being swallowed or too far away. If the prey is uninjured and higher level, don't swallow. 
 	Print out appropriate debugging messages.
 }
+	if AssertNotNone(PREFIX, "DoANom", "prey", prey)
+		return false
 
-	if !prey 
+	elseif !isWeakened(prey)
 		if DEBUGGING
-			Log1(PREFIX, "DoANom_Combat", "No prey")
+			Log2(PREFIX, "DoANom_Combat", "Prey not weakened.", Namer(prey))
 		endIf
-
-	elseif prey.getLevel() > pred.getLevel() && prey.getAVPercentage("Health") > 0.50
-		if DEBUGGING
-			Log2(PREFIX, "DoANom_Combat", "Too high level and not damaged enough", Namer(prey))
-		endIf
+		return false
 
 	elseif !bleedoutVore && prey.IsBleedingOut()
 		if DEBUGGING
 			Log1(PREFIX, "DoANom_Combat", "Bleeding out and BleedoutVore is disabled.")
 		endIf
+		return false
 
 	elseif prey.hasMagicEffectWithKeyword(BeingSwallowed)
 		if DEBUGGING
@@ -183,23 +196,48 @@ Function DoANom(Actor prey)
 			int selection = Utility.RandomInt(0, combatSpellsCount - 1)
 			CombatSpells[selection].Cast(pred, prey)
 		endIf
+		return false
 
 	elseif Manager.GetFullnessWith(pred, prey) > 1.5
 		if DEBUGGING
 			Log1(PREFIX, "DoANom_Combat", "Too full")
 		endIf
+		return false
 
 	elseif prey.IsDead()
 		if DEBUGGING
 			Log1(PREFIX, "DoANom_Combat", "Already dead")
 		endIf
+		return false
 
 	else
 		VoreSpell.cast(pred, prey)
-		;ConsoleUtil.PrintMessage(predName + " is trying to nom " + Namer(prey, true) + "!")
 		if DEBUGGING
 			Log3(PREFIX, "DoANom_Combat", predName, Namer(prey, true), "Nomming")
 		endIf
+		return true
+	endIf
+EndFunction
+
+
+bool Function isWeakened(Actor prey)
+	if prey.getAVPercentage("Health") <= 0.50 
+		if DEBUGGING
+			Log2(PREFIX, "isWeakened", Namer(prey), "Health is below 50%")
+		endIf
+		return true
+	elseif prey.GetAnimationVariableBool("IsStaggering")
+		if DEBUGGING
+			Log2(PREFIX, "isWeakened", Namer(prey), "Staggered")
+		endIf
+		return true
+	elseif prey.getLevel() < pred.getLevel()
+		if DEBUGGING
+			Log2(PREFIX, "isWeakened", Namer(prey), "Lower level than predator")
+		endIf
+		return true
+	else
+		return false
 	endIf
 EndFunction
 
