@@ -134,9 +134,5 @@ endEvent
 
 float Function getTargetScale()
 	float av = AVProxy_Size.GetCurrentValue(target) / 100.0
-	if av < 1.0
-		return av / MacromancyScaling
-	else
-		return av * MacromancyScaling
-	endIf
+	return MacromancyScaling * (av - 1.0) + 1.0
 endFunction
