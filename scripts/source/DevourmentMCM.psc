@@ -165,30 +165,6 @@ Function RecalculateLocusCumulative()
 EndFunction
 
 
-Function AddPredContents(UIListMenu menu, int parentEntry, Actor pred)
-	Form[] stomach = Manager.getStomachArray(pred) as Form[]
-
-	if Manager.EmptyStomach(stomach)
-		Log1(PREFIX, "AddPredContents", "EMPTY STOMACH")
-		menu.AddEntryItem("(Nothing)", parentEntry)
-	else
-		int stomachIndex = 0
-		while stomachIndex < stomach.length
-			ObjectReference stomachItem = stomach[stomachIndex] as ObjectReference
-			stomachIndex += 1
-
-			int ENTRY_CONTENTS = menu.AddEntryItem(Namer(stomachItem, true), parentEntry, entryHasChildren = true)
-
-			if stomachItem as Actor
-				AddPreyDetails(menu, ENTRY_CONTENTS, stomachItem as Actor)
-			else
-				AddBolusContents(menu, ENTRY_CONTENTS, stomachItem)
-			endIf
-		endWhile
-	endIf
-EndFunction
-
-
 String Function GetLocusName(int locus)
 	if locus == 0
 		return "Swallow"
@@ -214,49 +190,6 @@ String Function GetLocusName(int locus)
 		return "Random"
 	else
 		return "Unknown " + locus
-	endIf
-EndFunction
-
-
-Function AddBolusContents(UIListMenu menu, int parentEntry, ObjectReference bolus)
-	Form[] bolusContents = bolus.GetContainerForms()
-	if bolusContents.length > 0
-		String description = Namer(bolusContents[0], true)
-	
-		int bolusIndex = 0
-		while bolusIndex < bolusContents.length
-			Form item = bolusContents[bolusIndex]
-			int count = bolus.GetItemCount(item)
-			menu.AddEntryItem(NameWithCount(bolusContents[bolusIndex], count), parentEntry)
-			bolusIndex += 1
-		endWhile
-	else
-		menu.AddEntryItem("(EMPTY)", parentEntry)
-	endIf
-EndFunction
-
-
-Function AddPreyDetails(UIListMenu menu, int parentEntry, Actor prey)
-	menu.AddEntryItem("Name: " + Namer(prey, true), parentEntry)
-	menu.AddEntryItem("Level: " + prey.GetLevel(), parentEntry)
-	menu.AddEntryItem("Pred skill: " + Manager.GetPredSkill(prey) as int, parentEntry)
-	menu.AddEntryItem("Prey skill: " + Manager.GetPreySkill(prey) as int, parentEntry)
-	
-	int preyData = Manager.GetPreyData(prey)
-	menu.AddEntryItem("Locus: " + GetLocusName(Manager.GetLocus(preyData)), parentEntry)
-
-	if Manager.IsReforming(preyData)
-		menu.AddEntryItem("Reforming: " + Manager.GetDigestionPercent(preyData) as int + "%", parentEntry)
-	elseif Manager.IsDigesting(preyData)
-		menu.AddEntryItem("Digesting: " + Manager.GetDigestionProgress(preyData) as int + "%", parentEntry)
-	elseif Manager.IsDigested(preyData)
-		menu.AddEntryItem("DIGESTED", parentEntry)
-	elseif Manager.IsEndo(preyData)
-		menu.AddEntryItem("Health: " + prey.GetActorValue("Health") as int + " / " + prey.GetBaseActorValue("Health") as int + " (" + prey.GetActorValuePercentage("Health") + "%)", parentEntry)
-		menu.AddEntryItem("Non-lethal", parentEntry)
-	elseif Manager.IsVore(preyData)
-		menu.AddEntryItem("Health: " + prey.GetActorValue("Health") as int + " / " + prey.GetBaseActorValue("Health") as int + " (" + prey.GetActorValuePercentage("Health") + "%)", parentEntry)
-		menu.AddEntryItem("Acid DPS: " + Manager.GetDPS(preyData) , parentEntry)
 	endIf
 EndFunction
 
@@ -2072,48 +2005,57 @@ EndFunction
 
 Function DisplayQuickSettings()
 	UIListMenu menu = UIExtensions.GetMenu("UIListMenu") as UIListMenu
-	Actor subject = PlayerRef
-	Actor target2 = Game.GetCurrentConsoleRef() as Actor
-	Actor target3 = Game.GetCurrentCrosshairRef() as Actor
-
-	String playerName = Namer(playerRef, true)
-	String target2Name = Namer(target2, true)
-	String target3Name = Namer(target3, true)
-	
 	menu.ResetMenu()
+	
+	Actor[] targets = new Actor[5]
+	int[] targetEntries = new int[5]
+	int[] bellyEntries = new int[5]
+	String[] targetNames = new String[5]
 
-	int ENTRY_SUBJECT
-	int ENTRY_T1 = -1
-	int ENTRY_T2 = -1
-	int ENTRY_T3 = -1
+	targets[0] = PlayerRef
+	Actor subject = PlayerRef
+	int targetCount = 1
 
-	if (target2 && target2 != playerRef) || (target3 && target3 != playerRef)
-		ENTRY_SUBJECT = menu.AddEntryItem("Subject: " + playerName, entryHasChildren = true)
-		ENTRY_T1 = menu.AddEntryItem(playerName, ENTRY_SUBJECT)
-		
-		if target2 && target2 != playerRef
-			ENTRY_T2 = menu.AddEntryItem(target2Name, ENTRY_SUBJECT)
-		endIf
+	Actor consoleRef = Game.GetCurrentConsoleRef() as Actor
+	if consoleRef && targets.find(consoleRef) < 0
+		targets[targetCount] = consoleRef
+		targetCount += 1
+	endIf
 
-		if target3 && target3 != playerRef && target3 != target2
-			ENTRY_T3 = menu.AddEntryItem(target3Name, ENTRY_SUBJECT)
-		endIf
+	Actor crosshairRef = Game.GetCurrentCrosshairRef() as Actor
+	if crosshairRef && targets.find(crosshairRef) < 0
+		targets[targetCount] = crosshairRef
+		targetCount += 1
+	endIf
+
+	Actor playerApex = Manager.FindApex(playerRef)
+	if playerApex && targets.find(playerApex) < 0
+		targets[targetCount] = playerApex
+		targetCount += 1
+	endIf
+
+	int ENTRY_SUBJECT 
+
+	if targetCount == 1
+		ENTRY_SUBJECT = menu.AddEntryItem("Subject: " + Namer(PlayerRef, true))
+		targetNames[0] = Namer(PlayerRef, true)
 	else
-		ENTRY_SUBJECT = menu.AddEntryItem("Subject: " + playerName)
+		ENTRY_SUBJECT = menu.AddEntryItem("Subject: " + Namer(PlayerRef, true), entryHasChildren = true)
+
+		int i = 0
+		while i < targetCount
+			targetNames[i] = Namer(targets[i], true)
+			targetEntries[i] = menu.AddEntryItem(targetNames[i], ENTRY_SUBJECT)
+			i += 1
+		endWhile
 	endIf
 
-	int ENTRY_BELLY1 = menu.AddEntryItem("View " + playerName + "'s contents", entryHasChildren = true)
-	AddPredContents(menu, ENTRY_BELLY1, playerRef)
-
-	if target2 != None && target2 != PlayerRef
-		int ENTRY_BELLY2 = menu.AddEntryItem("View " + target2Name + "'s contents", entryHasChildren = true)
-		AddPredContents(menu, ENTRY_BELLY2, target2)
-	endIf
-
-	if target3 != None && target3 != PlayerRef && target3 != target2
-		int ENTRY_BELLY3 = menu.AddEntryItem("View " + target3Name + "'s contents", entryHasChildren = true)
-		AddPredContents(menu, ENTRY_BELLY3, target3)
-	endIf
+	int i = 0
+	while i < targetCount
+		bellyEntries[i] = menu.AddEntryItem("View " + targetNames[i] + "'s contents", entryHasChildren = true)
+		AddPredContents(menu, bellyEntries[i], targets[i])
+		i += 1
+	endWhile
 
 	int ENTRY_LOCUS = menu.AddEntryItem("Default Locus: " + GetLocusName(PlayerAlias.DefaultLocus), entryHasChildren = true)
 	int ENTRY_LOCI_RANDOM = menu.AddEntryItem(GetLocusName(-1), ENTRY_LOCUS)
@@ -2205,18 +2147,11 @@ Function DisplayQuickSettings()
 		if result == ENTRY_EXIT || result < 0
 			exit = true
 	
-		elseif result == ENTRY_T1
-			subject = PlayerRef
-			menu.SetPropertyIndexString("entryName", ENTRY_SUBJECT, "Subject: " + playerName)
+		elseif targetEntries.find(result) > 0
+			int index = targetEntries.find(result)
+			subject = targets[index]
+			menu.SetPropertyIndexString("entryName", ENTRY_SUBJECT, "Subject: " + targetNames[index])
 
-		elseif result == ENTRY_T2
-			subject = target2
-			menu.SetPropertyIndexString("entryName", ENTRY_SUBJECT, "Subject: " + target2Name)
-
-		elseif result == ENTRY_T3
-			subject = target3
-			menu.SetPropertyIndexString("entryName", ENTRY_SUBJECT, "Subject: " + target3Name)
-		
 		elseif result == ENTRY_LOCI_RANDOM
 			PlayerAlias.DefaultLocus = -1
 			menu.SetPropertyIndexString("entryName", ENTRY_LOCUS, "Default Locus: " + GetLocusName(PlayerAlias.DefaultLocus))
@@ -2342,6 +2277,77 @@ Function DisplayQuickSettings()
 			
 		endIf
 	endWhile
+EndFunction
+
+
+Function AddPredContents(UIListMenu menu, int parentEntry, Actor pred)
+	Form[] stomach = Manager.getStomachArray(pred) as Form[]
+
+	if Manager.EmptyStomach(stomach)
+		menu.AddEntryItem("(Nothing)", parentEntry)
+	else
+		int stomachIndex = 0
+		while stomachIndex < stomach.length
+			ObjectReference stomachItem = stomach[stomachIndex] as ObjectReference
+			stomachIndex += 1
+
+			int ENTRY_CONTENTS = menu.AddEntryItem(Namer(stomachItem, true), parentEntry, entryHasChildren = true)
+
+			if stomachItem as Actor
+				AddPreyDetails(menu, ENTRY_CONTENTS, stomachItem as Actor)
+			else
+				AddBolusContents(menu, ENTRY_CONTENTS, stomachItem)
+			endIf
+		endWhile
+	endIf
+EndFunction
+
+
+Function AddBolusContents(UIListMenu menu, int parentEntry, ObjectReference bolus)
+	Form[] bolusContents = bolus.GetContainerForms()
+	if bolusContents.length > 0
+		String description = Namer(bolusContents[0], true)
+	
+		int bolusIndex = 0
+		while bolusIndex < bolusContents.length
+			Form item = bolusContents[bolusIndex]
+			int count = bolus.GetItemCount(item)
+			menu.AddEntryItem(NameWithCount(bolusContents[bolusIndex], count), parentEntry)
+			bolusIndex += 1
+		endWhile
+	else
+		menu.AddEntryItem("(EMPTY)", parentEntry)
+	endIf
+EndFunction
+
+
+Function AddPreyDetails(UIListMenu menu, int parentEntry, Actor prey)
+	menu.AddEntryItem("Name: " + Namer(prey, true), parentEntry)
+	menu.AddEntryItem("Level: " + prey.GetLevel(), parentEntry)
+	menu.AddEntryItem("Pred skill: " + Manager.GetPredSkill(prey) as int, parentEntry)
+	menu.AddEntryItem("Prey skill: " + Manager.GetPreySkill(prey) as int, parentEntry)
+	
+	int preyData = Manager.GetPreyData(prey)
+	menu.AddEntryItem("Locus: " + GetLocusName(Manager.GetLocus(preyData)), parentEntry)
+
+	if Manager.IsReforming(preyData)
+		menu.AddEntryItem("Reforming: " + Manager.GetDigestionPercent(preyData) as int + "%", parentEntry)
+	elseif Manager.IsDigesting(preyData)
+		menu.AddEntryItem("Digesting: " + Manager.GetDigestionProgress(preyData) as int + "%", parentEntry)
+	elseif Manager.IsDigested(preyData)
+		menu.AddEntryItem("DIGESTED", parentEntry)
+	elseif Manager.IsEndo(preyData)
+		menu.AddEntryItem("Health: " + prey.GetActorValue("Health") as int + " / " + prey.GetBaseActorValue("Health") as int + " (" + prey.GetActorValuePercentage("Health") + "%)", parentEntry)
+		menu.AddEntryItem("Non-lethal", parentEntry)
+	elseif Manager.IsVore(preyData)
+		menu.AddEntryItem("Health: " + prey.GetActorValue("Health") as int + " / " + prey.GetBaseActorValue("Health") as int + " (" + prey.GetActorValuePercentage("Health") + "%)", parentEntry)
+		menu.AddEntryItem("Acid DPS: " + Manager.GetDPS(preyData) , parentEntry)
+	endIf
+
+	if Manager.hasAnyPrey(prey)
+		int ENTRY_BELLY = menu.AddEntryItem("View " + Namer(prey) + "'s contents", parentEntry, entryHasChildren = true)
+		AddPredContents(menu, ENTRY_BELLY, prey)
+	endIf
 EndFunction
 
 
