@@ -1,6 +1,21 @@
-﻿2021-10-07
+﻿2021-10-08
 [list]
-[*] Camera control MCM setting
+[*] QuickMenu refactoring to better support metavore.
+[*] Fixed bug in transferstomach.
+[*] Refactored defecation functions.
+[*] Fixed a nil arithmetic error in Lua script.
+[*] BYK now sets player's display name as well as base name.
+[*] Fixed how MacromancyScaling is applied, no more sudden scale changes.
+[*] QuickMenu will now show the stomach contents of prey.
+[*] PseudoAI will now do combat vore against staggered targets.
+[*] PseudoAI will vore corpses, but only if the pred in the faction DevourmentFactionCorpseVore. 
+[*] Restored the old complex struggles system. Disabled by default.
+[/list]
+
+2021-10-07
+[list]
+[*] New Game not required.
+[*] Added Macromancy Camera Control MCM setting.
 [*] AI Cooldown wasn't being stored by savesettings.
 [*] Fixed QuickMenu 'Talk To'.
 [*] NPCs should no longer vore undetected prey.
@@ -8,6 +23,7 @@
 
 2021-10-06
 [list]
+[*] New Game not required.
 [*] Controller users should be able to struggle now, thanks to darkyf57.
 [*] Fixed a bug that could make struggling not work at all, also thanks to darkyf57.
 [*] WeightManager no longer contributes to relative size during vore. People were getting too confused by it.
@@ -15,6 +31,7 @@
 
 2021-10-05
 [list]
+[*] New Game not required.
 [*] Dragons now receive the VoreTalker keyword so that they can engage in pred/prey dialogue.
 [*] Added some VERY basic dragon dialogue. Add-on makers, please do better. 
 [*] Added "Talker to Pred/Prey" and "Switch to Lethal" to QuickMenu->Actions.

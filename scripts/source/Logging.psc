@@ -994,13 +994,6 @@ include the refID as well, unless display is set to true.
 	if obj == None
 		return None as string
 
-	elseif obj as Keyword
-		if display
-			return (obj as Keyword).getString()
-		else
-			return (obj as Keyword).getString() + " " + PO3_SKSEFunctions.IntToString(obj.getFormID(), true)
-		endif
-
 	elseif obj as Actor
 		String name = (obj as Actor).getDisplayName()
 		if name == ""
@@ -1038,6 +1031,13 @@ include the refID as well, unless display is set to true.
 			return name
 		else
 			return name + " " + PO3_SKSEFunctions.IntToString(obj.getFormID(), true)
+		endif
+
+	elseif obj as Keyword
+		if display
+			return (obj as Keyword).getString()
+		else
+			return (obj as Keyword).getString() + " " + PO3_SKSEFunctions.IntToString(obj.getFormID(), true)
 		endif
 
 	else

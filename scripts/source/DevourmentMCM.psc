@@ -67,7 +67,7 @@ Spell Property Power_EatThis auto
 
 
 ; Script-defined Properties.
-int property VERSION = 119 auto Hidden
+int property VERSION = 120 auto Hidden
 bool property EnableHungryBones = true auto Hidden
 bool property EnableCordyceps = true auto Hidden 
 bool property LooseItemVore = true auto Hidden
@@ -108,7 +108,7 @@ int optionsMap
 
 
 int function GetVersion()
-	return 119
+	return 120
 endFunction
 
 

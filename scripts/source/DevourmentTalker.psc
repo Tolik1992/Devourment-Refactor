@@ -4,7 +4,7 @@ import Logging
 
 DevourmentManager property Manager auto
 Actor property PlayerRef auto
-Actor property Target auto
+ObjectReference property HerStomach auto
 
 
 String PREFIX = "DevourmentTalker"
@@ -16,17 +16,19 @@ Function ClearPrompt()
 EndFunction
 
 
-Function PrepareForDialog(Actor newTarget)
-	if newTarget
-		Target = newTarget
-		self.SetDisplayName(Namer(Target, true))
-		self.MoveTo(PlayerRef)
-		self.Enable()
-		float angle = PlayerRef.GetAngleZ()
-		float px = PlayerRef.GetPositionX() + Math.sin(angle) * 20.0
-		float py = PlayerRef.GetPositionY() + Math.cos(angle) * 20.0
-		float pz = PlayerRef.GetPositionZ() + 20.0
+Function PrepareForDialog(Actor target)
+	if target
+		self.SetDisplayName(Namer(target, true))
+	else
+		self.setDisplayName("")
 	endIf
+
+	self.MoveTo(PlayerRef)
+	self.Enable()
+	float angle = PlayerRef.GetAngleZ()
+	float px = PlayerRef.GetPositionX() + Math.sin(angle) * 20.0
+	float py = PlayerRef.GetPositionY() + Math.cos(angle) * 20.0
+	float pz = PlayerRef.GetPositionZ() + 20.0
 EndFunction
 
 
@@ -42,11 +44,7 @@ Function ShowPrompt(Topic dial, float timeout = -1.0)
 		RegisterForSingleUpdate(timeout)
 	endIf
 
-	if Game.UsingGamepad()
-		Say(dial)
-	else
-		Say(dial)
-	endIf
+	Say(dial)
 EndFunction
 
 

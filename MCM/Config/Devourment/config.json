@@ -463,6 +463,18 @@
 					}
 				},
 				{
+					"text": "$DVT_ComplexStruggles",
+					"help": "$DVT_Help_ComplexStruggles",
+					"type": "toggle",
+					"valueOptions": {
+						"sourceForm": "Devourment.esp|96A", 
+						"sourceType": "PropertyValueBool",
+						"scriptName": "DevourmentManager",
+						"propertyName": "ComplexStruggles",
+						"defaultValue": false
+					}
+				},
+				{
 					"text": "$DVT_playerStruggling",
 					"help": "$DVT_Help_playerStruggling",
 					"type": "toggle",
@@ -526,6 +538,9 @@
 						"propertyName": "playerPreference",
 						"defaultValue": 0
 					}	
+				},
+				{
+					"type": "empty"
 				},
 
 				{
