@@ -4,6 +4,7 @@ import Logging
 
 Actor property PlayerRef auto
 DevourmentManager property Manager auto
+Faction property CorpseVore auto
 Keyword property BeingSwallowed auto
 MagicEffect property DontSwallowMe auto
 Spell property VoreSpell auto
@@ -17,7 +18,8 @@ String PREFIX = "DevourmentPseudoAI"
 String predName
 Actor Pred
 bool DEBUGGING = false
-bool bleedoutVore
+bool doBleedoutVore
+bool doCorpseVore
 float reach
 float cooldownTime = 5.0
 bool coolingDown = false
@@ -37,7 +39,8 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	pred = akTarget
 	predName = Namer(pred, true)
 	reach = SwallowRange + pred.GetLength()
-	bleedoutVore = !Game.IsPluginInstalled("SexLabDefeat.esp")
+	doBleedoutVore = !Game.IsPluginInstalled("SexLabDefeat.esp")
+	doCorpseVore = pred.IsInFaction(CorpseVore)
 
 	if LibFire.ActorIsFollower(pred)
 		cooldownTime = Manager.Cooldown_Follower
@@ -157,8 +160,9 @@ EndEvent
 
 
 bool Function combatCheck(Actor newTarget, int combatState)
-	return combatState ==  1 && newTarget != none && pred != none && !newTarget.isChild() && !newTarget.isDead() \
-	&& PlayerCheck(newTarget) && Manager.IsValidDigestion(pred, newTarget)
+	return combatState ==  1 && newTarget != none && pred != none && !newTarget.isChild() \
+	&& (doCorpseVore || !newTarget.isDead()) && PlayerCheck(newTarget) \
+	&& Manager.IsValidDigestion(pred, newTarget)
 endFunction	
 
 
@@ -176,7 +180,7 @@ bool Function DoANom(Actor prey)
 		endIf
 		return false
 
-	elseif !bleedoutVore && prey.IsBleedingOut()
+	elseif !doBleedoutVore && prey.IsBleedingOut()
 		if DEBUGGING
 			Log1(PREFIX, "DoANom_Combat", "Bleeding out and BleedoutVore is disabled.")
 		endIf
@@ -204,7 +208,7 @@ bool Function DoANom(Actor prey)
 		endIf
 		return false
 
-	elseif prey.IsDead()
+	elseif !doCorpseVore && prey.IsDead()
 		if DEBUGGING
 			Log1(PREFIX, "DoANom_Combat", "Already dead")
 		endIf
