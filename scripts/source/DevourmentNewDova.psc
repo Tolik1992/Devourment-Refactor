@@ -59,6 +59,7 @@ Function SetPlayerName()
 	if nameChanged
 		Log2(PREFIX, "SetPlayerName", nameChanged, newName)
 		playerRef.getLeveledActorBase().setName(newName)
+		playerRef.SetDisplayName(newName)
 	endIf
 endFunction
 
