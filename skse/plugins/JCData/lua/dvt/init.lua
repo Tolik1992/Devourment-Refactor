@@ -1102,7 +1102,7 @@ function dvt.GetLocusHealth(pred, playerStruggle, useElimination)
 		end
 
 		if locus == locusUnbirth or (locus == locusButt and useElimination) then
-			locusHealth[locusStomach] = math.max(locusHealth[locusStomach] or 0.0, health)
+			locusHealth[locusStomach] = math.max(locusHealth[locusStomach] or 0.0, health or 0.0)
 		else
 			locusHealth[locus] = math.max(locusHealth[locus] or 0.0, health or 0.0)
 		end
