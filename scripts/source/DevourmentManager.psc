@@ -1277,6 +1277,10 @@ EndFunction
 
 
 Function KillPrey(Actor pred, Actor prey, int preyData, float dt, bool eligibleForDeath)
+	if DEBUGGING
+		Log5(PREFIX, "KillPrey", Namer(pred), Namer(prey), dt, eligibleForDeath, LuaS("preyData", preyData))
+	endIf
+
 	if !eligibleForDeath
 		if Notifications && pred == playerRef
 			Notification2(MessageIndigestible[4], pred, prey)
@@ -1970,11 +1974,11 @@ function ExpelRemains(Actor pred, ObjectReference content, int preyData)
 
 	if doNPCAnimations && complexAnimation
 		Utility.Wait(1.0)
-		DefecateDigested(apex, pred, content, preyData, local)
+		Defecate(apex, pred, content, preyData, local)
 		Utility.Wait(0.5)
 		apex.playIdle(IdleStop)
 	else
-		DefecateDigested(apex, pred, content, preyData, local)
+		Defecate(apex, pred, content, preyData, local)
 	endIf
 
 	if content as Actor
@@ -2039,10 +2043,14 @@ bool Function DefecateOne(ObjectReference content, bool force = false, bool esca
 		endIf
 	endIf
 
-	if IsAlive(preyData) || content as DevourmentBolus
-		DefecateUndigested(apex, pred, content, preyData, local)
+	if content as Actor
+		if IsAlive(preyData)
+			DefecateUndigestedActor(apex, pred, content as Actor, preyData, local)
+		else
+			DefecateDigestedActor(apex, pred, content as Actor, preyData, local)
+		endIf
 	else
-		DefecateDigested(apex, pred, content, preyData, local)
+		DefecateBolus(apex, pred, content, preyData, local)
 	endIf
 
 	if apexIsNPC
@@ -2107,27 +2115,27 @@ Function DefecateAny(Actor pred, bool all = false)
 		endIf
 	endIf
 
-	int stomach = GetStomach(pred)
-	ObjectReference content = JFormMap.nextKey(stomach) as ObjectReference
+	Form[] stomach = GetStomachArray(pred)
+	if DEBUGGING
+		LogForms(PREFIX, "DefecateAny", Namer(pred) + "'s stomach", stomach)
+	endIf
 
-	while content
-		int preyData = JFormMap.getObj(stomach, content)
-		
-		if IsDigested(preyData) || (all && IsDigesting(preyData))
-			Log2(PREFIX, "defecateAny", Namer(apex), Namer(content))
-			defecateDigested(apex, pred, content, preyData, local)
-			if apexNPC
-				apex.SetExpressionOverride(10, 0)
-			endIf
-		elseif IsAlive(preyData)
-			Log2(PREFIX, "defecateAny", Namer(apex), Namer(content))
-			defecateUndigested(apex, pred, content, preyData, local)
-			if apexNPC
-				apex.SetExpressionOverride(10, 0)
-			endIf
+	int i = 0
+	while i < stomach.length
+		ObjectReference content = stomach[i] as ObjectReference
+		int preyData = GetPreyData(content)
+
+		if DEBUGGING
+			Log2(PREFIX, "DefecateAny", Namer(apex), Namer(content))
 		endIf
-		
-		content = JFormMap.nextKey(stomach, content) as ObjectReference
+
+		bool expelled = defecate(apex, pred, content, preyData, local)
+
+		if expelled && apexNPC
+			apex.SetExpressionOverride(10, 0)
+		endIf
+
+		i += 1
 	endWhile
 
 	UpdateSounds_async(apex)
@@ -2147,7 +2155,73 @@ Function DefecateAny(Actor pred, bool all = false)
 endFunction
 
 
-Function defecateDigested(Actor apex, Actor pred, ObjectReference content, int preyData, bool local)
+bool Function defecate(Actor apex, Actor pred, ObjectReference content, int preyData, bool local)
+	if DEBUGGING
+		assertExists(PREFIX, "defecate", "preyData", preyData)
+		assertNotNone(PREFIX, "defecate", "apex", apex)
+		assertNotNone(PREFIX, "defecate", "pred", pred)
+		assertNotNone(PREFIX, "defecate", "content", content)
+		assertTrue(PREFIX, "defecate", "Has(pred, content)", Has(pred, content))
+		LogJ(PREFIX, "defecate", preyData, apex, pred, content)
+		Log1(PREFIX, "defecate", "local="+local)
+	endIf
+
+	if content as Actor
+		if IsAlive(preyData)
+			;Log2(PREFIX, "defecate", Namer(apex), Namer(content))
+			defecateUndigestedActor(apex, pred, content as Actor, preyData, local)
+			return true
+		elseif IsDigested(preyData)
+			;Log2(PREFIX, "defecate", Namer(apex), Namer(content))
+			defecateDigestedActor(apex, pred, content as Actor, preyData, local)
+			return true
+		else
+			return false
+		endIf
+	else
+		;Log2(PREFIX, "defecateAny", Namer(apex), Namer(content))
+		defecateBolus(apex, pred, content, preyData, local)
+		return true
+	endIf
+endFunction
+
+
+Function defecateBolus(Actor apex, Actor pred, ObjectReference content, int preyData, bool local)
+{
+Removes a single dead content from the pred and places a scat pile or bones behind them.
+@param apex The apex predator. Their position will be used to place the content.
+@param pred The actual predator. Their stomach contents will be updated.
+@param content The content to defecate. They must not be an Actor.
+@param preyData The preyData for pred/prey.
+@param local A flag indicating that this is taking place near the player so sound effects, visuals, and animations should be played.
+}
+	RemoveFromStomach(pred, content, preyData)
+
+	if local
+		if apex.hasKeyword(ActorTypeNPC)
+			if IsMale(apex)
+				ScatSounds[0].play(apex)
+			else
+				ScatSounds[1].play(apex)
+			endIf
+		else
+			ScatSounds[2].play(apex)
+		endIf
+	endIf
+
+	if content as DevourmentBolus
+		ReappearBolusAt(content as DevourmentBolus, apex, front = false, lateral = -70.0, vertical = 10.0)
+	else
+		ReappearItemAt(content, apex, front = false, lateral = -70.0)
+	endIf
+
+	if !(Apex.hasPerk(Menu.SilentDefecate) && apex.IsSneaking())
+		apex.CreateDetectionEvent(apex, 100)
+	endIf
+EndFunction
+
+	
+Function defecateDigestedActor(Actor apex, Actor pred, Actor prey, int preyData, bool local)
 {
 Removes a single dead content from the pred and places a scat pile or bones behind them.
 @param apex The apex predator. Their position will be used to place the content.
@@ -2156,37 +2230,19 @@ Removes a single dead content from the pred and places a scat pile or bones behi
 @param preyData The preyData for pred/prey.
 @param local A flag indicating that this is taking place near the player so sound effects, visuals, and animations should be played.
 }
-	if DEBUGGING
-		assertExists(PREFIX, "defecateDigested", "preyData", preyData)
-		assertNotNone(PREFIX, "defecateDigested", "apex", apex)
-		assertNotNone(PREFIX, "defecateDigested", "pred", pred)
-		assertNotNone(PREFIX, "defecateDigested", "content", content)
-		assertTrue(PREFIX, "defecateDigested", "Has(pred, content)", Has(pred, content))
-		LogJ(PREFIX, "defecateDigested", preyData, apex, pred, content)
-		Log1(PREFIX, "defecateDigested", "local="+local)
-	endIf
+	RemoveFromStomach(pred, prey, preyData)
+	UnassignPreyMeters(prey)
 
-	RemoveFromStomach(pred, content, preyData)
-	int locus = GetLocus(preyData)
-
-	if content as Actor
-		UnassignPreyMeters(content as Actor)
-	endIf
-
-	bool silent = Apex.hasPerk(Menu.SilentDefecate) && apex.IsSneaking()
-
-	if scatTypeNPC == 2 && content.hasKeyword(ActorTypeNPC)
-		if local && !silent
+	if scatTypeNPC == 2 && prey.hasKeyword(ActorTypeNPC)
+		if local 
 			if IsFemale(apex)
 				BoneSound_Female.play(apex)
 			else
 				BoneSound_Male.play(apex)
 			endIf
 		endIf
-
 	
 		; Place the skeleton. If this is happening nearby, start the skeleton disabled so that we can move it around BEFORE it appears.
-		Actor prey = content as Actor
 		ActorBase bones = GetBonesType(prey)
 		Actor pile = apex.placeAtMe(bones, 1, true, local) as Actor
 
@@ -2204,8 +2260,8 @@ Removes a single dead content from the pred and places a scat pile or bones behi
 			pile.setAlpha(1.0, true)
 		endIf
 		
-		if content != playerRef
-			content.removeAllItems(pile, false, true)
+		if prey != playerRef
+			prey.removeAllItems(pile, false, true)
 		else
 			; Move the player (who is still both invisible and dead) to the pile.
 			playerRef.RemoveSpell(NotThere_Trapped)
@@ -2222,7 +2278,7 @@ Removes a single dead content from the pred and places a scat pile or bones behi
 			pile.SetFactionOwner(None)
 		endIf
 	else
-		if local && !Silent
+		if local
 			if apex.hasKeyword(ActorTypeNPC)
 				if IsMale(apex)
 					ScatSounds[0].play(apex)
@@ -2234,49 +2290,92 @@ Removes a single dead content from the pred and places a scat pile or bones behi
 			endIf
 		endIf
 
-		if content as Actor
-			Actor prey = content as Actor
-			Container feces = GetFecesType(prey)
-			ObjectReference pile = apex.placeAtMe(feces, 1, true, false)
-			
-			; Only scale generic feces.
-			if feces == RemainsFeces[7] 
-				pile.setScale(Math.sqrt(GetVoreWeight(prey) / 100.0))
-			endIf
-
-			pile.setAngle(0.0, 0.0, 0.0)
-			
-			if content != playerRef
-				content.removeAllItems(pile, false, true)
-			else
-				; Move the player (who is still both invisible and dead) to the pile.
-				playerRef.RemoveSpell(NotThere_Trapped)
-				playerRef.moveTo(pile)
-				playerRef.setPosition(pile.X, pile.Y, pile.Z)
-				Game.DisablePlayerControls()
-				PlayerAlias.SetCameraTarget(PlayerRef)
-			endIf
-
-			pile.SetDisplayName(Namer(prey, true) + "'s remains")
-			pile.SetActorOwner(None)
-			pile.SetFactionOwner(None)
-			
-			Notification2(Messages_Defecated[1], apex, prey)
-
-		elseif content as DevourmentBolus
-			ReappearBolusAt(content as DevourmentBolus, apex, front = false, lateral = -70.0, vertical = 10.0)
-
-		else
-			ReappearItemAt(content, apex, front = false, lateral = -70.0)
+		Container feces = GetFecesType(prey)
+		ObjectReference pile = apex.placeAtMe(feces, 1, true, false)
+		
+		; Only scale generic feces.
+		if feces == RemainsFeces[7] 
+			pile.setScale(Math.sqrt(GetVoreWeight(prey) / 100.0))
 		endIf
+
+		pile.setAngle(0.0, 0.0, 0.0)
+		
+		if prey != playerRef
+			prey.removeAllItems(pile, false, true)
+		else
+			; Move the player (who is still both invisible and dead) to the pile.
+			playerRef.RemoveSpell(NotThere_Trapped)
+			playerRef.moveTo(pile)
+			playerRef.setPosition(pile.X, pile.Y, pile.Z)
+			Game.DisablePlayerControls()
+			PlayerAlias.SetCameraTarget(PlayerRef)
+		endIf
+
+		pile.SetDisplayName(Namer(prey, true) + "'s remains")
+		pile.SetActorOwner(None)
+		pile.SetFactionOwner(None)
+		
+		Notification2(Messages_Defecated[1], apex, prey)
 	endIf
 
-	if !silent
+	if !(Apex.hasPerk(Menu.SilentDefecate) && apex.IsSneaking())
 		apex.CreateDetectionEvent(apex, 100)
 	endIf
 EndFunction
 
 
+Function defecateUndigestedActor(Actor apex, Actor pred, Actor prey, int preyData, bool local)
+{
+Removes a single live prey or bolus from the pred and places them behind them.
+@param content The prey data.
+@param local A flag indicating that this is taking place near the player so sound effects, visuals, and animations should be played.
+}
+	if prey == playerRef
+		PlayerAlias.StopPlayerStruggle()
+	endIf
+
+	RemoveFromStomach(pred, prey, preyData)
+	ReappearPreyAt(prey, apex, lateral = -70.0, vertical = 20.0)
+
+	; This is a good spot to do stuff that might take a while, because we will have to wait
+	; for the content to finish reappearing anyway!
+
+	if local
+		; Pick the correct defecation sound.
+		; Play the scat sound and reappear the prey near the apex.
+		if apex.hasKeyword(ActorTypeNPC)
+			if IsMale(apex)
+				ScatSounds[0].play(apex)
+			else
+				ScatSounds[1].play(apex)
+			endIf
+		else
+			ScatSounds[2].play(apex)
+		endIf
+
+		; Wait for the prey to be fully loaded. Moves happen asynchronously and they can take up to half a second!
+		if WaitUntilPresent(prey, apex)
+			apex.PushActorAway(prey, 10.0)
+		endIf
+	endIf
+
+	Notification2(Messages_Defecated[0], apex, prey)
+	UpdateSounds_async(prey)
+	sendEscapeEvent(pred, prey, IsEndo(preyData))
+	sendExcretionEvent(apex, prey)
+
+	if prey == playerRef
+		pred.AddSpell(StatusSpells[0], false)
+	elseif pred == playerRef
+		prey.AddSpell(StatusSpells[1], false)
+	endIf
+
+	if !(Apex.hasPerk(Menu.SilentDefecate) && apex.IsSneaking())
+		apex.CreateDetectionEvent(apex, 100)
+	endIf
+endFunction
+	
+	
 Container Function GetFecesType(Actor prey)
 	String preyRace = Remapper.RemapRaceName(prey)
 
@@ -2348,79 +2447,6 @@ Sound Function GetDeathSound(Actor prey)
 EndFunction
 
 
-Function defecateUndigested(Actor apex, Actor pred, ObjectReference content, int preyData, bool local)
-{
-Removes a single live prey or bolus from the pred and places them behind them.
-@param content The prey data.
-@param local A flag indicating that this is taking place near the player so sound effects, visuals, and animations should be played.
-}
-	if DEBUGGING
-		assertExists(PREFIX, "defecateUndigested", "preyData", preyData)
-		assertNotNone(PREFIX, "defecateUndigested", "apex", apex)
-		assertNotNone(PREFIX, "defecateUndigested", "pred", pred)
-		assertNotNone(PREFIX, "defecateUndigested", "content", content)
-		assertTrue(PREFIX, "defecateUndigested", "Has(pred, content)", Has(pred, content))
-		LogJ(PREFIX, "defecateUndigested", preyData, apex, pred, content)
-		Log1(PREFIX, "defecateUndigested", local)
-	endIf
-
-	Actor prey = content as Actor
-
-	if content == playerRef
-		PlayerAlias.StopPlayerStruggle()
-	endIf
-
-	RemoveFromStomach(pred, content, preyData)
-
-	if content as DevourmentBolus
-		ReappearBolusAt(content as DevourmentBolus, apex, front = false, lateral = -70.0, vertical = 10.0)
-	elseif prey
-		ReappearPreyAt(prey, apex, lateral = -70.0, vertical = 20.0)
-	else
-		ReappearItemAt(content, apex, front = false, lateral = -70.0)
-	endIf
-
-	; This is a good spot to do stuff that might take a while, because we will have to wait
-	; for the content to finish reappearing anyway!
-
-	if local
-		; Pick the correct defecation sound.
-		; Play the scat sound and reappear the prey near the apex.
-		if apex.hasKeyword(ActorTypeNPC)
-			if IsMale(apex)
-				ScatSounds[0].play(apex)
-			else
-				ScatSounds[1].play(apex)
-			endIf
-		else
-			ScatSounds[2].play(apex)
-		endIf
-	endIf
-
-	if local && prey
-		; Wait for the prey to be fully loaded. Moves happen asynchronously and they can take up to half a second!
-		if WaitUntilPresent(prey, apex)
-			apex.PushActorAway(prey, 10.0)
-		endIf
-	endIf
-
-	if prey
-		Notification2(Messages_Defecated[0], apex, prey)
-		UpdateSounds_async(prey)
-		sendEscapeEvent(pred, prey, IsEndo(preyData))
-		sendExcretionEvent(apex, prey)
-	endIf
-
-	if content == playerRef
-		pred.AddSpell(StatusSpells[0], false)
-	elseif pred == playerRef && prey != none
-		prey.AddSpell(StatusSpells[1], false)
-	endIf
-
-	apex.CreateDetectionEvent(apex, 100)
-endFunction
-
-
 Function ReformPrey(Actor pred, Actor prey, int preyData)
 	if prey != playerRef
 		prey.MoveTo(HerStomach)
@@ -2472,7 +2498,7 @@ Function KillPlayer(Actor pred)
 
 	UnassignAllPreyMeters()
 
-	if !BYK && PlayerRef.HasPerk(Menu.Phylactery)
+	if BYK == 0 && PlayerRef.HasPerk(Menu.Phylactery)
 		Log1(PREFIX, "KillPlayer", "Phylactery.")
 		if IsPrey(pred)
 			DefecateOne(playerRef, force = true)
@@ -2517,6 +2543,7 @@ Function KillPlayer(Actor pred)
 		
 		; Transfer the predator's other prey to the player.
 		TransferStomach(pred, playerRef)
+		UpdateSounds_async(playerRef)
 
 		; With the stomach transferred, it should be safe to unblock now.
 		UnregisterBlocks("KillPlayer", playerRef, pred)
@@ -3112,7 +3139,7 @@ Function RaiseDead(Form f1, Form f2)
 	Actor bones = f2 as Actor
 	if Menu.EnableHungryBones && pred.hasPerk(Menu.RaiseDead)
 		Utility.Wait(2.0)
-		Log1(PREFIX, "DefecateDigested", "Casting HungryBones")
+		Log1(PREFIX, "RaiseDead", "Casting HungryBones")
 		RaiseDead.cast(pred, bones)
 	endIf
 EndFunction
@@ -3198,7 +3225,7 @@ Event poop(Form f)
 		return
 	endIf
 
-	DefecateAny(f as Actor, all=true)
+	DefecateAny(f as Actor)
 EndEvent
 
 
@@ -4696,13 +4723,16 @@ EndFunction
 bool Function validPredator(Actor target)
 	if target == None || target.isChild()
 		return false
-	endIf
-
-	if companionPredPreference > 0 && LibFire.ActorIsFollower(target)
-        return companionPredPreference == 1
-    elseif creaturePreds && target.hasKeyword(ActorTypeCreature)
-		int index = CreaturePredatorStrings.Find(Remapper.RemapRaceName(target))
-		return index >= 0 && CreaturePredatorToggles[index]
+	elseif LibFire.ActorIsFollower(target)
+        return companionPredPreference > 0 && companionPredPreference == 1
+    elseif target.hasKeyword(ActorTypeCreature)
+		if creaturePreds
+			String raceName = Remapper.RemapRaceName(target)
+			int index = CreaturePredatorStrings.Find(raceName)
+			return index >= 0 && CreaturePredatorToggles[index]
+		Else
+			return false
+		endIf
 	elseIf target.HasKeyword(ActorTypeNPC)
 		int sex = target.getLeveledActorBase().getSex()	;We only care for Sex where humanoids are concerned.
 		return (sex == 0 && MalePreds) || (sex != 0 && FemalePreds)
@@ -6531,9 +6561,6 @@ float Function GetCumulativeSize(Actor subject)
 
 	float x = macromancy * scale
 	float cumulative = x * x
-
-	;float r = WeightManager.GetCurrentActorWeightPercent(subject)
-	;float cumulative = r * x * x
 
 	if DEBUGGING
 		Log4(PREFIX, "GetCumulativeSize", Namer(subject), macromancy, scale, cumulative)
