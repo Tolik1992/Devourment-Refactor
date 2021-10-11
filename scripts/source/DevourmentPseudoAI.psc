@@ -17,7 +17,7 @@ int combatSpellsCount = 0
 String PREFIX = "DevourmentPseudoAI"
 String predName
 Actor Pred
-bool DEBUGGING = true
+bool DEBUGGING = false
 bool doBleedoutVore
 bool doCorpseVore
 float reach
