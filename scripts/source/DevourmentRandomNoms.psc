@@ -33,7 +33,7 @@ EndEvent
 Event OnUpdate()
 	;Log0(PREFIX, "OnUpdate")
 
-	if NomsChance > 0.0 && !PlayerRef.IsInCombat() && Utility.RandomFloat() < NomsChance
+	if NomsChance > 0.0 && !PlayerRef.IsInCombat() && Utility.RandomFloat() < NomsChance && !Manager.paused
 		if AutoNoms == 0
 			SearchForNoms0()
 		elseif AutoNoms == 1
@@ -53,12 +53,12 @@ Event OnUpdate()
 		endIf
 	endIf
 
-	RegisterForSingleUpdate(nomsInterval)
+	RegisterForSingleUpdate(Utility.RandomFloat(0.5 * nomsInterval, 1.5 * nomsInterval))
 endEvent
 
 
 Function SearchForNoms0()
-	if !ViablePrey(playerRef)
+	if !IsViablePrey(playerRef)
 		if DEBUGGING
 			Log1(PREFIX, "SearchForNoms0", "Player not viable as prey.")
 		endIf
@@ -74,7 +74,7 @@ Function SearchForNoms0()
 		i -= 1
 		Actor candidate = potentialPreds[i]
 
-		if ViablePredator(candidate)
+		if IsViablePredator(candidate)
 			viablePreds[numViablePreds] = candidate
 			numViablePreds += 1
 		endIf
@@ -123,7 +123,7 @@ Function SearchForNoms2()
 		return
 	endIf
 
-	if pred.getLevel() < prey.getLevel() && !LibFire.ActorIsFollower(pred) && ViablePredator(prey) && ViablePrey(pred)
+	if pred.getLevel() < prey.getLevel() && !LibFire.ActorIsFollower(pred) && IsViablePredator(prey) && IsViablePrey(pred)
 		if Debugging
 			Log1(PREFIX, "SearchForNom2", "Doing pred-Prey swap")
 		endIf
@@ -149,7 +149,7 @@ Function SearchForNoms3()
 		return
 	endIf
 
-	if pred.getLevel() < prey.getLevel() && ViablePredator(prey) && ViablePrey(pred)
+	if pred.getLevel() < prey.getLevel() && IsViablePredator(prey) && IsViablePrey(pred)
 		if Debugging
 			Log1(PREFIX, "SearchForNom3", "Doing pred-Prey swap")
 		endIf
@@ -175,7 +175,7 @@ Actor Function SearchForPred(Actor prey)
 		i -= 1
 		Actor candidate = potentialPreds[i]
 
-		if candidate != prey && candidate != playerRef && ViablePredator(candidate)
+		if candidate != prey && candidate != playerRef && IsViablePredator(candidate)
 			viablePreds[numViablePreds] = candidate
 			numViablePreds += 1
 		endIf
@@ -220,7 +220,7 @@ Actor Function SearchForPrey_Player()
 		i -= 1
 		Actor candidate = potentialPrey[i]
 
-		if ViablePrey(candidate)
+		if IsViablePrey(candidate)
 			viablePrey[numViablePrey] = candidate
 			numViablePrey += 1
 		endIf
@@ -255,7 +255,7 @@ Actor Function SearchForPrey_NonPlayer()
 		i -= 1
 		Actor candidate = potentialPrey[i]
 
-		if candidate != playerRef && !LibFire.ActorIsFollower(candidate) && ViablePrey(candidate)
+		if candidate != playerRef && !LibFire.ActorIsFollower(candidate) && IsViablePrey(candidate)
 			viablePrey[numViablePrey] = candidate
 			numViablePrey += 1
 		endIf
@@ -290,7 +290,7 @@ Actor Function SearchForPrey_Anyone()
 		i -= 1
 		Actor candidate = potentialPrey[i]
 
-		if ViablePrey(candidate)
+		if IsViablePrey(candidate)
 			viablePrey[numViablePrey] = candidate
 			numViablePrey += 1
 		endIf
@@ -312,22 +312,24 @@ Actor Function SearchForPrey_Anyone()
 EndFunction
 
 
-bool Function ViablePredator(Actor pred)
+bool Function IsViablePredator(Actor pred)
 	if DEBUGGING
 		Log1(PREFIX, "ViablePredator", Namer(pred))
 	endIf
 
 	return pred && !pred.isDead() && !pred.isDisabled() && !pred.isChild() && !pred.IsInDialogueWithPlayer() \
-	&& pred.GetCombatState() == 0 && !Manager.IsPrey(pred) && Manager.validPredator(pred) && pred.GetSleepState() < 3
+	&& pred.GetCombatState() == 0 && !Manager.IsPrey(pred) && Manager.validPredator(pred) && pred.GetSleepState() < 3 \
+	&& !Manager.IsBlocked(pred)
 EndFunction
 
 
-bool Function ViablePrey(Actor prey)
+bool Function IsViablePrey(Actor prey)
 	if DEBUGGING
 		Log1(PREFIX, "ViablePrey", Namer(prey))
 	endIf
 
-	return prey && !prey.isDead() && !prey.isDisabled() && !prey.isChild() && !prey.IsInDialogueWithPlayer() && prey.GetCombatState() == 0 && !Manager.IsPrey(prey) && !prey.IsWeaponDrawn()
+	return prey && !prey.isDead() && !prey.isDisabled() && !prey.isChild() && !prey.IsInDialogueWithPlayer() \
+	&& prey.GetCombatState() == 0 && !Manager.IsPrey(prey) && !prey.IsWeaponDrawn() && !Manager.IsBlocked(prey)
 EndFunction
 
 
