@@ -3843,7 +3843,7 @@ Function ReappearPreyAt(Actor prey, ObjectReference loc, float lateral = 0.0, fl
 		SendModEvent("dhlp-Resume")
 	endIf
 
-		if prey.hasSpell(NotThere_Trapped)
+	if prey.hasSpell(NotThere_Trapped)
 		prey.removeSpell(NotThere_Trapped)
 	endIf
 
@@ -5488,22 +5488,23 @@ EndFunction
 
 Function BurdenUpdate(Actor subject)
 	float burden = JLua.evalLuaFlt("return dvt.GetBurdenLinear(args.pred)", JLua.setForm("pred", subject))
-	
+	float capacity = GetCapacity(playerRef)
+
 	; Controls the slowdown effect and stomach scaling.
-	subject.setActorValue("variable10", burden)
+	subject.setActorValue("variable10", 2.0 * burden / capacity)
 
 	; For the player, adjust the fullness bar.
 	if subject == playerRef
 		if multiPrey == 1
-			PlayerFullnessMeter.AttributeMax.SetValue(GetCapacity(playerRef))
+			PlayerFullnessMeter.AttributeMax.SetValue(capacity)
 			PlayerFullnessMeter.AttributeValue.SetValue(GetPreyCount(playerRef))
 			PlayerFullnessMeter.UpdateMeter(true)
 		elseif multiPrey == 2
-			PlayerFullnessMeter.AttributeMax.SetValue(GetCapacity(playerRef))
+			PlayerFullnessMeter.AttributeMax.SetValue(capacity)
 			PlayerFullnessMeter.AttributeValue.SetValue(burden)
 			PlayerFullnessMeter.UpdateMeter(true)
 		elseif multiPrey == 3
-			PlayerFullnessMeter.AttributeMax.SetValue(1.3)
+			PlayerFullnessMeter.AttributeMax.SetValue(capacity)
 			PlayerFullnessMeter.AttributeValue.SetValue(GetFullness(subject))
 			PlayerFullnessMeter.Meter_Inversion_Value = 1.0
 			PlayerFullnessMeter.UpdateMeter(true)
