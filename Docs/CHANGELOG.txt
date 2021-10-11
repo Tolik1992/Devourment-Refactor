@@ -1,4 +1,13 @@
-﻿2021-10-08
+﻿2021-10-12
+[list]
+[*] More sanity checks in the randomnoms system.
+[*] Fixed Vore Sleep not working.
+[*] Fixed a very stupid bug in the PseudoAI that kept it from working.
+[*] Temporary workaround for the fact that OnCombatStateChanged event very rarely gets sent.
+[*] Slowdown effect from fullness should scale inversely with pred skill.
+[/list]
+
+2021-10-08
 [list]
 [*] QuickMenu refactoring to better support metavore.
 [*] Fixed bug in transferstomach.
