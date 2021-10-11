@@ -210,10 +210,6 @@ Function DoSwallow()
 	endif
 
 	; Disable the prey's ability to move and attack and whatnot.
-	; Don't do this for the player because it will freeze the camera.
-	; The RegisterDigestion function will decide whether to apply this to
-	; the player later on.
-	;
 	; Calling SetRestrained on a dead NPC will resurrect them!
 	;
 	if prey != playerRef && !deadPrey
