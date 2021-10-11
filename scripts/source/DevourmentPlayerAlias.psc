@@ -138,14 +138,17 @@ EndEvent
 
 ;Function RegisterForCameraState() native
 ;Function UnregisterForCameraState() native
-
+; 
 Event OnPlayerCameraState(int oldState, int newState)
+	{NOT YET IN USE}
 	if DEBUGGING
 		Log2(PREFIX, "OnPlayerCameraState", "oldState=" + oldState, "newState=" + newState)
 	endIf
 
-	if newState != 0
-		if JValue.isExists(preyData)
+	if JValue.isExists(preyData)
+		if newState == 0
+			setCameraTarget(PlayerRef)
+		else
 			setCameraTarget(ApexRef.GetReference() as Actor)
 		endIf
 	endIf
@@ -276,15 +279,17 @@ EndFunction
 
 Event OnKeyUp(int keyCode, float holdTime)
 	if keyCode == TOGGLE_POV
-		;if JValue.isExists(preyData)
-		;	if Game.GetCameraState() != 0
-		;		setCameraTarget(PlayerRef)
-		;		Game.ForceFirstPerson()
-		;	else
-		;		setCameraTarget(ApexRef.GetReference() as Actor)
-		;		Game.ForceThirdPerson()
-		;	endIf
-		;endIf
+		;/if JValue.isExists(preyData)
+			if Game.GetCameraState() != 0
+				setCameraTarget(PlayerRef)
+				Game.ForceFirstPerson()
+				PlayerRef.SetAlpha(255.0)
+			else
+				setCameraTarget(ApexRef.GetReference() as Actor)
+				Game.ForceThirdPerson()
+				PlayerRef.SetAlpha(0.0)
+			endIf
+		endIf/;
 	
 	elseif blocking && puppet
 		Debug.SendAnimationEvent(puppet, "BlockStop")
@@ -680,7 +685,11 @@ This state means that the player is inside a friendly predator.
 		else
 			RegisterForSleep()
 			BedRollRef = PlayerRef.placeAtMe(BedRoll)
-			BedRollRef.Activate(playerRef)
+
+			; Hand off the activation to DevourmentLocationTracker, because it needs to move the player to the bedroll.
+			int handle = ModEvent.Create("DevourmentVoreSleep")
+			ModEvent.pushForm(handle, BedRollRef)
+			ModEvent.Send(handle)
 			return true
 		endIf
 	EndFunction
@@ -1203,7 +1212,7 @@ Function RegisterForKeys()
 		if TOGGLE_POV > 0
 			UnregisterForKey(TOGGLE_POV)
 		endIf
-		TOGGLE_POV = Input.getMappedKey("Shout")
+		TOGGLE_POV = Input.getMappedKey("Toggle POV")
 	endIf
 
 	RegisterForKey(SHOUT_KEY)

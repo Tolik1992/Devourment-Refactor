@@ -18,6 +18,7 @@ bool DEBUGGING = false
 
 
 bool dead = false
+bool paused = false
 Cell OwnedCell = none
 Actor subject
 ActorBase OwnedCellOwner1 = none
@@ -39,10 +40,16 @@ event OnEffectStart(Actor target, Actor caster)
 
 	;MoveSubject(apex)
 	RegisterForSingleUpdate(0.05)
+	RegisterForModEvent("DevourmentVoreSleep", "OnVoreSleep")
 
 	if subject.IsSneaking()
 		Debug.SendAnimationEvent(subject, "SneakStop")
 	endIf
+endEvent
+
+
+event OnPlayerLoadGame()
+	RegisterForModEvent("DevourmentVoreSleep", "OnVoreSleep")
 endEvent
 
 
@@ -98,7 +105,7 @@ Event onUpdate()
 	Cell apexCell = apex.getParentCell()
 	Cell subjectCell = subject.getParentCell()
 
-	if Game.GetDialogueTarget() != none || DialogQuest.Activated
+	if paused || Game.GetDialogueTarget() != none || DialogQuest.Activated
 		if DEBUGGING
 			Log1(PREFIX, "OnUpdate", "In dialogue -- skipping player relocation.")
 		endIf
@@ -201,4 +208,13 @@ Event OnTranslationComplete()
 	float py = subject.GetPositionY()
 	float pz = subject.GetPositionZ()
 	subject.TranslateTo(px, py, pz + 20.0, 0.0, 0.0, 0.0, 0.01)
+EndEvent
+
+
+Event OnVoreSleep(Form BedRollRef)
+	paused = true
+	subject.stopTranslation()
+	subject.MoveTo(Manager.FindApex(subject))
+	(BedRollRef as ObjectReference).Activate(subject)
+	paused = false
 EndEvent
