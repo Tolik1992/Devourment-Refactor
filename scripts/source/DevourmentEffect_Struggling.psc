@@ -122,7 +122,7 @@ endFunction
 
 
 Event OnKeyUp(int keyCode, float holdTime)
-	if keyCode == ATTACK_KEY
+	;/if keyCode == ATTACK_KEY
 		if Game.GetCameraState() == 0
 			Debug.SendAnimationEvent(PlayerRef, "AttackStartH2HRight")
 		endIf
@@ -130,7 +130,7 @@ Event OnKeyUp(int keyCode, float holdTime)
 		if Game.GetCameraState() == 0
 			Debug.SendAnimationEvent(PlayerRef, "AttackStartH2HLeft")
 		endIf
-	endIf
+	endIf/;
 	
 	if StruggleLatch && (STRUGGLE_KEYS.find(keyCode) >= 0)
 		StruggleLatch = false
