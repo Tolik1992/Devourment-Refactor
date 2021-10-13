@@ -1,10 +1,20 @@
-﻿2021-10-12
+﻿2021-10-13
+[list]
+[*] Fixed weightloss being calculated from total game-time rather than time passed.
+[*] Added explicit corpsevore check.
+[*] Removed debugging message from Digest Items, added optimization.
+[*] Support for SM Essential Player.
+[*] Fixed follower sex check.
+[/list]
+
+2021-10-11
 [list]
 [*] More sanity checks in the randomnoms system.
 [*] Fixed Vore Sleep not working.
 [*] Fixed a very stupid bug in the PseudoAI that kept it from working.
 [*] Workaround in PseudoAI for the fact that OnCombatStateChanged doesn't always get sent.
 [*] Slowdown effect from fullness should scale inversely with pred skill.
+[*] Combat corpse vore workaround...
 [/list]
 
 2021-10-08
