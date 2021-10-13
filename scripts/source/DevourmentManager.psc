@@ -2591,6 +2591,18 @@ Function KillPlayer_ForReal()
 		playerRef.stopCombat()
 		reactivatePrey(playerRef)
 		playerRef.PlayIdle(IdleStop)
+
+	elseif SoftDeath && Game.IsPluginInstalled("SMEssentialPlayer.esp")
+		ReplacePrey(pred, playerRef, fakePlayer)
+
+		if apex
+			ReappearPreyAt(PlayerRef, apex, lateral = -70.0, vertical = 20.0)
+		elseif pred
+			ReappearPreyAt(PlayerRef, pred, lateral = -70.0, vertical = 20.0)
+		endIf
+		
+		playerRef.DamageActorValue("Health", 10000.0)
+
 	else
 		if apex
 			playerRef.moveTo(apex)
@@ -4724,8 +4736,8 @@ EndFunction
 bool Function validPredator(Actor target)
 	if target == None || target.isChild()
 		return false
-	elseif LibFire.ActorIsFollower(target)
-        return companionPredPreference > 0 && companionPredPreference == 1
+	elseif companionPredPreference > 0 && LibFire.ActorIsFollower(target)
+        return companionPredPreference == 1
     elseif target.hasKeyword(ActorTypeCreature)
 		if creaturePreds
 			String raceName = Remapper.RemapRaceName(target)
