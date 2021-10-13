@@ -133,7 +133,12 @@ EndEvent
 
 
 Event OnActorAction(int actionType, Actor akActor, Form source, int slot)
-	if coolingDown
+	if validTarget && doCorpseVore && currentTarget.IsDead()
+		if DEBUGGING
+			Log6(PREFIX, "OnActorAction", predName, "EAT A CORPSE", actionType, Namer(akActor), Namer(source), slot)
+		endIf
+		bool madeAttempt = DoANom(currentTarget)
+	elseif coolingDown
 		if DEBUGGING
 			Log6(PREFIX, "OnActorAction", predName, "COOLDOWN", actionType, Namer(akActor), Namer(source), slot)
 		endIf
@@ -154,7 +159,12 @@ EndEvent
 
 
 Event OnAnimationEvent(ObjectReference akSource, string asEventName)
-	if coolingDown
+	if validTarget && doCorpseVore && currentTarget.IsDead()
+		if DEBUGGING
+			Log4(PREFIX, "OnAnimationEvent", predName, "EAT A CORPSE", Namer(akSource), asEventName)
+		endIf
+		bool madeAttempt = DoANom(currentTarget)
+	elseif coolingDown
 		if DEBUGGING
 			Log4(PREFIX, "OnAnimationEvent", predName, "COOLDOWN", Namer(akSource), asEventName)
 		endIf
