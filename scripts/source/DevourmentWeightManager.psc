@@ -141,7 +141,7 @@ EndEvent
 
 
 Event OnSleepStart(float afSleepStartTime, float afDesiredSleepEndTime)
-	ChangeActorWeight(PlayerRef, -afDesiredSleepEndTime / (WeightRate * 24.0), source="sleep")
+	ChangeActorWeight(PlayerRef, -(afDesiredSleepEndTime - afSleepStartTime) / (WeightRate * 24.0), source="sleep")
 EndEvent
 
 
